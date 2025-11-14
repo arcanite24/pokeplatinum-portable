@@ -1,5 +1,6 @@
-# Build directory
+# Build directories
 /build/
+/build-sdl/
 
 # Metroskrew artifacts
 /metroskrew-*.tar.xz
@@ -31,6 +32,15 @@
 # CLion folders
 .idea/
 cmake-build-debug/
+cmake-build-*/
+
+# CMake build artifacts
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
 
 # Generated files
 *.4bpp
@@ -110,6 +120,11 @@ __pycache__
 .python-version
 
 compile_commands.json
+
+# SDL3 build artifacts
+pokeplatinum_sdl
+pokeplatinum_sdl.exe
+*.dSYM/
 
 # Save files
 *.dsv

@@ -1,3 +1,4 @@
 option('gdb_debugging', type : 'boolean', value : false)
 option('revision', type : 'combo', choices: ['0', '1'], value : '1')
 option('logging_enabled', type: 'boolean', value: false)
+option('sdl_build', type: 'boolean', value: false, description: 'Build SDL3 portable version (experimental)')

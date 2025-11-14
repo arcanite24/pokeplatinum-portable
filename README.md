@@ -25,14 +25,34 @@ This repository builds the following ROMs:
 
 ### SDL3 Port (Modern Platforms)
 
-The SDL3 port is currently under development. See [`PORTING_PLAN.md`](PORTING_PLAN.md) for implementation status and roadmap.
+The SDL3 port is currently under development. **Phase 1 (Foundation & Build System) is complete!** ✅
 
-**Planned platforms:**
+See [`QUICKSTART_SDL.md`](QUICKSTART_SDL.md) for build instructions and [`PORTING_PLAN.md`](PORTING_PLAN.md) for the full roadmap.
+
+**Current Status:**
+- ✅ Platform abstraction layer (PAL) established
+- ✅ CMake build system with dual-target support
+- ✅ Working test application with input and graphics initialization
+- 🚧 Graphics rendering (Phase 2 - in progress)
+- 🚧 Audio system (Phase 4)
+- 🚧 Game logic integration
+
+**Target platforms:**
 - Windows
-- macOS
+- macOS ✅ (tested)
 - Linux
 - iOS (future)
 - Android (future)
+
+**Quick Start:**
+```bash
+# Install dependencies
+brew install cmake sdl3  # macOS
+
+# Build and run
+./build_sdl.sh
+./build-sdl/pokeplatinum_sdl
+```
 
 ## Community
 

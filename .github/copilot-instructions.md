@@ -10,12 +10,27 @@ The codebase is ~99% C with remaining ARM assembly stubs. Current focuses: **doc
 ### Porting Initiative
 See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for comprehensive SDL3 porting strategy. Target platforms: Windows, macOS, Linux, iOS, Android.
 
+**Current Status:** ✅ **Phase 1 Complete** - Build system, PAL structure, and test application working.
+- 21 files created for SDL3 platform layer
+- CMake build system operational
+- Working test app at 60 FPS with input handling
+- Next: Phase 2 - Display System (graphics rendering)
+
 ## Critical Build Commands
+
+### Nintendo DS Build
 ```bash
 make check          # Build and verify ROM SHA-1 match (REQUIRED before PRs)
 make format         # Run clang-format (REQUIRED - CI enforced)
 make release        # Default build target
 ROM_REVISION=0      # Set to build Rev 0 instead of Rev 1
+```
+
+### SDL3 Build
+```bash
+./build_sdl.sh                    # Automated build script (requires cmake + sdl3)
+./build-sdl/pokeplatinum_sdl      # Run test application
+cmake --build build-sdl           # Manual build after initial setup
 ```
 
 ## Architecture: Dual-Target System
@@ -67,6 +82,16 @@ size_t PAL_File_Read(void* buffer, size_t size, size_t count, PAL_File file);
 - Maintain identical behavior between DS and SDL builds
 - Test both builds to ensure feature parity
 - See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for detailed implementation phases
+
+**SDL3 Port File Structure:**
+```
+include/platform/         # PAL public headers (platform_config.h, pal_*.h)
+src/platform/sdl/         # SDL3 implementations (pal_*_sdl.c, main_sdl.c)
+src/platform/ds/          # DS PAL wrappers (future)
+CMakeLists.txt            # SDL3 build configuration
+build_sdl.sh              # Automated SDL build script
+build-sdl/                # SDL3 build output (gitignored)
+```
 
 ### Overlay System
 Nintendo DS uses **dynamic code loading** via overlays. Understanding this is essential:
