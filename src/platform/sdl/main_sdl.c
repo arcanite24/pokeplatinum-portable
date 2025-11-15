@@ -12,6 +12,7 @@
 #include "platform/pal_audio.h"
 #include "platform/pal_timer.h"
 #include "platform/pal_background.h"
+#include "platform/pal_sprite.h"
 
 #include <SDL3/SDL.h>
 #include <stdio.h>
@@ -159,6 +160,123 @@ int main(int argc, char* argv[]) {
     
     // ===== END BACKGROUND SYSTEM TEST SETUP =====
     
+    // ===== PHASE 2.4: SPRITE SYSTEM TEST SETUP =====
+    
+    // Create sprite manager
+    PAL_SpriteManager* spriteManager = PAL_Sprite_CreateManager(64, 0);
+    if (!spriteManager) {
+        fprintf(stderr, "Failed to create sprite manager\n");
+        PAL_Bg_DestroyConfig(bgConfig);
+        PAL_Timer_Shutdown();
+        PAL_Audio_Shutdown();
+        PAL_Input_Shutdown();
+        PAL_Graphics_Shutdown();
+        SDL_Quit();
+        return 1;
+    }
+    
+    // Create test sprite graphics data (16x16 sprite, 4bpp)
+    u8 sprite_graphics[128]; // 16x16 pixels, 4bpp = 128 bytes
+    
+    // Fill with a simple pattern (cross/plus shape)
+    memset(sprite_graphics, 0, sizeof(sprite_graphics));
+    for (int y = 0; y < 16; y++) {
+        for (int x = 0; x < 16; x++) {
+            int byte_idx = (y * 16 + x) / 2;
+            int nibble = x & 1;
+            u8 color;
+            
+            // Create a cross pattern
+            if (x == 8 || y == 8) {
+                color = 3; // Bright color
+            } else if (x >= 6 && x <= 10 && y >= 6 && y <= 10) {
+                color = 2; // Medium color
+            } else if ((x + y) % 3 == 0) {
+                color = 1; // Light pattern
+            } else {
+                color = 0; // Transparent
+            }
+            
+            if (nibble == 0) {
+                sprite_graphics[byte_idx] = color;
+            } else {
+                sprite_graphics[byte_idx] |= (color << 4);
+            }
+        }
+    }
+    
+    // Create sprite palette
+    u16 sprite_palette[16];
+    sprite_palette[0] = 0x0000;                       // Transparent
+    sprite_palette[1] = ((31 << 10) | (20 << 5) | 20);  // Light pink
+    sprite_palette[2] = ((25 << 10) | (10 << 5) | 31);  // Purple
+    sprite_palette[3] = ((31 << 10) | (31 << 5) | 0);   // Yellow
+    for (int i = 4; i < 16; i++) {
+        sprite_palette[i] = 0x7FFF; // White
+    }
+    
+    // Create test sprites with different properties
+    PAL_SpriteTemplate sprite_templates[4];
+    
+    // Sprite 0: Normal sprite on main screen
+    sprite_templates[0].graphics_data = sprite_graphics;
+    sprite_templates[0].graphics_size = sizeof(sprite_graphics);
+    sprite_templates[0].palette_data = sprite_palette;
+    sprite_templates[0].palette_size = sizeof(sprite_palette);
+    sprite_templates[0].size = PAL_SPRITE_SIZE_16x16;
+    sprite_templates[0].color_mode = PAL_SPRITE_COLOR_4BPP;
+    sprite_templates[0].x = 100;
+    sprite_templates[0].y = 80;
+    sprite_templates[0].priority = 2;
+    sprite_templates[0].palette_num = 0;
+    sprite_templates[0].screen = PAL_SCREEN_MAIN;
+    
+    // Sprite 1: Flipped sprite
+    sprite_templates[1] = sprite_templates[0];
+    sprite_templates[1].x = 150;
+    sprite_templates[1].priority = 1;
+    
+    // Sprite 2: Rotating sprite on sub screen
+    sprite_templates[2] = sprite_templates[0];
+    sprite_templates[2].x = 100;
+    sprite_templates[2].y = 80;
+    sprite_templates[2].screen = PAL_SCREEN_SUB;
+    sprite_templates[2].priority = 3;
+    
+    // Sprite 3: Scaling sprite
+    sprite_templates[3] = sprite_templates[0];
+    sprite_templates[3].x = 180;
+    sprite_templates[3].y = 120;
+    sprite_templates[3].priority = 0;
+    
+    // Create sprites
+    PAL_Sprite* test_sprites[4];
+    for (int i = 0; i < 4; i++) {
+        test_sprites[i] = PAL_Sprite_Create(spriteManager, &sprite_templates[i]);
+        if (!test_sprites[i]) {
+            fprintf(stderr, "Warning: Failed to create sprite %d\n", i);
+        }
+    }
+    
+    // Configure sprites with different effects
+    if (test_sprites[1]) {
+        PAL_Sprite_SetFlip(test_sprites[1], PAL_SPRITE_FLIP_H);
+    }
+    if (test_sprites[2]) {
+        PAL_Sprite_EnableAffine(test_sprites[2], TRUE);
+    }
+    if (test_sprites[3]) {
+        PAL_Sprite_EnableAffine(test_sprites[3], TRUE);
+    }
+    
+    printf("Sprite test initialized: 4 test sprites created\n");
+    printf("- Sprite 0: Normal (priority 2)\n");
+    printf("- Sprite 1: H-flipped (priority 1)\n");
+    printf("- Sprite 2: Rotating on sub screen (priority 3)\n");
+    printf("- Sprite 3: Scaling (priority 0)\n\n");
+    
+    // ===== END SPRITE SYSTEM TEST SETUP =====
+    
     // Main loop
     BOOL running = TRUE;
     u64 frame_count = 0;
@@ -173,6 +291,11 @@ int main(int argc, char* argv[]) {
     // Background scroll test variables
     int bg_scroll_x = 0;
     int bg_scroll_y = 0;
+    
+    // Sprite animation variables
+    float rotation_angle = 0.0f;
+    float scale_factor = 1.0f;
+    float scale_dir = 0.01f;
     
     while (running) {
         // Handle events
@@ -229,6 +352,28 @@ int main(int argc, char* argv[]) {
         
         // Render background layers first (beneath sprites)
         PAL_Bg_RenderAll(bgConfig);
+        
+        // ===== PHASE 2.4: SPRITE ANIMATION =====
+        
+        // Animate rotating sprite
+        if (test_sprites[2]) {
+            rotation_angle += 2.0f;
+            if (rotation_angle >= 360.0f) rotation_angle -= 360.0f;
+            PAL_Sprite_SetRotation(test_sprites[2], rotation_angle);
+        }
+        
+        // Animate scaling sprite (pulse effect)
+        if (test_sprites[3]) {
+            scale_factor += scale_dir;
+            if (scale_factor >= 2.0f || scale_factor <= 0.5f) {
+                scale_dir = -scale_dir;
+            }
+            PAL_Sprite_SetScale(test_sprites[3], scale_factor, scale_factor);
+        }
+        
+        // Update and render all sprites
+        PAL_Sprite_UpdateAll(spriteManager);
+        PAL_Sprite_RenderAll(spriteManager);
         
         // ===== PHASE 2.2 GRAPHICS TEST =====
         
@@ -302,6 +447,9 @@ int main(int argc, char* argv[]) {
     printf("Total frames: %llu\n", (unsigned long long)frame_count);
     printf("Elapsed time: %llu ms\n", (unsigned long long)elapsed_ms);
     printf("Average FPS: %.2f\n", fps);
+    
+    // Cleanup sprite system
+    PAL_Sprite_DestroyManager(spriteManager);
     
     // Cleanup background system
     PAL_Bg_DestroyConfig(bgConfig);

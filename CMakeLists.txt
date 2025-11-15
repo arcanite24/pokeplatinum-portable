@@ -36,6 +36,7 @@ if(BUILD_SDL_VERSION)
         src/platform/sdl/pal_timer_sdl.c
         src/platform/sdl/pal_memory_sdl.c
         src/platform/sdl/pal_background_sdl.c
+        src/platform/sdl/pal_sprite_sdl.c
         src/platform/sdl/main_sdl.c
     )
     
