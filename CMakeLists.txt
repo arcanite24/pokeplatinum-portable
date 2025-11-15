@@ -41,13 +41,20 @@ if(BUILD_SDL_VERSION)
         src/platform/sdl/main_sdl.c
     )
     
+    # Game source files needed for SDL build
+    set(GAME_SOURCES
+        src/graphics.c
+        src/heap.c
+    )
+    
     # Create SDL executable
-    add_executable(pokeplatinum_sdl ${PAL_SDL_SOURCES})
+    add_executable(pokeplatinum_sdl ${PAL_SDL_SOURCES} ${GAME_SOURCES})
     
     # Include directories
     target_include_directories(pokeplatinum_sdl PRIVATE
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/include/platform
+        ${CMAKE_SOURCE_DIR}/build/generated
     )
     
     # Compile definitions

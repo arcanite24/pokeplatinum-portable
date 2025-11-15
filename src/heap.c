@@ -1,10 +1,126 @@
 #include "heap.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
 #include <string.h>
 
 #include "error_message_reset.h"
 #include "unk_020366A0.h"
+#else
+// SDL Build: Simple heap implementation using malloc/free
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+// Simple SDL implementation - just use malloc/free
+void Heap_Init(void) {
+    printf("[Heap] Initialized (SDL malloc/free)\n");
+}
+
+void Heap_InitSystem(const HeapParam *templates, u32 nTemplates, u32 totalNumHeaps, u32 preSize) {
+    (void)templates;
+    (void)nTemplates;
+    (void)totalNumHeaps;
+    (void)preSize;
+    Heap_Init();
+}
+
+BOOL Heap_Create(enum HeapID parent, enum HeapID child, u32 size) {
+    (void)parent;
+    (void)child;
+    (void)size;
+    return TRUE;  // Always succeed for SDL
+}
+
+BOOL Heap_CreateAtEnd(enum HeapID parent, enum HeapID child, u32 size) {
+    (void)parent;
+    (void)child;
+    (void)size;
+    return TRUE;
+}
+
+void Heap_Destroy(enum HeapID heapID) {
+    (void)heapID;
+}
+
+void *Heap_Alloc(u32 heapID, u32 size) {
+    (void)heapID;
+    return malloc(size);
+}
+
+void *Heap_AllocAtEnd(u32 heapID, u32 size) {
+    (void)heapID;
+    return malloc(size);
+}
+
+void Heap_Free(void *ptr) {
+    free(ptr);
+}
+
+void Heap_FreeExplicit(u32 heapID, void *ptr) {
+    (void)heapID;
+    free(ptr);
+}
+
+u32 Heap_GetSize(enum HeapID heapID) {
+    (void)heapID;
+    return 0xFFFFFFFF;  // Unlimited for SDL
+}
+
+u32 Heap_GetMaxAllocatableSize(enum HeapID heapID) {
+    (void)heapID;
+    return 0xFFFFFFFF;
+}
+
+u32 Heap_GetTotalSize(enum HeapID heapID) {
+    (void)heapID;
+    return 0xFFFFFFFF;
+}
+
+u32 Heap_GetCurSize(enum HeapID heapID) {
+    (void)heapID;
+    return 0;  // Unknown
+}
+
+u32 Heap_GetPreSize(enum HeapID heapID) {
+    (void)heapID;
+    return 0;
+}
+
+u16 Heap_GetNumBlocks(enum HeapID heapID) {
+    (void)heapID;
+    return 0;
+}
+
+u8 Heap_GetIndex(enum HeapID heapID) {
+    (void)heapID;
+    return (u8)heapID;
+}
+
+enum HeapID Heap_GetIdFromIndex(u8 heapIdx) {
+    return (enum HeapID)heapIdx;
+}
+
+u32 HeapExp_FndGetTotalFreeSize(u32 heapID) {
+    (void)heapID;
+    return 0xFFFFFFFF;  // Unlimited for SDL
+}
+
+void Heap_Realloc(void *ptr, u32 newSize) {
+    // SDL: realloc not implemented yet
+    (void)ptr;
+    (void)newSize;
+}
+
+BOOL GF_heap_c_dummy_return_true(u32 heapID) {
+    (void)heapID;
+    return TRUE;
+}
+
+#endif  // !PLATFORM_DS
+
+#ifdef PLATFORM_DS
+// Original DS code continues below...
 
 typedef struct {
     NNSFndHeapHandle *heapHandles;
@@ -347,3 +463,5 @@ BOOL GF_heap_c_dummy_return_true(u32 heapID)
 {
     return TRUE;
 }
+
+#endif  // PLATFORM_DS

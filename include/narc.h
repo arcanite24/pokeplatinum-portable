@@ -3,6 +3,13 @@
 
 #include "constants/narc.h"
 
+#ifndef PLATFORM_DS
+// SDL stub - NARC not used in SDL build (uses filesystem instead)
+typedef struct {
+    int dummy;
+} FSFile;
+#endif
+
 /*
  * The NARC struct wraps NitroSDK type FSFile and manages the important
  * offsets to the FATB and the FIMG chunks within the file.

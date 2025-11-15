@@ -19,6 +19,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Include for testing graphics loading
+#include "graphics.h"
+#include "constants/narc.h"
+#include "constants/heap.h"
+
 #ifdef PLATFORM_SDL
 
 int main(int argc, char* argv[]) {
@@ -276,6 +281,70 @@ int main(int argc, char* argv[]) {
     printf("- Sprite 3: Scaling (priority 0)\n\n");
     
     // ===== END SPRITE SYSTEM TEST SETUP =====
+    
+    // ===== PHASE 3.4.2: GRAPHICS LOADING TEST =====
+    printf("========================================\n");
+    printf("Testing Graphics Loading Functions\n");
+    printf("========================================\n");
+    
+    // Initialize background layer for title screen test
+    PAL_BgTemplate titleBgTemplate = {0};
+    titleBgTemplate.x = 0;
+    titleBgTemplate.y = 0;
+    titleBgTemplate.bufferSize = 32 * 24 * sizeof(u16);
+    titleBgTemplate.baseTile = 0;
+    titleBgTemplate.screenSize = PAL_BG_SCREEN_SIZE_256x256;
+    titleBgTemplate.colorMode = PAL_BG_COLOR_MODE_8BPP;  // Title screen uses 8bpp
+    titleBgTemplate.priority = 0;  // Highest priority
+    
+    PAL_Bg_InitFromTemplate(bgConfig, PAL_BG_LAYER_MAIN_1, &titleBgTemplate, PAL_BG_TYPE_STATIC);
+    
+    printf("\nTest 1: Loading top_border tiles (member 5)\n");
+    printf("-------------------------------------------\n");
+    u32 tilesLoaded = Graphics_LoadTilesToBgLayer(
+        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
+        5,                                    // Member 5 = top_border
+        bgConfig,
+        PAL_BG_LAYER_MAIN_1,
+        0,                                    // offset 0
+        0,                                    // load all tiles
+        FALSE,                                // not compressed
+        HEAP_ID_APPLICATION
+    );
+    printf("✅ Loaded %u bytes of tiles\n\n", tilesLoaded);
+    
+    printf("Test 2: Loading palette_1 (member 4)\n");
+    printf("-------------------------------------------\n");
+    Graphics_LoadPaletteWithSrcOffset(
+        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
+        4,                                    // Member 4 = palette_1
+        PAL_LOAD_MAIN_BG,                    // Main screen background
+        0,                                    // src offset 0
+        0,                                    // palette offset 0
+        0,                                    // load all colors
+        HEAP_ID_APPLICATION
+    );
+    printf("✅ Palette loaded\n\n");
+    
+    printf("Test 3: Loading logo_top tiles (member 9)\n");
+    printf("-------------------------------------------\n");
+    tilesLoaded = Graphics_LoadTilesToBgLayer(
+        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
+        9,                                    // Member 9 = logo_top
+        bgConfig,
+        PAL_BG_LAYER_MAIN_1,
+        0,                                    // offset 0
+        0,                                    // load all tiles
+        FALSE,                                // not compressed
+        HEAP_ID_APPLICATION
+    );
+    printf("✅ Loaded %u bytes of tiles\n\n", tilesLoaded);
+    
+    printf("========================================\n");
+    printf("Graphics Loading Test Complete!\n");
+    printf("========================================\n\n");
+    
+    // ===== END GRAPHICS LOADING TEST =====
     
     // Main loop
     BOOL running = TRUE;

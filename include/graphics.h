@@ -1,11 +1,31 @@
 #ifndef POKEPLATINUM_GRAPHICS_H
 #define POKEPLATINUM_GRAPHICS_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+// Stub types for SDL build - not all graphics functions will be implemented initially
+typedef void* NNSG2dImageProxy;
+typedef void* NNSG2dImagePaletteProxy;
+typedef void* NNSG2dCharacterData;
+typedef void* NNSG2dScreenData;
+typedef void* NNSG2dAnimBankData;
+typedef void* NNSG2dPaletteData;
+typedef void* NNSG2dCellDataBank;
+typedef int NNS_G2D_VRAM_TYPE;
+#endif
 
 #include "constants/graphics.h"
 
+#ifdef PLATFORM_DS
 #include "bg_window.h"
+#else
+#include "platform/pal_background.h"
+typedef PAL_BgConfig BgConfig;
+// BgLayer is u8, same as PAL_BgLayer
+#endif
+
 #include "narc.h"
 
 enum PaletteLoadLocation {

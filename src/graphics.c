@@ -1,12 +1,25 @@
 #include "graphics.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include <stdio.h>
+#include <stdlib.h>
+#include "platform/pal_file.h"
+#include "platform/pal_background.h"
+#include "platform/pal_graphics.h"
+#endif
+
 #include <string.h>
 
+#ifdef PLATFORM_DS
 #include "bg_window.h"
+#endif
 #include "heap.h"
 #include "narc.h"
 
+#ifdef PLATFORM_DS
+// DS-specific forward declarations
 static u32 LoadTilesToBgLayer(void *ncgrBuffer, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size);
 static void LoadTilemapToBgLayer(void *nscrBuffer, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size);
 static u32 LoadObjectTiles(void *ncgrBuffer, enum DSScreen display, u32 offset, u32 size);
@@ -19,18 +32,111 @@ static void *GetScreenData(void *nscrBuffer, NNSG2dScreenData **outScreenData);
 static void *GetPaletteData(void *nclrBuffer, NNSG2dPaletteData **outPaletteData);
 static void *GetCellBank(void *ncerBuffer, NNSG2dCellDataBank **outCellBank);
 static void *GetAnimBank(void *nanrBuffer, NNSG2dAnimBankData **outAnimBank);
+#endif
+
+#ifndef PLATFORM_DS
+// SDL3: Helper function to map NARC ID + member to filesystem path
+static void GetAssetPath(enum NarcID narcID, u32 narcMemberIdx, const char* assetType, char* outPath, size_t pathSize)
+{
+    // Map well-known NARC IDs to extracted directories
+    const char* narcPath = NULL;
+    const char* assetName = NULL;
+    
+    // Title screen NARC (NARC_INDEX_DEMO__TITLE__TITLEDEMO = 48)
+    if (narcID == NARC_INDEX_DEMO__TITLE__TITLEDEMO) {
+        narcPath = "resources/graphics/title_screen";
+        
+        // Map member index to asset name
+        switch (narcMemberIdx) {
+            case 4:  assetName = "palette_1"; break;
+            case 5:  assetName = "top_border"; break;
+            case 6:  assetName = "palette_2"; break;
+            case 7:  assetName = "palette_3"; break;
+            case 8:  assetName = "palette_4"; break;
+            case 9:  assetName = "logo_top"; break;
+            case 11: assetName = "palette_5"; break;
+            case 12: assetName = "logo_bottom"; break;
+            case 14: assetName = "palette_6"; break;
+            case 15: assetName = "unknown_gfx"; break;
+            case 23: assetName = "press_start"; break;
+            case 26: assetName = "small_graphic"; break;
+            default:
+                // Unknown member, use numeric fallback
+                snprintf(outPath, pathSize, "%s/%04d_%s", narcPath, narcMemberIdx, assetType);
+                return;
+        }
+        
+        // Build path with asset name
+        if (assetName) {
+            snprintf(outPath, pathSize, "%s/%s_%s", narcPath, assetName, assetType);
+            return;
+        }
+    }
+    
+    // Add more NARC mappings here as you extract them
+    // else if (narcID == XXX) { ... }
+    
+    // Fallback: use generic path
+    snprintf(outPath, pathSize, "resources/graphics/narc_%03d/%04d_%s", narcID, narcMemberIdx, assetType);
+}
+#endif
 
 u32 Graphics_LoadTilesToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size, BOOL compressed, u32 heapID)
 {
+#ifdef PLATFORM_DS
     void *ncgrBuffer = LoadMemberFromNARC(narcID, narcMemberIdx, compressed, heapID, FALSE);
     return LoadTilesToBgLayer(ncgrBuffer, bgConfig, bgLayer, offset, size);
+#else
+    // SDL3: Load tile data from filesystem
+    char tilePath[512];
+    GetAssetPath(narcID, narcMemberIdx, "tiles.bin", tilePath, sizeof(tilePath));
+    
+    PAL_File file = PAL_File_Open(tilePath, "rb");
+    if (!file) {
+        fprintf(stderr, "[Graphics] Failed to load tiles: %s\n", tilePath);
+        return 0;
+    }
+    
+    size_t fileSize = PAL_File_Size(file);
+    void *tileData = Heap_Alloc(heapID, fileSize);
+    if (!tileData) {
+        fprintf(stderr, "[Graphics] Failed to allocate %zu bytes for tiles\n", fileSize);
+        PAL_File_Close(file);
+        return 0;
+    }
+    
+    PAL_File_Read(tileData, 1, fileSize, file);
+    PAL_File_Close(file);
+    
+    // Determine actual size to load
+    u32 loadSize = (size == 0) ? fileSize : size;
+    
+    // Load to PAL background layer
+    PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
+    PAL_Bg_LoadTiles(palBgConfig, bgLayer, tileData, loadSize, offset);
+    
+    Heap_Free(tileData);
+    
+    printf("[Graphics] Loaded %u bytes of tiles from %s to layer %u\n", loadSize, tilePath, bgLayer);
+    return loadSize;
+#endif
 }
 
+#ifdef PLATFORM_DS
 void Graphics_LoadTilemapToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size, BOOL compressed, u32 heapID)
 {
     void *nscrBuffer = LoadMemberFromNARC(narcID, narcMemberIdx, compressed, heapID, TRUE);
     LoadTilemapToBgLayer(nscrBuffer, bgConfig, bgLayer, offset, size);
 }
+#else
+void Graphics_LoadTilemapToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size, BOOL compressed, u32 heapID)
+{
+    // SDL stub - not implemented yet
+    (void)narcID; (void)narcMemberIdx; (void)bgConfig; (void)bgLayer;
+    (void)offset; (void)size; (void)compressed; (void)heapID;
+    printf("[Graphics] LoadTilemapToBgLayer not implemented for SDL\n");
+}
+#endif
 
 void Graphics_LoadPalette(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoadLocation loadLocation, u32 palOffset, u32 size, u32 heapID)
 {
@@ -39,9 +145,54 @@ void Graphics_LoadPalette(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoa
 
 void Graphics_LoadPaletteWithSrcOffset(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoadLocation loadLocation, u32 srcOffset, u32 palOffset, u32 size, u32 heapID)
 {
+#ifdef PLATFORM_DS
     void *nclrBuffer = LoadMemberFromNARC(narcID, narcMemberIdx, FALSE, heapID, TRUE);
     LoadPaletteWithSrcOffset(nclrBuffer, loadLocation, srcOffset, palOffset, size);
+#else
+    // SDL3: Load palette from filesystem
+    char palettePath[512];
+    GetAssetPath(narcID, narcMemberIdx, "palette.pal", palettePath, sizeof(palettePath));
+    
+    PAL_File file = PAL_File_Open(palettePath, "rb");
+    if (!file) {
+        fprintf(stderr, "[Graphics] Failed to load palette: %s\n", palettePath);
+        return;
+    }
+    
+    size_t fileSize = PAL_File_Size(file);
+    u16 *paletteData = (u16*)Heap_Alloc(heapID, fileSize);
+    if (!paletteData) {
+        fprintf(stderr, "[Graphics] Failed to allocate %zu bytes for palette\n", fileSize);
+        PAL_File_Close(file);
+        return;
+    }
+    
+    PAL_File_Read(paletteData, 1, fileSize, file);
+    PAL_File_Close(file);
+    
+    // Determine actual size to load (in number of colors)
+    u32 numColors = fileSize / 2; // RGB555 is 2 bytes per color
+    u32 loadSize = (size == 0) ? numColors : size;
+    
+    // Apply source offset
+    u16 *srcPtr = paletteData + srcOffset;
+    
+    // For SDL, we need to determine which background layer this applies to
+    // loadLocation enum: PALLOAD_MAIN_BG, PALLOAD_SUB_BG, PALLOAD_MAIN_OBJ, PALLOAD_SUB_OBJ
+    // For now, we'll assume it's for the main background (this may need refinement)
+    
+    printf("[Graphics] Loaded %u colors from %s (offset: %u)\n", loadSize, palettePath, srcOffset);
+    
+    // TODO: Apply palette to appropriate layer based on loadLocation
+    // This may require tracking which BgConfig was recently used
+    // For now, just load and free
+    
+    Heap_Free(paletteData);
+#endif
 }
+
+// All remaining functions are DS-specific
+#ifdef PLATFORM_DS
 
 u32 Graphics_LoadObjectTiles(enum NarcID narcID, u32 narcMemberIdx, enum DSScreen display, u32 offset, u32 size, BOOL compressed, u32 heapID)
 {
@@ -541,3 +692,5 @@ static void *GetAnimBank(void *nanrBuffer, NNSG2dAnimBankData **outAnimBank)
 
     return nanrBuffer;
 }
+
+#endif // PLATFORM_DS
