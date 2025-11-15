@@ -10,6 +10,11 @@
 #include "heap.h"
 #include "narc.h"
 
+// Global state for palette loading (SDL3 workaround)
+// Tracks the last bgConfig/layer used so Graphics_LoadPalette knows where to apply
+static void* g_last_bgConfig = NULL;
+static u8 g_last_bgLayer = 0;
+
 // SDL3: Helper function to map NARC ID + member to filesystem path
 /**
  * GetAssetPath - Map NARC ID and member index to filesystem path
@@ -42,19 +47,24 @@ static void GetAssetPath(enum NarcID narcID, u32 narcMemberIdx, const char* asse
         
         narcPath = "resources/graphics/title_screen";
         
-        // Map member index to asset name for tiles and palettes
+        // Map member index to asset name (based on titledemo.naix.h)
         switch (narcMemberIdx) {
-            case 4:  assetName = "palette_1"; break;
-            case 6:  assetName = "palette_2"; break;
-            case 7:  assetName = "palette_3"; break;
-            case 8:  assetName = "palette_4"; break;
-            case 11: assetName = "palette_5"; break;
-            case 14: assetName = "palette_6"; break;
-            case 23: assetName = "top_border"; break;      // top_screen_border_NCGR
-            case 26: assetName = "small_graphic"; break;   // bottom_screen_border_NCGR (tiny file)
-            case 9:  assetName = "logo_top"; break;
-            case 12: assetName = "logo_bottom"; break;
-            case 15: assetName = "unknown_gfx"; break;
+            // NCLR palettes
+            case 4:  assetName = "gf_presents"; break;          // gf_presents_NCLR
+            case 6:  assetName = "bottom_screen_border"; break; // bottom_screen_border_NCLR
+            case 7:  assetName = "top_screen_border"; break;    // top_screen_border_NCLR
+            case 8:  assetName = "logo_jp"; break;              // logo_jp_NCLR
+            case 11: assetName = "logo"; break;                 // logo_NCLR
+            case 14: assetName = "copyright"; break;            // copyright_NCLR
+            
+            // NCGR tiles
+            case 5:  assetName = "gf_presents"; break;          // gf_presents_NCGR
+            case 9:  assetName = "logo_jp"; break;              // logo_jp_NCGR
+            case 12: assetName = "logo"; break;                 // logo_NCGR
+            case 15: assetName = "copyright"; break;            // copyright_NCGR
+            case 23: assetName = "top_screen_border"; break;    // top_screen_border_NCGR
+            case 26: assetName = "bottom_screen_border"; break; // bottom_screen_border_NCGR
+            
             default:
                 // Unknown member, use numeric fallback from raw directory
                 snprintf(outPath, pathSize, "resources/graphics/title_screen_raw/%04d.bin", narcMemberIdx);
@@ -128,6 +138,10 @@ u32 Graphics_LoadTilesToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig 
     PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
     PAL_Bg_LoadTiles(palBgConfig, bgLayer, tileData, loadSize, offset);
     
+    // Track last used layer for palette loading
+    g_last_bgConfig = bgConfig;
+    g_last_bgLayer = bgLayer;
+    
     Heap_Free(tileData);
     
     printf("[Graphics] Loaded %u bytes of tiles from %s to layer %u\n", loadSize, tilePath, bgLayer);
@@ -160,13 +174,53 @@ void Graphics_LoadTilemapToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConf
     PAL_File_Read(tilemapData, 1, fileSize, file);
     PAL_File_Close(file);
     
+    // Check if this is an NSCR file (Nintendo Screen format)
+    void* actualTilemapData = tilemapData;
+    u32 actualSize = fileSize;
+    
+    u32* magic = (u32*)tilemapData;
+    if (*magic == 0x4E534352) {  // "RCSN" in little-endian (0x52='R', 0x43='C', 0x53='S', 0x4E='N')
+        // NSCR format: Skip header to get to actual tilemap data
+        // Structure:
+        //   0x00-0x03: Magic "RCSN"
+        //   0x04-0x05: 0xFEFF (byte order mark)
+        //   0x06-0x07: Version
+        //   0x08-0x0B: File size
+        //   0x0C-0x0F: Header size (usually 0x10)
+        //   0x10: Start of "SCRN" section with actual data
+        
+        if (fileSize >= 0x20) {
+            // Skip to SCRN section (usually at 0x10)
+            u8* scrn_section = (u8*)tilemapData + 0x10;
+            u32 scrn_magic = *(u32*)scrn_section;
+            
+            if (scrn_magic == 0x5343524E || scrn_magic == 0x4E524353) { // "NRCS" or "SCRN" in little-endian
+                // SCRN section structure:
+                //   0x00-0x03: Magic "NRCS"
+                //   0x04-0x07: Section size
+                //   0x08-0x09: Width
+                //   0x0A-0x0B: Height
+                //   0x0C-0x0F: Unknown
+                //   0x10-0x13: Tilemap data size
+                //   0x14+: Actual tilemap data
+                actualTilemapData = scrn_section + 0x14;  // Skip SCRN header (0x14 bytes)
+                actualSize = fileSize - 0x24;  // Total offset from start of file
+                printf("[Graphics] Detected NSCR format, skipping headers (data at offset 0x24)\n");
+            }
+        }
+    }
+    
     // Determine actual size to load
-    u32 loadSize = (size == 0) ? fileSize : size;
+    u32 loadSize = (size == 0) ? actualSize : size;
     
     // Load to PAL background layer
     PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
-    PAL_Bg_LoadTilemapBuffer(palBgConfig, bgLayer, tilemapData, loadSize);
+    PAL_Bg_LoadTilemapBuffer(palBgConfig, bgLayer, actualTilemapData, loadSize);
     PAL_Bg_CopyTilemapBufferToVRAM(palBgConfig, bgLayer);
+    
+    // Track last used layer for palette loading
+    g_last_bgConfig = bgConfig;
+    g_last_bgLayer = bgLayer;
     
     Heap_Free(tilemapData);
     
@@ -181,7 +235,6 @@ void Graphics_LoadPalette(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoa
 void Graphics_LoadPaletteWithSrcOffset(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoadLocation loadLocation, u32 srcOffset, u32 palOffset, u32 size, u32 heapID)
 {
     (void)loadLocation;  // TODO: Use this to determine which screen/layer
-    (void)palOffset;     // TODO: Implement offset within palette
     
     // SDL3: Load palette from filesystem
     char palettePath[512];
@@ -204,22 +257,28 @@ void Graphics_LoadPaletteWithSrcOffset(enum NarcID narcID, u32 narcMemberIdx, en
     PAL_File_Read(paletteData, 1, fileSize, file);
     PAL_File_Close(file);
     
-    // Determine actual size to load (in number of colors)
+    // Determine actual size to load
+    // size is in BYTES, convert to number of colors
     u32 numColors = fileSize / 2; // RGB555 is 2 bytes per color
-    u32 loadSize = (size == 0) ? numColors : size;
+    u32 loadSize = (size == 0) ? numColors : (size / 2);
     
-    // Apply source offset (TODO: use srcPtr for palette application)
-    (void)srcOffset;  // Will be used when we implement palette application
-    
-    // For SDL, we need to determine which background layer this applies to
-    // loadLocation enum: PALLOAD_MAIN_BG, PALLOAD_SUB_BG, PALLOAD_MAIN_OBJ, PALLOAD_SUB_OBJ
-    // For now, we'll assume it's for the main background (this may need refinement)
+    // Convert byte offsets to color indices
+    u32 srcColorOffset = srcOffset / 2;      // srcOffset is in bytes
+    u32 palColorOffset = palOffset / 2;      // palOffset is in bytes (PLTT_OFFSET macro)
     
     printf("[Graphics] Loaded %u colors from %s\n", loadSize, palettePath);
     
-    // TODO: Apply palette to appropriate layer based on loadLocation
-    // This may require tracking which BgConfig was recently used
-    // For now, just load and free
+    // Apply palette to the last-used background layer
+    if (g_last_bgConfig) {
+        PAL_BgConfig *palBgConfig = (PAL_BgConfig*)g_last_bgConfig;
+        
+        // Skip source offset colors, then load
+        const u16 *srcPtr = paletteData + srcColorOffset;
+        PAL_Bg_LoadPalette(palBgConfig, g_last_bgLayer, srcPtr, loadSize * sizeof(u16), palColorOffset);
+        
+        printf("[Graphics] Applied palette to layer %d (srcOffset=%d colors, palOffset=%d colors, count=%d)\n",
+               g_last_bgLayer, srcColorOffset, palColorOffset, loadSize);
+    }
     
     Heap_Free(paletteData);
 }

@@ -443,6 +443,15 @@ void PAL_Bg_LoadPalette(PAL_BgConfig* bgConfig, u8 bgLayer, const void* src, u16
         }
     }
     
+    // Update color count
+    u32 maxIdx = offset + numColors;
+    if (maxIdx > bg->palette.num_colors) {
+        bg->palette.num_colors = maxIdx;
+    }
+    
+    printf("[BG] LoadPalette: layer=%d, loaded %d colors at offset %d, total=%d colors\n",
+           bgLayer, numColors, offset, bg->palette.num_colors);
+    
     bg->dirty = TRUE;
 }
 
@@ -497,20 +506,24 @@ void PAL_Bg_RenderLayer(PAL_BgConfig* bgConfig, u8 bgLayer) {
     SDL_Renderer* renderer = PAL_Graphics_GetRenderer();
     PAL_Screen targetScreen = (bgLayer < PAL_BG_LAYER_SUB_0) ? PAL_SCREEN_MAIN : PAL_SCREEN_SUB;
     
+    // Get the target screen texture and set it as render target
+    SDL_Texture* screenTexture = PAL_Graphics_GetScreenTexture(targetScreen);
+    if (!screenTexture) return;
+    
+    SDL_SetRenderTarget(renderer, screenTexture);
+    
     // Calculate destination rectangle with scrolling
     SDL_FRect dstRect;
-    if (targetScreen == PAL_SCREEN_MAIN) {
-        dstRect.x = -bg->xOffset;
-        dstRect.y = -bg->yOffset;
-    } else {
-        dstRect.x = 256 - bg->xOffset;  // Sub screen starts at x=256
-        dstRect.y = -bg->yOffset;
-    }
+    dstRect.x = (float)-bg->xOffset;
+    dstRect.y = (float)-bg->yOffset;
     dstRect.w = (float)bg->texWidth;
     dstRect.h = (float)bg->texHeight;
     
-    // Render the tilemap texture
+    // Render the tilemap texture to the screen surface
     SDL_RenderTexture(renderer, bg->renderTexture, NULL, &dstRect);
+    
+    // Reset render target
+    SDL_SetRenderTarget(renderer, NULL);
 }
 
 // ============================================================================
@@ -545,13 +558,18 @@ static void GetScreenDimensions(u8 screenSize, int* width, int* height) {
 
 static void RenderTilemap(PAL_Background* bg) {
     if (!bg->renderTexture || !bg->tilemapBuffer || !bg->tileData) {
+        printf("[BG] RenderTilemap failed: texture=%p, tilemap=%p, tiles=%p\n",
+               bg->renderTexture, bg->tilemapBuffer, bg->tileData);
         return;
     }
+    
+    // Tilemap rendering - debug output removed for performance
     
     // Lock texture for writing
     void* pixels;
     int pitch;
     if (!SDL_LockTexture(bg->renderTexture, NULL, &pixels, &pitch)) {
+        printf("[BG] Failed to lock texture: %s\n", SDL_GetError());
         return;
     }
     

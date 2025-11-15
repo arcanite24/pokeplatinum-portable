@@ -37,7 +37,7 @@ static inline PAL_Color PAL_ColorFromRGB555(u16 rgb555) {
     color.r = ((rgb555 & 0x001F) >> 0) << 3;  // Red: bits 0-4
     color.g = ((rgb555 & 0x03E0) >> 5) << 3;  // Green: bits 5-9
     color.b = ((rgb555 & 0x7C00) >> 10) << 3; // Blue: bits 10-14
-    color.a = (rgb555 & 0x8000) ? 0 : 255;    // Transparency: bit 15
+    color.a = 255;  // DS RGB555 doesn't use alpha, always opaque
     return color;
 }
 
@@ -245,6 +245,13 @@ SDL_Renderer* PAL_Graphics_GetRenderer(void);
  * @return SDL window handle
  */
 SDL_Window* PAL_Graphics_GetWindow(void);
+
+/**
+ * Get a screen texture (for rendering backgrounds)
+ * @param screen Which screen (MAIN or SUB)
+ * @return SDL texture handle for the screen
+ */
+SDL_Texture* PAL_Graphics_GetScreenTexture(PAL_Screen screen);
 
 #endif // PLATFORM_SDL
 

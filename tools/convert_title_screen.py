@@ -86,14 +86,14 @@ def main():
     
     print("Converting title screen assets...")
     
-    # Convert NCGR files
+    # Convert NCGR files (based on titledemo.naix.h)
     ncgr_files = [
-        (5, "top_border"),
-        (9, "logo_top"),
-        (12, "logo_bottom"),
-        (15, "unknown_gfx"),
-        (23, "press_start"),
-        (26, "small_graphic")
+        (5, "gf_presents"),          # gf_presents_NCGR
+        (9, "logo_jp"),              # logo_jp_NCGR (Japanese logo)
+        (12, "logo"),                # logo_NCGR (English logo)
+        (15, "copyright"),           # copyright_NCGR
+        (23, "top_screen_border"),   # top_screen_border_NCGR
+        (26, "bottom_screen_border") # bottom_screen_border_NCGR
     ]
     
     for file_id, name in ncgr_files:
@@ -121,14 +121,14 @@ def main():
                 f.write(f"Tile Size: 8x8 pixels\n")
                 f.write(f"Data Size: {len(tile_data)} bytes\n")
     
-    # Convert NCLR files
+    # Convert NCLR files (based on titledemo.naix.h)
     nclr_files = [
-        (4, "palette_1"),
-        (6, "palette_2"),
-        (7, "palette_3"),
-        (8, "palette_4"),
-        (11, "palette_5"),
-        (14, "palette_6")
+        (4, "gf_presents"),          # gf_presents_NCLR
+        (6, "bottom_screen_border"), # bottom_screen_border_NCLR
+        (7, "top_screen_border"),    # top_screen_border_NCLR
+        (8, "logo_jp"),              # logo_jp_NCLR
+        (11, "logo"),                # logo_NCLR
+        (14, "copyright")            # copyright_NCLR
     ]
     
     for file_id, name in nclr_files:

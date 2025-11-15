@@ -105,6 +105,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
+    // ===== CHECKERBOARD TEST DISABLED FOR TITLE SCREEN =====
+    #if 0  // Disable checkerboard test
     // Create a simple 8x8 tile (checkerboard pattern) - 4bpp format
     u8 test_tiles[32 * 2]; // 2 tiles: one light, one dark
     
@@ -162,12 +164,13 @@ int main(int argc, char* argv[]) {
     
     printf("Background test initialized: 32x24 checkerboard tilemap\n");
     printf("Press arrow keys to scroll the background!\n\n");
+    #endif  // End checkerboard test
     
     // ===== END BACKGROUND SYSTEM TEST SETUP =====
     
-    // ===== PHASE 2.4: SPRITE SYSTEM TEST SETUP =====
+    // ===== PHASE 2.4: SPRITE SYSTEM TEST - DISABLED FOR TITLE SCREEN =====
     
-    // Create sprite manager
+    // Create sprite manager (still needed for initialization)
     PAL_SpriteManager* spriteManager = PAL_Sprite_CreateManager(64, 0);
     if (!spriteManager) {
         fprintf(stderr, "Failed to create sprite manager\n");
@@ -180,6 +183,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
+    #if 0  // Disable sprite test for title screen
     // Create test sprite graphics data (16x16 sprite, 4bpp)
     u8 sprite_graphics[128]; // 16x16 pixels, 4bpp = 128 bytes
     
@@ -279,72 +283,103 @@ int main(int argc, char* argv[]) {
     printf("- Sprite 1: H-flipped (priority 1)\n");
     printf("- Sprite 2: Rotating on sub screen (priority 3)\n");
     printf("- Sprite 3: Scaling (priority 0)\n\n");
+    #endif  // End sprite test
     
     // ===== END SPRITE SYSTEM TEST SETUP =====
     
-    // ===== PHASE 3.4.2: GRAPHICS LOADING TEST =====
+    // ===== PHASE 3.4.2: GRAPHICS LOADING TEST DISABLED =====
+    // (Test code disabled - was interfering with title screen loading)
+    
+    // ===== PHASE 3.4.3: COMPLETE TITLE SCREEN RENDERING TEST =====
     printf("========================================\n");
-    printf("Testing Graphics Loading Functions\n");
+    printf("Testing COMPLETE Title Screen Rendering\n");
     printf("========================================\n");
     
-    // Initialize background layer for title screen test
+    // Background template for all layers
     PAL_BgTemplate titleBgTemplate = {0};
     titleBgTemplate.x = 0;
     titleBgTemplate.y = 0;
     titleBgTemplate.bufferSize = 32 * 24 * sizeof(u16);
     titleBgTemplate.baseTile = 0;
     titleBgTemplate.screenSize = PAL_BG_SCREEN_SIZE_256x256;
-    titleBgTemplate.colorMode = PAL_BG_COLOR_MODE_8BPP;  // Title screen uses 8bpp
-    titleBgTemplate.priority = 0;  // Highest priority
+    titleBgTemplate.colorMode = PAL_BG_COLOR_MODE_4BPP;
     
+    // --- LAYER 1: Bottom Screen Border (MAIN_3) ---
+    printf("\n[MAIN SCREEN - Layer 3] Bottom Border\n");
+    printf("-----------------------------------------------------------\n");
+    titleBgTemplate.priority = 3;
+    PAL_Bg_InitFromTemplate(bgConfig, PAL_BG_LAYER_MAIN_3, &titleBgTemplate, PAL_BG_TYPE_STATIC);
+    
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 26, bgConfig, 
+                                PAL_BG_LAYER_MAIN_3, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 27, bgConfig,
+                                  PAL_BG_LAYER_MAIN_3, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadPaletteWithSrcOffset(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 6, 
+                                     PAL_LOAD_MAIN_BG, 0, 0, 0, HEAP_ID_APPLICATION);
+    PAL_Bg_ToggleLayer(PAL_BG_LAYER_MAIN_3, TRUE);
+    printf("✓ Bottom border loaded (layer 3, priority 3)\n");
+    
+    // --- LAYER 2: "GAME FREAK presents" Text (MAIN_1) ---
+    printf("\n[MAIN SCREEN - Layer 1] GAME FREAK Presents\n");
+    printf("-----------------------------------------------------------\n");
+    titleBgTemplate.priority = 1;
+    titleBgTemplate.colorMode = PAL_BG_COLOR_MODE_8BPP;  // This layer uses 8bpp tiles!
     PAL_Bg_InitFromTemplate(bgConfig, PAL_BG_LAYER_MAIN_1, &titleBgTemplate, PAL_BG_TYPE_STATIC);
     
-    printf("\nTest 1: Loading top_border tiles (member 5)\n");
-    printf("-------------------------------------------\n");
-    u32 tilesLoaded = Graphics_LoadTilesToBgLayer(
-        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
-        5,                                    // Member 5 = top_border
-        bgConfig,
-        PAL_BG_LAYER_MAIN_1,
-        0,                                    // offset 0
-        0,                                    // load all tiles
-        FALSE,                                // not compressed
-        HEAP_ID_APPLICATION
-    );
-    printf("✅ Loaded %u bytes of tiles\n\n", tilesLoaded);
+    // gf_presents_NCGR = 5 (8bpp tiles), gf_presents_NSCR = 3, gf_presents_NCLR = 4
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 5, bgConfig,
+                                PAL_BG_LAYER_MAIN_1, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 3, bgConfig,
+                                  PAL_BG_LAYER_MAIN_1, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    // For 8bpp backgrounds, palette is loaded at offset 0 (full 256-color palette)
+    // Load all 260 colors from the palette file
+    Graphics_LoadPalette(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 4,
+                        PAL_LOAD_MAIN_BG, 0, 0, HEAP_ID_APPLICATION);
+    PAL_Bg_ToggleLayer(PAL_BG_LAYER_MAIN_1, TRUE);
+    printf("✓ GAME FREAK presents loaded (layer 1, priority 1)\n");
     
-    printf("Test 2: Loading palette_1 (member 4)\n");
-    printf("-------------------------------------------\n");
-    Graphics_LoadPaletteWithSrcOffset(
-        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
-        4,                                    // Member 4 = palette_1
-        PAL_LOAD_MAIN_BG,                    // Main screen background
-        0,                                    // src offset 0
-        0,                                    // palette offset 0
-        0,                                    // load all colors
-        HEAP_ID_APPLICATION
-    );
-    printf("✅ Palette loaded\n\n");
+    // Reset to 4BPP for remaining layers
+    titleBgTemplate.colorMode = PAL_BG_COLOR_MODE_4BPP;
     
-    printf("Test 3: Loading logo_top tiles (member 9)\n");
-    printf("-------------------------------------------\n");
-    tilesLoaded = Graphics_LoadTilesToBgLayer(
-        NARC_INDEX_DEMO__TITLE__TITLEDEMO,  // NARC 319
-        9,                                    // Member 9 = logo_top
-        bgConfig,
-        PAL_BG_LAYER_MAIN_1,
-        0,                                    // offset 0
-        0,                                    // load all tiles
-        FALSE,                                // not compressed
-        HEAP_ID_APPLICATION
-    );
-    printf("✅ Loaded %u bytes of tiles\n\n", tilesLoaded);
+    // --- LAYER 3: Top Screen Border (SUB_3) ---
+    printf("\n[SUB SCREEN - Layer 7] Top Border\n");
+    printf("-----------------------------------------------------------\n");
+    titleBgTemplate.priority = 3;
+    PAL_Bg_InitFromTemplate(bgConfig, PAL_BG_LAYER_SUB_3, &titleBgTemplate, PAL_BG_TYPE_STATIC);
     
-    printf("========================================\n");
-    printf("Graphics Loading Test Complete!\n");
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 23, bgConfig,
+                                PAL_BG_LAYER_SUB_3, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 24, bgConfig,
+                                  PAL_BG_LAYER_SUB_3, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadPaletteWithSrcOffset(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 7,
+                                     PAL_LOAD_SUB_BG, 0, 0, 0, HEAP_ID_APPLICATION);
+    PAL_Bg_ToggleLayer(PAL_BG_LAYER_SUB_3, TRUE);
+    printf("✓ Top border loaded (layer 7, priority 3)\n");
+    
+    // --- LAYER 4: Pokemon Logo (SUB_2) ---
+    printf("\n[SUB SCREEN - Layer 6] Pokemon Logo\n");
+    printf("-----------------------------------------------------------\n");
+    titleBgTemplate.priority = 2;
+    PAL_Bg_InitFromTemplate(bgConfig, PAL_BG_LAYER_SUB_2, &titleBgTemplate, PAL_BG_TYPE_STATIC);
+    
+    Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 9, bgConfig,
+                                PAL_BG_LAYER_SUB_2, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 10, bgConfig,
+                                  PAL_BG_LAYER_SUB_2, 0, 0, FALSE, HEAP_ID_APPLICATION);
+    // Logo uses extended palette at offset 0x4000
+    Graphics_LoadPaletteWithSrcOffset(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 8,
+                                     PAL_LOAD_SUB_BG, 0x4000, 0, 0, HEAP_ID_APPLICATION);
+    PAL_Bg_ToggleLayer(PAL_BG_LAYER_SUB_2, TRUE);
+    printf("✓ Pokemon logo loaded (layer 6, priority 2)\n");
+    
+    printf("\n========================================\n");
+    printf("✅ COMPLETE TITLE SCREEN LOADED!\n");
+    printf("   4 layers active:\n");
+    printf("   - Main screen: Bottom border + Copyright\n");
+    printf("   - Sub screen: Top border + Pokemon logo\n");
     printf("========================================\n\n");
     
-    // ===== END GRAPHICS LOADING TEST =====
+    // ===== END COMPLETE TITLE SCREEN RENDERING TEST =====
     
     // Main loop
     BOOL running = TRUE;
@@ -436,8 +471,8 @@ int main(int argc, char* argv[]) {
         // Render background layers first (beneath sprites)
         PAL_Bg_RenderAll(bgConfig);
         
-        // ===== PHASE 2.4: SPRITE ANIMATION =====
-        
+        // ===== PHASE 2.4: SPRITE ANIMATION - DISABLED FOR TITLE SCREEN =====
+        #if 0  // Disable sprite animation
         // Animate rotating sprite
         if (test_sprites[2]) {
             rotation_angle += 2.0f;
@@ -457,9 +492,13 @@ int main(int argc, char* argv[]) {
         // Update and render all sprites
         PAL_Sprite_UpdateAll(spriteManager);
         PAL_Sprite_RenderAll(spriteManager);
+        #endif  // End sprite animation
         
-        // ===== PHASE 2.2 GRAPHICS TEST =====
+        // ===== PHASE 2.2 GRAPHICS TEST - DISABLED FOR TITLE SCREEN =====
+        // Note: Test graphics commented out to show title screen rendering
+        // The background system is now rendering the actual title screen assets
         
+        #if 0  // Disable test graphics
         // Get screen surfaces
         PAL_Surface* main_screen = PAL_Graphics_GetScreen(PAL_SCREEN_MAIN);
         PAL_Surface* sub_screen = PAL_Graphics_GetScreen(PAL_SCREEN_SUB);
@@ -510,6 +549,7 @@ int main(int argc, char* argv[]) {
             PAL_Graphics_FillRect(main_screen, 10, PAL_SCREEN_HEIGHT - 20, 
                                  60, 15, 0, 0, 0, 200);
         }
+        #endif  // End test graphics
         
         // ===== END GRAPHICS TEST =====
         

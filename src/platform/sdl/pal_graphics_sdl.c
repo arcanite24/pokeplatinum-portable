@@ -122,9 +122,19 @@ void PAL_Graphics_SetActiveScreen(PAL_Screen screen) {
 }
 
 void PAL_Graphics_BeginFrame(void) {
+    // Clear the main window
     SDL_SetRenderTarget(g_graphics.renderer, NULL);
     SDL_SetRenderDrawColor(g_graphics.renderer, 0, 0, 0, 255);
     SDL_RenderClear(g_graphics.renderer);
+    
+    // Clear both screen textures
+    for (int i = 0; i < PAL_SCREEN_MAX; i++) {
+        SDL_SetRenderTarget(g_graphics.renderer, g_graphics.screens[i].texture);
+        SDL_SetRenderDrawColor(g_graphics.renderer, 0, 0, 0, 255);
+        SDL_RenderClear(g_graphics.renderer);
+    }
+    
+    SDL_SetRenderTarget(g_graphics.renderer, NULL);
 }
 
 void PAL_Graphics_EndFrame(void) {
@@ -347,6 +357,14 @@ SDL_Renderer* PAL_Graphics_GetRenderer(void) {
  */
 SDL_Window* PAL_Graphics_GetWindow(void) {
     return g_graphics.window;
+}
+
+/**
+ * Get the screen texture (for rendering backgrounds to screens)
+ */
+SDL_Texture* PAL_Graphics_GetScreenTexture(PAL_Screen screen) {
+    if (screen >= PAL_SCREEN_MAX) return NULL;
+    return g_graphics.screens[screen].texture;
 }
 
 #endif // PLATFORM_SDL
