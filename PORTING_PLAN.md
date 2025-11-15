@@ -528,15 +528,46 @@ void PAL_Touch_Update(void) {
 
 #### 3.4 Game Integration & Rendering (Weeks 11-12)
 
-**Status:** 🚧 **PLANNED** - Integrate PAL with actual game code
+**Status:** 🚧 **IN PROGRESS** - Porting title screen rendering
 
-**Goals:**
-- ✅ Integrate PAL with core system code
-- 🚧 Port Title Screen rendering
-- 🚧 Implement graphics resource loading
-- 🚧 Get actual game graphics rendering via PAL
+### 🎯 IMMEDIATE GOAL: Render Title Screen
 
-**Deliverable:** Title screen or simple game screen rendering with real assets
+**Current Focus:** Get the title screen displaying with real game graphics.
+
+**What We Need:**
+1. ✅ Port `Graphics_LoadTilesToBgLayer()` - **DONE** (loads tiles from filesystem)
+2. 🚧 Port `Graphics_LoadTilemapToBgLayer()` - **STUB** (needs implementation)
+3. ✅ Port `Graphics_LoadPalette()` - **DONE** (loads palette from filesystem)
+4. 🚧 Extract title screen assets from ROM to filesystem
+5. 🚧 Update `GetAssetPath()` to find title screen files
+6. 🚧 Test with `src/applications/title_screen.c`
+
+**Title Screen Graphics Calls** (from `TitleScreen_Load2DGfx()`):
+```c
+// Borders and backgrounds
+Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, top_screen_border_NCGR, ...);
+Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, bottom_screen_border_NCGR, ...);
+Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, top_screen_border_NSCR, ...);
+Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, bottom_screen_border_NSCR, ...);
+
+// Palettes
+Graphics_LoadPalette(NARC_INDEX_DEMO__TITLE__TITLEDEMO, top_screen_border_NCLR, ...);
+Graphics_LoadPalette(NARC_INDEX_DEMO__TITLE__TITLEDEMO, bottom_screen_border_NCLR, ...);
+Graphics_LoadPalette(NARC_INDEX_DEMO__TITLE__TITLEDEMO, logo_NCLR, ...);
+
+// Logo
+Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, logo_NCGR, ...);
+Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, logo_NSCR, ...);
+```
+
+**Next Steps:**
+1. Implement `Graphics_LoadTilemapToBgLayer()` (load NSCR tilemap format)
+2. Extract NARC_INDEX_DEMO__TITLE__TITLEDEMO from ROM
+3. Convert NCGR → raw tiles, NCLR → RGB555 palette, NSCR → tilemap
+4. Update `GetAssetPath()` with title screen file mappings
+5. Test rendering
+
+**Deliverable:** Title screen displaying with backgrounds, logo, and palettes
 
 ##### 3.4.1 Core System Integration
 

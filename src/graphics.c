@@ -95,12 +95,41 @@ u32 Graphics_LoadTilesToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig 
 
 void Graphics_LoadTilemapToBgLayer(enum NarcID narcID, u32 narcMemberIdx, BgConfig *bgConfig, u32 bgLayer, u32 offset, u32 size, BOOL compressed, u32 heapID)
 {
-    (void)compressed;  // Unused in SDL3
-    (void)narcID; (void)narcMemberIdx; (void)bgConfig; (void)bgLayer;
-    (void)offset; (void)size; (void)heapID;
+    (void)compressed;  // Unused in SDL3 - assets are pre-converted
+    (void)offset;      // TODO: Implement offset support if needed
     
-    // SDL stub - not implemented yet
-    printf("[Graphics] LoadTilemapToBgLayer not implemented for SDL\n");
+    // SDL3: Load tilemap data from filesystem
+    char tilemapPath[512];
+    GetAssetPath(narcID, narcMemberIdx, "tilemap.bin", tilemapPath, sizeof(tilemapPath));
+    
+    PAL_File file = PAL_File_Open(tilemapPath, "rb");
+    if (!file) {
+        fprintf(stderr, "[Graphics] Failed to load tilemap: %s\n", tilemapPath);
+        return;
+    }
+    
+    size_t fileSize = PAL_File_Size(file);
+    void *tilemapData = Heap_Alloc(heapID, fileSize);
+    if (!tilemapData) {
+        fprintf(stderr, "[Graphics] Failed to allocate %zu bytes for tilemap\n", fileSize);
+        PAL_File_Close(file);
+        return;
+    }
+    
+    PAL_File_Read(tilemapData, 1, fileSize, file);
+    PAL_File_Close(file);
+    
+    // Determine actual size to load
+    u32 loadSize = (size == 0) ? fileSize : size;
+    
+    // Load to PAL background layer
+    PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
+    PAL_Bg_LoadTilemapBuffer(palBgConfig, bgLayer, tilemapData, loadSize);
+    PAL_Bg_CopyTilemapBufferToVRAM(palBgConfig, bgLayer);
+    
+    Heap_Free(tilemapData);
+    
+    printf("[Graphics] Loaded %u bytes of tilemap from %s to layer %u\n", loadSize, tilemapPath, bgLayer);
 }
 
 void Graphics_LoadPalette(enum NarcID narcID, u32 narcMemberIdx, enum PaletteLoadLocation loadLocation, u32 palOffset, u32 size, u32 heapID)
