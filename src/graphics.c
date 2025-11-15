@@ -11,6 +11,21 @@
 #include "narc.h"
 
 // SDL3: Helper function to map NARC ID + member to filesystem path
+/**
+ * GetAssetPath - Map NARC ID and member index to filesystem path
+ * 
+ * RESOURCE MANAGEMENT STRATEGY:
+ * - All paths point to resources/ directory (gitignored)
+ * - Assets extracted from legal ROM via tools/convert_assets.sh
+ * - DO NOT reference res/ (DS build only) or build/ (DS output only)
+ * - This function is extensible - add more NARC mappings as systems are ported
+ * 
+ * @param narcID        NARC archive ID (e.g., NARC_INDEX_DEMO__TITLE__TITLEDEMO)
+ * @param narcMemberIdx Member index within the NARC (0-based)
+ * @param assetType     Asset type suffix (e.g., "tiles.bin", "palette.pal", "tilemap.bin")
+ * @param outPath       Output buffer for the constructed path
+ * @param pathSize      Size of output buffer
+ */
 static void GetAssetPath(enum NarcID narcID, u32 narcMemberIdx, const char* assetType, char* outPath, size_t pathSize)
 {
     // Map well-known NARC IDs to extracted directories
@@ -19,39 +34,65 @@ static void GetAssetPath(enum NarcID narcID, u32 narcMemberIdx, const char* asse
     
     // Title screen NARC (NARC_INDEX_DEMO__TITLE__TITLEDEMO = 48)
     if (narcID == NARC_INDEX_DEMO__TITLE__TITLEDEMO) {
+        // Tilemaps are only in raw directory, use numeric indexing
+        if (strcmp(assetType, "tilemap.bin") == 0) {
+            snprintf(outPath, pathSize, "resources/graphics/title_screen_raw/%04d.bin", narcMemberIdx);
+            return;
+        }
+        
         narcPath = "resources/graphics/title_screen";
         
-        // Map member index to asset name
+        // Map member index to asset name for tiles and palettes
         switch (narcMemberIdx) {
             case 4:  assetName = "palette_1"; break;
-            case 5:  assetName = "top_border"; break;
             case 6:  assetName = "palette_2"; break;
             case 7:  assetName = "palette_3"; break;
             case 8:  assetName = "palette_4"; break;
-            case 9:  assetName = "logo_top"; break;
             case 11: assetName = "palette_5"; break;
-            case 12: assetName = "logo_bottom"; break;
             case 14: assetName = "palette_6"; break;
+            case 23: assetName = "top_border"; break;      // top_screen_border_NCGR
+            case 26: assetName = "small_graphic"; break;   // bottom_screen_border_NCGR (tiny file)
+            case 9:  assetName = "logo_top"; break;
+            case 12: assetName = "logo_bottom"; break;
             case 15: assetName = "unknown_gfx"; break;
-            case 23: assetName = "press_start"; break;
-            case 26: assetName = "small_graphic"; break;
             default:
-                // Unknown member, use numeric fallback
-                snprintf(outPath, pathSize, "%s/%04d_%s", narcPath, narcMemberIdx, assetType);
+                // Unknown member, use numeric fallback from raw directory
+                snprintf(outPath, pathSize, "resources/graphics/title_screen_raw/%04d.bin", narcMemberIdx);
                 return;
         }
         
         // Build path with asset name
         if (assetName) {
-            snprintf(outPath, pathSize, "%s/%s_%s", narcPath, assetName, assetType);
+            // Special handling for file extensions - don't duplicate if assetType already has it
+            if (strcmp(assetType, "palette.pal") == 0) {
+                // File is already named "palette_1.pal", don't add "_palette.pal"
+                snprintf(outPath, pathSize, "%s/%s.pal", narcPath, assetName);
+            } else if (strcmp(assetType, "tiles.bin") == 0) {
+                // File is "top_border_tiles.bin"
+                snprintf(outPath, pathSize, "%s/%s_tiles.bin", narcPath, assetName);
+            } else {
+                // Generic case
+                snprintf(outPath, pathSize, "%s/%s_%s", narcPath, assetName, assetType);
+            }
             return;
         }
     }
     
     // Add more NARC mappings here as you extract them
-    // else if (narcID == XXX) { ... }
+    // Example for battle graphics:
+    // else if (narcID == NARC_INDEX_BATTLE_GRAPHICS) {
+    //     narcPath = "resources/graphics/battle";
+    //     switch (narcMemberIdx) {
+    //         case 0: assetName = "battle_bg"; break;
+    //         case 1: assetName = "pokemon_sprites"; break;
+    //         // ... etc
+    //     }
+    //     snprintf(outPath, pathSize, "%s/%s_%s", narcPath, assetName, assetType);
+    //     return;
+    // }
     
-    // Fallback: use generic path
+    // Fallback: use generic path (for assets not yet specifically mapped)
+    // This allows incremental asset extraction as more game systems are ported
     snprintf(outPath, pathSize, "resources/graphics/narc_%03d/%04d_%s", narcID, narcMemberIdx, assetType);
 }
 
