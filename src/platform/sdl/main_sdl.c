@@ -63,6 +63,11 @@ int main(int argc, char* argv[]) {
     
     printf("All PAL subsystems initialized successfully!\n");
     printf("Window: 512x192 (dual screens side-by-side)\n");
+    printf("\n=== Graphics Test Enabled ===\n");
+    printf("Demonstrating Phase 2.2: Graphics PAL Implementation\n");
+    printf("- Colored rectangles on both screens\n");
+    printf("- Moving sprites\n");
+    printf("- Line drawing\n\n");
     printf("Controls:\n");
     printf("  Arrow Keys - D-Pad\n");
     printf("  Z/Enter    - A Button\n");
@@ -80,6 +85,12 @@ int main(int argc, char* argv[]) {
     BOOL running = TRUE;
     u64 frame_count = 0;
     u64 start_time = PAL_Timer_GetTicks();
+    
+    // Graphics test variables
+    int sprite_x = 50;
+    int sprite_y = 50;
+    int sprite_dx = 2;
+    int sprite_dy = 1;
     
     while (running) {
         // Handle events
@@ -114,7 +125,60 @@ int main(int argc, char* argv[]) {
         // Begin rendering
         PAL_Graphics_BeginFrame();
         
-        // TODO: Render game content here
+        // ===== PHASE 2.2 GRAPHICS TEST =====
+        
+        // Get screen surfaces
+        PAL_Surface* main_screen = PAL_Graphics_GetScreen(PAL_SCREEN_MAIN);
+        PAL_Surface* sub_screen = PAL_Graphics_GetScreen(PAL_SCREEN_SUB);
+        
+        // Clear main screen to dark blue
+        PAL_Graphics_ClearSurface(main_screen, 20, 30, 60, 255);
+        
+        // Clear sub screen to dark green
+        PAL_Graphics_ClearSurface(sub_screen, 20, 60, 30, 255);
+        
+        // Draw some colored rectangles on main screen
+        PAL_Graphics_FillRect(main_screen, 10, 10, 50, 30, 255, 0, 0, 255);      // Red
+        PAL_Graphics_FillRect(main_screen, 70, 10, 50, 30, 0, 255, 0, 255);      // Green
+        PAL_Graphics_FillRect(main_screen, 130, 10, 50, 30, 0, 0, 255, 255);     // Blue
+        PAL_Graphics_FillRect(main_screen, 190, 10, 50, 30, 255, 255, 0, 255);   // Yellow
+        
+        // Draw moving "sprite" (simple rectangle)
+        PAL_Graphics_FillRect(main_screen, sprite_x, sprite_y, 20, 20, 255, 128, 0, 255);
+        
+        // Update sprite position (bouncing)
+        sprite_x += sprite_dx;
+        sprite_y += sprite_dy;
+        if (sprite_x <= 0 || sprite_x >= PAL_SCREEN_WIDTH - 20) sprite_dx = -sprite_dx;
+        if (sprite_y <= 0 || sprite_y >= PAL_SCREEN_HEIGHT - 20) sprite_dy = -sprite_dy;
+        
+        // Draw some lines on sub screen
+        int center_x = PAL_SCREEN_WIDTH / 2;
+        int center_y = PAL_SCREEN_HEIGHT / 2;
+        PAL_Graphics_DrawLine(sub_screen, 0, center_y, PAL_SCREEN_WIDTH, center_y, 
+                             255, 255, 255, 255);
+        PAL_Graphics_DrawLine(sub_screen, center_x, 0, center_x, PAL_SCREEN_HEIGHT,
+                             255, 255, 255, 255);
+        
+        // Draw touch indicator if touch is active
+        if (touch.held) {
+            PAL_Graphics_FillRect(sub_screen, touch.x - 5, touch.y - 5, 10, 10,
+                                 255, 0, 255, 255);
+            
+            // Draw crosshair
+            PAL_Graphics_DrawLine(sub_screen, touch.x - 10, touch.y, touch.x + 10, touch.y,
+                                 255, 255, 0, 255);
+            PAL_Graphics_DrawLine(sub_screen, touch.x, touch.y - 10, touch.x, touch.y + 10,
+                                 255, 255, 0, 255);
+        }
+        
+        // Draw frame counter on main screen
+        if (frame_count % 60 < 30) {
+            PAL_Graphics_FillRect(main_screen, 10, PAL_SCREEN_HEIGHT - 20, 
+                                 60, 15, 0, 0, 0, 200);
+        }
+        
+        // ===== END GRAPHICS TEST =====
         
         // End rendering and present
         PAL_Graphics_EndFrame();

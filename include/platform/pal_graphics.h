@@ -111,4 +111,112 @@ void PAL_Graphics_FreeVRAM(void* ptr);
  */
 void PAL_Graphics_TransferVRAM(void* src, void* dst, size_t size);
 
+// ============================================================================
+// Extended Graphics Functions (Phase 2) - SDL3 specific helpers
+// ============================================================================
+
+#ifdef PLATFORM_SDL
+#include <SDL3/SDL.h>
+
+/**
+ * Create a texture from RGBA pixel data
+ * @param width Texture width
+ * @param height Texture height
+ * @param pixels RGBA8888 pixel data (can be NULL to create empty texture)
+ * @return SDL texture handle, or NULL on failure
+ */
+SDL_Texture* PAL_Graphics_CreateTexture(int width, int height, const void* pixels);
+
+/**
+ * Create a streaming texture for dynamic updates
+ * @param width Texture width
+ * @param height Texture height
+ * @return SDL texture handle, or NULL on failure
+ */
+SDL_Texture* PAL_Graphics_CreateStreamingTexture(int width, int height);
+
+/**
+ * Destroy a texture
+ * @param texture Texture to destroy
+ */
+void PAL_Graphics_DestroyTexture(SDL_Texture* texture);
+
+/**
+ * Draw a texture to a surface with source and destination rectangles
+ * @param surf Target surface
+ * @param texture Source texture
+ * @param src_x Source X
+ * @param src_y Source Y
+ * @param src_w Source width
+ * @param src_h Source height
+ * @param dst_x Destination X
+ * @param dst_y Destination Y
+ * @param dst_w Destination width
+ * @param dst_h Destination height
+ */
+void PAL_Graphics_DrawTexture(PAL_Surface* surf, SDL_Texture* texture,
+                              int src_x, int src_y, int src_w, int src_h,
+                              int dst_x, int dst_y, int dst_w, int dst_h);
+
+/**
+ * Clear a surface to a specific color
+ * @param surf Surface to clear
+ * @param r Red (0-255)
+ * @param g Green (0-255)
+ * @param b Blue (0-255)
+ * @param a Alpha (0-255)
+ */
+void PAL_Graphics_ClearSurface(PAL_Surface* surf, u8 r, u8 g, u8 b, u8 a);
+
+/**
+ * Draw a filled rectangle
+ * @param surf Target surface
+ * @param x X position
+ * @param y Y position
+ * @param w Width
+ * @param h Height
+ * @param r Red (0-255)
+ * @param g Green (0-255)
+ * @param b Blue (0-255)
+ * @param a Alpha (0-255)
+ */
+void PAL_Graphics_FillRect(PAL_Surface* surf, int x, int y, int w, int h,
+                           u8 r, u8 g, u8 b, u8 a);
+
+/**
+ * Draw a line
+ * @param surf Target surface
+ * @param x1 Start X
+ * @param y1 Start Y
+ * @param x2 End X
+ * @param y2 End Y
+ * @param r Red (0-255)
+ * @param g Green (0-255)
+ * @param b Blue (0-255)
+ * @param a Alpha (0-255)
+ */
+void PAL_Graphics_DrawLine(PAL_Surface* surf, int x1, int y1, int x2, int y2,
+                           u8 r, u8 g, u8 b, u8 a);
+
+/**
+ * Set the palette for indexed color rendering
+ * @param palette_rgb555 Array of RGB555 colors (DS format)
+ * @param num_colors Number of colors in palette (max 256)
+ */
+void PAL_Graphics_SetPalette(const u16* palette_rgb555, int num_colors);
+
+/**
+ * Get the SDL renderer (for advanced operations)
+ * @return SDL renderer handle
+ */
+SDL_Renderer* PAL_Graphics_GetRenderer(void);
+
+/**
+ * Get the SDL window (for advanced operations)
+ * @return SDL window handle
+ */
+SDL_Window* PAL_Graphics_GetWindow(void);
+
+#endif // PLATFORM_SDL
+
 #endif // PAL_GRAPHICS_H

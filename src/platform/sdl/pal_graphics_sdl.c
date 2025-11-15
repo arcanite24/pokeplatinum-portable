@@ -11,6 +11,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Color palette entry (RGBA)
+typedef struct {
+    u8 r, g, b, a;
+} PAL_Color;
+
+// Palette structure (for DS-style indexed color)
+typedef struct {
+    PAL_Color colors[256];
+    int num_colors;
+} PAL_Palette;
+
 // Internal structure for SDL surface
 struct PAL_Surface {
     SDL_Texture* texture;
@@ -24,8 +35,28 @@ static struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
     PAL_Surface screens[PAL_SCREEN_MAX];
+    PAL_Palette default_palette;
     BOOL initialized;
 } g_graphics;
+
+// Helper: Convert DS 555 RGB color to RGBA8888
+static inline PAL_Color PAL_ColorFromRGB555(u16 rgb555) {
+    PAL_Color color;
+    color.r = ((rgb555 & 0x001F) >> 0) << 3;  // Red: bits 0-4
+    color.g = ((rgb555 & 0x03E0) >> 5) << 3;  // Green: bits 5-9
+    color.b = ((rgb555 & 0x7C00) >> 10) << 3; // Blue: bits 10-14
+    color.a = (rgb555 & 0x8000) ? 0 : 255;    // Transparency: bit 15
+    return color;
+}
+
+// Helper: Convert RGBA to RGB555
+static inline u16 PAL_ColorToRGB555(PAL_Color color) {
+    u16 r = (color.r >> 3) & 0x1F;
+    u16 g = (color.g >> 3) & 0x1F;
+    u16 b = (color.b >> 3) & 0x1F;
+    u16 a = color.a < 128 ? 1 : 0;
+    return r | (g << 5) | (b << 10) | (a << 15);
+}
 
 BOOL PAL_Graphics_Init(int window_width, int window_height) {
     if (g_graphics.initialized) {
@@ -145,8 +176,41 @@ void PAL_Graphics_EndFrame(void) {
 
 void PAL_Graphics_DrawSprite(PAL_Surface* surf, const void* sprite_data, 
                              int x, int y, int width, int height) {
-    // TODO: Implement sprite rendering
-    // This requires converting DS sprite format to SDL textures
+    if (!surf || !sprite_data || !g_graphics.renderer) {
+        return;
+    }
+    
+    // For now, assume sprite_data is RGBA8888 format
+    // In Phase 2.3, we'll add proper DS sprite format conversion
+    SDL_Texture* temp_texture = SDL_CreateTexture(
+        g_graphics.renderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_STATIC,
+        width,
+        height
+    );
+    
+    if (!temp_texture) {
+        return;
+    }
+    
+    // Upload sprite data
+    SDL_UpdateTexture(temp_texture, NULL, sprite_data, width * 4);
+    
+    // Set render target to the surface's texture
+    SDL_SetRenderTarget(g_graphics.renderer, surf->texture);
+    
+    // Draw sprite at position
+    SDL_FRect dest = {
+        .x = (float)x,
+        .y = (float)y,
+        .w = (float)width,
+        .h = (float)height
+    };
+    SDL_RenderTexture(g_graphics.renderer, temp_texture, NULL, &dest);
+    
+    // Cleanup
+    SDL_DestroyTexture(temp_texture);
 }
 
 void PAL_Graphics_DrawTilemap(PAL_Surface* surf, const void* tilemap_data) {
@@ -171,6 +235,148 @@ void PAL_Graphics_FreeVRAM(void* ptr) {
 void PAL_Graphics_TransferVRAM(void* src, void* dst, size_t size) {
     // On SDL, just memcpy
     memcpy(dst, src, size);
+}
+
+// ============================================================================
+// Extended Graphics Functions (Phase 2)
+// ============================================================================
+
+/**
+ * Create a texture from RGBA pixel data
+ */
+SDL_Texture* PAL_Graphics_CreateTexture(int width, int height, const void* pixels) {
+    if (!g_graphics.renderer) {
+        return NULL;
+    }
+    
+    SDL_Texture* texture = SDL_CreateTexture(
+        g_graphics.renderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_STATIC,
+        width,
+        height
+    );
+    
+    if (texture && pixels) {
+        SDL_UpdateTexture(texture, NULL, pixels, width * 4);
+    }
+    
+    return texture;
+}
+
+/**
+ * Create a texture with streaming access (for dynamic updates)
+ */
+SDL_Texture* PAL_Graphics_CreateStreamingTexture(int width, int height) {
+    if (!g_graphics.renderer) {
+        return NULL;
+    }
+    
+    return SDL_CreateTexture(
+        g_graphics.renderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_STREAMING,
+        width,
+        height
+    );
+}
+
+/**
+ * Destroy a texture
+ */
+void PAL_Graphics_DestroyTexture(SDL_Texture* texture) {
+    if (texture) {
+        SDL_DestroyTexture(texture);
+    }
+}
+
+/**
+ * Draw a texture to a surface
+ */
+void PAL_Graphics_DrawTexture(PAL_Surface* surf, SDL_Texture* texture,
+                              int src_x, int src_y, int src_w, int src_h,
+                              int dst_x, int dst_y, int dst_w, int dst_h) {
+    if (!surf || !texture || !g_graphics.renderer) {
+        return;
+    }
+    
+    SDL_SetRenderTarget(g_graphics.renderer, surf->texture);
+    
+    SDL_FRect src = { (float)src_x, (float)src_y, (float)src_w, (float)src_h };
+    SDL_FRect dst = { (float)dst_x, (float)dst_y, (float)dst_w, (float)dst_h };
+    
+    SDL_RenderTexture(g_graphics.renderer, texture, &src, &dst);
+}
+
+/**
+ * Clear a surface to a specific color
+ */
+void PAL_Graphics_ClearSurface(PAL_Surface* surf, u8 r, u8 g, u8 b, u8 a) {
+    if (!surf || !g_graphics.renderer) {
+        return;
+    }
+    
+    SDL_SetRenderTarget(g_graphics.renderer, surf->texture);
+    SDL_SetRenderDrawColor(g_graphics.renderer, r, g, b, a);
+    SDL_RenderClear(g_graphics.renderer);
+}
+
+/**
+ * Draw a filled rectangle
+ */
+void PAL_Graphics_FillRect(PAL_Surface* surf, int x, int y, int w, int h,
+                           u8 r, u8 g, u8 b, u8 a) {
+    if (!surf || !g_graphics.renderer) {
+        return;
+    }
+    
+    SDL_SetRenderTarget(g_graphics.renderer, surf->texture);
+    SDL_SetRenderDrawColor(g_graphics.renderer, r, g, b, a);
+    
+    SDL_FRect rect = { (float)x, (float)y, (float)w, (float)h };
+    SDL_RenderFillRect(g_graphics.renderer, &rect);
+}
+
+/**
+ * Draw a line
+ */
+void PAL_Graphics_DrawLine(PAL_Surface* surf, int x1, int y1, int x2, int y2,
+                           u8 r, u8 g, u8 b, u8 a) {
+    if (!surf || !g_graphics.renderer) {
+        return;
+    }
+    
+    SDL_SetRenderTarget(g_graphics.renderer, surf->texture);
+    SDL_SetRenderDrawColor(g_graphics.renderer, r, g, b, a);
+    SDL_RenderLine(g_graphics.renderer, (float)x1, (float)y1, (float)x2, (float)y2);
+}
+
+/**
+ * Set a palette for indexed color rendering
+ */
+void PAL_Graphics_SetPalette(const u16* palette_rgb555, int num_colors) {
+    if (!palette_rgb555 || num_colors <= 0 || num_colors > 256) {
+        return;
+    }
+    
+    g_graphics.default_palette.num_colors = num_colors;
+    for (int i = 0; i < num_colors; i++) {
+        g_graphics.default_palette.colors[i] = PAL_ColorFromRGB555(palette_rgb555[i]);
+    }
+}
+
+/**
+ * Get the current renderer (for advanced SDL operations)
+ */
+SDL_Renderer* PAL_Graphics_GetRenderer(void) {
+    return g_graphics.renderer;
+}
+
+/**
+ * Get the main window (for advanced SDL operations)
+ */
+SDL_Window* PAL_Graphics_GetWindow(void) {
+    return g_graphics.window;
 }
 
 #endif // PLATFORM_SDL
