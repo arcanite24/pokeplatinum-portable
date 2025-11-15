@@ -93,11 +93,12 @@ The project is a **WIP decompilation** of Pokémon Platinum for Nintendo DS, wri
 
 ### Key Design Principles
 
-1. **Direct Replacement:** Replace DS-specific code with SDL3 implementations directly, no conditional compilation
+1. **Port, Don't Delete:** Create SDL3 stub implementations for all DS functions, then port them incrementally as needed
 2. **Clean Architecture:** Separate platform-specific code (PAL) from game logic
 3. **Minimal Game Logic Changes:** Preserve original game structure and behavior where possible
 4. **Native SDL3 Features:** Leverage SDL3 capabilities for better performance and maintainability
 5. **Incremental Migration:** Port subsystems independently for steady progress
+6. **Preserve Knowledge:** Document DS implementations in `docs/DS_*_REFERENCE.md` before modifying code
 
 ---
 
@@ -1380,30 +1381,37 @@ pokeplatinum/
 └── PORTING_PLAN.md        # This document
 ```
 
-### 5.2 Conditional Compilation
+### 5.2 Porting Strategy: Stub-First Approach
+
+**Approach:** Create SDL3 stub implementations for all DS functions, preserving API compatibility. Port incrementally as features are needed.
 
 ```c
-// Example from src/applications/title_screen.c
+// Step 1: Document original DS implementation in docs/DS_GRAPHICS_REFERENCE.md
+// Step 2: Create SDL3 stub that matches DS function signature
 
-static BOOL TitleScreen_RenderMain(TitleScreen *titleScreen, BgConfig *bgConfig, 
-                                   enum HeapID heapID)
+u32 Graphics_LoadObjectTiles(enum NarcID narcID, u32 narcMemberIdx, 
+                             enum DSScreen display, u32 offset, u32 size, 
+                             BOOL compressed, u32 heapID)
 {
-    #ifdef PLATFORM_DS
-        // Original DS rendering using BG layers
-        Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, 
-                                    top_screen_border_NCGR, 
-                                    bgConfig, TITLE_SCREEN_LAYER_LOGO_BG, 
-                                    0, 0, FALSE, heapID);
-    #else
-        // SDL rendering using surfaces
-        PAL_Surface* main_screen = PAL_Graphics_GetScreen(PAL_SCREEN_MAIN);
-        PAL_Graphics_LoadTexture(main_screen, 
-                                "resources/graphics/title/top_border.png");
-    #endif
+    (void)narcID; (void)narcMemberIdx; (void)display; (void)offset;
+    (void)size; (void)compressed; (void)heapID;
     
-    return TRUE;
+    printf("[Graphics] TODO: Port Graphics_LoadObjectTiles (NARC %d, member %d)\n", 
+           narcID, narcMemberIdx);
+    return 0; // Stub - return 0 tiles loaded
 }
+
+// Step 3: Port implementation when needed
+// - Load sprite graphics from filesystem (replace NARC with PAL_File)
+// - Convert DS format (4bpp/8bpp tiles) to SDL textures
+// - Update PAL sprite system with loaded graphics
 ```
+
+**Benefits:**
+- ✅ Code compiles immediately (no missing symbol errors)
+- ✅ Game runs (even if graphics don't load yet)
+- ✅ Clear TODO markers show what needs porting
+- ✅ Can port incrementally, testing each function individually
 
 ### 5.3 Build Configuration
 

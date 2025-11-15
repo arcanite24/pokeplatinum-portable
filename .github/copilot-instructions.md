@@ -57,22 +57,48 @@ make format         # Run clang-format (IMPORTANT - maintain code style)
 ### Build Target
 This repository builds **only the SDL3 port**. The original Nintendo DS build is not supported - for that, see the [upstream pret/pokeplatinum repository](https://github.com/pret/pokeplatinum).
 
-**Porting Strategy:** Directly replace DS-specific code with SDL3 implementations. Do NOT use conditional compilation (`#ifdef PLATFORM_DS`).
+### Porting Strategy: Stub-First Approach
 
-**Example - OLD dual-compilation approach (DON'T DO THIS):**
+**Step 1: Preserve Knowledge**
+- Document original DS implementation in `docs/DS_*_REFERENCE.md` before making changes
+- Capture function signatures, key patterns, and implementation details
+
+**Step 2: Create SDL3 Stubs**
+- Replace DS functions with SDL3 stubs that match the original API
+- Use `printf("[Subsystem] TODO: Port FunctionName")` for unimplemented features
+- Add `(void)param;` casts to avoid unused parameter warnings
+
+**Step 3: Port Incrementally**
+- Implement stubs as needed during testing and integration
+- Test each function individually before moving to the next
+
+**Example - Stub-first approach:**
 ```c
-#ifdef PLATFORM_DS
-    BgConfig* bg = BgConfig_New(heapID);  // DS code
-#else
-    PAL_BgConfig* bg = PAL_Bg_CreateConfig(heapID);  // SDL code
-#endif
+// Step 1: Document in docs/DS_GRAPHICS_REFERENCE.md
+// Original DS function loaded sprite tiles from NARC to VRAM
+
+// Step 2: Create stub with same signature
+u32 Graphics_LoadObjectTiles(enum NarcID narcID, u32 narcMemberIdx, 
+                             enum DSScreen display, u32 offset, u32 size, 
+                             BOOL compressed, u32 heapID)
+{
+    (void)narcID; (void)narcMemberIdx; (void)display; (void)offset;
+    (void)size; (void)compressed; (void)heapID;
+    
+    printf("[Graphics] TODO: Port Graphics_LoadObjectTiles (NARC %d, member %d)\n", 
+           narcID, narcMemberIdx);
+    return 0; // Return 0 tiles loaded for now
+}
+
+// Step 3: Port when needed - replace stub with real implementation
+// Load from filesystem, convert to SDL texture, update sprite system
 ```
 
-**Example - NEW direct replacement approach (DO THIS):**
-```c
-// Just use PAL directly - DS code is removed
-PAL_BgConfig* bg = PAL_Bg_CreateConfig(heapID);
-```
+**Benefits:**
+- ✅ Code compiles immediately - no broken builds
+- ✅ Game runs (even if features are incomplete)
+- ✅ Clear TODO markers show porting progress
+- ✅ Can test incrementally without implementing everything at once
 
 ### Platform Abstraction Layer (PAL)
 When porting DS code, use PAL APIs directly without conditional compilation:
@@ -103,7 +129,9 @@ size_t PAL_File_Read(void* buffer, size_t size, size_t count, PAL_File file);
 ```
 
 **Porting Guidelines:**
-- Replace DS-specific function calls with PAL equivalents directly
+- **Port, don't delete:** Create SDL3 stubs for all DS functions before removing any code
+- Document DS implementations in `docs/DS_*_REFERENCE.md` before modification
+- Replace DS-specific function calls with PAL equivalents
 - Keep game logic structure unchanged
 - Maintain identical behavior to DS version
 - See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for detailed implementation phases

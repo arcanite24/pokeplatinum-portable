@@ -7,8 +7,9 @@ This is an **SDL3 port** of the Pokémon Platinum decompilation, making the game
 ## Project Goals
 
 1. **Cross-platform portability** - Run on Windows, macOS, Linux, iOS, and Android using SDL3
-2. **Clean, maintainable code** - Direct SDL3 implementation without conditional compilation complexity
+2. **Incremental porting** - Stub-first approach: all DS functions preserved as SDL3 stubs, ported incrementally as needed
 3. **Preserve game functionality** - Maintain original gameplay while modernizing the platform layer
+4. **Clean architecture** - Platform Abstraction Layer (PAL) separates game logic from platform specifics
 
 For the comprehensive SDL3 porting roadmap, see [`PORTING_PLAN.md`](PORTING_PLAN.md).
 
