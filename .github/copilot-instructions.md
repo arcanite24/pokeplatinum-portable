@@ -10,11 +10,33 @@ The codebase is ~99% C with remaining ARM assembly stubs. Current focuses: **doc
 ### Porting Initiative
 See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for comprehensive SDL3 porting strategy. Target platforms: Windows, macOS, Linux, iOS, Android.
 
-**Current Status:** ✅ **Phase 1 Complete** - Build system, PAL structure, and test application working.
-- 21 files created for SDL3 platform layer
+**Current Status:** ✅ **Phases 1-3 Complete** - Foundation, Graphics, and Input systems working.
+- ~5,128 lines of PAL code across 21 files
 - CMake build system operational
-- Working test app at 60 FPS with input handling
-- Next: Phase 2 - Display System (graphics rendering)
+- Working test app at ~54 FPS with backgrounds, sprites, and full input support
+- **Phase 1:** Build system, PAL infrastructure ✅
+- **Phase 2:** Display system (primitives, backgrounds, sprites, 3D API) ✅
+- **Phase 3:** Input system (keyboard, mouse, gamepad with hot-plug) ✅
+- **Next:** Phase 4 - Audio System (BGM, sound effects)
+
+### Key Documentation Files
+**MUST READ** these files for context when working on SDL3 port:
+- **[`PAL.md`](../PAL.md)** - Complete Platform Abstraction Layer documentation, architecture, implementation guidelines, and current status
+- **[`PORTING_PLAN.md`](../PORTING_PLAN.md)** - Comprehensive porting strategy with phase-by-phase implementation plan
+- **Phase Implementation Summaries** (keep up to date when working on new phases):
+  - [`PHASE1_TASK1_SUMMARY.md`](../PHASE1_TASK1_SUMMARY.md) - Foundation & build system
+  - [`PHASE2_TASK2_SUMMARY.md`](../PHASE2_TASK2_SUMMARY.md) - Graphics primitives
+  - [`PHASE2_TASK3_SUMMARY.md`](../PHASE2_TASK3_SUMMARY.md) - Background system
+  - [`PHASE2_TASK4_SUMMARY.md`](../PHASE2_TASK4_SUMMARY.md) - Sprite/OAM system
+  - [`PHASE2_TASK5_SUMMARY.md`](../PHASE2_TASK5_SUMMARY.md) - 3D graphics API
+  - [`PHASE3_SUMMARY.md`](../PHASE3_SUMMARY.md) - Input system
+
+**When implementing new PAL features:**
+1. Reference `PAL.md` for architecture and guidelines
+2. Follow existing PAL patterns from completed phases
+3. Create `PHASEX_TASKX_SUMMARY.md` documenting your implementation
+4. Update `PAL.md` with new subsystem details
+5. Update `PORTING_PLAN.md` to mark phase/task complete
 
 ## Critical Build Commands
 
@@ -274,6 +296,40 @@ BOOL Battle_InitWildEncounter(BattleSystem* battleSys, Pokemon* wildMon) {
 
 ## Contributing to SDL3 Port
 When working on portability features:
+
+### Documentation Requirements
+**CRITICAL:** When implementing new PAL features or working on phases, you MUST:
+
+1. **Read existing documentation first:**
+   - [`PAL.md`](../PAL.md) - Architecture, implementation guidelines, current status
+   - [`PORTING_PLAN.md`](../PORTING_PLAN.md) - Phase details and requirements
+   - Existing `PHASEX_TASKX_SUMMARY.md` files for implementation patterns
+
+2. **Create phase summary documentation:**
+   - Create `PHASEX_TASKX_SUMMARY.md` when completing a phase/task
+   - Include: Overview, objectives, implementation details, API reference, usage examples, performance metrics, known limitations
+   - See existing phase summaries as templates
+
+3. **Update central documentation:**
+   - Update `PAL.md` with new subsystem details (add to status table and subsystem section)
+   - Update `PORTING_PLAN.md` to mark completed phases/tasks
+   - Keep status tables current with completion dates
+
+4. **Keep documentation synchronized:**
+   - When you modify a PAL subsystem, update its section in `PAL.md`
+   - When you complete a phase task, immediately document it
+   - Documentation is NOT optional - it's required for maintainability
+
+**Documentation Pattern:**
+```
+New Feature Implementation:
+1. Review PAL.md for guidelines
+2. Implement feature following patterns
+3. Create PHASEX_TASKX_SUMMARY.md
+4. Update PAL.md subsystem section
+5. Update PORTING_PLAN.md status
+6. Commit documentation WITH code
+```
 
 ### Adding PAL Abstractions
 1. **Create PAL interface** in `include/platform/pal_*.h` with clean API

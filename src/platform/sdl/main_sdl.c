@@ -307,6 +307,20 @@ int main(int argc, char* argv[]) {
             if (event.type == SDL_EVENT_KEY_DOWN && event.key.scancode == SDL_SCANCODE_ESCAPE) {
                 running = FALSE;
             }
+            
+            // Handle gamepad connection/disconnection
+            if (event.type == SDL_EVENT_GAMEPAD_ADDED) {
+                SDL_Gamepad* gamepad = SDL_OpenGamepad(event.gdevice.which);
+                if (gamepad) {
+                    PAL_Input_AddGamepad(gamepad);
+                }
+            } else if (event.type == SDL_EVENT_GAMEPAD_REMOVED) {
+                SDL_Gamepad* gamepad = SDL_GetGamepadFromID(event.gdevice.which);
+                if (gamepad) {
+                    PAL_Input_RemoveGamepad(gamepad);
+                    SDL_CloseGamepad(gamepad);
+                }
+            }
         }
         
         // Update input
