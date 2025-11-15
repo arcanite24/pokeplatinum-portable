@@ -21,6 +21,35 @@ typedef enum {
 // Surface structure (opaque for now, implemented per-platform)
 typedef struct PAL_Surface PAL_Surface;
 
+// Color structures (for DS-style paletted graphics)
+typedef struct {
+    u8 r, g, b, a;
+} PAL_Color;
+
+typedef struct {
+    PAL_Color colors[256];
+    int num_colors;
+} PAL_Palette;
+
+// Helper: Convert DS RGB555 color to PAL_Color
+static inline PAL_Color PAL_ColorFromRGB555(u16 rgb555) {
+    PAL_Color color;
+    color.r = ((rgb555 & 0x001F) >> 0) << 3;  // Red: bits 0-4
+    color.g = ((rgb555 & 0x03E0) >> 5) << 3;  // Green: bits 5-9
+    color.b = ((rgb555 & 0x7C00) >> 10) << 3; // Blue: bits 10-14
+    color.a = (rgb555 & 0x8000) ? 0 : 255;    // Transparency: bit 15
+    return color;
+}
+
+// Helper: Convert PAL_Color to DS RGB555
+static inline u16 PAL_ColorToRGB555(PAL_Color color) {
+    u16 r = (color.r >> 3) & 0x1F;
+    u16 g = (color.g >> 3) & 0x1F;
+    u16 b = (color.b >> 3) & 0x1F;
+    u16 a = color.a < 128 ? 1 : 0;
+    return r | (g << 5) | (b << 10) | (a << 15);
+}
+
 /**
  * Initialize the graphics system
  * @param window_width Total window width

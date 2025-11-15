@@ -11,17 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Color palette entry (RGBA)
-typedef struct {
-    u8 r, g, b, a;
-} PAL_Color;
-
-// Palette structure (for DS-style indexed color)
-typedef struct {
-    PAL_Color colors[256];
-    int num_colors;
-} PAL_Palette;
-
 // Internal structure for SDL surface
 struct PAL_Surface {
     SDL_Texture* texture;
@@ -38,25 +27,6 @@ static struct {
     PAL_Palette default_palette;
     BOOL initialized;
 } g_graphics;
-
-// Helper: Convert DS 555 RGB color to RGBA8888
-static inline PAL_Color PAL_ColorFromRGB555(u16 rgb555) {
-    PAL_Color color;
-    color.r = ((rgb555 & 0x001F) >> 0) << 3;  // Red: bits 0-4
-    color.g = ((rgb555 & 0x03E0) >> 5) << 3;  // Green: bits 5-9
-    color.b = ((rgb555 & 0x7C00) >> 10) << 3; // Blue: bits 10-14
-    color.a = (rgb555 & 0x8000) ? 0 : 255;    // Transparency: bit 15
-    return color;
-}
-
-// Helper: Convert RGBA to RGB555
-static inline u16 PAL_ColorToRGB555(PAL_Color color) {
-    u16 r = (color.r >> 3) & 0x1F;
-    u16 g = (color.g >> 3) & 0x1F;
-    u16 b = (color.b >> 3) & 0x1F;
-    u16 a = color.a < 128 ? 1 : 0;
-    return r | (g << 5) | (b << 10) | (a << 15);
-}
 
 BOOL PAL_Graphics_Init(int window_width, int window_height) {
     if (g_graphics.initialized) {
