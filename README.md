@@ -1,58 +1,66 @@
-# Pokémon Platinum
+# Pokémon Platinum SDL3 Port
 
-This is a WIP decompilation of Pokémon Platinum with an ongoing effort to make it **portable to modern platforms** using SDL3. The project aims to preserve the original game's functionality while enabling it to run on Windows, macOS, Linux, iOS, and Android.
+This is an **SDL3 port** of the Pokémon Platinum decompilation, making the game **portable to modern platforms**. This fork focuses exclusively on SDL3 portability and does not maintain the original Nintendo DS build.
+
+**Note:** This is a port fork. For the original decompilation project with DS build support, see the [upstream pret repository](https://github.com/pret/pokeplatinum).
 
 ## Project Goals
 
-1. **Byte-perfect decompilation** - Maintain ROM matching for the original Nintendo DS version
-2. **Cross-platform portability** - Port to modern platforms via SDL3 abstraction layer
-3. **Clean architecture** - Separate platform-specific code from game logic
+1. **Cross-platform portability** - Run on Windows, macOS, Linux, iOS, and Android using SDL3
+2. **Clean, maintainable code** - Direct SDL3 implementation without conditional compilation complexity
+3. **Preserve game functionality** - Maintain original gameplay while modernizing the platform layer
 
 For the comprehensive SDL3 porting roadmap, see [`PORTING_PLAN.md`](PORTING_PLAN.md).
 
-For instructions on how to set up the repository, please read [`INSTALL.md`](INSTALL.md).
+## Build & Run
 
-If you are interested in contributing, please read [`CONTRIBUTING.md`](/CONTRIBUTING.md).
-
-## Build Targets
-
-### Nintendo DS (Original Platform)
-
-This repository builds the following ROMs:
-
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=4997) (Rev 1): `sha1: 0862ec35b24de5c7e2dcb88c9eea0873110d755c`
-* [**pokeplatinum.us.nds**](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=3541) (Rev 0): `sha1: ce81046eda7d232513069519cb2085349896dec7`
-
-### SDL3 Port (Modern Platforms)
-
-The SDL3 port is currently under development. **Phase 1 (Foundation & Build System) is complete!** ✅
-
-See [`QUICKSTART_SDL.md`](QUICKSTART_SDL.md) for build instructions and [`PORTING_PLAN.md`](PORTING_PLAN.md) for the full roadmap.
+### SDL3 Port (This Repository)
 
 **Current Status:**
-- ✅ Platform abstraction layer (PAL) established
-- ✅ CMake build system with dual-target support
-- ✅ Working test application with input and graphics initialization
-- 🚧 Graphics rendering (Phase 2 - in progress)
-- 🚧 Audio system (Phase 4)
-- 🚧 Game logic integration
+- ✅ Phase 1: Foundation & Build System complete
+- ✅ Phase 2: Display System complete (graphics primitives, backgrounds, sprites)
+- ✅ Phase 3: Input System complete (keyboard, mouse, gamepad with hot-plug)
+- 🚧 Phase 3.4: Game Integration (graphics loading - in progress)
+- 📋 Phase 4: Audio System (planned)
+- 📋 Phase 5: File System (planned)
 
-**Target platforms:**
-- Windows
-- macOS ✅ (tested)
-- Linux
-- iOS (future)
-- Android (future)
+See [`QUICKSTART_SDL.md`](QUICKSTART_SDL.md) for detailed build instructions and [`PORTING_PLAN.md`](PORTING_PLAN.md) for the full roadmap.
+
+**Target Platforms:**
+- ✅ macOS (tested - Apple Silicon and Intel)
+- 🚧 Windows (planned)
+- 🚧 Linux (planned)
+- 📋 iOS (future)
+- 📋 Android (future)
 
 **Quick Start:**
 ```bash
-# Install dependencies
-brew install cmake sdl3  # macOS
+# Install dependencies (macOS)
+brew install cmake sdl3
+
+# Or on Linux
+sudo apt install cmake libsdl3-dev  # Ubuntu/Debian
+sudo dnf install cmake SDL3-devel   # Fedora
 
 # Build and run
 ./build_sdl.sh
 ./build-sdl/pokeplatinum_sdl
 ```
+
+## Documentation
+
+- **[QUICKSTART_SDL.md](QUICKSTART_SDL.md)** - Build instructions and quick start guide
+- **[PORTING_PLAN.md](PORTING_PLAN.md)** - Comprehensive porting strategy and roadmap
+- **[PAL.md](PAL.md)** - Platform Abstraction Layer documentation
+- **[PHASE*_SUMMARY.md](.)** - Phase completion summaries with implementation details
+
+## Original Nintendo DS Build
+
+This fork does not support building the original Nintendo DS ROM. For DS build support, see the [upstream pret/pokeplatinum repository](https://github.com/pret/pokeplatinum).
+
+The original DS build produced these ROMs:
+* **pokeplatinum.us.nds** (Rev 1): `sha1: 0862ec35b24de5c7e2dcb88c9eea0873110d755c`
+* **pokeplatinum.us.nds** (Rev 0): `sha1: ce81046eda7d232513069519cb2085349896dec7`
 
 ## Community
 

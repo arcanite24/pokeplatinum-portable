@@ -2,7 +2,9 @@
 
 ## Executive Summary
 
-This document outlines a comprehensive plan to port the Pokémon Platinum decompilation project from Nintendo DS-specific hardware to a cross-platform architecture using SDL3. The goal is to create a portable, maintainable codebase that can run on modern platforms (Windows, macOS, Linux, iOS, Android) while preserving the original game's functionality and feel.
+This document outlines a comprehensive plan to port the Pokémon Platinum decompilation project from Nintendo DS-specific hardware to modern platforms using SDL3. The goal is to create a clean, maintainable SDL3 codebase that runs on Windows, macOS, Linux, iOS, and Android while preserving the original game's functionality and feel.
+
+**Strategic Approach:** This is an **SDL3-only port**. We directly replace DS-specific code with SDL3 implementations rather than maintaining dual compilation paths. This results in cleaner, more maintainable code without conditional compilation complexity.
 
 ## Table of Contents
 
@@ -91,11 +93,11 @@ The project is a **WIP decompilation** of Pokémon Platinum for Nintendo DS, wri
 
 ### Key Design Principles
 
-1. **Minimal Game Logic Changes:** Preserve original code structure where possible
-2. **Clean Abstraction:** Create well-defined interfaces between layers
-3. **Optional Native Features:** Allow platform-specific optimizations
-4. **Backward Compatibility:** Maintain ability to build original DS version
-5. **Incremental Migration:** Port subsystems independently
+1. **Direct Replacement:** Replace DS-specific code with SDL3 implementations directly, no conditional compilation
+2. **Clean Architecture:** Separate platform-specific code (PAL) from game logic
+3. **Minimal Game Logic Changes:** Preserve original game structure and behavior where possible
+4. **Native SDL3 Features:** Leverage SDL3 capabilities for better performance and maintainability
+5. **Incremental Migration:** Port subsystems independently for steady progress
 
 ---
 
@@ -116,26 +118,31 @@ The project is a **WIP decompilation** of Pokémon Platinum for Nintendo DS, wri
 
 #### 1.1 Build System Migration ✅ COMPLETED
 ```bash
-# Create new CMake or Meson configuration
-- Dual-target support (DS original + SDL port)
-- Conditional compilation flags
-- Cross-platform toolchain files
+# Create CMake build system for SDL3
+- SDL3 target only (no DS build support)
+- Cross-platform support (Windows, macOS, Linux)
+- Find SDL3 package and link
 ```
 
-**Files to Create:**
-- `CMakeLists.txt` or `meson_sdl.build`
-- `include/platform/platform_config.h`
-- `include/platform/platform_types.h`
+**Files Created:**
+- `CMakeLists.txt` - SDL3 build configuration
+- `build_sdl.sh` - Automated build script
+- `include/platform/platform_config.h` - Platform detection
+- `include/platform/platform_types.h` - Type definitions (u8, u16, BOOL, etc.)
 
 **Example:**
 ```c
-// platform_config.h
-#ifdef TARGET_NDS
-    #define PLATFORM_DS
-    #include <nitro.h>
-#else
-    #define PLATFORM_SDL
-    #include <SDL3/SDL.h>
+// platform_config.h - SDL3-only
+#ifndef PLATFORM_CONFIG_H
+#define PLATFORM_CONFIG_H
+
+#include <SDL3/SDL.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+// Platform is always SDL3
+#define PLATFORM_SDL
+
 #endif
 ```
 
@@ -250,9 +257,9 @@ Bg_InitFromTemplate()
 Bg_ScheduleTilemapTransfer()
 ```
 
-**PAL Wrapper:**
+**SDL3 Implementation:**
 ```c
-// pal_background.c
+// pal_background.c - Direct SDL3 implementation
 typedef struct PAL_BgConfig {
     PAL_Surface* surfaces[8]; // 4 per screen
     void* tilemap_data[8];
@@ -260,15 +267,14 @@ typedef struct PAL_BgConfig {
     int priority[8];
 } PAL_BgConfig;
 
-PAL_BgConfig* PAL_Bg_Create(void) {
-    #ifdef PLATFORM_DS
-        return BgConfig_New();
-    #else
-        // SDL implementation
-        PAL_BgConfig* cfg = malloc(sizeof(PAL_BgConfig));
-        // Initialize surfaces
-        return cfg;
-    #endif
+PAL_BgConfig* PAL_Bg_CreateConfig(u32 heapID) {
+    // SDL implementation - no DS code
+    PAL_BgConfig* cfg = PAL_Malloc(sizeof(PAL_BgConfig), heapID);
+    if (!cfg) return NULL;
+    
+    // Initialize surfaces
+    memset(cfg, 0, sizeof(PAL_BgConfig));
+    return cfg;
 }
 ```
 
