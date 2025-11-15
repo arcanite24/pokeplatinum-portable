@@ -7,6 +7,7 @@
 #endif
 #include <string.h>
 
+#include "global/assert.h"
 #include "constants/pokemon.h"
 #include "constants/species.h"
 #include "generated/genders.h"

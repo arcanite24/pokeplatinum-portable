@@ -1,7 +1,12 @@
 #ifndef POKEPLATINUM_TOUCH_PAD_H
 #define POKEPLATINUM_TOUCH_PAD_H
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#include "nns_types.h"
+#endif
 
 typedef struct TouchPadDataBuffer {
     u16 bufferSize;

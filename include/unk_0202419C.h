@@ -4,16 +4,12 @@
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #else
-// SDL stub - define GX types
+#include "nns_types.h"
+// Additional GX types not in nns_types.h
 typedef enum {
     GX_SORTMODE_AUTO,
     GX_SORTMODE_MANUAL
 } GXSortMode;
-
-typedef enum {
-    GX_BUFFERMODE_W,
-    GX_BUFFERMODE_Z
-} GXBufferMode;
 #endif
 
 void sub_0202419C(void);

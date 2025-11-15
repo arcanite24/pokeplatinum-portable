@@ -28,6 +28,10 @@
 #include "overlay_manager.h"
 #include "play_time_manager.h"
 #include "rtc.h"
+
+// Global game language (stub for SDL - defaults to English)
+// Real DS version loaded from save data
+u32 gGameLanguage = 2; // LANGUAGE_ENGLISH
 #include "savedata.h"
 #include "save_player.h"
 #include "unk_0202CC64.h"

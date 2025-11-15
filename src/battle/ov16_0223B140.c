@@ -1,12 +1,13 @@
 #include "battle/ov16_0223B140.h"
 
-#include <dwc.h>
 #ifdef PLATFORM_DS
+#include <dwc.h>
 #include <nitro.h>
+#include <nitro/sinit.h>
 #else
 #include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
-#include <nitro/sinit.h>
 #include <string.h>
 
 #include "constants/battle.h"

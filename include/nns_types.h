@@ -21,7 +21,12 @@
  * NNSG2d Image/Sprite Types
  * ======================================================================== */
 
-typedef struct { void* data; } NNSG2dImageProxy;
+typedef struct {
+    void* data;
+    struct {
+        u32 baseAddrOfVram[4];  // VRAM addresses for each screen type
+    } vramLocation;
+} NNSG2dImageProxy;
 typedef struct { void* data; } NNSG2dImagePaletteProxy;
 typedef struct { void* data; } NNSG2dCharacterData;
 typedef struct { void* data; } NNSG2dPaletteData;
@@ -61,6 +66,14 @@ enum NNS_G2D_VRAM_TYPE {
     NNS_G2D_VRAM_TYPE_MAX = 2
 };
 typedef enum NNS_G2D_VRAM_TYPE NNS_G2D_VRAM_TYPE;
+
+/* NNSG2d Screen/Tilemap Data */
+typedef struct {
+    u16* screenData;
+    u32 screenSize;
+    u16 screenWidth;
+    u16 screenHeight;
+} NNSG2dScreenData;
 
 /* ========================================================================
  * NNSG3d Model/Resource Types
@@ -127,6 +140,66 @@ typedef enum {
     GX_OBJVRAMMODE_CHAR_1D_128K = 3,
     GX_OBJVRAMMODE_CHAR_1D_256K = 4
 } GXOBJVRamModeChar;
+
+/* ========================================================================
+ * Sound System Types
+ * ======================================================================== */
+
+typedef enum {
+    NNS_SND_WAVE_FORMAT_PCM8 = 0,
+    NNS_SND_WAVE_FORMAT_PCM16 = 1,
+    NNS_SND_WAVE_FORMAT_ADPCM = 2
+} NNSSndWaveFormat;
+
+/* ========================================================================
+ * Microphone (MIC) Types
+ * ======================================================================== */
+
+typedef enum {
+    MIC_RESULT_SUCCESS = 0,
+    MIC_RESULT_BUSY = 1,
+    MIC_RESULT_ILLEGAL_STATUS = 2,
+    MIC_RESULT_SEND_ERROR = 3,
+    MIC_RESULT_INVALID_PARAM = 4,
+    MIC_RESULT_ILLEGAL_PARAMETER = 5
+} MICResult;
+
+typedef struct {
+    void* buffer;
+    u32 size;
+    u32 rate;
+    BOOL loop_enable;
+} MICAutoParam;
+
+typedef enum {
+    MIC_SAMPLING_TYPE_8BIT = 0,
+    MIC_SAMPLING_TYPE_12BIT = 1,
+    MIC_SAMPLING_TYPE_SIGNED_8BIT = 2,
+    MIC_SAMPLING_TYPE_SIGNED_12BIT = 3
+} MICSamplingType;
+
+typedef void (*MICCallback)(MICResult result, void* arg);
+
+/* ========================================================================
+ * Input System Types (PAD)
+ * ======================================================================== */
+
+typedef enum {
+    PAD_BUTTON_A      = 0x0001,
+    PAD_BUTTON_B      = 0x0002,
+    PAD_BUTTON_SELECT = 0x0004,
+    PAD_BUTTON_START  = 0x0008,
+    PAD_BUTTON_RIGHT  = 0x0010,
+    PAD_BUTTON_LEFT   = 0x0020,
+    PAD_BUTTON_UP     = 0x0040,
+    PAD_BUTTON_DOWN   = 0x0080,
+    PAD_BUTTON_R      = 0x0100,
+    PAD_BUTTON_L      = 0x0200,
+    PAD_BUTTON_X      = 0x0400,
+    PAD_BUTTON_Y      = 0x0800
+} PADButton;
+
+#define PAD_BUTTON_START 0x0008
 
 #endif /* !PLATFORM_DS */
 

@@ -5,10 +5,8 @@
 #include <nitro/gx.h>
 #else
 #include "platform/platform_types.h"
-/* GX types from enums.h already define blend/window masks */
-typedef u16 GXRgb;
-typedef struct { u8 r, g, b, a; } GXRgba;
-typedef struct { void* data; } GXOamAttr;
+#include "nns_types.h"
+/* GX types already defined in nns_types.h */
 #endif
 
 #include "struct_decls/font_oam.h"
