@@ -11,6 +11,15 @@
 #include "math_util.h"
 #include "sys_task_manager.h"
 
+#ifdef PLATFORM_SDL
+#include "platform/pal_input.h"
+#include "platform/pal_graphics.h"
+#include "platform/pal_background.h"
+#include "platform/pal_sprite.h"
+#include <stdio.h>
+#include <stdlib.h>
+#endif
+
 #define MAIN_TASK_MAX        160
 #define VBLANK_TASK_MAX      32
 #define POST_VBLANK_TASK_MAX 32
@@ -138,6 +147,7 @@ static void InitHeapSystem(void)
 
 void InitSystem(void)
 {
+#ifdef PLATFORM_DS
     OS_Init();
     FX_Init();
     GX_SetPower(GX_POWER_ALL);
@@ -153,6 +163,21 @@ void InitSystem(void)
     GX_DispOff();
     GXS_DispOff();
     GX_SetDispSelect(GX_DISP_SELECT_MAIN_SUB);
+#else
+    // SDL3 implementation - initialize PAL graphics system
+    InitHeapSystem();
+    
+    if (!PAL_Graphics_Init()) {
+        fprintf(stderr, "Failed to initialize PAL graphics system\n");
+        exit(1);
+    }
+    
+    // Initialize task managers (but with standard malloc for SDL)
+    gSystem.mainTaskMgr = SysTaskManager_Init(MAIN_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(MAIN_TASK_MAX)));
+    gSystem.vBlankTaskMgr = SysTaskManager_Init(VBLANK_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(VBLANK_TASK_MAX)));
+    gSystem.postVBlankTaskMgr = SysTaskManager_Init(POST_VBLANK_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(POST_VBLANK_TASK_MAX)));
+    gSystem.printTaskMgr = SysTaskManager_Init(PRINT_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(PRINT_TASK_MAX)));
+#endif
     OS_SetIrqFunction(OS_IE_V_BLANK, VBlankIntr);
 
     OS_EnableIrqMask(OS_IE_V_BLANK);
@@ -294,6 +319,7 @@ void SleepUnlock(u8 mask)
 
 void ReadKeypadAndTouchpad(void)
 {
+#ifdef PLATFORM_DS
     TPData tpRaw;
     TPData tp;
     u32 padRead;
@@ -338,7 +364,51 @@ void ReadKeypadAndTouchpad(void)
     }
 
     TP_GetCalibratedPoint(&tp, &tpRaw);
-
+#else
+    // SDL3 implementation using PAL
+    PAL_Input_Update();
+    
+    u32 heldKeys = PAL_Input_GetHeld();
+    u32 pressedKeys = PAL_Input_GetPressed();
+    
+    // Update raw key state
+    gSystem.heldKeysRaw = heldKeys;
+    gSystem.pressedKeysRaw = pressedKeys;
+    gSystem.pressedKeysRepeatableRaw = pressedKeys;
+    
+    // Handle key repeat (autorepeat)
+    if (heldKeys != 0 && gSystem.heldKeys == heldKeys) {
+        if (--gSystem.autorepeatTimer == 0) {
+            gSystem.pressedKeysRepeatableRaw = heldKeys;
+            gSystem.autorepeatTimer = gSystem.autorepeatRate;
+        }
+    } else {
+        gSystem.autorepeatTimer = gSystem.autorepeatDelay;
+    }
+    
+    // Update processed key state
+    gSystem.pressedKeys = gSystem.pressedKeysRaw;
+    gSystem.heldKeys = gSystem.heldKeysRaw;
+    gSystem.pressedKeysRepeatable = gSystem.pressedKeysRepeatableRaw;
+    
+    ApplyButtonModeToInput();
+    
+    // Update touch state
+    PAL_TouchState touch = PAL_Input_GetTouch();
+    
+    if (touch.pressed || touch.held) {
+        gSystem.touchX = touch.x;
+        gSystem.touchY = touch.y;
+    }
+    
+    gSystem.touchPressed = touch.pressed ? 1 : 0;
+    gSystem.touchHeld = touch.held ? 1 : 0;
+    
+    return;
+#endif
+    
+#ifdef PLATFORM_DS
+    // DS-only touch handling continuation
     if (tp.validity == TP_VALIDITY_VALID) {
         gSystem.touchX = tp.x;
         gSystem.touchY = tp.y;
@@ -363,6 +433,7 @@ void ReadKeypadAndTouchpad(void)
 
     gSystem.touchPressed = (u16)(tp.touch & (tp.touch ^ gSystem.touchHeld));
     gSystem.touchHeld = tp.touch;
+#endif
 }
 
 #define CONVERT_KEY(member, convertFrom, convertTo) \

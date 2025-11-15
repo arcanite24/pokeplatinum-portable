@@ -377,26 +377,32 @@ void PAL_3D_SetLight(int light_id, const PAL_3D_Light* light);
 
 ---
 
-### Phase 3: Input System (Weeks 9-11) ✅ COMPLETE
+### Phase 3: Input System & Game Integration (Weeks 9-12) 🚧 IN PROGRESS
 
-**Status:** ✅ **COMPLETE** - Full gamepad support with auto-detection, hot-plug, and touch cursor mode
+**Status:** 🚧 **PARTIAL** - Input complete, game integration in progress
 
 **Achievement Summary:**
 - ✅ Phase 3.1: Input mapping design complete
 - ✅ Phase 3.2: Full SDL_Gamepad implementation with auto-detection
 - ✅ Phase 3.3: Touch cursor mode using right analog stick
-- ✅ Phase 3.4: Hot-plug support for controller connect/disconnect
+- 🚧 Phase 3.4: Game integration & rendering (IN PROGRESS)
+  - Core system integration planned
+  - Graphics resource loading designed
+  - Title screen porting in progress
+  - Asset conversion pipeline designed
 - ✅ Multi-gamepad support (up to 4 controllers)
 - ✅ Left stick → D-Pad mapping with deadzone
 - ✅ Right stick → Touch cursor with L2/R2 triggers
 - Performance: Negligible CPU impact (<0.1% frame time)
 
-**Completion Date:** November 14, 2025
+**Completion Date (Phases 3.1-3.3):** November 14, 2025
 
 **Goals:**
 - ✅ Map DS controls to modern input devices
 - ✅ Implement touch screen emulation
 - ✅ Support gamepads with hot-plug
+- 🚧 Integrate PAL with actual game code
+- 🚧 Render title screen with real assets
 
 #### 3.1 Input Mapping Design ✅ COMPLETED
 
@@ -513,9 +519,30 @@ void PAL_Touch_Update(void) {
 }
 ```
 
-#### 3.4 System Integration
+#### 3.4 Game Integration & Rendering (Weeks 11-12)
 
-**Replace in existing code:**
+**Status:** 🚧 **PLANNED** - Integrate PAL with actual game code
+
+**Goals:**
+- ✅ Integrate PAL with core system code
+- 🚧 Port Title Screen rendering
+- 🚧 Implement graphics resource loading
+- 🚧 Get actual game graphics rendering via PAL
+
+**Deliverable:** Title screen or simple game screen rendering with real assets
+
+##### 3.4.1 Core System Integration
+
+**Priority: HIGH** - Foundation for all game code
+
+**Files to Modify:**
+1. `src/system.c` - System initialization and main loop
+2. `src/main.c` - Entry point integration
+3. `src/graphics.c` - Graphics resource loading
+
+**Tasks:**
+
+**A. Input System Integration**
 ```c
 // src/system.c - ReadKeypadAndTouchpad()
 
@@ -524,7 +551,7 @@ void ReadKeypadAndTouchpad(void) {
         TPData tpRaw;
         TPData tp;
         u32 padRead = PAD_Read();
-        // ... original code ...
+        // ... original DS code ...
     #else
         PAL_Input_Update();
         gSystem.heldKeysRaw = PAL_Input_GetHeld();
@@ -539,6 +566,344 @@ void ReadKeypadAndTouchpad(void) {
     #endif
 }
 ```
+
+**B. Graphics Initialization**
+```c
+// src/system.c - System_Init()
+
+void System_Init(void) {
+    #ifdef PLATFORM_DS
+        GX_Init();
+        GX_DispOff();
+        GXS_DispOff();
+        // ... original DS graphics init ...
+    #else
+        PAL_Graphics_Init();
+        PAL_Bg_CreateConfig(HEAP_ID_SYSTEM);
+        PAL_Sprite_CreateManager(256, HEAP_ID_SYSTEM);
+    #endif
+    
+    // Common initialization
+    Heap_Init();
+    // ...
+}
+```
+
+**C. Main Loop Integration**
+```c
+// src/main.c - Main loop frame rendering
+
+void MainLoop(void) {
+    while (running) {
+        #ifndef PLATFORM_DS
+            PAL_Input_Update();
+            PAL_Graphics_BeginFrame();
+        #endif
+        
+        // Game logic
+        ApplicationManager_Main(&appManager);
+        
+        #ifdef PLATFORM_DS
+            OS_WaitIrq(TRUE, OS_IE_V_BLANK);
+        #else
+            PAL_Bg_RenderAll();
+            PAL_Sprite_RenderAll();
+            PAL_Graphics_EndFrame();
+        #endif
+    }
+}
+```
+
+##### 3.4.2 Graphics Resource Loading
+
+**Priority: HIGH** - Required to load game assets
+
+**Files to Modify:**
+1. `src/graphics.c` - Graphics loading functions
+2. `include/graphics.h` - Graphics API
+
+**Tasks:**
+
+**A. NARC Graphics Loading**
+```c
+// src/graphics.c - Graphics_LoadTilesToBgLayer()
+
+void Graphics_LoadTilesToBgLayer(
+    u32 narcID, 
+    u32 memberIdx, 
+    BgConfig *bgConfig, 
+    enum BgLayer layer,
+    u32 offset, 
+    u32 size, 
+    BOOL compressed,
+    enum HeapID heapID)
+{
+    #ifdef PLATFORM_DS
+        NARC *narc = NARC_ctor(narcID, heapID);
+        void *tileData = NARC_AllocAndReadWholeMember(narc, memberIdx, heapID);
+        // ... original DS code ...
+        NARC_dtor(narc);
+    #else
+        // SDL implementation using PAL
+        char path[256];
+        snprintf(path, sizeof(path), "resources/graphics/narc_%03d/%04d.bin", narcID, memberIdx);
+        
+        PAL_File file = PAL_File_Open(path, "rb");
+        if (!file) {
+            fprintf(stderr, "Failed to load graphics: %s\n", path);
+            return;
+        }
+        
+        size_t fileSize = PAL_File_Size(file);
+        void *tileData = Heap_Alloc(heapID, fileSize);
+        PAL_File_Read(tileData, 1, fileSize, file);
+        PAL_File_Close(file);
+        
+        // Load to PAL background system
+        PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
+        PAL_Bg_LoadTiles(palBgConfig, layer, tileData, fileSize, offset);
+        
+        Heap_Free(tileData);
+    #endif
+}
+```
+
+**B. Sprite Graphics Loading**
+```c
+// src/graphics.c - Graphics_LoadSpriteFromNARC()
+
+NNSG2dImageProxy* Graphics_LoadSpriteFromNARC(
+    u32 narcID,
+    u32 memberIdx,
+    enum HeapID heapID,
+    NNSG2dImageProxy *imageProxy)
+{
+    #ifdef PLATFORM_DS
+        // Original DS code
+        NARC *narc = NARC_ctor(narcID, heapID);
+        // ... load sprite data ...
+        NARC_dtor(narc);
+    #else
+        // SDL implementation
+        char path[256];
+        snprintf(path, sizeof(path), "resources/graphics/narc_%03d/%04d.ncgr", narcID, memberIdx);
+        
+        // Parse NCGR format and convert to PAL sprite format
+        // (This will require NCGR parser - see Task 3.4.3)
+        
+        // For now, load raw tile data
+        PAL_File file = PAL_File_Open(path, "rb");
+        // ... load and convert sprite graphics ...
+        PAL_File_Close(file);
+    #endif
+    
+    return imageProxy;
+}
+```
+
+##### 3.4.3 Title Screen Integration (Test Case)
+
+**Priority: MEDIUM** - Proves end-to-end rendering works
+
+**Files to Modify:**
+1. `src/applications/title_screen.c` - Title screen application
+
+**Tasks:**
+
+**A. Port Title Screen Initialization**
+```c
+// src/applications/title_screen.c - TitleScreen_Init()
+
+static BOOL TitleScreen_Init(ApplicationManager *appMan, int *pState) {
+    TitleScreen *titleScreen = ApplicationManager_NewData(appMan, sizeof(TitleScreen), heapID);
+    
+    #ifdef PLATFORM_DS
+        // Original DS background setup
+        titleScreen->bgConfig = BgConfig_New(heapID);
+        Bg_InitFromTemplate(titleScreen->bgConfig, TITLE_SCREEN_LAYER_GIRATINA, &bgTemplate, 0);
+        // ... more DS setup ...
+    #else
+        // SDL PAL setup
+        titleScreen->bgConfig = PAL_Bg_CreateConfig(heapID);
+        
+        PAL_BgTemplate palTemplate = {
+            .screen = PAL_SCREEN_MAIN,
+            .layer = 0,
+            .type = PAL_BG_TYPE_TEXT,
+            .color_mode = PAL_BG_COLOR_4BPP,
+            .screen_size = PAL_BG_SCREEN_SIZE_256x256,
+            .priority = 3
+        };
+        
+        PAL_Bg_InitFromTemplate(titleScreen->bgConfig, 0, &palTemplate, PAL_BG_TYPE_TEXT);
+    #endif
+    
+    return TRUE;
+}
+```
+
+**B. Port Title Screen Rendering**
+```c
+// src/applications/title_screen.c - TitleScreen_RenderMain()
+
+static BOOL TitleScreen_RenderMain(TitleScreen *titleScreen, BgConfig *bgConfig, enum HeapID heapID) {
+    #ifdef PLATFORM_DS
+        // Original DS rendering using BG layers
+        Graphics_LoadTilesToBgLayer(
+            NARC_INDEX_DEMO__TITLE__TITLEDEMO, 
+            top_screen_border_NCGR, 
+            bgConfig, 
+            TITLE_SCREEN_LAYER_LOGO_BG, 
+            0, 0, FALSE, heapID);
+        
+        Graphics_LoadPaletteToBgLayer(
+            NARC_INDEX_DEMO__TITLE__TITLEDEMO,
+            top_screen_border_NCLR,
+            bgConfig,
+            TITLE_SCREEN_LAYER_LOGO_BG,
+            0, 0, heapID);
+    #else
+        // SDL rendering using PAL
+        PAL_BgConfig *palBgConfig = (PAL_BgConfig*)bgConfig;
+        
+        // Load tiles
+        char tilePath[256];
+        snprintf(tilePath, sizeof(tilePath), 
+                 "resources/graphics/title_screen/top_border.bin");
+        
+        // Load palette
+        char palettePath[256];
+        snprintf(palettePath, sizeof(palettePath),
+                 "resources/graphics/title_screen/top_border.pal");
+        
+        // Load to PAL background
+        // ... implementation using PAL_Bg_LoadTiles() and PAL_Bg_LoadPalette()
+    #endif
+    
+    return TRUE;
+}
+```
+
+**C. Port Title Screen Input Handling**
+```c
+// src/applications/title_screen.c - TitleScreen_Main()
+
+static BOOL TitleScreen_Main(ApplicationManager *appMan, int *pState) {
+    TitleScreen *titleScreen = ApplicationManager_Data(appMan);
+    
+    // Input handling works with PAL automatically!
+    if (gSystem.newKeys & PAD_BUTTON_START) {
+        // Start button pressed - proceed to main menu
+        *pState = TITLE_SCREEN_APP_STATE_EXIT_NORMAL;
+    }
+    
+    if (titleScreen->idleTimer++ > TITLE_SCREEN_REPLAY_OPENING_FRAMES) {
+        // Replay opening after idle
+        *pState = TITLE_SCREEN_APP_STATE_EXIT_REPLAY_OPENING;
+    }
+    
+    return FALSE; // Continue running
+}
+```
+
+##### 3.4.4 Asset Conversion Pipeline
+
+**Priority: HIGH** - Required to use actual game assets
+
+**New Tools to Create:**
+1. `tools/narc_to_sdl.py` - Extract NARC archives to filesystem
+2. `tools/ncgr_converter.py` - Convert NCGR graphics to raw tiles
+3. `tools/nclr_converter.py` - Convert NCLR palettes to PAL format
+
+**NARC Extraction:**
+```bash
+# tools/narc_to_sdl.py
+#!/usr/bin/env python3
+import sys
+import ndspy.rom
+import ndspy.narc
+
+def extract_narc(rom_path, narc_id, output_dir):
+    """Extract NARC archive from DS ROM"""
+    rom = ndspy.rom.NintendoDSRom.fromFile(rom_path)
+    
+    # Get NARC by ID (mapping needed)
+    narc_file = rom.files[narc_id]  # Simplified - needs proper mapping
+    narc = ndspy.narc.NARC(narc_file)
+    
+    # Extract all members
+    for i, member in enumerate(narc.files):
+        output_path = f"{output_dir}/{i:04d}.bin"
+        with open(output_path, 'wb') as f:
+            f.write(member)
+    
+    print(f"Extracted {len(narc.files)} files from NARC {narc_id}")
+
+if __name__ == "__main__":
+    extract_narc("platinum.us.nds", int(sys.argv[1]), sys.argv[2])
+```
+
+**NCGR Converter:**
+```python
+# tools/ncgr_converter.py
+#!/usr/bin/env python3
+import ndspy.ncgr
+
+def convert_ncgr_to_raw(ncgr_path, output_path):
+    """Convert NCGR to raw tile data"""
+    with open(ncgr_path, 'rb') as f:
+        ncgr = ndspy.ncgr.NCGR(f.read())
+    
+    # Extract tile data (4bpp or 8bpp)
+    tile_data = ncgr.tileData
+    
+    with open(output_path, 'wb') as f:
+        f.write(tile_data)
+    
+    print(f"Converted {ncgr_path} -> {output_path} ({len(tile_data)} bytes)")
+```
+
+##### 3.4.5 Testing & Validation
+
+**Deliverables:**
+- ✅ Title screen renders with PAL
+- ✅ Background graphics load correctly
+- ✅ Palette loading works
+- ✅ Input responds to keyboard/gamepad
+- ✅ No crashes or memory leaks
+
+**Test Checklist:**
+- [ ] Extract title screen NARC assets
+- [ ] Convert NCGR/NCLR to PAL formats
+- [ ] Build SDL version with title_screen.c integration
+- [ ] Run and verify title screen displays
+- [ ] Test Start button advances to next screen
+- [ ] Profile memory usage (no leaks)
+- [ ] Verify 60 FPS maintained
+
+**Success Criteria:**
+- Title screen displays with correct graphics
+- User can press Start to continue
+- All PAL subsystems working together
+- Foundation ready for more complex screens
+
+---
+
+### Phase 3.5: Additional Game Screens (Weeks 13-14) - OPTIONAL
+
+**Goals:**
+- Port additional simple screens
+- Validate PAL with different rendering scenarios
+- Build confidence in abstraction layer
+
+**Candidate Screens:**
+1. **Main Menu** (`src/applications/main_menu.c`) - Simple text menu
+2. **Options Menu** (`src/applications/options_menu.c`) - Settings UI
+3. **Save/Load Screen** - File operations test
+4. **Pokédex** - Sprite + background combination
+
+**Why Optional:**
+This phase can be skipped to proceed directly to Phase 4 (Audio) once title screen is working. However, porting additional screens helps validate the PAL and uncover edge cases before moving to more complex systems.
 
 ---
 

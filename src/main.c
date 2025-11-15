@@ -28,6 +28,12 @@
 #include "unk_0202CC64.h"
 #include "unk_020366A0.h"
 #include "unk_02038FFC.h"
+
+#ifdef PLATFORM_SDL
+#include "platform/pal_graphics.h"
+#include "platform/pal_background.h"
+#include "platform/pal_sprite.h"
+#endif
 #include "unk_02039814.h"
 #include "unk_02039A64.h"
 #include "unk_0209A74C.h"
@@ -128,12 +134,28 @@ void NitroMain(void)
 
         if (CommSys_Update()) {
             CheckHeapCanary();
+            
+#ifdef PLATFORM_SDL
+            // Begin frame rendering
+            PAL_Graphics_BeginFrame();
+#endif
+            
             RunApplication();
             SysTaskManager_ExecuteTasks(gSystem.mainTaskMgr);
             SysTaskManager_ExecuteTasks(gSystem.printTaskMgr);
 
+#ifdef PLATFORM_SDL
+            // Render all PAL subsystems
+            // Note: Background and sprite managers need to be stored in gSystem for access here
+            // For now, we'll just end the frame - actual rendering will be added when
+            // background and sprite managers are properly initialized
+            PAL_Graphics_EndFrame();
+#endif
+
             if (!gSystem.frameCounter) {
+#ifdef PLATFORM_DS
                 OS_WaitIrq(TRUE, OS_IE_V_BLANK);
+#endif
                 gSystem.vblankCounter++;
             }
         }
