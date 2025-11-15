@@ -1,6 +1,10 @@
 #include "map_object_move.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "generated/movement_types.h"

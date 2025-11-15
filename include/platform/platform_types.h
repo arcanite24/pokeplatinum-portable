@@ -62,6 +62,32 @@
         fx32 _20, _21, _22;
     } MtxFx33;
     
+    typedef struct MtxFx22 {
+        fx32 _00, _01;
+        fx32 _10, _11;
+    } MtxFx22;
+    
+    // NitroSDK memory copy functions (SDL stubs)
+    #include <string.h>
+    static inline void MI_CpuClear8(void* dest, u32 size) {
+        memset(dest, 0, size);
+    }
+    static inline void MI_CpuClear16(void* dest, u32 size) {
+        memset(dest, 0, size);
+    }
+    static inline void MI_CpuClear32(void* dest, u32 size) {
+        memset(dest, 0, size);
+    }
+    static inline void MI_CpuCopy8(const void* src, void* dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+    static inline void MI_CpuCopy16(const void* src, void* dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+    static inline void MI_CpuCopy32(const void* src, void* dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+    
 #else
     // DS platform uses NitroSDK types (already defined in <nitro.h>)
     // No additional type definitions needed

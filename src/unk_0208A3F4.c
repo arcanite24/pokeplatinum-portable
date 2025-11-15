@@ -1,6 +1,10 @@
 #include "unk_0208A3F4.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_decls/font_oam.h"

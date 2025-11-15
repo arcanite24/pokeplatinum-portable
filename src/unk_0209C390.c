@@ -1,6 +1,10 @@
 #include "unk_0209C390.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "overlay065/ov65_0223648C.h"

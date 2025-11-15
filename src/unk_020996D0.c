@@ -1,6 +1,10 @@
 #include "unk_020996D0.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 static const u8 Unk_020F6EB8[] = {

@@ -1,6 +1,10 @@
 #include "coins.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 void Coins_Init(u16 *coins)

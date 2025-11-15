@@ -1,6 +1,10 @@
 #include "cutscenes/hall_of_fame.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_defs/sprite_animation_frame.h"

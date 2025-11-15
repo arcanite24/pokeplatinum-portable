@@ -1,6 +1,10 @@
 #include "comm_player_manager.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <nitro/os.h>
 #include <nnsys/g3d/glbstate.h>
 #include <string.h>

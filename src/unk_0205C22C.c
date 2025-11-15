@@ -1,6 +1,10 @@
 #include "unk_0205C22C.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "generated/movement_actions.h"

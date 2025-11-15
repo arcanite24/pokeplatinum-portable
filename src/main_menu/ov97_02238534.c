@@ -1,7 +1,11 @@
 #include "main_menu/ov97_02238534.h"
 
 #include <crypto.h>
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <nitro/cht.h>
 #include <nitro/wm.h>
 #include <string.h>

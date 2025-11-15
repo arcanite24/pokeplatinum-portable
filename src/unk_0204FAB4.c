@@ -1,6 +1,10 @@
 #include "unk_0204FAB4.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <nitro/code16.h>
 #include <string.h>
 

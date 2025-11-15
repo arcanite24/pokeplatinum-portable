@@ -1,7 +1,37 @@
-#ifndef POKEPLATINUM_SOUND_SYSTEM_H
-#define POKEPLATINUM_SOUND_SYSTEM_H
+#ifndef SOUND_SYSTEM_H
+#define SOUND_SYSTEM_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+// SDL stub - no nnsys, define needed types
+#define ATTRIBUTE_ALIGN(x)
+
+// Forward declare NNS sound types for SDL
+typedef struct NNSSndArc {
+    void* data;
+} NNSSndArc;
+
+typedef struct NNSSndHeapHandle {
+    void* heap;
+} NNSSndHeapHandle;
+
+typedef struct NNSSndHandle {
+    void* handle;
+} NNSSndHandle;
+
+typedef struct NNSSndWaveOutHandle {
+    void* handle;
+} NNSSndWaveOutHandle;
+
+typedef struct NNSSndArcBankInfo {
+    void* info;
+} NNSSndArcBankInfo;
+
+typedef struct SNDWaveData {
+    void* data;
+} SNDWaveData;
+#endif
 
 #include "struct_defs/chatot_cry.h"
 

@@ -1,7 +1,11 @@
 #include "sys_task_manager.h"
 
 #include "nitro/types.h"
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 static void SysTaskManager_InitTask(SysTaskManager *sysTaskMgr, SysTask *task);

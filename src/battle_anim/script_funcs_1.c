@@ -1,7 +1,11 @@
 #include "battle_anim/script_funcs_1.h"
 
 #include "nitro/hw/common/lcd.h"
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "constants/battle/battle_anim.h"

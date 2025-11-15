@@ -42,10 +42,17 @@ if(BUILD_SDL_VERSION)
     )
     
     # Game source files needed for SDL build
-    set(GAME_SOURCES
-        src/graphics.c
-        src/heap.c
+    # Adding all essential game system files
+    file(GLOB_RECURSE GAME_SOURCES
+        "src/*.c"
     )
+    
+    # Exclude overlay files for now (loaded dynamically on DS)
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/overlay[0-9]+/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/applications/.*")
+    
+    # Exclude platform-specific files
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/platform/.*")
     
     # Create SDL executable
     add_executable(pokeplatinum_sdl ${PAL_SDL_SOURCES} ${GAME_SOURCES})
@@ -54,13 +61,14 @@ if(BUILD_SDL_VERSION)
     target_include_directories(pokeplatinum_sdl PRIVATE
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/include/platform
-        ${CMAKE_SOURCE_DIR}/build/generated
+        ${CMAKE_SOURCE_DIR}/build
     )
     
     # Compile definitions
     target_compile_definitions(pokeplatinum_sdl PRIVATE
         PLATFORM_SDL
         TARGET_SDL
+        POKEPLATINUM_GENERATED_ENUM
     )
     
     # Link SDL3

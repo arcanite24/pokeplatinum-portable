@@ -1,6 +1,10 @@
 #include "touch_screen_actions.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "heap.h"

@@ -1,6 +1,10 @@
 #include "game_records.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "generated/game_records.h"
 #include "generated/trainer_score_events.h"

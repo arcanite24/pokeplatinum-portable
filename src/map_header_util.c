@@ -1,6 +1,10 @@
 #include "map_header_util.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "font.h"
 #include "map_header.h"

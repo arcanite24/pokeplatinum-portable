@@ -1,6 +1,10 @@
 #include "unk_02015F84.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_defs/poke_animation_settings.h"

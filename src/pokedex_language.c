@@ -1,6 +1,10 @@
 #include "pokedex_language.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "global/pm_version.h"

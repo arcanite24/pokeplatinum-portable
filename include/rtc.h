@@ -1,7 +1,25 @@
 #ifndef POKEPLATINUM_RTC_H
 #define POKEPLATINUM_RTC_H
 
+#ifdef PLATFORM_DS
 #include <nitro/rtc.h>
+#else
+#include "platform/platform_types.h"
+
+// SDL port: RTC types
+typedef struct {
+    u32 year;
+    u32 month;
+    u32 day;
+    u32 week;
+} RTCDate;
+
+typedef struct {
+    u32 hour;
+    u32 minute;
+    u32 second;
+} RTCTime;
+#endif
 
 #include "constants/rtc.h"
 

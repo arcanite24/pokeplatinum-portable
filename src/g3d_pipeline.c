@@ -1,7 +1,11 @@
 #include "g3d_pipeline.h"
 
 #include "nitro/hw/common/lcd.h"
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "constants/graphics.h"
 

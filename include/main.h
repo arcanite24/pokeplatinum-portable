@@ -1,7 +1,16 @@
 #ifndef POKEPLATINUM_MAIN_H
 #define POKEPLATINUM_MAIN_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fs.h>
+#else
+#include "platform/platform_types.h"
+// SDL stub - FS_EXTERN_OVERLAY declares extern overlay ID
+#define FS_EXTERN_OVERLAY(name) extern const FSOverlayID FS_OVERLAY_ID_##name
+// FS_OVERLAY_ID macro returns the overlay ID variable
+#define FS_OVERLAY_ID(name) FS_OVERLAY_ID_##name
+// Note: FS_OVERLAY_ID_NONE already defined in overlay_manager.h
+#endif
 
 #include "overlay_manager.h"
 #include "savedata.h"

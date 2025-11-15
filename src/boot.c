@@ -1,6 +1,10 @@
 #include "boot.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #define GAME_CODE_POKEMON_DIAMOND_JP (('A' << 0) | ('D' << 8) | ('A' << 16) | ('J' << 24))
 #define MAKER_CODE_NINTENDO          (('0' << 0) | ('1' << 8))

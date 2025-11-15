@@ -1,6 +1,10 @@
 #include "unk_02014D38.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "graphics.h"

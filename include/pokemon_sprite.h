@@ -1,7 +1,27 @@
 #ifndef POKEPLATINUM_POKEMON_SPRITE_H
 #define POKEPLATINUM_POKEMON_SPRITE_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+// SDL stub - NNSG2d sprite types
+typedef struct {
+    void* data;
+} NNSG2dImageProxy;
+
+typedef struct {
+    void* data;
+} NNSG2dImagePaletteProxy;
+
+typedef struct {
+    void* data;
+} NNSG2dCharacterData;
+
+typedef struct {
+    void* data;
+} NNSG2dPaletteData;
+#endif
 
 #include "constants/heap.h"
 #include "constants/narc.h"

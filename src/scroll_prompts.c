@@ -1,6 +1,10 @@
 #include "scroll_prompts.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "overlay005/ov5_021D2F14.h"

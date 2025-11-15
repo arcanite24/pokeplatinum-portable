@@ -1,6 +1,10 @@
 #include "hardware_palette.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 u16 *GetHardwareMainBgPaletteAddress(void)

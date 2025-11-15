@@ -1,6 +1,10 @@
 #include "mystery_gift.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "constants/savedata/save_table.h"

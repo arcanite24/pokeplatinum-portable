@@ -1,6 +1,10 @@
 #include "unk_02099550.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "overlay018/ov18_0221F800.h"

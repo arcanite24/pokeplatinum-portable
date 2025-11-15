@@ -1,7 +1,11 @@
 #include "battle/ov16_0223B140.h"
 
 #include <dwc.h>
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <nitro/sinit.h>
 #include <string.h>
 

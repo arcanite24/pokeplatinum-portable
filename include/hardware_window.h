@@ -1,7 +1,13 @@
 #ifndef POKEPLATINUM_HARDWARE_WINDOW_H
 #define POKEPLATINUM_HARDWARE_WINDOW_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx/gx.h>
+#else
+#include "platform/platform_types.h"
+// SDL port: GXWndMask is a bitmask
+typedef u32 GXWndMask;
+#endif
 
 #include "constants/graphics.h"
 

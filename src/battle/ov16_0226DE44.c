@@ -1,6 +1,10 @@
 #include "battle/ov16_0226DE44.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "heap.h"

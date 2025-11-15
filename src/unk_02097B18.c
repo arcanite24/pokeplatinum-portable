@@ -1,6 +1,10 @@
 #include "unk_02097B18.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_decls/struct_0202440C_decl.h"

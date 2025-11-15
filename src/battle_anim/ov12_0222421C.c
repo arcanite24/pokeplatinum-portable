@@ -1,6 +1,10 @@
 #include "battle_anim/ov12_0222421C.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "battle_anim/battle_anim_system.h"

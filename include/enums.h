@@ -1,6 +1,24 @@
 #ifndef POKEPLATINUM_ENUMS_H
 #define POKEPLATINUM_ENUMS_H
 
+#ifdef PLATFORM_DS
+#include <nitro/gx.h>
+#else
+// SDL stub - define GX blend/window plane masks
+#define GX_BLEND_PLANEMASK_BG0 (1 << 0)
+#define GX_BLEND_PLANEMASK_BG1 (1 << 1)
+#define GX_BLEND_PLANEMASK_BG2 (1 << 2)
+#define GX_BLEND_PLANEMASK_BG3 (1 << 3)
+#define GX_BLEND_PLANEMASK_OBJ (1 << 4)
+#define GX_BLEND_PLANEMASK_BD  (1 << 5)
+
+#define GX_WND_PLANEMASK_BG0 (1 << 0)
+#define GX_WND_PLANEMASK_BG1 (1 << 1)
+#define GX_WND_PLANEMASK_BG2 (1 << 2)
+#define GX_WND_PLANEMASK_BG3 (1 << 3)
+#define GX_WND_PLANEMASK_OBJ (1 << 4)
+#endif
+
 typedef enum {
     UnkEnum_0202F510_00,
     UnkEnum_0202F510_01,

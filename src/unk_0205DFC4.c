@@ -1,6 +1,10 @@
 #include "unk_0205DFC4.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_decls/struct_02061AB4_decl.h"

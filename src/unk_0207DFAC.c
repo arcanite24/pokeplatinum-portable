@@ -1,6 +1,10 @@
 #include "unk_0207DFAC.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "struct_defs/struct_0207DFAC.h"

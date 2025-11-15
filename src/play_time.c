@@ -1,6 +1,10 @@
 #include "play_time.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 void PlayTime_Init(PlayTime *playTime)
 {

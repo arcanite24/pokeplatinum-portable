@@ -1,6 +1,10 @@
 #include "trainer_card_save_data.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "savedata.h"

@@ -1,6 +1,10 @@
 #include "trainer_card_screen/trainer_card_sprites.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "trainer_card_screen/trainer_card_screen_defs.h"

@@ -1,6 +1,10 @@
 #include "main_menu/ov97_02233814.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "main_menu/ov97_02232200.h"

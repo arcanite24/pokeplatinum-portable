@@ -1,6 +1,10 @@
 #include "battle/healthbar.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <stdlib.h>
 #include <string.h>
 

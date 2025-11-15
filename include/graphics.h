@@ -22,10 +22,11 @@ typedef int NNS_G2D_VRAM_TYPE;
 #include "bg_window.h"
 #else
 #include "platform/pal_background.h"
-typedef PAL_BgConfig BgConfig;
+// BgConfig typedef is in bg_window.h for both platforms
 // BgLayer is u8, same as PAL_BgLayer
 #endif
 
+#include "bg_window.h"
 #include "narc.h"
 
 enum PaletteLoadLocation {

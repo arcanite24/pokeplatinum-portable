@@ -1,7 +1,19 @@
 #ifndef POKEPLATINUM_ASCII_UTIL_H
 #define POKEPLATINUM_ASCII_UTIL_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+// SDL stub - NNSG3dResName type
+#include "platform/platform_types.h"
+#define NNS_G3D_RESNAME_VALSIZE 16
+typedef struct {
+    union {
+        u8 val[NNS_G3D_RESNAME_VALSIZE];
+        char name[NNS_G3D_RESNAME_VALSIZE];
+    };
+} NNSG3dResName;
+#endif
 
 #include "charcode.h"
 

@@ -1,6 +1,10 @@
 #include "gfx_box_test.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #define BOX_TEST_RESULT_READY 0
 

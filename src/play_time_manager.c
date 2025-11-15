@@ -1,6 +1,10 @@
 #include "play_time_manager.h"
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 #include <string.h>
 
 #include "play_time.h"

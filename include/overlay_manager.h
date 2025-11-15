@@ -1,7 +1,13 @@
 #ifndef POKEPLATINUM_OVERLAY_MANAGER_H
 #define POKEPLATINUM_OVERLAY_MANAGER_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fs.h>
+#else
+#include "platform/platform_types.h"
+// SDL port: FSOverlayID is just an int
+typedef s32 FSOverlayID;
+#endif
 
 #include "constants/heap.h"
 

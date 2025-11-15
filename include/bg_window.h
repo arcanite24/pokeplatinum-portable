@@ -1,8 +1,14 @@
 #ifndef POKEPLATINUM_BG_WINDOW_H
 #define POKEPLATINUM_BG_WINDOW_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/gx.h>
+#else
+// SDL port: Use platform types instead of nitro types
+#include "platform/platform_types.h"
+#include "platform/pal_background.h"
+#endif
 
 #define TILEMAP_COPY_SRC_FLAT 0 // source dimensions are equal to dest dimensions
 #define TILEMAP_COPY_SRC_RECT 1 // dest dimensions carve a window from source
@@ -128,12 +134,17 @@ typedef struct Background {
     int yCenter;
 } Background;
 
+#ifdef PLATFORM_DS
 typedef struct BgConfig {
     u32 heapID;
     u16 scrollScheduled;
     u16 bufferTransferScheduled;
     Background bgs[8];
 } BgConfig;
+#else
+// SDL port: Use PAL_BgConfig instead
+typedef PAL_BgConfig BgConfig;
+#endif
 
 typedef struct WindowTemplate {
     u8 bgLayer;
@@ -158,6 +169,7 @@ typedef struct Window {
     void *pixels;
 } Window;
 
+#ifdef PLATFORM_DS
 typedef struct GraphicsModes {
     GXDispMode displayMode;
     GXBGMode mainBgMode;
@@ -167,6 +179,19 @@ typedef struct GraphicsModes {
 
 void SetAllGraphicsModes(const GraphicsModes *graphicsModes);
 void SetScreenGraphicsModes(const GraphicsModes *graphicsModes, u8 screen);
+#else
+// SDL port: Graphics modes not used
+typedef struct GraphicsModes {
+    u8 displayMode;
+    u8 mainBgMode;
+    u8 subBgMode;
+    u8 bg0As2DOr3D;
+} GraphicsModes;
+
+// SDL stubs
+static inline void SetAllGraphicsModes(const GraphicsModes *graphicsModes) { (void)graphicsModes; }
+static inline void SetScreenGraphicsModes(const GraphicsModes *graphicsModes, u8 screen) { (void)graphicsModes; (void)screen; }
+#endif
 
 BgConfig *BgConfig_New(u32 heapID);
 u32 BgConfig_GetHeapID(BgConfig *bgConfig);

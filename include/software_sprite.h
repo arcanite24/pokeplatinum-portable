@@ -1,8 +1,13 @@
 #ifndef POKEPLATINUM_SOFTWARE_SPRITE_H
 #define POKEPLATINUM_SOFTWARE_SPRITE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+// GXOamAttr stub already in unk_0202419C.h
+#endif
 
 typedef struct SoftwareSpriteChars SoftwareSpriteChars;
 typedef struct SoftwareSpritePalette SoftwareSpritePalette;
