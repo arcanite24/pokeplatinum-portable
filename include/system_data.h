@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_SYSTEM_DATA_H
 #define POKEPLATINUM_SYSTEM_DATA_H
 
+#ifdef PLATFORM_DS
 #include <nitro/rtc.h>
+#else
+#include "rtc.h"  /* SDL stub types already defined in rtc.h */
+#endif
 
 #include "savedata.h"
 

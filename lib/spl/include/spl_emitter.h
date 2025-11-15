@@ -1,7 +1,11 @@
 #ifndef SPL_EMITTER_H
 #define SPL_EMITTER_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "spl_particle.h"
 #include "spl_resource.h"

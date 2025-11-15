@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_MATH_UTIL_H
 #define POKEPLATINUM_MATH_UTIL_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "constants/heap.h"
 

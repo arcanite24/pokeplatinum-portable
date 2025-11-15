@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_UNK_020064F0_H
 #define POKEPLATINUM_UNK_020064F0_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fs.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 typedef enum OverlayLoadType {
     OVERLAY_LOAD_NORMAL,

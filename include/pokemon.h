@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_POKEMON_H
 #define POKEPLATINUM_POKEMON_H
 
+#ifdef PLATFORM_DS
 #include <nitro/rtc.h>
+#else
+#include "rtc.h"  /* SDL stub types already defined in rtc.h */
+#endif
 
 #include "constants/flavor.h"
 #include "constants/forms.h"

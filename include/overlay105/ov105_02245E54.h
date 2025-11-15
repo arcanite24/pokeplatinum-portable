@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV105_02245E54_H
 #define POKEPLATINUM_OV105_02245E54_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "overlay105/struct_ov105_02245AAC.h"
 #include "overlay105/struct_ov105_02245EA8_decl.h"

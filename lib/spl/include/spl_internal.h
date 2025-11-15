@@ -1,8 +1,16 @@
 #ifndef SPL_INTERNAL_H
 #define SPL_INTERNAL_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx/gxcommon.h>
+#else
+// SDL: GX types stubbed
+#endif
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "spl_emitter.h"
 #include "spl_list.h"

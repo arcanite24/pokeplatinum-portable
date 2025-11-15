@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_MAP_OBJECT_MOVE_H
 #define POKEPLATINUM_MAP_OBJECT_MOVE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "struct_decls/struct_02061AB4_decl.h"
 

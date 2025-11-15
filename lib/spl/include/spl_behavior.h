@@ -1,7 +1,11 @@
 #ifndef SPL_BEHAVIOR_H
 #define SPL_BEHAVIOR_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "spl_emitter.h"
 

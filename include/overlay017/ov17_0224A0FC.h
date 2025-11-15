@@ -1,7 +1,15 @@
 #ifndef POKEPLATINUM_OV17_0224A0FC_H
 #define POKEPLATINUM_OV17_0224A0FC_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
+#else
+#include "platform/platform_types.h"
+/* GX types from enums.h already define blend/window masks */
+typedef u16 GXRgb;
+typedef struct { u8 r, g, b, a; } GXRgba;
+typedef struct { void* data; } GXOamAttr;
+#endif
 
 #include "overlay017/struct_ov17_0224A1EC.h"
 #include "overlay017/struct_ov17_0224ABFC.h"

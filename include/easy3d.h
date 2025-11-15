@@ -1,8 +1,16 @@
 #ifndef POKEPLATINUM_EASY3D_H
 #define POKEPLATINUM_EASY3D_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 void Easy3D_LoadModelFromPath(const u8 heapID, const char *path, NNSG3dResMdl **outModel, NNSG3dResFileHeader **outResource);
 void Easy3D_LoadModelFromResource(NNSG3dResMdl **outModel, NNSG3dResFileHeader **resource);

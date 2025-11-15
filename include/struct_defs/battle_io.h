@@ -1,6 +1,12 @@
 #ifndef POKEPLATINUM_STRUCT_BATTLE_IO_H
 #define POKEPLATINUM_STRUCT_BATTLE_IO_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/pokemon.h"
 
 enum PartyGaugeBallStatus {

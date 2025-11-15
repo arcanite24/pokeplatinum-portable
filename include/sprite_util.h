@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_SPRITE_UTIL_H
 #define POKEPLATINUM_SPRITE_UTIL_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
+#else
+#include "nns_types.h"
+#endif
 
 #include "sprite.h"
 #include "sprite_resource.h"

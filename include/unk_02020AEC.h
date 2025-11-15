@@ -1,8 +1,36 @@
 #ifndef POKEPLATINUM_UNK_02020AEC_H
 #define POKEPLATINUM_UNK_02020AEC_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+
+/* Common NNSG2d types */
+typedef struct { void* data; } NNSG2dImageProxy;
+typedef struct { void* data; } NNSG2dImagePaletteProxy;
+typedef struct { void* data; } NNSG2dCharacterData;
+typedef struct { void* data; } NNSG2dPaletteData;
+typedef struct { s16 x, y; } NNSG2dSVec2;
+typedef struct { s32 x, y; } NNSG2dLVec2;
+typedef struct { fx32 x, y; } NNSG2dFVec2;
+typedef struct { void* data; } NNSG2dImageAttr;
+
+/* Common NNSG3d types */
+typedef struct { u8 val[16]; char name[16]; } NNSG3dResName;
+typedef struct { void* data; } NNSG3dResMdl;
+typedef struct { void* data; } NNSG3dResTex;
+typedef struct { void* data; } NNSG3dRenderObj;
+
+/* GX color types */
+typedef u16 GXRgb;
+typedef struct { u8 r, g, b; } GXRgba;
+#endif
 
 #include "struct_decls/struct_02020C44_decl.h"
 #include "struct_decls/struct_020216E0_decl.h"

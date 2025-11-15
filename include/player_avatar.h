@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_PLAYER_AVATAR_H
 #define POKEPLATINUM_PLAYER_AVATAR_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "constants/player_avatar.h"
 

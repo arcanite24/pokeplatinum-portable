@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_UNK_0205B33C_H
 #define POKEPLATINUM_UNK_0205B33C_H
 
+#ifdef PLATFORM_DS
 #include <nitro/wm.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "struct_decls/struct_02014EC4_decl.h"
 #include "struct_decls/struct_0205B43C_decl.h"

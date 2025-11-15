@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_STRUCT_OV5_021DF7F8_H
 #define POKEPLATINUM_STRUCT_OV5_021DF7F8_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "struct_decls/struct_02020C44_decl.h"
 

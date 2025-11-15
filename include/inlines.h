@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_INLINES_H
 #define POKEPLATINUM_INLINES_H
 
+#ifdef PLATFORM_DS
 #include <nitro/rtc.h>
+#else
+#include "rtc.h"  /* SDL stub types already defined in rtc.h */
+#endif
 
 #include "struct_decls/struct_0203A790_decl.h"
 

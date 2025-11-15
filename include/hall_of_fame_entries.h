@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_HALL_OF_FAME_ENTRIES_H
 #define POKEPLATINUM_HALL_OF_FAME_ENTRIES_H
 
+#ifdef PLATFORM_DS
 #include <nitro/rtc.h>
+#else
+#include "rtc.h"  /* SDL stub types already defined in rtc.h */
+#endif
 
 #include "constants/moves.h"
 #include "constants/pokemon.h"

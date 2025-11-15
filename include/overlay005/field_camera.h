@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV5_FIELD_CAMERA_H
 #define POKEPLATINUM_OV5_FIELD_CAMERA_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "constants/camera_types.h"
 

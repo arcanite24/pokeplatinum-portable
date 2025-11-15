@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_STRUCT_OV5_021E52A8_SUB2_H
 #define POKEPLATINUM_STRUCT_OV5_021E52A8_SUB2_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "bg_window.h"
 

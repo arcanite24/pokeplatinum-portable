@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_TYPE_ICON_H
 #define POKEPLATINUM_TYPE_ICON_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "generated/move_classes.h"
 #include "generated/pokemon_types.h"

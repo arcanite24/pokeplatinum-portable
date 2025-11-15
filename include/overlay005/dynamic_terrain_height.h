@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV5_DYNAMIC_TERRAIN_HEIGHT_H
 #define POKEPLATINUM_OV5_DYNAMIC_TERRAIN_HEIGHT_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 #include <nitro/types.h>
 
 typedef struct {

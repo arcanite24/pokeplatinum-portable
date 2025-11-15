@@ -2,7 +2,11 @@
 #define POKEPLATINUM_STRUCT_OV98_02246E88_H
 
 #include <dwc.h>
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "overlay096/struct_world_exchange_trainer.h"
 #include "overlay096/struct_world_exchange_trainer_error.h"

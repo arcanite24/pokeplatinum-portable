@@ -1,13 +1,14 @@
 #include "battle/battle_controller.h"
 
-#include "nitro/types.h"
 #ifdef PLATFORM_DS
+#include "nitro/types.h"
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
 #endif
 #include <string.h>
 
+#include "global/assert.h"
 #include "constants/battle.h"
 #include "constants/heap.h"
 #include "constants/items.h"
@@ -605,7 +606,7 @@ static void BattleController_CommandSelectionInput(BattleSystem *battleSys, Batt
         case COMMAND_SELECTION_RUN_SELECT_INIT:
             if (battleType & BATTLE_TYPE_FRONTIER) {
                 // "Would you like to forfeit the match and quit now?"
-                BattleIO_ShowYesNoScreen(battleSys, battleCtx, i, 955, 0, NULL, NULL);
+                BattleIO_ShowYesNoScreen(battleSys, battleCtx, i, 955, 0, 0, 0);
                 battleCtx->curCommandState[i] = COMMAND_SELECTION_RUN_SELECT;
             } else if ((battleType & BATTLE_TYPE_TRAINER) && (battleType & BATTLE_TYPE_LINK) == FALSE) {
                 if (BattleSystem_BattleStatus(battleSys) & BATTLE_STATUS_RECORDING) {

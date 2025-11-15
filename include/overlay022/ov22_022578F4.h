@@ -1,8 +1,16 @@
 #ifndef POKEPLATINUM_OV22_022578F4_H
 #define POKEPLATINUM_OV22_022578F4_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
+#else
+#include "nns_types.h"  /* SDL: Common GX type stubs */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "overlay022/struct_ov22_02257964.h"
 #include "overlay022/struct_ov22_02259560.h"

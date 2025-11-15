@@ -1,8 +1,20 @@
 #ifndef SPL_MANAGER_H
 #define SPL_MANAGER_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+#ifdef PLATFORM_DS
+#ifdef PLATFORM_DS
 #include <nitro/gx/g3.h>
+#else
+// SDL: GX types stubbed
+#endif
+#else
+// SDL: G3 types stubbed
+#endif
 
 #include "spl_emitter.h"
 #include "spl_particle.h"

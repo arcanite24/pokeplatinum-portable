@@ -1,8 +1,13 @@
 #ifndef POKEPLATINUM_PARTICLE_SYSTEM_H
 #define POKEPLATINUM_PARTICLE_SYSTEM_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+// fx types already in platform_types.h (fx32, VecFx32, MtxFx33, etc.)
+#endif
 
 #include "constants/heap.h"
 #include "constants/narc.h"

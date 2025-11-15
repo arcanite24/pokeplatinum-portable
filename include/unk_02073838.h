@@ -1,8 +1,16 @@
 #ifndef POKEPLATINUM_UNK_02073838_H
 #define POKEPLATINUM_UNK_02073838_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "struct_defs/struct_02073838.h"
 #include "struct_defs/struct_02073974.h"

@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_DYNAMIC_MAP_FEATURES_H
 #define POKEPLATINUM_DYNAMIC_MAP_FEATURES_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 #include <nitro/types.h>
 
 #include "field/field_system_decl.h"

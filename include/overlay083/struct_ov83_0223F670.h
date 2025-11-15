@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_STRUCT_OV83_0223F670_H
 #define POKEPLATINUM_STRUCT_OV83_0223F670_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "overlay083/struct_ov83_0223DA94.h"
 

@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_COMMUNICATION_SYSTEM_H
 #define POKEPLATINUM_COMMUNICATION_SYSTEM_H
 
+#ifdef PLATFORM_DS
 #include <nitro/math.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #define MAX_CONNECTED_PLAYERS 8
 

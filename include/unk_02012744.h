@@ -1,7 +1,15 @@
 #ifndef POKEPLATINUM_UNK_02012744_H
 #define POKEPLATINUM_UNK_02012744_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
+#else
+#include "platform/platform_types.h"
+/* GX types from enums.h already define blend/window masks */
+typedef u16 GXRgb;
+typedef struct { u8 r, g, b, a; } GXRgba;
+typedef struct { void* data; } GXOamAttr;
+#endif
 
 #include "struct_decls/font_oam.h"
 #include "struct_decls/struct_02012744_decl.h"

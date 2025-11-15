@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_ENCOUNTER_EFFECT_H
 #define POKEPLATINUM_ENCOUNTER_EFFECT_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 #include "field/field_system_decl.h"
 #include "overlay005/encounter_effect.h"

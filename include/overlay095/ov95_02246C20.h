@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV95_02246C20_H
 #define POKEPLATINUM_OV95_02246C20_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "overlay006/struct_npc_trade_animation_template.h"
 #include "overlay095/struct_ov95_02247004_decl.h"

@@ -4,23 +4,7 @@
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
-#include "platform/platform_types.h"
-// SDL stub - NNSG2d sprite types
-typedef struct {
-    void* data;
-} NNSG2dImageProxy;
-
-typedef struct {
-    void* data;
-} NNSG2dImagePaletteProxy;
-
-typedef struct {
-    void* data;
-} NNSG2dCharacterData;
-
-typedef struct {
-    void* data;
-} NNSG2dPaletteData;
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
 #endif
 
 #include "constants/heap.h"

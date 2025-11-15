@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_UNK_0201567C_H
 #define POKEPLATINUM_UNK_0201567C_H
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "palette.h"
 #include "sys_task_manager.h"

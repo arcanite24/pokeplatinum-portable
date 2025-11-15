@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_RENDER_OAM_H
 #define POKEPLATINUM_RENDER_OAM_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "constants/graphics.h"
 #include "constants/heap.h"

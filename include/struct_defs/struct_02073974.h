@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_STRUCT_02073974_H
 #define POKEPLATINUM_STRUCT_02073974_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 typedef struct {
     u32 unk_00;

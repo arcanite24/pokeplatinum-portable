@@ -1,7 +1,11 @@
 #ifndef SPL_RESOURCE_H
 #define SPL_RESOURCE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "struct_defs/struct_020147B8.h"
 

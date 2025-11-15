@@ -62,6 +62,8 @@ if(BUILD_SDL_VERSION)
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/include/platform
         ${CMAKE_SOURCE_DIR}/build
+        ${CMAKE_SOURCE_DIR}/lib/spl/include
+        ${CMAKE_SOURCE_DIR}/lib/gds/include
     )
     
     # Compile definitions
@@ -69,6 +71,13 @@ if(BUILD_SDL_VERSION)
         PLATFORM_SDL
         TARGET_SDL
         POKEPLATINUM_GENERATED_ENUM
+    )
+    
+    # Compiler warnings - suppress int-conversion for NULL usage
+    # The DS codebase uses NULL for integer 0 in many places (147+ instances)
+    # This is technically questionable but harmless and pervasive
+    target_compile_options(pokeplatinum_sdl PRIVATE
+        -Wno-int-conversion
     )
     
     # Link SDL3

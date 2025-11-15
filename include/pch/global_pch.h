@@ -7,7 +7,11 @@ typedef unsigned short wchar_t;
 
 #include <nitro.h>
 #pragma thumb on
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 #include <stddef.h>
 #include <string.h>
 

@@ -2,7 +2,11 @@
 #define POKEPLATINUM_STRUCT_02017498_H
 
 #include <dwc.h>
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "struct_defs/struct_0203E6C0.h"
 

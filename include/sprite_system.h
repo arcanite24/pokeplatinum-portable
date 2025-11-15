@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_SPRITE_SYSTEM_H
 #define POKEPLATINUM_SPRITE_SYSTEM_H
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
+#else
+#include "nns_types.h"  /* SDL: Common GX type stubs */
+#endif
 
 #include "constants/heap.h"
 

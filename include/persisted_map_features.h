@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_PERSISTED_MAP_FEATURES_H
 #define POKEPLATINUM_PERSISTED_MAP_FEATURES_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #define PERSISTED_MAP_FEATURES_BUFFER_SIZE 32
 

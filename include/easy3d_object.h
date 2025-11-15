@@ -1,8 +1,16 @@
 #ifndef POKEPLATINUM_EASY3D_OBJECT_H
 #define POKEPLATINUM_EASY3D_OBJECT_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "constants/heap.h"
 

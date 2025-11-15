@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_FX_UTIL_H
 #define POKEPLATINUM_FX_UTIL_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
 
 // clang-format off
 #define VEC_FX32(__x, __y, __z) (VecFx32){ FX32_CONST(__x), FX32_CONST(__y), FX32_CONST(__z) }

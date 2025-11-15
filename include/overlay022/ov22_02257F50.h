@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV22_02257F50_H
 #define POKEPLATINUM_OV22_02257F50_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "overlay022/struct_ov22_02257F50.h"
 #include "overlay022/struct_ov22_02258470.h"

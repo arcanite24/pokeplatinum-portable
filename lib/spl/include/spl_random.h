@@ -2,7 +2,11 @@
 #define SPL_RANDOM_H
 
 #include <nitro/fx/fx_vec.h>
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 extern u32 gSPLRandomState;
 

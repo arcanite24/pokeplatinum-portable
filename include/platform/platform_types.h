@@ -35,9 +35,10 @@
         #define FALSE 0
     #endif
     
-    #ifndef NULL
-        #define NULL ((void*)0)
-    #endif
+    // Don't define NULL - let system headers define it
+    // The DS codebase uses NULL for integer 0 in many places,
+    // which triggers -Wint-conversion warnings on modern compilers.
+    // We suppress these warnings in CMakeLists.txt instead.
     
     // Fixed-point types (used extensively in DS code)
     typedef s32 fx32;
@@ -50,6 +51,12 @@
     #define FX_Frac(x)  ((x) & (FX32_ONE - 1))
     
     // Vector types (matching NitroSDK conventions)
+    typedef struct VecFx16 {
+        fx16 x;
+        fx16 y;
+        fx16 z;
+    } VecFx16;
+    
     typedef struct VecFx32 {
         fx32 x;
         fx32 y;
@@ -61,6 +68,13 @@
         fx32 _10, _11, _12;
         fx32 _20, _21, _22;
     } MtxFx33;
+    
+    typedef struct MtxFx43 {
+        fx32 _00, _01, _02;
+        fx32 _10, _11, _12;
+        fx32 _20, _21, _22;
+        fx32 _30, _31, _32;
+    } MtxFx43;
     
     typedef struct MtxFx22 {
         fx32 _00, _01;
@@ -85,6 +99,14 @@
         memcpy(dest, src, size);
     }
     static inline void MI_CpuCopy32(const void* src, void* dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+    
+    // Fast memory operations (same as regular versions on SDL)
+    static inline void MI_CpuClearFast(void* dest, u32 size) {
+        memset(dest, 0, size);
+    }
+    static inline void MI_CpuCopyFast(const void* src, void* dest, u32 size) {
         memcpy(dest, src, size);
     }
     

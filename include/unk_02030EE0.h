@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_UNK_02030EE0_H
 #define POKEPLATINUM_UNK_02030EE0_H
 
+#ifdef PLATFORM_DS
 #include <nitro/wm.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "functypes/funcptr_020312B8.h"
 #include "functypes/funcptr_02031E6C.h"

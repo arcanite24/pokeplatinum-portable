@@ -1,8 +1,16 @@
 #ifndef POKEPLATINUM_OV22_02255094_H
 #define POKEPLATINUM_OV22_02255094_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
+#else
+#include "platform/platform_types.h"  /* SDL: fx types */
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "overlay022/struct_ov22_02255CB8.h"
 #include "overlay022/struct_ov22_0225A0E4.h"

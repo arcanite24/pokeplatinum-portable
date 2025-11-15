@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_RENDER_VIEW_H
 #define POKEPLATINUM_RENDER_VIEW_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 void InitRenderer(NNSG2dRendererInstance *renderer, fx32 spriteZOffset);
 void InitRenderSurface(NNSG2dRenderSurface *surface,

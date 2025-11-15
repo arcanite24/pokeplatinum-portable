@@ -1,9 +1,14 @@
 #ifndef POKEPLATINUM_SOUND_H
 #define POKEPLATINUM_SOUND_H
 
+#ifdef PLATFORM_DS
 #include <nitro/snd.h>
 #include <nitro/spi.h>
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "generated/sdat.h"
 

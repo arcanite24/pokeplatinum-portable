@@ -1,9 +1,18 @@
 #ifndef POKEPLATINUM_SPRITE_H
 #define POKEPLATINUM_SPRITE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/gx.h>
+#else
+#include "nns_types.h"  /* SDL: Common GX/FX type stubs */
+// fx types already in platform_types.h (fx32, VecFx32, MtxFx33, etc.)
+#endif
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "constants/graphics.h"
 #include "constants/heap.h"

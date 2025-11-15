@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_SPRITE_RESOURCE_H
 #define POKEPLATINUM_SPRITE_RESOURCE_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "constants/heap.h"
 

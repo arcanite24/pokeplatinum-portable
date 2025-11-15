@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_TERRAIN_ATTRIBUTES_H
 #define POKEPLATINUM_TERRAIN_ATTRIBUTES_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "constants/field/map.h"
 

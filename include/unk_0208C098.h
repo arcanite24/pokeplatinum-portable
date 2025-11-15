@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_UNK_0208C098_H
 #define POKEPLATINUM_UNK_0208C098_H
 
+#ifdef PLATFORM_DS
 #include <nnsys.h>
+#else
+#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#endif
 
 #include "constants/heap.h"
 

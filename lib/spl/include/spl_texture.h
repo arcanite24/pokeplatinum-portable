@@ -1,7 +1,11 @@
 #ifndef SPL_TEXTURE_H
 #define SPL_TEXTURE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 typedef union SPLTextureParam {
     u32 all;
