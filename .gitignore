@@ -139,3 +139,19 @@ pokeplatinum_sdl.exe
 # Cheat files
 *.dct
 *.mch
+
+# NDS Files
+*.nds
+
+# Extracted and converted game assets (SDL3 port)
+# These are generated from the ROM using tools in tools/
+resources/graphics/*/
+resources/audio/*/
+resources/text/*/
+resources/data/*/
+
+# Keep directory structure but ignore contents
+!resources/graphics/.gitkeep
+!resources/audio/.gitkeep
+!resources/text/.gitkeep
+!resources/data/.gitkeep
