@@ -95,10 +95,14 @@ typedef struct {
 } NNSG3dResName;
 
 typedef struct { void* data; } NNSG3dResMdl;
+typedef struct { void* data; } NNSG3dResMdlSet;  /* Model set container */
 typedef struct { void* data; } NNSG3dResTex;
 typedef struct { void* data; } NNSG3dRenderObj;
 typedef struct { void* data; } NNSG3dResFileHeader;
 typedef struct { void* data; } NNSG3dAnmObj;  /* Animation object */
+
+// NNSFnd types (Foundation utilities)
+typedef struct { void* data; } NNSFndAllocator;  /* Custom allocator */
 
 // NNSGfd types (VRAM allocation)
 typedef u32 NNSGfdTexKey;

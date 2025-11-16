@@ -34,8 +34,7 @@ u32 HeapExp_FndGetTotalFreeSize(u32 heapID);
 #ifdef PLATFORM_DS
 void HeapExp_FndInitAllocator(NNSFndAllocator *pAllocator, u32 heapID, int alignment);
 #else
-// SDL stub - not needed
-typedef void* NNSFndAllocator;
+#include "nns_types.h"  /* SDL: NNSFndAllocator defined here */
 static inline void HeapExp_FndInitAllocator(NNSFndAllocator *pAllocator, u32 heapID, int alignment) {
     (void)pAllocator; (void)heapID; (void)alignment;
 }

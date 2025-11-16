@@ -1,6 +1,12 @@
 #ifndef POKEPLATINUM_BERRY_PATCH_GRAPHICS_H
 #define POKEPLATINUM_BERRY_PATCH_GRAPHICS_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #include "struct_decls/struct_020216E0_decl.h"
 #include "struct_decls/struct_02061AB4_decl.h"
 

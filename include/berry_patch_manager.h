@@ -1,6 +1,12 @@
 #ifndef POKEPLATINUM_BERRY_PATCH_MANAGER_H
 #define POKEPLATINUM_BERRY_PATCH_MANAGER_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/heap.h"
 
 #include "struct_decls/berry_patch_manager_decl.h"

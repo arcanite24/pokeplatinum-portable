@@ -6,6 +6,7 @@
 #include "platform/pal_background.h"
 #include "platform/pal_memory.h"
 #include "platform/pal_graphics.h"
+#include "bg_window.h"  // Need full BgConfig definition
 #include <SDL3/SDL.h>
 #include <string.h>
 #include <stdlib.h>

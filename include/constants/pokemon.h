@@ -35,4 +35,11 @@
 
 #define LEVEL_UP_MOVESET_TERMINATOR 0xffff
 
+// MON_DATA_MOVE*_PP aliases for MON_DATA_MOVE*_CUR_PP (current PP values)
+// These are commonly used throughout the codebase for getting/setting move PP
+#define MON_DATA_MOVE1_PP MON_DATA_MOVE1_CUR_PP
+#define MON_DATA_MOVE2_PP MON_DATA_MOVE2_CUR_PP
+#define MON_DATA_MOVE3_PP MON_DATA_MOVE3_CUR_PP
+#define MON_DATA_MOVE4_PP MON_DATA_MOVE4_CUR_PP
+
 #endif // POKEPLATINUM_CONSTANTS_POKEMON_H

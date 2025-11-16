@@ -134,16 +134,18 @@ typedef struct Background {
     int yCenter;
 } Background;
 
-#ifdef PLATFORM_DS
+// BgConfig is the same structure for both DS and SDL
+// (SDL's PAL_BgConfig internally is more complex, but the game-facing struct is the same)
 typedef struct BgConfig {
     u32 heapID;
     u16 scrollScheduled;
     u16 bufferTransferScheduled;
     Background bgs[8];
 } BgConfig;
-#else
-// SDL port: Use PAL_BgConfig instead
-typedef PAL_BgConfig BgConfig;
+
+#ifndef PLATFORM_DS
+// SDL: Define PAL_BgConfig as the same for compatibility
+typedef BgConfig PAL_BgConfig;
 #endif
 
 typedef struct WindowTemplate {

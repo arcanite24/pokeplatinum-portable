@@ -1,6 +1,12 @@
 #ifndef POKEPLATINUM_BERRY_PATCHES_H
 #define POKEPLATINUM_BERRY_PATCHES_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/heap.h"
 #include "generated/berry_growth_stages.h"
 

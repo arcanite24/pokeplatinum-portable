@@ -78,6 +78,7 @@
     #define FX32_ONE   (1 << FX32_SHIFT)
     #define FX_Whole(x) ((x) >> FX32_SHIFT)
     #define FX_Frac(x)  ((x) & (FX32_ONE - 1))
+    #define FX_FX32_TO_F32(x) ((float)(x) / (float)FX32_ONE)
     
     // Fixed-point math functions
     static inline fx32 FX_Div(fx32 a, fx32 b) {
@@ -162,6 +163,14 @@
         vec->x = x;
         vec->y = y;
         vec->z = z;
+    }
+    
+    // Matrix utility functions
+    static inline void MTX_Identity33(MtxFx33* mtx) {
+        // Set to identity matrix (1s on diagonal, 0s elsewhere)
+        mtx->_00 = FX32_ONE; mtx->_01 = 0; mtx->_02 = 0;
+        mtx->_10 = 0; mtx->_11 = FX32_ONE; mtx->_12 = 0;
+        mtx->_20 = 0; mtx->_21 = 0; mtx->_22 = FX32_ONE;
     }
     
     // NitroSDK memory copy functions (SDL stubs)
@@ -411,6 +420,16 @@
     static inline void G2_SetWndOBJInsidePlane(u32 plane, int visible) {
         // Stub: DS main screen OBJ window inside plane
         (void)plane; (void)visible;
+    }
+    
+    static inline void G2_SetWnd0Position(int x1, int y1, int x2, int y2) {
+        // Stub: DS main screen window 0 position
+        (void)x1; (void)y1; (void)x2; (void)y2;
+    }
+    
+    static inline void G2_SetOBJMosaicSize(int width, int height) {
+        // Stub: DS main screen object mosaic effect size
+        (void)width; (void)height;
     }
     
     // Fixed-point math functions
