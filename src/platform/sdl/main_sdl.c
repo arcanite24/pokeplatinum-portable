@@ -31,7 +31,8 @@
 
 // Global game language (stub for SDL - defaults to English)
 // Real DS version loaded from save data
-u32 gGameLanguage = 2; // LANGUAGE_ENGLISH
+const u8 gGameLanguage = 2; // LANGUAGE_ENGLISH
+const u8 gGameVersion = 12; // VERSION_PLATINUM
 #include "savedata.h"
 #include "save_player.h"
 #include "unk_0202CC64.h"

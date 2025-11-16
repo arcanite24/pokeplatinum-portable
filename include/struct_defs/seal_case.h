@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_STRUCT_SEAL_CASE_H
 #define POKEPLATINUM_STRUCT_SEAL_CASE_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/ball_capsule.h"
 
 typedef struct {

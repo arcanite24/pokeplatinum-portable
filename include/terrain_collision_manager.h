@@ -3,10 +3,10 @@
 
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
-#else
-#include "platform/platform_types.h"  /* SDL: fx types */
-#endif
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "field/field_system_decl.h"
 #include "overlay005/map_prop.h"

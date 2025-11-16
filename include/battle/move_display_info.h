@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_MOVE_DISPLAY_INFO
 #define POKEPLATINUM_MOVE_DISPLAY_INFO
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/moves.h"
 
 typedef struct MoveDisplayInfo {

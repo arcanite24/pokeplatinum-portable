@@ -1,11 +1,12 @@
 #include "battle_anim/battle_anim_helpers.h"
 
+#ifdef PLATFORM_DS
 #include "nitro/hw/common/lcd.h"
 #include "nitro/types.h"
-#ifdef PLATFORM_DS
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
 #include <string.h>
 
@@ -16,7 +17,7 @@
 #include "battle_anim/battle_anim_system.h"
 #include "battle_anim/battle_anim_util.h"
 
-#include "battle_script_battlers.h"
+#include "generated/battle_script_battlers.h"
 #include "buffer_manager.h"
 #include "heap.h"
 #include "inlines.h"

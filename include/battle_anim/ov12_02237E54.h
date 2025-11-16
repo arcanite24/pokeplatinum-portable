@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_OV12_02237E54_H
 #define POKEPLATINUM_OV12_02237E54_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "struct_defs/seal_case.h"
 
 int ov12_02237E54(s16 param0, s16 param1, s16 param2, s16 param3);

@@ -7,6 +7,10 @@
  * use by data-packing routines.
  */
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/moves.h"
 
 #define TRAINER_MON_FORM_SHIFT 10

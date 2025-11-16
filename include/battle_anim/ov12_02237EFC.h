@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_OV12_02237EFC_H
 #define POKEPLATINUM_OV12_02237EFC_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "battle_anim/struct_ov12_02237EFC.h"
 #include "battle_anim/struct_ov12_02237F38.h"
 #include "battle_anim/struct_ov12_02237F98_decl.h"

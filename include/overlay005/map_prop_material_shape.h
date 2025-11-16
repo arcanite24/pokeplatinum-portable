@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_OV5_MAP_PROP_MATERIAL_SHAPE_H
 #define POKEPLATINUM_OV5_MAP_PROP_MATERIAL_SHAPE_H
 
+#ifdef PLATFORM_DS
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 typedef struct MapPropMaterialShapeIDsLocator {
     u16 idsCount;

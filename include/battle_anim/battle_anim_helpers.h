@@ -1,7 +1,12 @@
 #ifndef POKEPLATINUM_BATTLE_ANIM_HELPERS_H
 #define POKEPLATINUM_BATTLE_ANIM_HELPERS_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#include "nns_types.h"
+#else
 #include "nitro/hw/common/lcd.h"
+#endif
 
 #include "battle_anim/battle_anim_system.h"
 

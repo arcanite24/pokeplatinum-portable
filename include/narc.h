@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_NARC_H
 #define POKEPLATINUM_NARC_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/narc.h"
 
 #ifndef PLATFORM_DS

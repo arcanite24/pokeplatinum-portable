@@ -1,10 +1,11 @@
 #include "battle_anim/script_funcs_1.h"
 
-#include "nitro/hw/common/lcd.h"
 #ifdef PLATFORM_DS
+#include "nitro/hw/common/lcd.h"
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
 #include <string.h>
 
@@ -18,7 +19,7 @@
 #include "battle_anim/script_funcs_4.h"
 #include "battle_anim/struct_ov12_022380DC.h"
 
-#include "battle_script_battlers.h"
+#include "generated/battle_script_battlers.h"
 #include "bg_window.h"
 #include "heap.h"
 #include "math_util.h"

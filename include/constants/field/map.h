@@ -1,8 +1,12 @@
 #ifndef POKEPLATINUM_CONSTANTS_FIELD_MAP_H
 #define POKEPLATINUM_CONSTANTS_FIELD_MAP_H
 
+#ifdef PLATFORM_DS
 #include <nitro/fx/fx_const.h>
 #include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #define MAP_OBJECT_TILE_SIZE (16 * FX32_ONE)
 

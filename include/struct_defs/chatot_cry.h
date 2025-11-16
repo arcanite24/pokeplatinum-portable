@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_STRUCT_DEF_CHATOT_CRY_H
 #define POKEPLATINUM_STRUCT_DEF_CHATOT_CRY_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #define CHATOT_CRY_SIZE 1000
 
 typedef struct ChatotCry {

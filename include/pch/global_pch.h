@@ -5,12 +5,13 @@
 typedef unsigned short wchar_t;
 #endif
 
+#ifdef PLATFORM_DS
 #include <nitro.h>
 #pragma thumb on
-#ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
-#include "nns_types.h"  /* SDL: Common NNS type stubs */
+#include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
 #include <stddef.h>
 #include <string.h>

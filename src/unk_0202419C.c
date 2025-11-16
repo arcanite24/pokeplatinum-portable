@@ -28,9 +28,14 @@ void G3_ResetG3X(void)
 
 void G3_RequestSwapBuffers(GXSortMode param0, GXBufferMode param1)
 {
-    Unk_021C0788.unk_04 = param0;
-    Unk_021C0788.unk_08 = param1;
-    Unk_021C0788.unk_00 = 1;
+    #ifdef PLATFORM_DS
+        Unk_021C0788.unk_04 = param0;
+        Unk_021C0788.unk_08 = param1;
+        Unk_021C0788.unk_00 = 1;
+    #else
+        // Stub: DS 3D buffer swap - not needed for SDL
+        (void)param0; (void)param1;
+    #endif
 }
 
 void sub_020241CC(void)

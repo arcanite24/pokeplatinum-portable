@@ -4,7 +4,7 @@
 #ifdef PLATFORM_DS
 #include <nitro/gx/gxcommon.h>
 #else
-// SDL: GX types stubbed
+#include "nns_types.h"
 #endif
 #ifdef PLATFORM_DS
 #include <nitro/types.h>

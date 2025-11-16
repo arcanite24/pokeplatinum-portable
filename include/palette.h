@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_PALETTE_H
 #define POKEPLATINUM_PALETTE_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/colors.h"
 #include "constants/heap.h"
 #include "constants/narc.h"

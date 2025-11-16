@@ -5,6 +5,7 @@
 #include <nitro/types.h>
 #else
 #include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
 
 #include "struct_defs/struct_020147B8.h"

@@ -5,6 +5,7 @@
 #include <nitro/types.h>
 #else
 #include "platform/platform_types.h"
+#include "nns_types.h"
 #endif
 
 #include "spl_particle.h"

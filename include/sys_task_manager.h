@@ -1,6 +1,10 @@
 #ifndef POKEPLATINUM_SYS_TASK_MANAGER_H
 #define POKEPLATINUM_SYS_TASK_MANAGER_H
 
+#ifndef PLATFORM_DS
+#include "platform/platform_types.h"
+#endif
+
 typedef struct SysTask SysTask;
 typedef struct SysTaskManager SysTaskManager;
 typedef void (*SysTaskFunc)(SysTask *, void *);
