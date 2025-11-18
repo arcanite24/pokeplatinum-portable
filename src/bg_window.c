@@ -66,6 +66,7 @@ u32 BgConfig_GetHeapID(BgConfig *bgConfig)
     return bgConfig->heapID;
 }
 
+#ifdef PLATFORM_DS
 void SetAllGraphicsModes(const GraphicsModes *graphicsModes)
 {
     GX_SetGraphicsMode(graphicsModes->displayMode, graphicsModes->mainBgMode, graphicsModes->bg0As2DOr3D);
@@ -88,6 +89,7 @@ void SetScreenGraphicsModes(const GraphicsModes *graphicsModes, u8 screen)
         GXLayers_DisableEngineBLayers();
     }
 }
+#endif
 
 void Bg_InitFromTemplate(BgConfig *bgConfig, u8 bgLayer, const BgTemplate *bgTemplate, u8 bgType)
 {

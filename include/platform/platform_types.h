@@ -272,6 +272,74 @@
         (void)src; (void)offset; (void)size;
     }
     
+    // GX Background Screen (Tilemap) Loading Functions
+    static inline void GX_LoadBG0Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG1Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG2Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG3Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    // GX Background Character (Tile Graphics) Loading Functions
+    static inline void GX_LoadBG0Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG1Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG2Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GX_LoadBG3Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    // GXS Sub-Screen Background Screen (Tilemap) Loading Functions
+    static inline void GXS_LoadBG0Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG1Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG2Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG3Scr(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    // GXS Sub-Screen Background Character (Tile Graphics) Loading Functions
+    static inline void GXS_LoadBG0Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG1Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG2Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
+    static inline void GXS_LoadBG3Char(const void* src, u32 offset, u32 size) {
+        (void)src; (void)offset; (void)size;
+    }
+    
     static inline void GX_LoadOBJPltt(const void* src, u32 offset, u32 size) {
         // Stub: DS loads palette to sprite palette RAM
         (void)src; (void)offset; (void)size;
@@ -520,6 +588,385 @@
 #ifdef PLATFORM_SDL
 extern const u8 gGameLanguage;
 extern const u8 gGameVersion;
+#endif
+
+// =====================================================
+// GX Background Control Structures (DS Hardware Registers)
+// =====================================================
+#ifdef PLATFORM_SDL
+    // BG0/BG1 control register structure
+    typedef struct {
+        u8 screenSize;
+        u8 colorMode;
+        u8 screenBase;
+        u8 charBase;
+        u8 bgExtPltt;
+        u8 priority;
+    } GXBg01Control;
+    
+    // BG2/BG3 text mode control
+    typedef struct {
+        u8 screenSize;
+        u8 colorMode;
+        u8 screenBase;
+        u8 charBase;
+        u8 priority;
+    } GXBg23ControlText;
+    
+    // BG2/BG3 affine mode control
+    typedef struct {
+        u8 screenSize;
+        u8 areaOver;
+        u8 screenBase;
+        u8 charBase;
+        u8 priority;
+    } GXBg23ControlAffine;
+    
+    // BG2/BG3 256x16 palette mode control
+    typedef struct {
+        u8 screenSize;
+        u8 areaOver;
+        u8 screenBase;
+        u8 charBase;
+        u8 bgExtPltt;
+        u8 priority;
+    } GXBg23Control256x16Pltt;
+    
+    // GX Background Screen Size Constants
+    #define GX_BG_SCRSIZE_TEXT_256x256         0
+    #define GX_BG_SCRSIZE_TEXT_512x256         1
+    #define GX_BG_SCRSIZE_TEXT_256x512         2
+    #define GX_BG_SCRSIZE_TEXT_512x512         3
+    #define GX_BG_SCRSIZE_AFFINE_128x128       0
+    #define GX_BG_SCRSIZE_AFFINE_256x256       1
+    #define GX_BG_SCRSIZE_AFFINE_512x512       2
+    #define GX_BG_SCRSIZE_AFFINE_1024x1024     3
+    #define GX_BG_SCRSIZE_256x16PLTT_128x128   0
+    #define GX_BG_SCRSIZE_256x16PLTT_256x256   1
+    #define GX_BG_SCRSIZE_256x16PLTT_512x512   2
+    #define GX_BG_SCRSIZE_256x16PLTT_1024x1024 3
+    
+    // GX Background Offset Constants
+    #define GX_BGSCROFFSET_0x00000  0
+    #define GX_BGCHAROFFSET_0x00000 0
+#endif
+
+// =====================================================
+// GX/G2 Background Control Functions (DS Hardware)
+// =====================================================
+#ifdef PLATFORM_SDL
+    // BG Control functions - configure background layers
+    static inline void G2_SetBG0Control(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase, u8 bgExtPltt) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase; (void)bgExtPltt;
+    }
+    
+    static inline void G2_SetBG1Control(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase, u8 bgExtPltt) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase; (void)bgExtPltt;
+    }
+    
+    static inline void G2_SetBG2ControlText(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2_SetBG2ControlAffine(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2_SetBG2Control256x16Pltt(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2_SetBG3ControlText(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2_SetBG3ControlAffine(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2_SetBG3Control256x16Pltt(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    // BG Control Getter functions - return current hardware state (SDL: return zeros)
+    static inline GXBg01Control G2_GetBG0Control(void) {
+        GXBg01Control ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg01Control G2_GetBG1Control(void) {
+        GXBg01Control ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlText G2_GetBG2ControlText(void) {
+        GXBg23ControlText ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlAffine G2_GetBG2ControlAffine(void) {
+        GXBg23ControlAffine ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23Control256x16Pltt G2_GetBG2Control256x16Pltt(void) {
+        GXBg23Control256x16Pltt ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlText G2_GetBG3ControlText(void) {
+        GXBg23ControlText ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlAffine G2_GetBG3ControlAffine(void) {
+        GXBg23ControlAffine ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23Control256x16Pltt G2_GetBG3Control256x16Pltt(void) {
+        GXBg23Control256x16Pltt ctrl = {0}; return ctrl;
+    }
+    
+    // BG Priority functions - set rendering order
+    static inline void G2_SetBG1Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2_SetBG2Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2_SetBG3Priority(int priority) {
+        (void)priority;
+    }
+    
+    // BG Mosaic effects - pixelation effect
+    static inline void G2_BG0Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2_BG1Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2_BG2Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2_BG3Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    // BG Offset functions - scrolling
+    static inline void G2_SetBG0Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2_SetBG1Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2_SetBG2Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2_SetBG3Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    // BG Affine transformation functions
+    static inline void G2_SetBG2Affine(const void* mtx, int centerX, int centerY, int hOffset, int vOffset) {
+        (void)mtx; (void)centerX; (void)centerY; (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2_SetBG3Affine(const void* mtx, int centerX, int centerY, int hOffset, int vOffset) {
+        (void)mtx; (void)centerX; (void)centerY; (void)hOffset; (void)vOffset;
+    }
+    
+    // GX Graphics mode and offset functions
+    static inline void GX_SetGraphicsMode(u32 mode, u32 bgMode, u32 bg0_3d) {
+        (void)mode; (void)bgMode; (void)bg0_3d;
+    }
+    
+    static inline void GXS_SetGraphicsMode(u32 bgMode) {
+        (void)bgMode;
+    }
+    
+    static inline void GX_SetBGCharOffset(u32 offset) {
+        (void)offset;
+    }
+    
+    static inline void GX_SetBGScrOffset(u32 offset) {
+        (void)offset;
+    }
+    
+    // G2S_ Sub-Screen Background Control Functions
+    static inline void G2S_SetBG0Control(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase, u8 bgExtPltt) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase; (void)bgExtPltt;
+    }
+    
+    static inline void G2S_SetBG1Control(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase, u8 bgExtPltt) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase; (void)bgExtPltt;
+    }
+    
+    static inline void G2S_SetBG2ControlText(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2S_SetBG2ControlAffine(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2S_SetBG2Control256x16Pltt(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2S_SetBG3ControlText(u8 screenSize, u8 colorMode, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)colorMode; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2S_SetBG3ControlAffine(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    static inline void G2S_SetBG3Control256x16Pltt(u8 screenSize, u8 areaOver, u8 screenBase, u8 charBase) {
+        (void)screenSize; (void)areaOver; (void)screenBase; (void)charBase;
+    }
+    
+    // G2S Sub-Screen Getter functions
+    static inline GXBg01Control G2S_GetBG0Control(void) {
+        GXBg01Control ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg01Control G2S_GetBG1Control(void) {
+        GXBg01Control ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlText G2S_GetBG2ControlText(void) {
+        GXBg23ControlText ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlAffine G2S_GetBG2ControlAffine(void) {
+        GXBg23ControlAffine ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23Control256x16Pltt G2S_GetBG2Control256x16Pltt(void) {
+        GXBg23Control256x16Pltt ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlText G2S_GetBG3ControlText(void) {
+        GXBg23ControlText ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23ControlAffine G2S_GetBG3ControlAffine(void) {
+        GXBg23ControlAffine ctrl = {0}; return ctrl;
+    }
+    
+    static inline GXBg23Control256x16Pltt G2S_GetBG3Control256x16Pltt(void) {
+        GXBg23Control256x16Pltt ctrl = {0}; return ctrl;
+    }
+    
+    // BG Character (Tile) Pointer Getters - return pointers to tile data in VRAM
+    static inline void* G2_GetBG0CharPtr(void) {
+        return NULL; // SDL: no hardware VRAM
+    }
+    
+    static inline void* G2_GetBG1CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2_GetBG2CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2_GetBG3CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2S_GetBG0CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2S_GetBG1CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2S_GetBG2CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void* G2S_GetBG3CharPtr(void) {
+        return NULL;
+    }
+    
+    static inline void G2S_SetBG0Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2S_SetBG1Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2S_SetBG2Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2S_SetBG3Priority(int priority) {
+        (void)priority;
+    }
+    
+    static inline void G2S_BG0Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2S_BG1Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2S_BG2Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    static inline void G2S_BG3Mosaic(BOOL enable) {
+        (void)enable;
+    }
+    
+    // G2S Sub-Screen Offset functions
+    static inline void G2S_SetBG0Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2S_SetBG1Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2S_SetBG2Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2S_SetBG3Offset(int hOffset, int vOffset) {
+        (void)hOffset; (void)vOffset;
+    }
+    
+    // G2S Sub-Screen Affine transformation functions
+    static inline void G2S_SetBG2Affine(const void* mtx, int centerX, int centerY, int hOffset, int vOffset) {
+        (void)mtx; (void)centerX; (void)centerY; (void)hOffset; (void)vOffset;
+    }
+    
+    static inline void G2S_SetBG3Affine(const void* mtx, int centerX, int centerY, int hOffset, int vOffset) {
+        (void)mtx; (void)centerX; (void)centerY; (void)hOffset; (void)vOffset;
+    }
+    
+    // MI_ Memory Interface functions - compression
+    static inline void MI_UncompressLZ8(const void* src, void* dest) {
+        (void)src; (void)dest;
+        // TODO: Implement LZ77 decompression
+    }
+    
+    static inline u32 MI_GetUncompressedSize(const void* src) {
+        (void)src;
+        // TODO: Parse LZ77 header to get uncompressed size
+        return 0;
+    }
+    
+    static inline void MI_CpuFillFast(void* dest, u32 fillVal, u32 size) {
+        (void)dest; (void)fillVal; (void)size;
+        // TODO: Fast fill memory with 32-bit value
+    }
 #endif
 
 #endif // PLATFORM_TYPES_H

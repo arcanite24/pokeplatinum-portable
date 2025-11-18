@@ -14,6 +14,18 @@
 // Tile constants
 #define TILE_SIZE 8  // DS uses 8x8 pixel tiles
 #define TILES_PER_ROW_4BPP 64  // For 4bpp: 32 bytes per tile, 64 tiles per 2KB
+
+// Internal PAL state for each background layer (extends game's Background struct)
+typedef struct {
+    BOOL enabled;           // Is this layer active?
+    SDL_Texture* renderTexture;  // Cached rendered tilemap
+    void* tileData;         // Tile graphics data
+    u16* paletteData;       // Palette data (RGB555 format)
+    BOOL dirty;             // Needs re-render?
+} PAL_BgLayerState;
+
+// Global state for all background layers
+static PAL_BgLayerState g_palBgLayers[8] = {0};
 #define TILES_PER_ROW_8BPP 32  // For 8bpp: 64 bytes per tile, 32 tiles per 2KB
 
 // Tilemap entry format (16-bit)
@@ -85,10 +97,13 @@ PAL_BgConfig* PAL_Bg_CreateConfig(u32 heapID) {
     memset(config, 0, sizeof(PAL_BgConfig));
     config->heapID = heapID;
     
-    // Initialize all layers as disabled
-    for (int i = 0; i < PAL_BG_LAYER_MAX; i++) {
-        config->bgs[i].enabled = FALSE;
-        config->bgs[i].renderTexture = NULL;
+    // Initialize all PAL layer states as disabled
+    for (int i = 0; i < 8; i++) {
+        g_palBgLayers[i].enabled = FALSE;
+        g_palBgLayers[i].renderTexture = NULL;
+        g_palBgLayers[i].tileData = NULL;
+        g_palBgLayers[i].paletteData = NULL;
+        g_palBgLayers[i].dirty = TRUE;
     }
     
     return config;
@@ -97,18 +112,18 @@ PAL_BgConfig* PAL_Bg_CreateConfig(u32 heapID) {
 void PAL_Bg_DestroyConfig(PAL_BgConfig* bgConfig) {
     if (!bgConfig) return;
     
-    // Free all layer resources
-    for (int i = 0; i < PAL_BG_LAYER_MAX; i++) {
+    // Free all PAL layer resources
+    for (int i = 0; i < 8; i++) {
         PAL_Bg_FreeTilemapBuffer(bgConfig, i);
         
-        if (bgConfig->bgs[i].tileData) {
-            PAL_Free(bgConfig->bgs[i].tileData);
-            bgConfig->bgs[i].tileData = NULL;
+        if (g_palBgLayers[i].tileData) {
+            PAL_Free(g_palBgLayers[i].tileData);
+            g_palBgLayers[i].tileData = NULL;
         }
         
-        if (bgConfig->bgs[i].renderTexture) {
-            SDL_DestroyTexture(bgConfig->bgs[i].renderTexture);
-            bgConfig->bgs[i].renderTexture = NULL;
+        if (g_palBgLayers[i].renderTexture) {
+            SDL_DestroyTexture(g_palBgLayers[i].renderTexture);
+            g_palBgLayers[i].renderTexture = NULL;
         }
     }
     
