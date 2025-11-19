@@ -1,12 +1,13 @@
 #include "communication_information.h"
 
-#include <dwc.h>
+#include <string.h>
+
 #ifdef PLATFORM_DS
+#include <dwc.h>
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
 #endif
-#include <string.h>
 
 #include "constants/heap.h"
 
@@ -26,6 +27,8 @@
 #include "unk_0202C858.h"
 #include "unk_02033200.h"
 #include "unk_0203909C.h"
+
+#ifdef PLATFORM_DS
 
 typedef struct CommPlayerInfo {
     u8 regulationBuffer[32];
@@ -507,3 +510,148 @@ void CommInfo_SetPersonalTrainerInfo(TrainerInfo *trainerInfo)
 {
     sCommInfo->personalTrainerInfo = trainerInfo;
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Communication information system (multiplayer/wireless features) - Stub implementation
+// This system handles player data exchange in multiplayer scenarios
+
+void CommInfo_Init(SaveData *saveData, const BattleRegulation *regulation) {
+    printf("[CommInfo] TODO: Port CommInfo_Init\n");
+}
+
+void CommInfo_Delete(void) {
+    printf("[CommInfo] TODO: Port CommInfo_Delete\n");
+}
+
+BOOL CommInfo_IsInitialized(void) {
+    return FALSE;
+}
+
+void CommInfo_SendBattleRegulation(void) {
+    printf("[CommInfo] TODO: Port CommInfo_SendBattleRegulation\n");
+}
+
+int CommPlayerInfo_Size(void) {
+    return 0;
+}
+
+void CommunicatitonInformaion_FinishReading(int unused0, int unused1, void *unused2, void *unused3) {
+    (void)unused0; (void)unused1; (void)unused2; (void)unused3;
+}
+
+BOOL CommInfo_IsDataFinishedReading(void) {
+    return TRUE;
+}
+
+void CommInfo_RecvPlayerDataArray(int netId, int param1, void *src, void *unused) {
+    (void)netId; (void)param1; (void)src; (void)unused;
+}
+
+void CommInfo_RecvPlayerData(int netId, int param1, void *src, void *param3) {
+    (void)netId; (void)param1; (void)src; (void)param3;
+}
+
+BOOL CommInfo_ServerSendArray(void) {
+    return FALSE;
+}
+
+BOOL CommInfo_IsReceivingData(void) {
+    return FALSE;
+}
+
+void CommInfo_InitPlayer(int netId) {
+    (void)netId;
+}
+
+BOOL sub_02032DC4(int netId) {
+    (void)netId;
+    return FALSE;
+}
+
+BOOL sub_02032DE0(int netId) {
+    (void)netId;
+    return FALSE;
+}
+
+BOOL sub_02032E00(int netId) {
+    (void)netId;
+    return FALSE;
+}
+
+void sub_02032E1C(int netId) {
+    (void)netId;
+}
+
+void CommInfo_SetReceiveEnd(int netId) {
+    (void)netId;
+}
+
+int CommInfo_NewNetworkId(void) {
+    return 0;
+}
+
+int CommInfo_CountReceived(void) {
+    return 0;
+}
+
+BOOL sub_02032E90(void) {
+    return FALSE;
+}
+
+TrainerInfo *CommInfo_TrainerInfo(int netId) {
+    (void)netId;
+    return NULL;
+}
+
+void *CommInfo_DWCFriendData(int netId) {
+    (void)netId;
+    return NULL;
+}
+
+int sub_02032F40(int param0) {
+    (void)param0;
+    return 0;
+}
+
+u16 *sub_02032F54(int netId) {
+    (void)netId;
+    return NULL;
+}
+
+int CommInfo_PlayerCountry(int netId) {
+    (void)netId;
+    return 0;
+}
+
+int CommInfo_PlayerRegion(int netId) {
+    (void)netId;
+    return 0;
+}
+
+int sub_02032FC0(int param0) {
+    (void)param0;
+    return 0;
+}
+
+BOOL CommInfo_CheckBattleRegulation(void) {
+    return FALSE;
+}
+
+void CommInfo_SavePlayerRecord(SaveData *saveData) {
+    (void)saveData;
+}
+
+void sub_020331B4(SaveData *saveData, int param1) {
+    (void)saveData; (void)param1;
+}
+
+void CommInfo_SetTradeResult(SaveData *saveData, int val) {
+    (void)saveData; (void)val;
+}
+
+void CommInfo_SetPersonalTrainerInfo(TrainerInfo *trainerInfo) {
+    (void)trainerInfo;
+}
+
+#endif // PLATFORM_DS

@@ -1,7 +1,9 @@
 #ifndef POKEPLATINUM_COMMUNICATION_INFORMATION_H
 #define POKEPLATINUM_COMMUNICATION_INFORMATION_H
 
+#ifdef PLATFORM_DS
 #include <dwc.h>
+#endif
 
 #include "struct_defs/struct_0202610C.h"
 
@@ -27,9 +29,13 @@ void sub_02032E1C(int netId);
 void CommInfo_SetReceiveEnd(int netId);
 int CommInfo_NewNetworkId(void);
 int CommInfo_CountReceived(void);
-BOOL sub_02032E90(void);
+int sub_02032E90(void);
 TrainerInfo *CommInfo_TrainerInfo(int netId);
+#ifdef PLATFORM_DS
 DWCFriendData *CommInfo_DWCFriendData(int netId);
+#else
+void *CommInfo_DWCFriendData(int netId);  // SDL: DWCFriendData is DS wireless communication specific
+#endif
 int sub_02032F40(int param0);
 u16 *sub_02032F54(int netId);
 int CommInfo_PlayerCountry(int netId);

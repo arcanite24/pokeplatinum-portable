@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02057B48_H
 #define POKEPLATINUM_STRUCT_02057B48_H
 
+#include "platform/platform_types.h"
+
 typedef struct CommPlayerLocation {
     u16 x;
     u16 z;

@@ -1,10 +1,10 @@
 #ifndef POKEPLATINUM_COMMUNICATION_SYSTEM_H
 #define POKEPLATINUM_COMMUNICATION_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/math.h>
-#else
-#include "platform/platform_types.h"
 #endif
 
 #define MAX_CONNECTED_PLAYERS 8
@@ -59,7 +59,11 @@ int CommType_MinPlayers(int param0);
 void CommSys_SetAlone(BOOL param0);
 BOOL CommSys_IsAlone(void);
 void sub_0203619C(int param0, int param1, void *param2, void *param3);
+#ifdef PLATFORM_DS
 void CommSys_Seed(MATHRandContext32 *param0);
+#else
+void CommSys_Seed(void *param0);  // SDL: MATHRandContext32 is DS-specific
+#endif
 BOOL sub_02036254(int param0);
 BOOL sub_0203626C(int param0);
 BOOL sub_02036284(void);

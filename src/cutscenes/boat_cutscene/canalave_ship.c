@@ -112,6 +112,7 @@ BOOL BoatCutscene_CanalaveShip_Init(ApplicationManager *appMan, int *state)
     Camera_InitWithTarget(&cameraTarget, cameraConfig.distance, &cameraConfig.cameraAngle, cameraConfig.fovY, cameraConfig.projectionMtx, FALSE, cutsceneData->camera);
     Camera_SetAsActive(cutsceneData->camera);
 
+#ifdef PLATFORM_DS
     for (lightID = 0; lightID < BOAT_TRAVEL_CUTSCENE_NUM_LIGHTS; lightID++) {
         NNS_G3dGlbLightVector(lightID, taskEnv->areaModelAttrs->lightVectors[lightID].x, taskEnv->areaModelAttrs->lightVectors[lightID].y, taskEnv->areaModelAttrs->lightVectors[lightID].z);
         NNS_G3dGlbLightColor(lightID, taskEnv->areaModelAttrs->lightColors[lightID]);
@@ -120,6 +121,11 @@ BOOL BoatCutscene_CanalaveShip_Init(ApplicationManager *appMan, int *state)
     NNS_G3dGlbMaterialColorDiffAmb(taskEnv->areaModelAttrs->diffuseReflectColor, taskEnv->areaModelAttrs->ambientReflectColor, taskEnv->areaModelAttrs->setDiffuseColorAsVertexColor);
     NNS_G3dGlbMaterialColorSpecEmi(taskEnv->areaModelAttrs->specularReflectColor, taskEnv->areaModelAttrs->emissionColor, taskEnv->areaModelAttrs->enableSpecularReflectShininessTable);
     NNS_G3dGlbPolygonAttr(taskEnv->areaModelAttrs->enabledLightsMask, taskEnv->areaModelAttrs->polygonMode, taskEnv->areaModelAttrs->cullMode, taskEnv->areaModelAttrs->polygonID, taskEnv->areaModelAttrs->alpha, taskEnv->areaModelAttrs->miscFlags);
+#else
+    // SDL: TODO - Port 3D lighting and material setup
+    (void)lightID;
+    printf("[CanavaShip] TODO: Port 3D lighting and material setup\n");
+#endif
 
     App_StartScreenFade(FALSE, HEAP_ID_BOAT_CUTSCENE);
     return TRUE;
@@ -151,7 +157,12 @@ BOOL BoatCutscene_CanalaveShip_Main(ApplicationManager *appMan, int *state)
         break;
     case BOAT_TRAVEL_CUTSCENE_STATE_FADE_OUT:
         if (!cutsceneData->firstAnimationFinished) {
+#ifdef PLATFORM_DS
             if (cutsceneData->anmObjs[0]->frame + FX32_ONE == NNS_G3dAnmObjGetNumFrame(cutsceneData->anmObjs[0])) {
+#else
+            // SDL: TODO - Port 3D animation frame checking
+            if (FALSE) {  // Disabled for now
+#endif
                 cutsceneData->firstAnimationFinished = TRUE;
                 App_StartScreenFade(TRUE, HEAP_ID_BOAT_CUTSCENE);
             }
@@ -162,11 +173,16 @@ BOOL BoatCutscene_CanalaveShip_Main(ApplicationManager *appMan, int *state)
         }
     }
 
+#ifdef PLATFORM_DS
     for (animIndex = 0; animIndex < BOAT_TRAVEL_CUTSCENE_NUM_ANIMATIONS; animIndex++) {
         if (cutsceneData->anmObjs[animIndex]->frame + FX32_ONE < NNS_G3dAnmObjGetNumFrame(cutsceneData->anmObjs[animIndex])) {
             cutsceneData->anmObjs[animIndex]->frame += FX32_ONE;
         }
     }
+#else
+    // SDL: TODO - Port 3D animation frame updates
+    (void)animIndex;
+#endif
 
     G3_ResetG3X();
     Camera_ComputeViewMatrix();
@@ -181,10 +197,14 @@ BOOL BoatCutscene_CanalaveShip_Exit(ApplicationManager *appMan, int *state)
     u8 animIndex;
     BoatCutscene_CanalaveShip *cutsceneData = ApplicationManager_Data(appMan);
 
+#ifdef PLATFORM_DS
     for (animIndex = 0; animIndex < BOAT_TRAVEL_CUTSCENE_NUM_ANIMATIONS; animIndex++) {
         NNS_G3dFreeAnmObj(&cutsceneData->allocator, cutsceneData->anmObjs[animIndex]);
         Heap_Free(cutsceneData->animationFiles[animIndex]);
     }
+#else
+    (void)animIndex;
+#endif
 
     Heap_Free(cutsceneData->modelFile);
     Camera_Delete(cutsceneData->camera);
@@ -202,14 +222,18 @@ static void BoatCutscene_CanalaveShip_Init3D(void)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+#ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
     GXS_SetVisiblePlane(0);
+#endif
 
     BoatCutscene_CanalaveShip_SetGXBanks();
     Easy3D_Init(HEAP_ID_BOAT_CUTSCENE);
 
+#ifdef PLATFORM_DS
     G3X_EdgeMarking(TRUE);
     G3X_SetEdgeColorTable(edgeColorTable);
+#endif
 
     GXLayers_SwapDisplay();
 }

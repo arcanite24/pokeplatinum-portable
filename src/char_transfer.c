@@ -1,10 +1,16 @@
 #include "char_transfer.h"
 
+#ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #include <nnsys.h>
+#else
+#include "platform/platform_types.h"
+#endif
 
 #include "heap.h"
 #include "vram_transfer.h"
+
+#ifdef PLATFORM_DS
 
 #define CHAR_RESOURCE_ID_NONE -1
 #define CHAR_TRANSFER_SHIFT   8
@@ -1027,3 +1033,94 @@ static void FixOffsetAndSize(u32 base, u32 offset, u32 size, int *outOffset, int
         *outSize = size;
     }
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Character transfer stubs - VRAM management not needed for SDL rendering
+
+void CharTransfer_Init(const CharTransferTemplate *template) {
+    (void)template;
+}
+
+void CharTransfer_InitWithVramModes(const CharTransferTemplate *template, GXOBJVRamModeChar modeMain, GXOBJVRamModeChar modeSub) {
+    (void)template; (void)modeMain; (void)modeSub;
+}
+
+void CharTransfer_Free(void) {
+}
+
+void CharTransfer_ClearBuffers(void) {
+}
+
+void CharTransfer_ReserveVramRange(u32 offset, u32 size, NNS_G2D_VRAM_TYPE vramType) {
+    (void)offset; (void)size; (void)vramType;
+}
+
+BOOL CharTransfer_Request(const CharTransferTaskTemplate *template) {
+    (void)template;
+    return FALSE;
+}
+
+BOOL CharTransfer_RequestWithHardwareMappingType(const CharTransferTaskTemplate *template) {
+    (void)template;
+    return FALSE;
+}
+
+BOOL CharTransfer_HasTask(int resourceID) {
+    (void)resourceID;
+    return FALSE;
+}
+
+void CharTransfer_ReplaceCharData(int resourceID, NNSG2dCharacterData *data) {
+    (void)resourceID; (void)data;
+}
+
+void CharTransfer_ResetTask(int resourceID) {
+    (void)resourceID;
+}
+
+void CharTransfer_ResetAllTasks(void) {
+}
+
+NNSG2dImageProxy *CharTransfer_GetImageProxy(int resourceID) {
+    (void)resourceID;
+    return NULL;
+}
+
+NNSG2dImageProxy *CharTransfer_ResizeTaskRange(int resourceID, u32 size) {
+    (void)resourceID; (void)size;
+    return NULL;
+}
+
+NNSG2dImageProxy *CharTransfer_CopyTask(const NNSG2dImageProxy *imageProxy) {
+    (void)imageProxy;
+    return NULL;
+}
+
+void CharTransfer_DeleteTask(const NNSG2dImageProxy *imageProxy) {
+    (void)imageProxy;
+}
+
+BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, CharTransferAllocation *allocation) {
+    (void)size; (void)atEnd; (void)vramType; (void)allocation;
+    return FALSE;
+}
+
+void CharTransfer_ClearRange(CharTransferAllocation *allocation) {
+    (void)allocation;
+}
+
+void *CharTransfer_PopTaskManager(void) {
+    return NULL;
+}
+
+void CharTransfer_PushTaskManager(void *manager) {
+    (void)manager;
+}
+
+int CharTransfer_GetBlockSize(GXOBJVRamModeChar vramMode) {
+    (void)vramMode;
+    return 0;
+}
+
+#endif // PLATFORM_DS

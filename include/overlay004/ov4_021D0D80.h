@@ -1,7 +1,9 @@
 #ifndef POKEPLATINUM_OV4_021D0D80_H
 #define POKEPLATINUM_OV4_021D0D80_H
 
+#ifdef PLATFORM_DS
 #include <dwc.h>
+#endif
 
 #include "overlay004/funcptr_ov4_021D1104.h"
 #include "overlay004/funcptr_ov4_021D1120.h"
@@ -23,8 +25,13 @@ BOOL ov4_021D1404();
 int ov4_021D142C(void *param0, int param1);
 int ov4_021D14D4(void *param0, int param1);
 int ov4_021D1590(void *param0, int param1);
+#ifdef PLATFORM_DS
 void *ov4_021D1AA0(DWCAllocType param0, u32 param1, int param2);
 void ov4_021D1B04(DWCAllocType param0, void *param1, u32 param2);
+#else
+void *ov4_021D1AA0(int param0, u32 param1, int param2);  // SDL: DWCAllocType is DS wireless specific
+void ov4_021D1B04(int param0, void *param1, u32 param2);  // SDL: DWCAllocType is DS wireless specific
+#endif
 int ov4_021D1B5C(void);
 int ov4_021D1E30();
 void ov4_021D1E74(int heapID);

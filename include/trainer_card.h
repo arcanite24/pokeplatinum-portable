@@ -5,7 +5,7 @@
 
 #include "field/field_system_decl.h"
 
-#include "badges.h"
+#include "generated/badges.h"
 #include "play_time.h"
 
 #define SIGNATURE_WIDTH  24

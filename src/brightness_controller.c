@@ -59,9 +59,19 @@ static void BrightnessController_StepTransition(TransitionController *controller
     }
 
     if (IS_SCREEN_SELECTED(data->screenSelect, BRIGHTNESS_MAIN_SCREEN)) {
+#ifdef PLATFORM_DS
         G2_SetBlendBrightness(data->planeMask, controller->brightness);
+#else
+        // SDL: TODO - Implement brightness blending effect
+        (void)data;
+        (void)controller;
+#endif
     } else if (IS_SCREEN_SELECTED(data->screenSelect, BRIGHTNESS_SUB_SCREEN)) {
+#ifdef PLATFORM_DS
         G2S_SetBlendBrightness(data->planeMask, controller->brightness);
+#else
+        // SDL: TODO - Implement brightness blending effect
+#endif
     }
 
     if (transitionFinished == TRUE) {
@@ -103,13 +113,17 @@ void BrightnessController_StartTransition(const u8 stepCount, const s16 tragetBr
     }
 
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_MAIN_SCREEN)) {
+#ifdef PLATFORM_DS
         G2_SetBlendBrightness(planeMask, startBrightness);
+#endif
         TransitionController *controller = &controllerMain;
         BrightnessController_TransitionSetup(controller, stepCount, tragetBrightness, startBrightness, planeMask, BRIGHTNESS_MAIN_SCREEN);
     }
 
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_SUB_SCREEN)) {
+#ifdef PLATFORM_DS
         G2S_SetBlendBrightness(planeMask, startBrightness);
+#endif
         TransitionController *controller = &controllerSub;
         BrightnessController_TransitionSetup(controller, stepCount, tragetBrightness, startBrightness, planeMask, BRIGHTNESS_SUB_SCREEN);
     }
@@ -118,11 +132,18 @@ void BrightnessController_StartTransition(const u8 stepCount, const s16 tragetBr
 void BrightnessController_SetScreenBrightness(const s16 brightness, const int planeMask, const u32 screenSelect)
 {
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_MAIN_SCREEN)) {
+#ifdef PLATFORM_DS
         G2_SetBlendBrightness(planeMask, brightness);
+#else
+        (void)brightness;
+        (void)planeMask;
+#endif
     }
 
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_SUB_SCREEN)) {
+#ifdef PLATFORM_DS
         G2S_SetBlendBrightness(planeMask, brightness);
+#endif
     }
 
     BrightnessController_ResetScreenController(screenSelect);
@@ -130,8 +151,13 @@ void BrightnessController_SetScreenBrightness(const s16 brightness, const int pl
 
 void BrightnessController_ResetAllControllers(void)
 {
+#ifdef PLATFORM_DS
     MI_CpuClear8(&controllerMain, sizeof(TransitionController));
     MI_CpuClear8(&controllerSub, sizeof(TransitionController));
+#else
+    memset(&controllerMain, 0, sizeof(TransitionController));
+    memset(&controllerSub, 0, sizeof(TransitionController));
+#endif
 
     controllerMain.isActive = FALSE;
     controllerSub.isActive = FALSE;
@@ -140,12 +166,20 @@ void BrightnessController_ResetAllControllers(void)
 void BrightnessController_ResetScreenController(const u32 screenSelect)
 {
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_MAIN_SCREEN)) {
+#ifdef PLATFORM_DS
         MI_CpuClear8(&controllerMain, sizeof(TransitionController));
+#else
+        memset(&controllerMain, 0, sizeof(TransitionController));
+#endif
         controllerMain.isActive = FALSE;
     }
 
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_SUB_SCREEN)) {
+#ifdef PLATFORM_DS
         MI_CpuClear8(&controllerSub, sizeof(TransitionController));
+#else
+        memset(&controllerSub, 0, sizeof(TransitionController));
+#endif
         controllerSub.isActive = FALSE;
     }
 }

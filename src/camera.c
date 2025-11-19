@@ -2,10 +2,10 @@
 
 #ifdef PLATFORM_DS
 #include <nitro.h>
+#include <nnsys.h>
 #else
 #include "platform/platform_types.h"
 #endif
-#include <nnsys.h>
 #include <string.h>
 
 #include "camera.h"
@@ -14,9 +14,13 @@
 
 #define CAMERA_DEFAULT_ASPECT_RATIO (FX32_ONE * 4 / 3)
 
+#ifdef PLATFORM_DS
 GXBufferMode gBufferMode = GX_BUFFERMODE_W;
+#endif
 
 static Camera *sActiveCamera = NULL;
+
+#ifdef PLATFORM_DS
 
 static void Camera_AdjustPositionAroundTarget(Camera *camera)
 {
@@ -186,6 +190,7 @@ void Camera_ClearActive(void)
 
 void Camera_ComputeViewMatrix(void)
 {
+#ifdef PLATFORM_DS
     if (sActiveCamera == NULL) {
         return;
     }
@@ -204,6 +209,10 @@ void Camera_ComputeViewMatrix(void)
     }
 
     NNS_G3dGlbLookAt(&sActiveCamera->lookAt.position, &sActiveCamera->lookAt.up, &sActiveCamera->lookAt.target);
+#else
+    // SDL: TODO - 3D camera view matrix computation
+    (void)sActiveCamera;
+#endif
 }
 
 void Camera_ComputeViewMatrixWithRoll(void)
@@ -487,3 +496,147 @@ void Camera_SetPosition(const VecFx32 *position, Camera *camera)
 {
     camera->lookAt.position = *position;
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Camera system stubs - 3D not implemented yet
+// These functions are called but have no effect until 3D rendering is implemented
+
+void Camera_InitHistory(int historySize, int delay, int delayMask, enum HeapID heapID, Camera *camera) {
+    (void)historySize; (void)delay; (void)delayMask; (void)heapID; (void)camera;
+}
+
+void Camera_DeleteHistory(Camera *camera) {
+    (void)camera;
+}
+
+Camera *Camera_Alloc(const enum HeapID heapID) {
+    (void)heapID;
+    return NULL;
+}
+
+void Camera_Delete(Camera *camera) {
+    (void)camera;
+}
+
+void Camera_Copy(Camera const *src, Camera *dst) {
+    if (src && dst) {
+        memcpy(dst, src, sizeof(Camera));
+    }
+}
+
+void Camera_SetAsActive(Camera *camera) {
+    sActiveCamera = camera;
+}
+
+void Camera_ClearActive(void) {
+    sActiveCamera = NULL;
+}
+
+void Camera_ComputeViewMatrix(void) {
+    // SDL: TODO - 3D camera view matrix
+}
+
+void Camera_ComputeViewMatrixWithRoll(void) {
+    // SDL: TODO - 3D camera view matrix with roll
+}
+
+void Camera_SetUp(const VecFx32 *up, Camera *camera) {
+    (void)up; (void)camera;
+}
+
+void Camera_TrackTarget(const VecFx32 *target, Camera *camera) {
+    (void)target; (void)camera;
+}
+
+void Camera_ReleaseTarget(Camera *camera) {
+    (void)camera;
+}
+
+void Camera_SetClipping(const fx32 nearClip, const fx32 farClip, Camera *camera) {
+    (void)nearClip; (void)farClip; (void)camera;
+}
+
+void Camera_InitWithTarget(const VecFx32 *target, const fx32 distance, const CameraAngle *angle, const u16 fovY, const u8 projection, const BOOL trackTarget, Camera *camera) {
+    (void)target; (void)distance; (void)angle; (void)fovY; (void)projection; (void)trackTarget; (void)camera;
+}
+
+void Camera_InitWithPosition(const VecFx32 *position, const fx32 distance, const CameraAngle *angle, const u16 fovY, const u8 projection, Camera *camera) {
+    (void)position; (void)distance; (void)angle; (void)fovY; (void)projection; (void)camera;
+}
+
+void Camera_InitWithTargetAndPosition(const VecFx32 *target, const VecFx32 *position, const u16 fovY, const u8 projection, const BOOL trackTarget, Camera *camera) {
+    (void)target; (void)position; (void)fovY; (void)projection; (void)trackTarget; (void)camera;
+}
+
+void Camera_ComputeProjectionMatrix(const u8 projection, Camera *camera) {
+    (void)projection; (void)camera;
+}
+
+void Camera_SetFOV(const u16 fovY, Camera *camera) {
+    (void)fovY; (void)camera;
+}
+
+void Camera_AdjustFOV(const u16 amount, Camera *camera) {
+    (void)amount; (void)camera;
+}
+
+void Camera_Move(const VecFx32 *delta, Camera *camera) {
+    (void)delta; (void)camera;
+}
+
+void Camera_SetAngleAroundSelf(const CameraAngle *angle, Camera *camera) {
+    (void)angle; (void)camera;
+}
+
+void Camera_SetAngleAroundTarget(const CameraAngle *angle, Camera *camera) {
+    (void)angle; (void)camera;
+}
+
+void Camera_AdjustAngleAroundSelf(const CameraAngle *amount, Camera *camera) {
+    (void)amount; (void)camera;
+}
+
+void Camera_AdjustAngleAroundTarget(const CameraAngle *amount, Camera *camera) {
+    (void)amount; (void)camera;
+}
+
+void Camera_SetDistance(const fx32 distance, Camera *camera) {
+    (void)distance; (void)camera;
+}
+
+void Camera_SetTargetAndUpdatePosition(const VecFx32 *target, Camera *camera) {
+    (void)target; (void)camera;
+}
+
+void Camera_AdjustDistance(const fx32 amount, Camera *camera) {
+    (void)amount; (void)camera;
+}
+
+CameraAngle Camera_GetAngle(Camera const *camera) {
+    CameraAngle angle = {0, 0, 0, 0};
+    (void)camera;
+    return angle;
+}
+
+VecFx32 Camera_GetTarget(Camera const *camera) {
+    VecFx32 target = {0, 0, 0};
+    (void)camera;
+    return target;
+}
+
+VecFx32 Camera_GetPosition(Camera const *camera) {
+    VecFx32 position = {0, 0, 0};
+    (void)camera;
+    return position;
+}
+
+void Camera_SetTarget(const VecFx32 *target, Camera *camera) {
+    (void)target; (void)camera;
+}
+
+void Camera_SetPosition(const VecFx32 *position, Camera *camera) {
+    (void)position; (void)camera;
+}
+
+#endif // PLATFORM_DS

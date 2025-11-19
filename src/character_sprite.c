@@ -28,6 +28,8 @@ static void CharacterSprite_CopyTileFromUntiledArray(const u8 *src, u8 *dest, in
     }
 }
 
+#ifdef PLATFORM_DS
+
 static void CharacterSprite_LoadSpriteData(enum NarcID narcID, int narcIdx, enum HeapID heapID, NNSG2dCharacterData **charData)
 {
     BOOL success;
@@ -284,3 +286,43 @@ void CharacterSprite_LoadPokemonSprite(enum NarcID narcID, int narcIdx, enum Hea
 
     CharacterSprite_LoadPokemonSpriteRegion(narcID, narcIdx, heapID, &region, destPtr, personality, isAnimated, face, species);
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Character sprite stubs - graphics loading not implemented yet
+
+void CharacterSprite_LoadTiledData(enum NarcID narcID, int narcIdx, enum HeapID heapID, int x, int y, int width, int height, void *dest) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)x; (void)y; (void)width; (void)height; (void)dest;
+}
+
+void CharacterSprite_LoadSpriteRegion(enum NarcID narcID, int narcIdx, enum HeapID heapID, const TileRegion *region, void *dest) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)region; (void)dest;
+}
+
+void CharacterSprite_LoadSpriteFrame0(enum NarcID narcID, int narcIdx, enum HeapID heapID, void *dest) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)dest;
+}
+
+void *CharacterSprite_LoadTiles(enum NarcID narcID, int narcIdx, enum HeapID heapID) {
+    (void)narcID; (void)narcIdx; (void)heapID;
+    return NULL;
+}
+
+void *CharacterSprite_LoadPalette(enum NarcID narcID, int paletteIndex, enum HeapID heapID) {
+    (void)narcID; (void)paletteIndex; (void)heapID;
+    return NULL;
+}
+
+void CharacterSprite_LoadPokemonSpriteRect(enum NarcID narcID, int narcIdx, enum HeapID heapID, int x, int y, int width, int height, u8 *dest, u32 personality, BOOL isAnimated, int face, enum Species species) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)x; (void)y; (void)width; (void)height; (void)dest; (void)personality; (void)isAnimated; (void)face; (void)species;
+}
+
+void CharacterSprite_LoadPokemonSpriteRegion(enum NarcID narcID, int narcIdx, enum HeapID heapID, const TileRegion *frameTiles, void *dest, u32 personality, BOOL isAnimated, int face, enum Species species) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)frameTiles; (void)dest; (void)personality; (void)isAnimated; (void)face; (void)species;
+}
+
+void CharacterSprite_LoadPokemonSprite(enum NarcID narcID, int narcIdx, enum HeapID heapID, void *destPtr, u32 personality, BOOL isAnimated, int face, enum Species species) {
+    (void)narcID; (void)narcIdx; (void)heapID; (void)destPtr; (void)personality; (void)isAnimated; (void)face; (void)species;
+}
+
+#endif // PLATFORM_DS

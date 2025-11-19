@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_COINS_H
 #define POKEPLATINUM_COINS_H
 
+#include "platform/platform_types.h"
+
 #define MAX_COINS 50000
 
 /*

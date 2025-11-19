@@ -1,7 +1,7 @@
 #include "communication_system.h"
 
-#include <dwc.h>
 #ifdef PLATFORM_DS
+#include <dwc.h>
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
@@ -30,6 +30,8 @@
 #include "unk_02033200.h"
 #include "unk_020363E8.h"
 #include "unk_020366A0.h"
+
+#ifdef PLATFORM_DS
 
 enum TransmissionType {
     TRANSMISSION_TYPE_SERVER_CLIENT,
@@ -1950,3 +1952,81 @@ void CommSys_StartShutdown(void)
         sCommunicationSystem->shuttingDown = 1;
     }
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Communication system (multiplayer/wireless features) - Comprehensive stub implementation
+// This system handles all wireless communication between DS systems for multiplayer features
+
+BOOL CommSys_InitServer(BOOL param0, BOOL param1, int param2, BOOL param3) {
+    (void)param0; (void)param1; (void)param2; (void)param3;
+    printf("[CommSys] TODO: Port CommSys_InitServer\n");
+    return FALSE;
+}
+
+BOOL CommSys_InitClient(BOOL param0, BOOL param1, int param2) {
+    (void)param0; (void)param1; (void)param2;
+    printf("[CommSys] TODO: Port CommSys_InitClient\n");
+    return FALSE;
+}
+
+void CommSys_SwitchTransitionTypeToParallel(void) {}
+void CommSys_SwitchTransitionTypeToServerClient(void) {}
+BOOL CommSys_TransitionTypeIsParallel(void) { return FALSE; }
+void CommSys_Delete(void) {}
+BOOL sub_02034984(u16 param0) { (void)param0; return FALSE; }
+BOOL CommSys_Update(void) { return TRUE; }
+void CommSys_Reset(void) {}
+void CommSys_ResetDS(void) {}
+void CommSys_ResetBattleClient(void) {}
+void sub_0203509C(u16 param0, u16 *param1, u16 param2) { (void)param0; (void)param1; (void)param2; }
+void sub_020351F8(u16 param0, u16 *buffer, u16 param2) { (void)param0; (void)buffer; (void)param2; }
+void sub_020352C0(u16 param0, u16 *param1, u16 param2) { (void)param0; (void)param1; (void)param2; }
+void CommSys_RandomizePlayerMovement(void) {}
+void CommSys_ReversePlayerMovement(void) {}
+void CommSys_RevertPlayerMovementToNormal(void) {}
+void sub_0203572C(void) {}
+void sub_02035938(u8 param0) { (void)param0; }
+BOOL CommSys_SendDataHuge(int cmd, const void *data, int param2) { (void)cmd; (void)data; (void)param2; return FALSE; }
+BOOL CommSys_SendData(int cmd, const void *data, int param2) { (void)cmd; (void)data; (void)param2; return FALSE; }
+BOOL sub_02035A3C(int cmd, const void *data, int param2) { (void)cmd; (void)data; (void)param2; return FALSE; }
+BOOL CommSys_SendDataServer(int cmd, const void *data, int param2) { (void)cmd; (void)data; (void)param2; return FALSE; }
+BOOL sub_02035B48(int cmd, const void *data) { (void)cmd; (void)data; return FALSE; }
+int CommSys_SendRingRemainingSize(void) { return 0; }
+BOOL CommSys_IsPlayerConnected(u16 param0) { (void)param0; return FALSE; }
+int CommSys_ConnectedCount(void) { return 1; }  // Return 1 (self)
+BOOL CommSys_IsInitialized(void) { return FALSE; }
+void CommSys_SetSendSpeed(u8 param0) { (void)param0; }
+u8 CommSys_RecvSpeed(int param0) { (void)param0; return 0; }
+u16 sub_02035E84(int param0) { (void)param0; return 0; }
+void CommSys_EnableSendMovementData(void) {}
+void CommSys_DisableSendMovementData(void) {}
+BOOL CommSys_IsSendingMovementData(void) { return FALSE; }
+BOOL CommSys_WriteToQueueServer(int cmd, const void *data, int param2) { (void)cmd; (void)data; (void)param2; return FALSE; }
+BOOL CommSys_WriteToQueue(int cmd, const void *data, int size) { (void)cmd; (void)data; (void)size; return FALSE; }
+void sub_02036008(int unused0, int unused1, void *param2, void *unused3) { (void)unused0; (void)unused1; (void)param2; (void)unused3; }
+void sub_02036030(int unused0, int unused1, void *param2, void *unused3) { (void)unused0; (void)unused1; (void)param2; (void)unused3; }
+void sub_02036058(int unused0, int unused1, void *param2, void *unused3) { (void)unused0; (void)unused1; (void)param2; (void)unused3; }
+u16 CommSys_CurNetId(void) { return 0; }
+BOOL CommSys_SendDataFixedSize(int cmd, const void *data) { (void)cmd; (void)data; return FALSE; }
+BOOL Link_Message(int cmd) { (void)cmd; return FALSE; }
+BOOL sub_020360E8(void) { return FALSE; }
+BOOL CommSys_CheckError(void) { return FALSE; }
+u16 sub_02036128(u16 param0) { (void)param0; return 0; }
+int CommType_MaxPlayers(int param0) { (void)param0; return 1; }
+int CommType_MinPlayers(int param0) { (void)param0; return 1; }
+void CommSys_SetAlone(BOOL param0) { (void)param0; }
+BOOL CommSys_IsAlone(void) { return TRUE; }
+void sub_0203619C(int param0, int param1, void *param2, void *param3) { (void)param0; (void)param1; (void)param2; (void)param3; }
+void CommSys_Seed(void *param0) { (void)param0; }
+BOOL sub_02036254(int param0) { (void)param0; return FALSE; }
+BOOL sub_0203626C(int param0) { (void)param0; return FALSE; }
+BOOL sub_02036284(void) { return FALSE; }
+BOOL sub_0203629C(void) { return FALSE; }
+void CommSys_SetWifiConnected(BOOL param0) { (void)param0; }
+BOOL CommSys_WifiConnected(void) { return FALSE; }
+void sub_020362DC(int param0, int param1) { (void)param0; (void)param1; }
+int sub_020362F4(int networkId) { (void)networkId; return 0; }
+void CommSys_StartShutdown(void) {}
+
+#endif // PLATFORM_DS

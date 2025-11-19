@@ -2,11 +2,12 @@
 
 #ifdef PLATFORM_DS
 #include <nitro.h>
-#else
-#include "platform/platform_types.h"
-#endif
 #include <nitro/os.h>
 #include <nnsys/g3d/glbstate.h>
+#else
+#include "platform/platform_types.h"
+#include <stdlib.h>  // For abs()
+#endif
 #include <string.h>
 
 #include "constants/communication/comm_packets.h"

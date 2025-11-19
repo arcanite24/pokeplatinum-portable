@@ -71,7 +71,9 @@ typedef struct Camera {
     CameraPositionHistory *history;
 } Camera;
 
+#ifdef PLATFORM_DS
 extern GXBufferMode gBufferMode;
+#endif
 
 void Camera_InitHistory(int historySize, int delay, int delayMask, enum HeapID heapID, Camera *camera);
 void Camera_DeleteHistory(Camera *camera);

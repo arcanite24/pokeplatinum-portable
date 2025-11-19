@@ -14,6 +14,7 @@ static const int sLoadNameLen = sizeof(sLoadName) - 1;
 
 void CheckForMemoryTampering()
 {
+#ifdef PLATFORM_DS
     if (!FS_IsAvailable()) {
         OS_Terminate();
     } else {
@@ -47,10 +48,15 @@ void CheckForMemoryTampering()
             OS_Terminate();
         }
     }
+#else
+    // SDL: No memory tampering checks needed - we load from filesystem
+    // This function is a no-op on modern platforms
+#endif
 }
 
 void RebootAndLoadROM(const char *filesystemPath)
 {
+#ifdef PLATFORM_DS
     FSFile file;
     FS_InitFile(&file);
     if (!FS_OpenFile(&file, filesystemPath)) {
@@ -60,4 +66,9 @@ void RebootAndLoadROM(const char *filesystemPath)
     u32 fileStartAddress = FS_GetFileImageTop(&file);
     *(u32 *)HW_ROM_BASE_OFFSET_BUF = fileStartAddress;
     OS_ResetSystem(0);
+#else
+    (void)filesystemPath;
+    // SDL: No ROM reboot functionality needed
+    // This is a DS-specific feature for loading different ROM files
+#endif
 }

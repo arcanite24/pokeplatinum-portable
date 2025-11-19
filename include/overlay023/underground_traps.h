@@ -1,7 +1,9 @@
 #ifndef POKEPLATINUM_UNDERGROUND_TRAPS_H
 #define POKEPLATINUM_UNDERGROUND_TRAPS_H
 
+#ifdef PLATFORM_DS
 #include <nitro/math.h>
+#endif
 
 #include "field/field_system_decl.h"
 #include "overlay023/underground_defs.h"
@@ -22,7 +24,11 @@ void UndergroundTraps_SendTrapRadarResults(void);
 void UndergroundTraps_SendPlacedTraps(void);
 void UndergroundTraps_TryPlaceTrap(int netID, int unused1, void *data, void *unused3);
 int CommPacketSizeOf_PlaceTrapResult(void);
+#ifdef PLATFORM_DS
 int UndergroundTraps_SpawnRandomTrap(int x, int z, MATHRandContext16 *rand, int index);
+#else
+int UndergroundTraps_SpawnRandomTrap(int x, int z, void *rand, int index);  // SDL: MATHRandContext16 is DS-specific
+#endif
 void UndergroundTraps_LoadSpawnedTraps(void);
 void UndergroundTraps_ProcessPlaceTrapResult(int unused0, int unused1, void *data, void *unused3);
 void UndergroundTraps_RemoveBuriedTrapAtIndex_Unused(int unused0, int unused1, void *data, void *unused3);

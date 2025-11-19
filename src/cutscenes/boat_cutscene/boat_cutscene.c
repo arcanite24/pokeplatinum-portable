@@ -329,6 +329,7 @@ static void FieldSystem_LoadCanalaveBridgeAnimation(FieldSystem *fieldSystem)
         mapPropLoaded = FieldSystem_FindLoadedMapPropByModelID(fieldSystem, bridgeIDs[bridgeIndex], NULL, NULL);
 
         if (mapPropLoaded) {
+#ifdef PLATFORM_DS
             NNSG3dResMdl *bridgeModel;
             NNSG3dResFileHeader **bridgeModelFile;
             MapProp *bridgeMapProp;
@@ -342,6 +343,10 @@ static void FieldSystem_LoadCanalaveBridgeAnimation(FieldSystem *fieldSystem)
             bridgeRenderObj = MapProp_GetRenderObj(bridgeMapProp);
 
             MapPropOneShotAnimationManager_LoadPropAnimations(fieldSystem->mapPropAnimMan, fieldSystem->mapPropOneShotAnimMan, tags[bridgeIndex], bridgeIDs[bridgeIndex], bridgeRenderObj, bridgeModel, AreaDataManager_GetMapPropTexture(fieldSystem->areaDataManager), 1, 1, FALSE);
+#else
+            // SDL: TODO - Port bridge 3D model loading
+            printf("[BoatCutscene] TODO: Port bridge 3D model loading for bridge %d\n", bridgeIndex);
+#endif
         } else {
             GF_ASSERT(FALSE);
         }

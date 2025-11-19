@@ -1,7 +1,9 @@
 #ifndef POKEPLATINUM_OV23_0223E140_H
 #define POKEPLATINUM_OV23_0223E140_H
 
+#ifdef PLATFORM_DS
 #include <nitro/math.h>
+#endif
 
 #include "field/field_system_decl.h"
 #include "overlay023/underground_defs.h"
@@ -22,7 +24,11 @@ void ov23_0223E2F0(void);
 void ov23_0223E2F4(void);
 void ov23_0223E2F8(void);
 BOOL ov23_0223E354(int param0, Coordinates *param1);
+#ifdef PLATFORM_DS
 void ov23_0223E650(int param0, int param1, MATHRandContext16 *param2);
+#else
+void ov23_0223E650(int param0, int param1, void *param2);  // SDL: MATHRandContext16 is DS-specific
+#endif
 void ov23_0223E878(void);
 void ov23_0223E9D4(int param0, int param1, void *param2, void *param3);
 void ov23_0223EAF8(int param0, int param1, void *param2, void *param3);

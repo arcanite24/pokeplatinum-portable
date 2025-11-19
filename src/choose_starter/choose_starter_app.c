@@ -2,10 +2,10 @@
 
 #ifdef PLATFORM_DS
 #include <nitro.h>
+#include <nnsys.h>
 #else
 #include "platform/platform_types.h"
 #endif
-#include <nnsys.h>
 #include <string.h>
 
 #include "constants/graphics.h"
@@ -50,6 +50,8 @@
 #include "touch_pad.h"
 #include "unk_0202419C.h"
 #include "vram_transfer.h"
+
+#ifdef PLATFORM_DS
 
 #define NUM_STARTER_OPTIONS 3
 #define STARTER_OPTION_0    SPECIES_TURTWIG
@@ -1786,3 +1788,25 @@ static u16 GetSelectedSpecies(u16 cursorPosition)
 
     return SPECIES_NONE;
 }
+
+#else // PLATFORM_SDL
+
+// SDL: Choose starter application stubs - 3D not implemented yet
+
+BOOL ChooseStarter_Init(ApplicationManager *appMan, int *state) {
+    (void)appMan; (void)state;
+    // SDL: TODO - Implement choose starter screen
+    return TRUE; // Return TRUE to skip this screen
+}
+
+BOOL ChooseStarter_Main(ApplicationManager *appMan, int *state) {
+    (void)appMan; (void)state;
+    return TRUE; // Skip immediately
+}
+
+BOOL ChooseStarter_Exit(ApplicationManager *appMan, int *state) {
+    (void)appMan; (void)state;
+    return TRUE;
+}
+
+#endif // PLATFORM_DS
