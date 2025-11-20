@@ -145,7 +145,7 @@ typedef struct BgConfig {
 
 #ifndef PLATFORM_DS
 // SDL: Define PAL_BgConfig as the same for compatibility
-typedef BgConfig PAL_BgConfig;
+// typedef BgConfig PAL_BgConfig; // Already defined in pal_background.h
 #endif
 
 typedef struct WindowTemplate {

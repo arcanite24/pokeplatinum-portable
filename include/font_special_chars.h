@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FONT_SPECIAL_CHARS_H
 #define POKEPLATINUM_FONT_SPECIAL_CHARS_H
 
+#include "platform/platform_types.h"
+#include "nns_types.h"
 #include "bg_window.h"
 #include "charcode_util.h"
 

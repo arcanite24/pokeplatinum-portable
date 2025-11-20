@@ -9,9 +9,7 @@
 
 #ifndef PLATFORM_DS
 // SDL stub - NARC not used in SDL build (uses filesystem instead)
-typedef struct {
-    int dummy;
-} FSFile;
+// FSFile is defined in platform_types.h
 #endif
 
 /*

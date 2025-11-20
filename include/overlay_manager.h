@@ -5,8 +5,8 @@
 #include <nitro/fs.h>
 #else
 #include "platform/platform_types.h"
-// SDL port: FSOverlayID is just an int
-typedef s32 FSOverlayID;
+// SDL port: FSOverlayID is defined in platform_types.h
+// typedef s32 FSOverlayID;
 #endif
 
 #include "constants/heap.h"

@@ -1,7 +1,7 @@
 #ifndef POKEPLATINUM_STRUCT_0205964C_H
 #define POKEPLATINUM_STRUCT_0205964C_H
 
-#include <nitro/math.h>
+#include "platform/platform_types.h"
 
 #include "field/field_system_decl.h"
 #include "functypes/funcptr_020598EC.h"

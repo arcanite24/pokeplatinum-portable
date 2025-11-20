@@ -1,6 +1,8 @@
 #include "hardware_window.h"
 
+#ifdef PLATFORM_DS
 #include <nitro/gx/gx.h>
+#endif
 
 #include "constants/graphics.h"
 

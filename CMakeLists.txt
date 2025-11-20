@@ -53,6 +53,23 @@ if(BUILD_SDL_VERSION)
     
     # Exclude platform-specific files
     list(FILTER GAME_SOURCES EXCLUDE REGEX "src/platform/.*")
+
+    # Exclude problematic files (NNS dependencies, etc.)
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/easy3d.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/cutscenes/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/dw_warp/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/enc_effects.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/error_handling.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/dynamic_map_features.c")
+    
+    # Exclude Battle System (Phase 4/5) - Too many pointer/int cast issues for now
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/battle/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/battle_anim/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/field_battle_data_transfer.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/error_message_reset.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/comm_player_manager.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/evolution.c")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/field_comm_manager.c")
     
     # Create SDL executable
     add_executable(pokeplatinum_sdl ${PAL_SDL_SOURCES} ${GAME_SOURCES})

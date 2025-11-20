@@ -1,6 +1,7 @@
-#ifndef POKEPLATINUM_OV77_021D54B0_H
-#define POKEPLATINUM_OV77_021D54B0_H
+#ifndef POKEPLATINUM_STRUCT_OV77_021D54B0_H
+#define POKEPLATINUM_STRUCT_OV77_021D54B0_H
 
+#include "platform/platform_types.h"
 #include "game_opening/struct_ov77_021D5564_decl.h"
 #include "game_opening/struct_ov77_021D6734_decl.h"
 

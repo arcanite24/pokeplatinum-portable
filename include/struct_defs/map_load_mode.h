@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAP_LOAD_MODE_H
 #define POKEPLATINUM_STRUCT_MAP_LOAD_MODE_H
 
+#include "platform/platform_types.h"
+
 typedef struct MapLoadMode {
     u32 fieldBottomScreen : 4;
     u32 skipMapAttributes : 4;

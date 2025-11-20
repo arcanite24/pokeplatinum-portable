@@ -4,6 +4,18 @@
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
+// Define dummy buffers for SDL
+static u16 sMainBgPltt[256 * 16];
+static u16 sSubBgPltt[256 * 16];
+static u16 sMainObjPltt[256 * 16];
+static u16 sSubObjPltt[256 * 16];
+
+#define HW_BG_PLTT sMainBgPltt
+#define HW_BG_PLTT_SIZE sizeof(sMainBgPltt)
+#define HW_DB_BG_PLTT sSubBgPltt
+#define HW_DB_BG_PLTT_SIZE sizeof(sSubBgPltt)
+#define HW_OBJ_PLTT sMainObjPltt
+#define HW_DB_OBJ_PLTT sSubObjPltt
 #endif
 #include <string.h>
 

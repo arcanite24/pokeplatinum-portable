@@ -63,10 +63,10 @@ void HallOfFame_AddEntry(HallOfFame *hallOfFame, const Party *party, const RTCDa
             hallOfFameEntry->pokemon[pokemonIndex].moves[3] = Pokemon_GetValue(mon, MON_DATA_MOVE4, NULL);
 
             if (strBuf) {
-                Pokemon_GetValue(mon, MON_DATA_NICKNAME_STRING, strBuf);
+                Pokemon_GetValue(mon, MON_DATA_NICKNAME_STRBUF, strBuf);
                 Strbuf_ToChars(strBuf, hallOfFameEntry->pokemon[pokemonIndex].nickname, MON_NAME_LEN + 1);
 
-                Pokemon_GetValue(mon, MON_DATA_OT_NAME_STRING, strBuf);
+                Pokemon_GetValue(mon, MON_DATA_OTNAME_STRBUF, strBuf);
                 Strbuf_ToChars(strBuf, hallOfFameEntry->pokemon[pokemonIndex].OTName, TRAINER_NAME_LEN + 1);
             } else {
                 hallOfFameEntry->pokemon[pokemonIndex].nickname[0] = 0xffff;

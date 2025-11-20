@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GRID_MENU_CURSOR_POSITION_H
 #define POKEPLATINUM_GRID_MENU_CURSOR_POSITION_H
 
+#include "platform/platform_types.h"
+
 typedef struct GridMenuCursorPosition {
     u8 xCoord1;
     u8 yCoord1;

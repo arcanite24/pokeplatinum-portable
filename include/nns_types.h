@@ -15,7 +15,9 @@
 #include "platform/platform_types.h"
 
 /* Alignment macro (DS uses ALIGN_4 for struct alignment) */
+#ifndef ALIGN_4
 #define ALIGN_4
+#endif
 
 /* ========================================================================
  * NNSG2d Image/Sprite Types
@@ -30,6 +32,7 @@ typedef struct {
 typedef struct { void* data; } NNSG2dImagePaletteProxy;
 typedef struct { 
     void* pRawData;  /* Pointer to raw palette data */
+    u32 szByte;      /* Size of the character data in bytes */
 } NNSG2dCharacterData;
 typedef struct {
     void* pRawData;  /* Pointer to raw palette data */
@@ -95,8 +98,16 @@ typedef struct {
 } NNSG3dResName;
 
 typedef struct { void* data; } NNSG3dResMdl;
-typedef struct { void* data; } NNSG3dResMdlSet;  /* Model set container */
-typedef struct { void* data; } NNSG3dResTex;
+typedef struct { 
+    struct {
+        u32 numEntry;
+    } dict;
+} NNSG3dResMdlSet;  /* Model set container */
+typedef struct { 
+    struct {
+        u32 ofsTex;
+    } texInfo;
+} NNSG3dResTex;
 typedef struct { void* data; } NNSG3dRenderObj;
 typedef struct { void* data; } NNSG3dResFileHeader;
 typedef struct { void* data; } NNSG3dAnmObj;  /* Animation object */
@@ -238,9 +249,6 @@ typedef enum {
 #define GX_FOGBLEND_COLOR_ALPHA  0
 #define GX_FOGBLEND_ALPHA        1
 #define GX_FOGSLOPE_0x8000       0x8000
-
-/* Polygon attribute types */
-typedef u32 GXPolygonAttrMisc;
 
 /* Math/Random types */
 typedef struct {

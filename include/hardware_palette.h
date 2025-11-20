@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HARDWARE_PALETTE_H
 #define POKEPLATINUM_HARDWARE_PALETTE_H
 
+#include "platform/platform_types.h"
+
 u16 *GetHardwareMainBgPaletteAddress(void);
 u32 GetHardwareMainBgPaletteSize(void);
 u16 *GetHardwareSubBgPaletteAddress(void);

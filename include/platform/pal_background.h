@@ -19,6 +19,7 @@ extern "C" {
 
 // Forward declarations
 // Note: PAL_BgConfig is typedef'd in bg_window.h as BgConfig (which is struct BgConfig)
+struct BgConfig;
 typedef struct BgConfig PAL_BgConfig;  // Make it refer to the actual struct
 typedef struct PAL_BgTemplate PAL_BgTemplate;
 
