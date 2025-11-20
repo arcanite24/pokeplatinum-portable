@@ -132,10 +132,26 @@ int GTSApplication_MainMenu_Exit(GTSApplicationState *appState, int unused1)
 static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -146,10 +162,18 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -164,10 +188,18 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -181,10 +213,18 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -198,10 +238,18 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -216,10 +264,18 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -230,8 +286,16 @@ static void GTSApplication_MainMenu_InitBackground(BgConfig *bgConfig)
     Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_62);
     Bg_ClearTilesRange(BG_LAYER_SUB_0, 32, 0, HEAP_ID_62);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void GTSApplication_MainMenu_CleanupBackground(BgConfig *bgConfig)
@@ -245,9 +309,21 @@ static void GTSApplication_MainMenu_CleanupBackground(BgConfig *bgConfig)
 
 static void ov94_0223C85C(GTSApplicationState *appState)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
     Sprite_SetDrawFlag(appState->cursorSprite, FALSE);
 }
 
@@ -279,7 +355,11 @@ static void GTSApplication_MainMenu_InitCursor(GTSApplicationState *appState)
 {
     AffineSpriteListTemplate template;
 
+    #ifdef PLATFORM_DS
     GTSApplication_InitAffineTemplate(&template, appState, &appState->cursorSpriteResourceHeader, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     template.position.x = FX32_ONE * sMainMenuCursorPositions[appState->mainMenuSelectedOption][0];
     template.position.y = FX32_ONE * sMainMenuCursorPositions[appState->mainMenuSelectedOption][1];
@@ -339,9 +419,21 @@ static void GTSApplication_MainMenu_CleanupStrings(GTSApplicationState *appState
 static int GTSApplication_MainMenu_WaitUntilFinishedMoving(GTSApplicationState *appState)
 {
     if (appState->hasAvatarFinishedMoving) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         GTSApplication_SetNextScreenWithArgument(appState, GTS_SCREEN_NETWORK_HANDLER, SCREEN_ARGUMENT_CHECK_SERVER);
 
@@ -396,11 +488,19 @@ static int GTSApplication_MainMenu_SetupBottomWindowQuestion(GTSApplicationState
 
 static int GTSApplication_MainMenu_HandleInput(GTSApplicationState *appState)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov94_0223CFD8(appState, GTS_Text_IsItOKToDisconnect, GTSApplicationState_GetTextFrameDelay(appState), 0, 0xf0f);
         GTSApplication_SetCurrentAndNextScreenInstruction(appState, 10, 12);
         Sprite_SetAnimateFlag(appState->cursorSprite, FALSE);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         switch (appState->mainMenuSelectedOption) {
         case 0: // deposit pokemon
             if (appState->isPokemonListed == FALSE) {
@@ -435,13 +535,21 @@ static int GTSApplication_MainMenu_HandleInput(GTSApplicationState *appState)
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             break;
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (appState->mainMenuSelectedOption != 0) {
             appState->mainMenuSelectedOption--;
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             GTSApplication_SetSpritePosition(appState->cursorSprite, sMainMenuCursorPositions[appState->mainMenuSelectedOption][0], sMainMenuCursorPositions[appState->mainMenuSelectedOption][1]);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (appState->mainMenuSelectedOption < 2) {
             appState->mainMenuSelectedOption++;
             Sound_PlayEffect(SEQ_SE_CONFIRM);

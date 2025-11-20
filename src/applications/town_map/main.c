@@ -177,27 +177,79 @@ static void TownMapAppVBlankCB(void *_appData)
         sAppFunctionSets[appData->mode].vBlankCB(appData);
     }
 
+    #ifdef PLATFORM_DS
     NNS_GfdDoVramTransfer();
+    #else
+    // TODO: Port NNS_GfdDoVramTransfer to PAL
+    #endif
 
     TownMap_TransferOam(appData);
     Bg_RunScheduledUpdates(appData->bgConfig);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void SetVRAMBanks(void)
 {
     UnkStruct_02099F80 vramBanks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&vramBanks);
@@ -212,8 +264,16 @@ static BOOL InitDefaultAppResources(TownMapAppData *appData)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
 
         if (appData->context->playerX == 0 && appData->context->playerZ == 0) {
             appData->playerX = 3;
@@ -254,8 +314,16 @@ static BOOL InitDefaultAppResources(TownMapAppData *appData)
 static void FreeDefaultAppResources(TownMapAppData *appData)
 {
     DisableTouchPad();
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     SetVBlankCallback(NULL, NULL);
     DisableHBlank();
 
@@ -283,10 +351,26 @@ static void UpdateGraphics(TownMapAppData *appData)
 static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_2D
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -298,10 +382,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -312,10 +404,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -326,10 +426,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -340,10 +448,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -354,10 +470,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -368,10 +492,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -382,10 +514,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x2000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x512,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xd000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -396,10 +536,18 @@ static void InitBGLayers(TownMapAppData *appData, BgConfig *bgConfig)
             .bufferSize = 0x2000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x512,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xb000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -503,7 +651,19 @@ static enum TownMapAppState HandlePlayerInput(TownMapAppData *appData)
 static enum TownMapAppState CheckAppExitScreenFadeDone(TownMapAppData *appData)
 {
     if (IsScreenFadeDone()) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_NONE, 31, 0);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);
         SetScreenColorBrightness(DS_SCREEN_SUB, COLOR_BLACK);
         ResetVisibleHardwareWindows(DS_SCREEN_MAIN);

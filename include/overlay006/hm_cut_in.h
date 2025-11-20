@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HM_CUT_IN_H
 #define POKEPLATINUM_HM_CUT_IN_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "pokemon.h"

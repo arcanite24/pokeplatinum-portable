@@ -442,13 +442,29 @@ static void ov19_021DD224(UnkStruct_ov19_021DCF88 *param0, NARC *param1)
 
     ov19_021DD2BC(param0, param1);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&v1);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMappingFromOpenNARC(param1, 138, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DSUB, 0 * 0x20, 10, &(v1));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     ov19_021D783C(&v0, &v1, &(param0->unk_18), param0->unk_9C, param0->unk_A4, 3);
 
+    #ifdef PLATFORM_DS
     param0->unk_2C = ov19_021D785C(param0->unk_0C, &v0, 0, 568, 49, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_30 = ov19_021D785C(param0->unk_0C, &v0, 256, 568, 49, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Sprite_SetFlipMode(param0->unk_30, 1);
 
@@ -464,8 +480,16 @@ static void ov19_021DD2BC(UnkStruct_ov19_021DCF88 *param0, NARC *param1)
     param0->unk_A8 = Graphics_GetCellBankFromOpenNARC(param1, 142, 1, &(param0->unk_AC), HEAP_ID_BOX_GRAPHICS);
     param0->unk_B0 = Graphics_GetAnimBankFromOpenNARC(param1, 143, 1, &(param0->unk_B4), HEAP_ID_BOX_GRAPHICS);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&(param0->unk_18));
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Graphics_LoadPartialPaletteFromOpenNARC(param1, 144, NNS_G2D_VRAM_TYPE_2DSUB, 0, 10, &(param0->unk_18));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 }
 
 static SysTask *ov19_021DD344(UnkStruct_ov19_021DCF88 *param0, SysTaskFunc param1, void *param2)
@@ -579,7 +603,11 @@ static void ov19_021DD46C(SysTask *param0, void *param1)
             v0->unk_0C--;
         } else {
             Bg_SetOffset(v1->unk_08, BG_LAYER_SUB_1, 0, v0->unk_18);
+            #ifdef PLATFORM_DS
             G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 0, 16);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             v0->unk_04++;
         }
         break;
@@ -607,7 +635,11 @@ static void ov19_021DD544(SysTask *param0, void *param1)
     switch (v0->unk_04) {
     case 0:
         if (Sprite_IsAnimated(v0->unk_08) == 0) {
+            #ifdef PLATFORM_DS
             G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 16, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             v0->unk_0E = (16 - 1);
             v0->unk_04++;
         }
@@ -628,7 +660,11 @@ static void ov19_021DD544(SysTask *param0, void *param1)
             v0->unk_0C--;
         } else {
             Bg_SetOffset(v1->unk_08, BG_LAYER_SUB_1, 0, v0->unk_18);
+            #ifdef PLATFORM_DS
             G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 0, 16);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             v0->unk_04++;
         }
         break;
@@ -810,11 +846,23 @@ static void ov19_021DD854(UnkStruct_ov19_021DCF88 *param0)
     }
 
     for (v3 = 0; v3 < 10; v3++) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v2);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         ov19_021DBBA8(v1, v4, 192 + v3 * 32, NNS_G2D_VRAM_TYPE_2DSUB, &v2);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         ov19_021D783C(&v0, &v2, &(param0->unk_18), ov19_021DBD3C(v1), NULL, 2);
 
+        #ifdef PLATFORM_DS
         param0->unk_54[v3] = ov19_021D785C(param0->unk_0C, &v0, 16, 368, 48, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         GF_ASSERT(param0->unk_54[v3] != NULL);
 
@@ -876,7 +924,11 @@ static void ov19_021DD8F8(UnkStruct_ov19_021DCF88 *param0)
     param0->unk_7C = v3;
 
     for (v2 = 0; v2 < v3; v2++) {
+        #ifdef PLATFORM_DS
         ov19_021DBBA8(v1, v4, 192 + v8 * 32, NNS_G2D_VRAM_TYPE_2DSUB, NULL);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         v4 += v5;
 
@@ -930,13 +982,25 @@ static void ov19_021DD9DC(UnkStruct_ov19_021DCF88 *param0)
 
     v2 = BoxApp_GetMonSpriteTransparencyMask(param0->unk_04);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&v1);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMapping(18, 141, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DSUB, 192 * 0x20, 10, &v1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     for (v3 = 0; v3 < 8; v3++) {
         ov19_021D783C(&v0, &v1, &(param0->unk_18), param0->unk_AC, param0->unk_B4, 2);
 
+        #ifdef PLATFORM_DS
         param0->unk_34[v3] = ov19_021D785C(param0->unk_0C, &v0, 240, 368, 48, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         GF_ASSERT(param0->unk_34[v3] != NULL);
 
         Sprite_SetAnim(param0->unk_34[v3], ov19_021DD9B8(v3, v2));
@@ -1481,7 +1545,11 @@ static void ov19_021DE324(UnkStruct_ov19_021DCF88 *param0)
 
 static void ov19_021DE330(UnkStruct_ov19_021DCF88 *param0)
 {
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_ALL, 14, 2);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
     Bg_ToggleLayer(BG_LAYER_SUB_0, 1);
 }
 

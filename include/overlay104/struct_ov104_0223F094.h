@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV104_0223F094_H
 #define POKEPLATINUM_STRUCT_OV104_0223F094_H
 
+#include "platform/platform_types.h"
+
 #include "screen_scroll_manager.h"
 #include "sys_task_manager.h"
 

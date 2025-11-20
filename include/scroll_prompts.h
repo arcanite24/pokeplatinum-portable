@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0206A780_H
 #define POKEPLATINUM_UNK_0206A780_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #include "overlay005/struct_ov5_021D30A8.h"

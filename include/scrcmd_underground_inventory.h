@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_UNDERGROUND_INVENTORY_H
 #define POKEPLATINUM_SCRCMD_UNDERGROUND_INVENTORY_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_SendGoodToPC(ScriptContext *ctx);

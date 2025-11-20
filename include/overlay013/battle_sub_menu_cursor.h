@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_SUB_MENU_CURSOR_H
 #define POKEPLATINUM_BATTLE_SUB_MENU_CURSOR_H
 
+#include "platform/platform_types.h"
+
 #include "battle/struct_ov16_0226DC24_decl.h"
 
 #include "grid_menu_cursor_position.h"

@@ -760,7 +760,11 @@ void GTSNetworking_InitConnection(void)
 
 void GTSNetworking_SetProfile(const WorldExchangeTrainer *trainer, WorldExchangeTrainerError *error)
 {
+    #ifdef PLATFORM_DS
     OS_GetMacAddress((u8 *)trainer->macAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     memcpy(Unk_ov94_02246AC0.unk_14, trainer, sizeof(WorldExchangeTrainer));
     Unk_ov94_02246AC0.unk_140 = (u8 *)error;

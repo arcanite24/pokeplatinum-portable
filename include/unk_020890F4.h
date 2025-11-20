@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020890F4_H
 #define POKEPLATINUM_UNK_020890F4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02089438.h"
 
 #include "game_options.h"

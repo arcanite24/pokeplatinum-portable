@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIL_H
 #define POKEPLATINUM_MAIL_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/mail.h"
 
 #include "savedata.h"

@@ -234,7 +234,11 @@ static UnkStruct_020216E0 *ov5_021F5C18(UnkStruct_ov5_021DF47C *param0, int para
 
     if (param3 == 1) {
         NNSG3dResMdl *v2 = sub_020213F4(v1);
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlFogEnableFlagAll(v2, 0);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlFogEnableFlagAll to PAL
+        #endif
     }
 
     return v1;

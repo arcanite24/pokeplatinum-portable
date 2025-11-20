@@ -495,7 +495,11 @@ static void *FishingTask_New(u32 fishingTaskSize)
 
 static BOOL TryPressA(void)
 {
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return TRUE;
     }
 
@@ -504,7 +508,15 @@ static BOOL TryPressA(void)
 
 static int TryPressAOrB(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return TRUE;
     }
 

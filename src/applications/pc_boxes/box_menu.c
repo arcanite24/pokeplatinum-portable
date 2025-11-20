@@ -253,7 +253,11 @@ enum BoxMenuItem BoxMenu_GetMenuNavigation(BoxApplication *boxApp)
 {
     BoxMenu *menu = &(boxApp->boxMenu);
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (menu->selectedMenuItemIndex) {
             menu->selectedMenuItemIndex--;
             return BOX_MENU_NAVIGATION_UP_DOWN;
@@ -263,7 +267,11 @@ enum BoxMenuItem BoxMenu_GetMenuNavigation(BoxApplication *boxApp)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (menu->selectedMenuItemIndex < (menu->totalMenuItems - 1)) {
             menu->selectedMenuItemIndex++;
             return BOX_MENU_NAVIGATION_UP_DOWN;
@@ -273,12 +281,20 @@ enum BoxMenuItem BoxMenu_GetMenuNavigation(BoxApplication *boxApp)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         return BOX_MENU_NAVIGATION_B;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         return menu->menuItems[menu->selectedMenuItemIndex];
     }

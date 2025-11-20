@@ -204,7 +204,15 @@ static void ov21_021E8E0C(UnkStruct_ov21_021E8D48 *param0, const UnkStruct_ov21_
     param0->unk_1B0 = PokedexTextManager_New(&textManTemplate);
 
     ov21_021E90B0(param0->unk_00, param1->heapID);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, -16);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 
     param0->unk_04 = ov21_021E91B0(param0->unk_00, param1->heapID);
 
@@ -273,10 +281,18 @@ static void ov21_021E90B0(BgConfig *param0, int heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0000,
             .charBase = GX_BG_CHARBASE_0x04000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -295,10 +311,18 @@ static void ov21_021E90B0(BgConfig *param0, int heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0800,
             .charBase = GX_BG_CHARBASE_0x0c000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -311,7 +335,11 @@ static void ov21_021E90B0(BgConfig *param0, int heapID)
     }
 
     Bg_SetPriority(BG_LAYER_MAIN_0, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
     Bg_FreeTilemapBuffer(param0, BG_LAYER_MAIN_0);
 
     {
@@ -321,10 +349,18 @@ static void ov21_021E90B0(BgConfig *param0, int heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x1000,
             .charBase = GX_BG_CHARBASE_0x14000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -394,7 +430,11 @@ static void ov21_021E9240(PokedexSpeciesLabel *pokedexSpeciesLabel, PokedexTextM
     displayBox.y = -(16 / 2);
     displayBox.spriteResourcePriority = 2;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     displayBox.heapID = heapID;
 
     if (isNatDex == FALSE) {
@@ -419,12 +459,20 @@ static void ov21_021E92B0(PokedexSpeciesLabel *pokedexSpeciesLabel)
 
 static void ov21_021E92C4(SpriteResource **param0, SpriteResourceCollection **param1, int param2, int param3, int param4, int param5, int param6, int param7, int param8, int param9)
 {
+    #ifdef PLATFORM_DS
     param0[0] = SpriteResourceCollection_AddTiles(param1[0], param3, param4, TRUE, param9, NNS_G2D_VRAM_TYPE_2DMAIN, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0[0]);
     SpriteResource_ReleaseData(param0[0]);
 
+    #ifdef PLATFORM_DS
     param0[1] = SpriteResourceCollection_AddPalette(param1[1], param3, param5, FALSE, param9, NNS_G2D_VRAM_TYPE_2DMAIN, param8, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0[1]);
     SpriteResource_ReleaseData(param0[1]);
@@ -435,12 +483,20 @@ static void ov21_021E92C4(SpriteResource **param0, SpriteResourceCollection **pa
 
 static void ov21_021E9344(SpriteResource **param0, SpriteResourceCollection **param1, int param2, NARC *param3, int param4, int param5, int param6, int param7, int param8, int param9)
 {
+    #ifdef PLATFORM_DS
     param0[0] = SpriteResourceCollection_AddTilesFrom(param1[0], param3, param4, TRUE, param9, NNS_G2D_VRAM_TYPE_2DMAIN, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0[0]);
     SpriteResource_ReleaseData(param0[0]);
 
+    #ifdef PLATFORM_DS
     param0[1] = SpriteResourceCollection_AddPaletteFrom(param1[1], param3, param5, FALSE, param9, NNS_G2D_VRAM_TYPE_2DMAIN, param8, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0[1]);
     SpriteResource_ReleaseData(param0[1]);
@@ -490,7 +546,11 @@ static void ov21_021E94B0(UnkStruct_ov21_021E94F8 *param0, SpriteList *param1, S
 
     v0.list = param1;
     v0.resourceData = &v1;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.priority = 32;
     v0.heapID = param3;
     v0.position.x = (120 * FX32_ONE);
@@ -514,7 +574,11 @@ static void ov21_021E9504(UnkStruct_ov21_021E95B0 *param0, SpriteList *param1, S
 
     v0.list = param1;
     v0.resourceData = &v1;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.priority = 32;
     v0.heapID = param3;
     v0.position.x = (192 * FX32_ONE);
@@ -545,7 +609,11 @@ static void ov21_021E9560(UnkStruct_ov21_021E95B0 *param0, PokedexTextManager *t
     displayBox.y = -8;
     displayBox.spriteResourcePriority = 2;
     displayBox.spriteListPriority = 32 - 1;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     displayBox.heapID = param2;
     displayBox.window = v0;
 
@@ -582,7 +650,11 @@ static void ov21_021E95F8(UnkStruct_ov21_021E968C *param0, SpriteList *param1, S
 
     v0.list = param1;
     v0.resourceData = &v1;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.priority = 32;
     v0.heapID = param3;
     v0.position.x = (170 * FX32_ONE);
@@ -664,7 +736,11 @@ static void ov21_021E9828(SysTask *param0, void *param1)
 
     switch (v0->unk_21C) {
     case 0:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         v0->unk_21C++;
         break;
     case 1:
@@ -755,7 +831,11 @@ static void ov21_021E9A0C(int param0)
     };
 
     v0.heapID = param0;
+    #ifdef PLATFORM_DS
     CharTransfer_InitWithVramModes(&v0, GX_OBJVRAMMODE_CHAR_1D_128K, GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
 }
 
 static void ov21_021E9A38(void)
@@ -814,10 +894,18 @@ static void ov21_021E9AC8(UnkStruct_ov21_021E9A9C *param0)
 static void ov21_021E9AE8(UnkStruct_ov21_021E9A9C *param0, int param1)
 {
     DC_FlushRange((void *)param0->paletteData[param1]->pRawData, 1 * 32);
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt(param0->paletteData[param1]->pRawData, 0 * 32, 1 * 32);
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
 }
 
 static void ov21_021E9B08(UnkStruct_ov21_021E9A9C *param0, int param1)
 {
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_MAIN, 0 * 32, param0->paletteData[param1]->pRawData, 1 * 32);
+    #else
+    // TODO: Port NNS_GFD_DST_2D_BG_PLTT_MAIN to PAL
+    #endif
 }

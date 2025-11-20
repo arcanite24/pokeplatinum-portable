@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV62_CONST_FUNCPTR_TABLES_H
 #define POKEPLATINUM_OV62_CONST_FUNCPTR_TABLES_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0208C06C.h"
 
 extern BOOL (*const Unk_ov62_02248F58[])(UnkStruct_0208C06C *);

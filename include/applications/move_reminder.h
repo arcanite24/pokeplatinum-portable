@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_MOVE_REMINDER_H
 #define POKEPLATINUM_APPLICATIONS_MOVE_REMINDER_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL MoveReminder_Init(ApplicationManager *appMan, int *state);

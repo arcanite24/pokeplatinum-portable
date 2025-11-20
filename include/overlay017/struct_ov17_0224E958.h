@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_0224E958_H
 #define POKEPLATINUM_STRUCT_OV17_0224E958_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     union {
         struct {

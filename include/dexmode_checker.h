@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DEXMODE_CHECKER_H
 #define POKEPLATINUM_DEXMODE_CHECKER_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pokedexdata_decl.h"
 
 #include "savedata.h"

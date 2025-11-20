@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02070428_H
 #define POKEPLATINUM_UNK_02070428_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void sub_02070428(FieldSystem *fieldSystem, BOOL param1);

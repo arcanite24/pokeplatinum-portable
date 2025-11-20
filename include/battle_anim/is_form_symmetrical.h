@@ -3,6 +3,8 @@
 
 #ifndef PLATFORM_DS
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #endif
 
 BOOL IsFormSymmetrical(u32 species, u32 formId);

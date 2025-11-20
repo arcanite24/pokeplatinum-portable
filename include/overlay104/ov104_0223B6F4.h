@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0223B6F4_H
 #define POKEPLATINUM_OV104_0223B6F4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/battle_frontier.h"
 
 #include "overlay104/struct_ov104_02230BE4.h"

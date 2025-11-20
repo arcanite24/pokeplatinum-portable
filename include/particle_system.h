@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PARTICLE_SYSTEM_H
 #define POKEPLATINUM_PARTICLE_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nnsys.h>

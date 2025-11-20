@@ -67,7 +67,15 @@ UnkStruct_ov104_0223DA28 *ov104_0223D9E4(BgConfig *param0, PaletteData *param1)
     v0->unk_00 = ov104_0223DA40(param0);
     v0->unk_04 = ov104_0223DBB8(param1);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
     G2_SetBlendAlpha((GX_BLEND_PLANEMASK_BG2), (GX_BLEND_BGALL | GX_BLEND_PLANEMASK_OBJ), 8, 9);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 
     return v0;
 }

@@ -214,22 +214,46 @@ static void ov19_021DAB44(UnkStruct_ov19_021DA9E0 *param0)
     Graphics_LoadPalette(narcID, TypeIcon_GetPlttSrc(), 1, 10 * 0x20, 0x20 * 3, HEAP_ID_BOX_GRAPHICS);
 
     for (i = 0; i < 2; i++) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v0);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         Graphics_LoadImageMappingAndSetVramMode(narcID, v3, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, (1504 + (8 * i)) * 0x20, 10, &v0);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ov19_021D783C(&v1, &v0, ov19_021D77D0(param0->unk_14), param0->unk_38, NULL, 3);
 
+        #ifdef PLATFORM_DS
         param0->unk_3C[i] = ov19_021D785C(param0->unk_0C, &v1, 24 + 36 * i, 176, 46, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         GF_ASSERT(param0->unk_3C[i] != NULL);
 
         Sprite_SetDrawFlag(param0->unk_3C[i], FALSE);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&v0);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMapping(18, 15, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1480 * 0x20, 10, &v0);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov19_021D783C(&v1, &v0, ov19_021D77D0(param0->unk_14), param0->unk_2C, NULL, 3);
 
+    #ifdef PLATFORM_DS
     param0->unk_30 = ov19_021D785C(param0->unk_0C, &v1, 56, 176, 47, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 static void ov19_021DAC4C(UnkStruct_ov19_021DA9E0 *param0)

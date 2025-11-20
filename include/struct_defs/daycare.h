@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_DAYCARE_H
 #define POKEPLATINUM_STRUCT_DAYCARE_H
 
+#include "platform/platform_types.h"
+
 #include "constants/daycare.h"
 
 #include "struct_defs/mail.h"

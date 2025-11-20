@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_OPTIONS_MENU_H
 #define POKEPLATINUM_APPLICATIONS_OPTIONS_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 typedef struct OptionsMenu {

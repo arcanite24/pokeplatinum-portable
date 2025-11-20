@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_SYSTEM_STRUCT_H
 #define POKEPLATINUM_FIELD_SYSTEM_STRUCT_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0205B43C_decl.h"
 #include "struct_decls/struct_0205C22C_decl.h"
 #include "struct_decls/struct_0205E884_decl.h"

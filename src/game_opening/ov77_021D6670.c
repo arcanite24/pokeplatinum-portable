@@ -111,7 +111,11 @@ static void ov77_021D66A0(UnkStruct_ov77_021D6800 *param0, AffineSpriteListTempl
         param1->affineScale.z = FX32_ONE;
         param1->affineZRotation = 0;
         param1->priority = 1;
+        #ifdef PLATFORM_DS
         param1->vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         param1->heapID = HEAP_ID_76;
     }
 }
@@ -188,12 +192,32 @@ static void ov77_021D6800(UnkStruct_ov77_021D6800 *param0)
     int i;
     const int heapID = HEAP_ID_76;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetOBJVRamModeChar to PAL
+    #endif
     GX_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetOBJVRamModeChar to PAL
+    #endif
     GXS_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
 
     ov77_021D6670();
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, heapID);
 
     param0->unk_00 = SpriteList_InitRendering(10, &param0->unk_04, heapID);
@@ -202,16 +226,32 @@ static void ov77_021D6800(UnkStruct_ov77_021D6800 *param0)
         param0->unk_190[i] = SpriteResourceCollection_New(Unk_ov77_021D7930[i], i, heapID);
     }
 
+    #ifdef PLATFORM_DS
     param0->unk_1A0[0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 4, 0, 0, NNS_G2D_VRAM_TYPE_MAX, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 3, 0, 0, NNS_G2D_VRAM_TYPE_MAX, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
     param0->unk_1A0[2] = SpriteResourceCollection_Add(param0->unk_190[2], 128, 5, 0, 0, 2, heapID);
     param0->unk_1A0[3] = SpriteResourceCollection_Add(param0->unk_190[3], 128, 6, 0, 0, 3, heapID);
 
     SpriteTransfer_RequestChar(param0->unk_1A0[0]);
     SpriteTransfer_RequestPlttWholeRange(param0->unk_1A0[1]);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov77_021D691C(UnkStruct_ov77_021D6800 *param0)

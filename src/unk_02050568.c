@@ -91,7 +91,11 @@ static BOOL sub_020505A0(FieldTask *taskMan)
         v1->unk_08++;
         break;
     case 5:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             v1->unk_08++;
         }
         break;

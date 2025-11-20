@@ -274,7 +274,11 @@ void BattleAnimScriptFunc_ShadowPunch(BattleAnimSystem *system)
     ctx->bgAlpha = SHADOW_PUNCH_BG_ALPHA;
 
     BattleAnimUtil_SetSpriteBgBlending(ctx->common.battleAnimSys, BATTLE_ANIM_DEFAULT_ALPHA, BATTLE_ANIM_DEFAULT_ALPHA);
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(ctx->spriteAlpha, ctx->bgAlpha);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     ctx->spriteInfo.monSprite = BattleAnimSystem_GetBattlerSprite(ctx->common.battleAnimSys, BattleAnimSystem_GetAttacker(ctx->common.battleAnimSys));
     ctx->spriteInfo.pos.x = PokemonSprite_GetAttribute(ctx->spriteInfo.monSprite, MON_SPRITE_X_CENTER);
@@ -288,7 +292,11 @@ void BattleAnimScriptFunc_ShadowPunch(BattleAnimSystem *system)
 
     ManagedSprite *sprite = ctx->spriteInfo.hwSprite;
     ManagedSprite_SetExplicitPriority(sprite, BattleAnimSystem_GetPokemonSpritePriority(ctx->common.battleAnimSys) + 1);
+    #ifdef PLATFORM_DS
     int dst = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(sprite->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     PaletteData_LoadBufferFromFileStartWithTint(
         BattleAnimSystem_GetPaletteData(ctx->common.battleAnimSys),
@@ -301,11 +309,19 @@ void BattleAnimScriptFunc_ShadowPunch(BattleAnimSystem *system)
         SHADOW_PUNCH_AFTERIMAGE1_R,
         SHADOW_PUNCH_AFTERIMAGE1_G,
         SHADOW_PUNCH_AFTERIMAGE1_B);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(sprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     sprite = ctx->sprite;
     ManagedSprite_SetExplicitPriority(sprite, BattleAnimSystem_GetPokemonSpritePriority(ctx->common.battleAnimSys) + 1);
+    #ifdef PLATFORM_DS
     dst = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(sprite->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     PaletteData_LoadBufferFromFileStartWithTint(
         BattleAnimSystem_GetPaletteData(ctx->common.battleAnimSys),
@@ -318,7 +334,11 @@ void BattleAnimScriptFunc_ShadowPunch(BattleAnimSystem *system)
         SHADOW_PUNCH_AFTERIMAGE2_R,
         SHADOW_PUNCH_AFTERIMAGE2_G,
         SHADOW_PUNCH_AFTERIMAGE2_B);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(sprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     BattleAnimSystem_StartAnimTask(ctx->common.battleAnimSys, BattleAnimTask_ShadowPunch, ctx);
 }
@@ -483,7 +503,11 @@ static void BattleAnimTask_RolePlay(SysTask *task, void *param)
         } else {
             ctx->spriteAlpha++;
             ctx->bgAlpha--;
+            #ifdef PLATFORM_DS
             G2_ChangeBlendAlpha(ctx->spriteAlpha, ctx->bgAlpha);
+            #else
+            // TODO: Port G2_ChangeBlendAlpha to PAL
+            #endif
             ctx->blendStep++;
         }
         break;
@@ -492,7 +516,11 @@ static void BattleAnimTask_RolePlay(SysTask *task, void *param)
             PaletteFadeContext_Free(ctx->palFades[BATTLER_ROLE_ATTACKER]);
             PaletteFadeContext_Free(ctx->palFades[BATTLER_ROLE_DEFENDER]);
 
+            #ifdef PLATFORM_DS
             int palIndex = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(ctx->sprites[ROLE_PLAY_SPRITE_DEFENDER]->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
             ctx->palFades[BATTLER_ROLE_DEFENDER] = PaletteFadeContext_New(
                 ctx->common.paletteData,
@@ -556,7 +584,11 @@ void BattleAnimScriptFunc_RolePlay(BattleAnimSystem *system)
     ManagedSprite_SetAffineOverwriteMode(ctx->sprites[ROLE_PLAY_SPRITE_ATTACKER_0], AFFINE_OVERWRITE_MODE_DOUBLE);
     ManagedSprite_SetAffineScale(ctx->sprites[ROLE_PLAY_SPRITE_ATTACKER_0], ctx->scaleX * ctx->scaleDirX, ctx->scaleY);
 
+    #ifdef PLATFORM_DS
     int palIndex = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(ctx->sprites[ROLE_PLAY_SPRITE_ATTACKER_0]->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ctx->palFades[BATTLER_ROLE_ATTACKER] = PaletteFadeContext_New(
         ctx->common.paletteData,
         BattleAnimSystem_GetHeapID(system),
@@ -570,7 +602,11 @@ void BattleAnimScriptFunc_RolePlay(BattleAnimSystem *system)
         ROLE_PLAY_PAL_FADE_COLOR,
         ROLE_PLAY_PAL_FADE_PRIORITY);
 
+    #ifdef PLATFORM_DS
     palIndex = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(ctx->sprites[ROLE_PLAY_SPRITE_DEFENDER]->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ctx->palFades[BATTLER_ROLE_DEFENDER] = PaletteFadeContext_New(
         ctx->common.paletteData,
         BattleAnimSystem_GetHeapID(system),
@@ -618,7 +654,11 @@ void BattleAnimScriptFunc_RolePlay(BattleAnimSystem *system)
     ctx->bgAlpha = ROLE_PLAY_MAX_ALPHA;
 
     BattleAnimUtil_SetSpriteBgBlending(ctx->common.battleAnimSys, BATTLE_ANIM_DEFAULT_ALPHA, BATTLE_ANIM_DEFAULT_ALPHA);
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(ctx->spriteAlpha, ctx->bgAlpha);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     SysTask *task = BattleAnimSystem_StartAnimTask(ctx->common.battleAnimSys, BattleAnimTask_RolePlay, ctx);
     BattleAnimTask_RolePlay(task, ctx);
@@ -778,13 +818,21 @@ static void BattleAnimTask_Sketch(SysTask *task, void *param)
     case SKETCH_STATE_INCREASE_Y:
         ctx->bottom -= SKETCH_STEP_SIZE_Y / 2;
         ctx->windowY2 += SKETCH_STEP_SIZE_Y / 2;
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(ctx->left, ctx->bottom, ctx->left + MON_SPRITE_FRAME_WIDTH, ctx->windowY2);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
         ctx->common.state++;
         break;
     case SKETCH_STATE_INCREASE_Y_CHECK:
         ctx->bottom -= SKETCH_STEP_SIZE_Y / 2;
         ctx->windowY2 += SKETCH_STEP_SIZE_Y / 2;
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(ctx->left, ctx->bottom, ctx->left + MON_SPRITE_FRAME_WIDTH, ctx->windowY2);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
         ctx->viewHeight++;
 
         if (ctx->viewHeight > ((MON_SPRITE_FRAME_HEIGHT / SKETCH_STEP_SIZE_Y) - SKETCH_STEP_SIZE_Y)) {
@@ -798,10 +846,38 @@ static void BattleAnimTask_Sketch(SysTask *task, void *param)
         ctx->common.state++;
         break;
     default:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, 0, 0);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
         BattleAnimSystem_EndAnimTask(ctx->common.battleAnimSys, task);
         PokemonSprite_SetAttribute(ctx->defenderSprite, MON_SPRITE_ALPHA, ctx->defenderAlpha);
         Heap_Free(ctx);
@@ -839,10 +915,38 @@ void BattleAnimScriptFunc_Sketch(BattleAnimSystem *system)
     ctx->windowY2 = ctx->bottom;
     ctx->origin = 0;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_EFFECT | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(ctx->left, ctx->bottom, ctx->left + MON_SPRITE_FRAME_WIDTH, ctx->windowY2);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 
     BattleAnimSystem_StartAnimTask(ctx->common.battleAnimSys, BattleAnimTask_Sketch, ctx);
 }

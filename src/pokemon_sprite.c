@@ -418,7 +418,11 @@ void *PokemonSpriteManager_New(enum HeapID heapID)
         MI_CpuClearFast(&monSpriteMan->sprites[i], sizeof(PokemonSprite));
     }
 
+    #ifdef PLATFORM_DS
     NNS_G2dSetupSoftwareSpriteCamera();
+    #else
+    // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+    #endif
 
     monSpriteMan->excludeIdentity = FALSE;
 
@@ -426,7 +430,11 @@ void *PokemonSpriteManager_New(enum HeapID heapID)
     u8 *rawCharData;
 
     void *shadowsNCGR = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_POKETOOL__POKEGRA__PL_OTHERPOKE, pokemon_shadows_NCGR, monSpriteMan->heapID);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedCharacterData(shadowsNCGR, &charData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+    #endif
 
     monSpriteMan->charData.pixelFmt = charData->pixelFmt;
     monSpriteMan->charData.mapingType = charData->mapingType;
@@ -458,10 +466,18 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
     BufferPokemonSpriteCharData(monSpriteMan);
     BufferPokemonSpritePlttData(monSpriteMan);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGeFlushBuffer();
+    #else
+    // TODO: Port NNS_G3dGeFlushBuffer to PAL
+    #endif
 
     G3_PushMtx();
+    #ifdef PLATFORM_DS
     G3_TexImageParam(monSpriteMan->imageProxy.attr.fmt, GX_TEXGEN_TEXCOORD, monSpriteMan->imageProxy.attr.sizeS, monSpriteMan->imageProxy.attr.sizeT, GX_TEXREPEAT_NONE, GX_TEXFLIP_NONE, monSpriteMan->imageProxy.attr.plttUse, monSpriteMan->charBaseAddr);
+    #else
+    // TODO: Port GX_TEXFLIP_NONE to PAL
+    #endif
 
     for (int i = 0; i < MAX_MON_SPRITES; i++) {
         if (monSpriteMan->sprites[i].active
@@ -471,7 +487,11 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
                 monSpriteMan->sprites[i].callback(&monSpriteMan->sprites[i], &monSpriteMan->sprites[i].transforms);
             }
 
+            #ifdef PLATFORM_DS
             NNS_G3dGeFlushBuffer();
+            #else
+            // TODO: Port NNS_G3dGeFlushBuffer to PAL
+            #endif
 
             if (monSpriteMan->excludeIdentity != TRUE) {
                 G3_Identity();
@@ -485,9 +505,25 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
             G3_RotY(FX_SinIdx(monSpriteMan->sprites[i].transforms.rotationY), FX_CosIdx(monSpriteMan->sprites[i].transforms.rotationY));
             G3_RotZ(FX_SinIdx(monSpriteMan->sprites[i].transforms.rotationZ), FX_CosIdx(monSpriteMan->sprites[i].transforms.rotationZ));
             G3_Translate(-((monSpriteMan->sprites[i].transforms.xCenter + monSpriteMan->sprites[i].transforms.xPivot) << FX32_SHIFT), -((monSpriteMan->sprites[i].transforms.yCenter + monSpriteMan->sprites[i].transforms.yPivot) << FX32_SHIFT), -(monSpriteMan->sprites[i].transforms.zCenter << FX32_SHIFT));
+            #ifdef PLATFORM_DS
             G3_MaterialColorDiffAmb(GX_RGB(monSpriteMan->sprites[i].transforms.diffuseR, monSpriteMan->sprites[i].transforms.diffuseG, monSpriteMan->sprites[i].transforms.diffuseB), GX_RGB(monSpriteMan->sprites[i].transforms.ambientR, monSpriteMan->sprites[i].transforms.ambientG, monSpriteMan->sprites[i].transforms.ambientB), TRUE);
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G3_MaterialColorSpecEmi(GX_RGB(16, 16, 16), GX_RGB(0, 0, 0), FALSE);
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_LIGHTMASK_NONE to PAL
+            #endif
             G3_PolygonAttr(GX_LIGHTMASK_NONE, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, monSpriteMan->sprites[i].polygonID, monSpriteMan->sprites[i].transforms.alpha, 0);
+            #else
+            // TODO: Port GX_CULL_NONE to PAL
+            #endif
 
             if (monSpriteMan->sprites[i].transforms.partialDraw) {
                 u0 = sMonSpriteTextureCoords[i][monSpriteMan->sprites[i].currSpriteFrame][0] + monSpriteMan->sprites[i].transforms.drawXOffset;
@@ -495,7 +531,11 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
                 v0 = sMonSpriteTextureCoords[i][monSpriteMan->sprites[i].currSpriteFrame][1] + monSpriteMan->sprites[i].transforms.drawYOffset;
                 v1 = sMonSpriteTextureCoords[i][monSpriteMan->sprites[i].currSpriteFrame][1] + monSpriteMan->sprites[i].transforms.drawYOffset + monSpriteMan->sprites[i].transforms.drawHeight;
 
+                #ifdef PLATFORM_DS
                 NNS_G2dDrawSpriteFast(
+                #else
+                // TODO: Port NNS_G2dDrawSpriteFast to PAL
+                #endif
                     monSpriteMan->sprites[i].transforms.xCenter - MON_SPRITE_FRAME_WIDTH / 2 + monSpriteMan->sprites[i].transforms.drawXOffset + monSpriteMan->sprites[i].transforms.xOffset,
                     monSpriteMan->sprites[i].transforms.yCenter - MON_SPRITE_FRAME_HEIGHT / 2 + monSpriteMan->sprites[i].transforms.drawYOffset + monSpriteMan->sprites[i].transforms.yOffset - monSpriteMan->sprites[i].shadow.height,
                     monSpriteMan->sprites[i].transforms.zCenter + monSpriteMan->sprites[i].transforms.zOffset,
@@ -513,7 +553,11 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
                 v0 = sMonSpriteTextureCoords[i][monSpriteMan->sprites[i].currSpriteFrame][1];
                 v1 = sMonSpriteTextureCoords[i][monSpriteMan->sprites[i].currSpriteFrame][3];
 
+                #ifdef PLATFORM_DS
                 NNS_G2dDrawSpriteFast(
+                #else
+                // TODO: Port NNS_G2dDrawSpriteFast to PAL
+                #endif
                     monSpriteMan->sprites[i].transforms.xCenter - width / 2 + monSpriteMan->sprites[i].transforms.xOffset,
                     monSpriteMan->sprites[i].transforms.yCenter - height / 2 + monSpriteMan->sprites[i].transforms.yOffset - monSpriteMan->sprites[i].shadow.height,
                     monSpriteMan->sprites[i].transforms.zCenter + monSpriteMan->sprites[i].transforms.zOffset,
@@ -557,7 +601,11 @@ void PokemonSpriteManager_DrawSprites(PokemonSpriteManager *monSpriteMan)
                 u1 = sShadowTextureCoords[monSpriteMan->sprites[i].shadow.size][2];
                 v1 = sShadowTextureCoords[monSpriteMan->sprites[i].shadow.size][3];
 
+                #ifdef PLATFORM_DS
                 NNS_G2dDrawSpriteFast(monSpriteMan->sprites[i].shadow.x - width / 2, monSpriteMan->sprites[i].shadow.y - height / 2, -1000, width, height, u0, v0, u1, v1);
+                #else
+                // TODO: Port NNS_G2dDrawSpriteFast to PAL
+                #endif
             }
         }
     }
@@ -1267,25 +1315,49 @@ void PokemonSpriteManager_UpdateCharAndPltt(PokemonSpriteManager *monSpriteMan)
     if (monSpriteMan->needLoadChar) {
         monSpriteMan->needLoadChar = FALSE;
 
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&monSpriteMan->imageProxy);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
 
         monSpriteMan->charData.H = MON_SPRITE_CHAR_BUF_TILES_H;
         monSpriteMan->charData.W = MON_SPRITE_CHAR_BUF_TILES_W;
         monSpriteMan->charData.szByte = monSpriteMan->charSize;
         monSpriteMan->charData.pRawData = monSpriteMan->charRawData;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadImage2DMapping to PAL
+        #endif
         NNS_G2dLoadImage2DMapping(&monSpriteMan->charData, monSpriteMan->charBaseAddr, NNS_G2D_VRAM_TYPE_3DMAIN, &monSpriteMan->imageProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+        #endif
     }
 
     if (monSpriteMan->needLoadPltt) {
         monSpriteMan->needLoadPltt = FALSE;
 
+        #ifdef PLATFORM_DS
         NNS_G2dInitImagePaletteProxy(&monSpriteMan->plttProxy);
+        #else
+        // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+        #endif
 
         monSpriteMan->plttData.szByte = monSpriteMan->plttSize;
         monSpriteMan->plttData.pRawData = monSpriteMan->plttRawData;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadPalette to PAL
+        #endif
         NNS_G2dLoadPalette(&monSpriteMan->plttData, monSpriteMan->plttBaseAddr, NNS_G2D_VRAM_TYPE_3DMAIN, &monSpriteMan->plttProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+        #endif
     }
 }
 
@@ -1325,7 +1397,11 @@ static void BufferPokemonSpriteCharData(PokemonSpriteManager *monSpriteMan)
             needLoadChar = TRUE;
             ncgrFile = NARC_AllocAndReadWholeMemberByIndexPair(monSpriteMan->sprites[i].template.narcID, monSpriteMan->sprites[i].template.character, monSpriteMan->heapID);
 
+            #ifdef PLATFORM_DS
             NNS_G2dGetUnpackedCharacterData(ncgrFile, &charData);
+            #else
+            // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+            #endif
 
             monSpriteMan->charData.pixelFmt = charData->pixelFmt;
             monSpriteMan->charData.mapingType = charData->mapingType;
@@ -1438,7 +1514,11 @@ static void BufferPokemonSpritePlttData(PokemonSpriteManager *monSpriteMan)
             needReloadPltt = TRUE;
             nclrFile = NARC_AllocAndReadWholeMemberByIndexPair(monSpriteMan->sprites[i].template.narcID, monSpriteMan->sprites[i].template.palette, monSpriteMan->heapID);
 
+            #ifdef PLATFORM_DS
             NNS_G2dGetUnpackedPaletteData(nclrFile, &plttData);
+            #else
+            // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+            #endif
 
             monSpriteMan->plttData.fmt = plttData->fmt;
             rawPlttData = plttData->pRawData;
@@ -1452,7 +1532,11 @@ static void BufferPokemonSpritePlttData(PokemonSpriteManager *monSpriteMan)
 
             if (monSpriteMan->sprites[i].shadow.plttSlot) {
                 nclrFile = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_POKETOOL__POKEGRA__PL_OTHERPOKE, pokemon_shadows_pal_NCLR, monSpriteMan->heapID);
+                #ifdef PLATFORM_DS
                 NNS_G2dGetUnpackedPaletteData(nclrFile, &plttData);
+                #else
+                // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+                #endif
                 rawPlttData = plttData->pRawData;
 
                 for (j = 0; j < PALETTE_SIZE; j++) {

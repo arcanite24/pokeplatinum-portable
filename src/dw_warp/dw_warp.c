@@ -68,11 +68,39 @@ BOOL DWWarp_Init(ApplicationManager *appMan, int *state)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
 
     Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_DISTORTION_WORLD_WARP, HEAP_SIZE_DISTORTION_WORLD_WARP);
@@ -176,13 +204,25 @@ static void DWWarp_Update(SysTask *task, void *data)
     DistortionWorldWarp *dw = data;
 
     Model3D_Update(dw);
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
 }
 
 static void DWWarp_VBlankIntr(void *data)
 {
     DistortionWorldWarp *dw = data;
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void DWWarp_VramSetBank(void)
@@ -191,16 +231,56 @@ static void DWWarp_VramSetBank(void)
     GXLayers_DisableEngineBLayers();
 
     UnkStruct_02099F80 vramBank = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_32_H,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_01_AB,
+        #else
+        // TODO: Port GX_VRAM_TEX_01_AB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&vramBank);
@@ -248,8 +328,16 @@ static void DWWarp_InitModel(DistortionWorldWarp *warp)
 
     Easy3DModel_LoadFrom(&warp->animationModel, narc, 16, HEAP_ID_DISTORTION_WORLD_WARP);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlAlpha(warp->animationModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlPolygonID(warp->animationModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlPolygonID to PAL
+    #endif
 
     Easy3DAnim_LoadFrom(&warp->animationAnimation, &warp->animationModel, narc, 18, HEAP_ID_DISTORTION_WORLD_WARP, &warp->allocator);
     Easy3DAnim_SetFrame(&warp->animationAnimation, 0);
@@ -300,21 +388,69 @@ static void Model3D_Update(DistortionWorldWarp *warp)
     Camera_ComputeProjectionMatrix(0, warp->camera);
     Camera_ComputeViewMatrix();
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbLightVector(0, 0, -FX32_ONE, 0);
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(0, GX_RGB(28, 28, 28));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorDiffAmb to PAL
+    #endif
     NNS_G3dGlbMaterialColorDiffAmb(GX_RGB(31, 31, 31), GX_RGB(31, 31, 31), FALSE);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorSpecEmi to PAL
+    #endif
     NNS_G3dGlbMaterialColorSpecEmi(GX_RGB(31, 31, 31), GX_RGB(31, 31, 31), FALSE);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseTrans(&transVec);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseTrans to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseRot(&rot33);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseRot to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseScale(&scaleVec);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseScale to PAL
+    #endif
 
     Easy3DAnim_UpdateLooped(&warp->animationAnimation, FX32_ONE);
     Easy3DAnim_UpdateLooped(&warp->animationAnimation2, FX32_ONE);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     Easy3DObject_Draw(&warp->animationObj);
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 }
 
 static G3DPipelineBuffers *DWWarp_Init3D(int heapID)
@@ -324,17 +460,37 @@ static G3DPipelineBuffers *DWWarp_Init3D(int heapID)
 
 static void DWWarp_Setup3D(void)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(TRUE);
     G3X_AlphaTest(FALSE, 0);
     G3X_AlphaBlend(TRUE);
     G3X_EdgeMarking(FALSE);
+    #ifdef PLATFORM_DS
     G3X_SetFog(FALSE, GX_FOGBLEND_COLOR_ALPHA, GX_FOGSLOPE_0x8000, 0);
+    #else
+    // TODO: Port GX_FOGBLEND_COLOR_ALPHA to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3X_SetClearColor(GX_RGB(0, 0, 0), 0, 0x7fff, 63, FALSE);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     G3_ViewPort(0, 0, 255, 191);
 }
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_SUMMARY_SCREEN_WINDOW_H
 #define POKEPLATINUM_POKEMON_SUMMARY_SCREEN_WINDOW_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pokemon_summary_screen/main.h"
 
 enum SummaryPoffinFeedMsg {

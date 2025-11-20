@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV107_02249D14_H
 #define POKEPLATINUM_OV107_02249D14_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 
 void ov107_02249D14(BgConfig *param0, Window *param1, u8 param2);

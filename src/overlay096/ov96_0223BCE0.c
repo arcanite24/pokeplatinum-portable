@@ -183,10 +183,26 @@ int ov96_0223BCE0(UnkStruct_ov96_0223BF40 *param0, int param1)
     ov96_0223BE38(param0->unk_04);
     ov96_0223BF40(param0);
     ov96_0223C1FC(param0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
     sub_02038438(param0->unk_00->saveData);
     ov96_0223D948(param0);
 
@@ -257,17 +273,29 @@ static void ov96_0223BE38(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
         };
 
         Bg_InitFromTemplate(param0, BG_LAYER_MAIN_0, &v0, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         Bg_ClearTilemap(param0, BG_LAYER_MAIN_0);
     }
 
@@ -278,17 +306,29 @@ static void ov96_0223BE38(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
         };
 
         Bg_InitFromTemplate(param0, BG_LAYER_MAIN_1, &v1, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
     }
 
     {
@@ -298,17 +338,29 @@ static void ov96_0223BE38(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
         };
 
         Bg_InitFromTemplate(param0, BG_LAYER_SUB_0, &v2, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         Bg_ClearTilemap(param0, BG_LAYER_SUB_0);
     }
 
@@ -319,17 +371,29 @@ static void ov96_0223BE38(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xd800,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
         };
 
         Bg_InitFromTemplate(param0, BG_LAYER_SUB_1, &v3, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
     }
 
     Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_68);
@@ -877,7 +941,11 @@ static int ov96_0223CA28(UnkStruct_ov96_0223BF40 *param0)
 
 static int ov96_0223CA70(UnkStruct_ov96_0223BF40 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         param0->unk_98++;
 
         if (param0->unk_98 > param0->unk_94) {
@@ -886,7 +954,11 @@ static int ov96_0223CA70(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E58, param0->unk_BE4, param0->unk_98, 3);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0->unk_98--;
 
         if (param0->unk_98 < 1) {
@@ -895,7 +967,11 @@ static int ov96_0223CA70(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E58, param0->unk_BE4, param0->unk_98, 3);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         {
             RTCTime v0;
             RTCDate v1;
@@ -911,7 +987,11 @@ static int ov96_0223CA70(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D950(param0, 0, 0);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov96_0223D950(param0, 0, 0);
         param0->unk_1C = 21;
         Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -1142,7 +1222,11 @@ static int ov96_0223CF5C(UnkStruct_ov96_0223BF40 *param0)
 
 static int ov96_0223CFAC(UnkStruct_ov96_0223BF40 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         param0->unk_90++;
 
         if (param0->unk_90 > 10) {
@@ -1151,7 +1235,11 @@ static int ov96_0223CFAC(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E48, param0->unk_BE8, param0->unk_90, 2);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0->unk_90--;
 
         if (param0->unk_90 < 1) {
@@ -1160,11 +1248,19 @@ static int ov96_0223CFAC(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E48, param0->unk_BE8, param0->unk_90, 2);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         ov96_0223D950(param0, 0, 0);
         ov96_0223BBFC(param0, 11, 32);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov96_0223D950(param0, 0, 0);
         param0->unk_1C = 23;
         Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -1197,7 +1293,11 @@ static int ov96_0223D0B0(UnkStruct_ov96_0223BF40 *param0)
 
 static int ov96_0223D100(UnkStruct_ov96_0223BF40 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         param0->unk_98++;
 
         if (param0->unk_98 == param0->unk_94 + 1) {
@@ -1206,7 +1306,11 @@ static int ov96_0223D100(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E58, param0->unk_BE4, param0->unk_98, 3);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0->unk_98--;
 
         if (param0->unk_98 < 1) {
@@ -1215,11 +1319,19 @@ static int ov96_0223D100(UnkStruct_ov96_0223BF40 *param0)
 
         ov96_0223D90C(&param0->unk_E58, param0->unk_BE4, param0->unk_98, 3);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         ov96_0223D950(param0, 0, 0);
         param0->unk_1C = 35;
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov96_0223D950(param0, 0, 0);
         param0->unk_1C = 29;
         Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -1574,7 +1686,11 @@ static int ov96_0223D7B8(UnkStruct_ov96_0223BF40 *param0)
 
 static int ov96_0223D7E4(UnkStruct_ov96_0223BF40 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A || gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseStandardFrame(&param0->unk_E78, 0);
         param0->unk_1C = 0;
     }

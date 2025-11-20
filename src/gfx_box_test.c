@@ -21,15 +21,43 @@ u32 GFXBoxTest_IsModelInView(const NNSG3dResMdl *model, const VecFx32 *positionP
 
     SetBoxTestParams(modelInfo->boxX, modelInfo->boxY, modelInfo->boxZ, modelInfo->boxW, modelInfo->boxH, modelInfo->boxD, &boxTestParam);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseTrans(&position);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseTrans to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseRot(rotation);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseRot to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseScale(scale);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseScale to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbFlush();
+    #else
+    // TODO: Port NNS_G3dGlbFlush to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeScale(modelInfo->boxPosScale, modelInfo->boxPosScale, modelInfo->boxPosScale);
+    #else
+    // TODO: Port NNS_G3dGeScale to PAL
+    #endif
 
     u32 boxTestResult = PerformBoxTest(&boxTestParam);
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 
     return boxTestResult;
 }
@@ -39,13 +67,33 @@ u32 GFXBoxTest_IsBoxAtPositionInView(const VecFx32 *position, const GFXTestBox *
     GXBoxTestParam boxTestParam;
     SetBoxTestParams(0, 0, 0, box->width, box->height, box->depth, &boxTestParam);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseTrans(position);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseTrans to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbFlush();
+    #else
+    // TODO: Port NNS_G3dGlbFlush to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeScale(box->xScale * FX32_ONE, box->yScale * FX32_ONE, box->zScale * FX32_ONE);
+    #else
+    // TODO: Port NNS_G3dGeScale to PAL
+    #endif
 
     u32 boxTestResult = PerformBoxTest(&boxTestParam);
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 
     return boxTestResult;
 }
@@ -71,11 +119,39 @@ static u32 PerformBoxTest(const GXBoxTestParam *boxTestParam)
 {
     s32 boxTestResult = 1;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGePolygonAttr to PAL
+    #endif
     NNS_G3dGePolygonAttr(GX_LIGHTMASK_0, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, 0, 0, GX_POLYGON_ATTR_MISC_FAR_CLIPPING | GX_POLYGON_ATTR_MISC_DISP_1DOT);
+    #else
+    // TODO: Port GX_POLYGON_ATTR_MISC_DISP_1DOT to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGeBegin to PAL
+    #endif
     NNS_G3dGeBegin(GX_BEGIN_TRIANGLES);
+    #else
+    // TODO: Port GX_BEGIN_TRIANGLES to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeEnd();
+    #else
+    // TODO: Port NNS_G3dGeEnd to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeBoxTest(boxTestParam);
+    #else
+    // TODO: Port NNS_G3dGeBoxTest to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeFlushBuffer();
+    #else
+    // TODO: Port NNS_G3dGeFlushBuffer to PAL
+    #endif
 
     while (G3X_GetBoxTestResult(&boxTestResult) != BOX_TEST_RESULT_READY) {}
 

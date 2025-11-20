@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_MODEL_ATTRIBUTES_H
 #define POKEPLATINUM_OV5_MODEL_ATTRIBUTES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #include <nnsys.h>

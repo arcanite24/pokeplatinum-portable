@@ -118,9 +118,17 @@ UnkStruct_0209916C *sub_0209916C(UnkStruct_0209903C *param0, int param1, u16 par
     v3->unk_00 = v1;
 
     if (param7 == 0) {
+        #ifdef PLATFORM_DS
         v0 = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v0 = NNS_G2D_VRAM_TYPE_2DSUB;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     v6 = param0->unk_1B4[1]->resources[v1];
@@ -142,7 +150,11 @@ UnkStruct_0209916C *sub_0209916C(UnkStruct_0209903C *param0, int param1, u16 par
     v5.position.y = FX32_CONST(param3);
     v5.position.z = FX32_CONST(param4);
 
+    #ifdef PLATFORM_DS
     if (v0 == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         v5.position.y += (192 << FX32_SHIFT);
     }
 

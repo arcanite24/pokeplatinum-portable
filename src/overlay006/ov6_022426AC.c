@@ -76,8 +76,16 @@ void GreatMarshLookout_CreateLookoutMonSprite(GreatMarshLookout_SpriteResources 
         resources->unk_00[i] = SpriteResourceCollection_New(Unk_ov6_02249030[i], i, HEAP_ID_FIELD1);
     }
 
+    #ifdef PLATFORM_DS
     resources->unk_10[0] = SpriteResourceCollection_AddTilesFrom(resources->unk_00[0], v1, 5, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     resources->unk_10[1] = SpriteResourceCollection_AddPaletteFrom(resources->unk_00[1], v1, 3, 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 1, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     resources->unk_10[2] = SpriteResourceCollection_AddFrom(resources->unk_00[2], v1, 6, 0, 2, 2, HEAP_ID_FIELD1);
     resources->unk_10[3] = SpriteResourceCollection_AddFrom(resources->unk_00[3], v1, 12, 0, 3, 3, HEAP_ID_FIELD1);
     resources->unk_20 = CharacterSprite_LoadTiles(resources->unk_28.narcID, resources->unk_28.character, HEAP_ID_FIELD1);
@@ -152,17 +160,41 @@ static void ov6_02242880(SpriteResourceCollection *param0, SpriteResourceCollect
 
     v5 = SpriteTransfer_GetImageProxy(v3);
     v6 = SpriteTransfer_GetPaletteProxy(v4, v5);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetImageLocation to PAL
+    #endif
     v1 = NNS_G2dGetImageLocation(v5, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetImagePaletteLocation to PAL
+    #endif
     v2 = NNS_G2dGetImagePaletteLocation(v6, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0 = (32 * 10) * 10;
 
     DC_FlushRange(param2, v0);
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(param2, v1, v0);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
 
     v0 = 32;
 
     DC_FlushRange(param3, v0);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(param3, v2, v0);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 }
 
 static void ov6_022428F8(GreatMarshLookout_SpriteResources *param0)
@@ -185,7 +217,11 @@ static void ov6_022428F8(GreatMarshLookout_SpriteResources *param0)
         v2.affineScale.z = FX32_ONE;
         v2.affineZRotation = 0;
         v2.priority = 0;
+        #ifdef PLATFORM_DS
         v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         v2.heapID = HEAP_ID_FIELD1;
         v2.position.x = FX32_ONE * (256 / 2);
         v2.position.y = FX32_ONE * (192 / 2);

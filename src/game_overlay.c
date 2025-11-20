@@ -60,7 +60,11 @@ void LoadOverlayGDB(const FSOverlayID overlayID)
     GF_ASSERT(overlayID < _novlys);
 
     // 1. fetch overlay info to identify vma
+    #ifdef PLATFORM_DS
     GF_ASSERT(FS_LoadOverlayInfo(&overlayInfo, MI_PROCESSOR_ARM9, overlayID) == TRUE);
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
 
     // 2. add entry to _ovly_table
     // note that this is a little hacky. the VMA is correct but the LMA is not exposed by the ApplicationManager
@@ -79,7 +83,11 @@ void LoadOverlayGDB(const FSOverlayID overlayID)
 static void FreeOverlayAllocation(PMiLoadedOverlay *loadedOverlays)
 {
     GF_ASSERT(loadedOverlays->isActive == TRUE);
+    #ifdef PLATFORM_DS
     GF_ASSERT(FS_UnloadOverlay(MI_PROCESSOR_ARM9, loadedOverlays->id) == TRUE);
+    #else
+    // TODO: Port FS_UnloadOverlay to PAL
+    #endif
 
     loadedOverlays->isActive = FALSE;
 }
@@ -105,8 +113,16 @@ int Overlay_GetLoadDestination(const FSOverlayID overlayID)
     FSOverlayInfo info;
     u32 v2;
 
+    #ifdef PLATFORM_DS
     GF_ASSERT(FS_LoadOverlayInfo(&info, MI_PROCESSOR_ARM9, overlayID) == TRUE);
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v2 = (u32)FS_GetOverlayAddress(&info);
+    #else
+    // TODO: Port FS_GetOverlayAddress to PAL
+    #endif
 
     if ((v2 <= HW_ITCM_END) && (v2 >= HW_ITCM_IMAGE)) {
         return OVERLAY_REGION_ITCM;
@@ -120,7 +136,11 @@ int Overlay_GetLoadDestination(const FSOverlayID overlayID)
 BOOL Overlay_LoadByID(const FSOverlayID overlayID, enum OverlayLoadType loadType)
 {
     BOOL result;
+    #ifdef PLATFORM_DS
     u32 dmaBak = FS_DMA_NOT_USE;
+    #else
+    // TODO: Port FS_DMA_NOT_USE to PAL
+    #endif
     int overlayRegion;
     PMiLoadedOverlay *loadedOverlays;
     int i;
@@ -147,7 +167,15 @@ BOOL Overlay_LoadByID(const FSOverlayID overlayID, enum OverlayLoadType loadType
     }
 
     if (overlayRegion == OVERLAY_REGION_ITCM || overlayRegion == OVERLAY_REGION_DTCM) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port FS_SetDefaultDMA to PAL
+        #endif
         dmaBak = FS_SetDefaultDMA(FS_DMA_NOT_USE);
+        #else
+        // TODO: Port FS_DMA_NOT_USE to PAL
+        #endif
     }
 
     switch (loadType) {
@@ -166,7 +194,11 @@ BOOL Overlay_LoadByID(const FSOverlayID overlayID, enum OverlayLoadType loadType
     }
 
     if (overlayRegion == OVERLAY_REGION_ITCM || overlayRegion == OVERLAY_REGION_DTCM) {
+        #ifdef PLATFORM_DS
         FS_SetDefaultDMA(dmaBak);
+        #else
+        // TODO: Port FS_SetDefaultDMA to PAL
+        #endif
     }
 
     if (result == FALSE) {
@@ -225,13 +257,25 @@ static BOOL GetOverlayRamBounds(const FSOverlayID overlayID, u32 *start, u32 *en
 {
     FSOverlayInfo info;
 
+    #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, MI_PROCESSOR_ARM9, overlayID)) {
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
         GF_ASSERT(0);
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
     *start = (u32)FS_GetOverlayAddress(&info);
+    #else
+    // TODO: Port FS_GetOverlayAddress to PAL
+    #endif
+    #ifdef PLATFORM_DS
     *end = *start + FS_GetOverlayTotalSize(&info);
+    #else
+    // TODO: Port FS_GetOverlayTotalSize to PAL
+    #endif
 
     return TRUE;
 }
@@ -241,18 +285,30 @@ static BOOL LoadOverlayNormal(MIProcessor proc, FSOverlayID overlayID)
 #ifdef GDB_DEBUGGING
     LoadOverlayGDB(overlayID);
 #endif
+    #ifdef PLATFORM_DS
     return FS_LoadOverlay(proc, overlayID);
+    #else
+    // TODO: Port FS_LoadOverlay to PAL
+    #endif
 }
 
 static BOOL LoadOverlayNoInit(MIProcessor proc, FSOverlayID overlayID)
 {
     FSOverlayInfo info;
 
+    #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, proc, overlayID)) {
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
     if (!FS_LoadOverlayImage(&info)) {
+    #else
+    // TODO: Port FS_LoadOverlayImage to PAL
+    #endif
         return FALSE;
     }
 
@@ -260,7 +316,11 @@ static BOOL LoadOverlayNoInit(MIProcessor proc, FSOverlayID overlayID)
     LoadOverlayGDB(overlayID);
 #endif
 
+    #ifdef PLATFORM_DS
     FS_StartOverlay(&info);
+    #else
+    // TODO: Port FS_StartOverlay to PAL
+    #endif
     return TRUE;
 }
 
@@ -269,7 +329,11 @@ static BOOL LoadOverlayNoInitAsync(MIProcessor proc, FSOverlayID overlayID)
     FSFile file;
     FSOverlayInfo info;
 
+    #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, proc, overlayID)) {
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
         return FALSE;
     }
 
@@ -277,11 +341,31 @@ static BOOL LoadOverlayNoInitAsync(MIProcessor proc, FSOverlayID overlayID)
     LoadOverlayGDB(overlayID);
 #endif
 
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_LoadOverlayImageAsync(&info, &file);
+    #else
+    // TODO: Port FS_LoadOverlayImageAsync to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_WaitAsync(&file);
+    #else
+    // TODO: Port FS_WaitAsync to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_CloseFile(&file);
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_StartOverlay(&info);
+    #else
+    // TODO: Port FS_StartOverlay to PAL
+    #endif
 
     return TRUE;
 }

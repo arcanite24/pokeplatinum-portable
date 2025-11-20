@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0222DCE0_H
 #define POKEPLATINUM_OV104_0222DCE0_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/battle_frontier_pokemon_data.h"
 #include "struct_defs/battle_frontier_trainer_data.h"
 

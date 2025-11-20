@@ -26,35 +26,151 @@
 #include "touch_screen.h"
 #include "trainer_info.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_digital_watch);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_stopwatch);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_calculator);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_memo_pad);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_analog_watch);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_dot_artist);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_party_status);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_friendship_checker);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_dowsing_machine);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_counter);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_pedometer);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_backlight_toggle);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_unused_1);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_unused_2);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_daycare_checker);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_roulette);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_coin_toss);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_move_tester);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_matchup_checker);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_alarm_clock);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_kitchen_timer);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_marking_map);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_berry_searcher);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_color_changer);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_calendar);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_link_searcher);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_trainer_counter);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay54);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_unused_4);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static PoketchSystem *PoketchSystem_GetFromFieldSystem(void);
 static BOOL PoketchSystem_InitInternal(PoketchSystem *poketchSys);
@@ -84,31 +200,131 @@ static const struct {
     int appID;
     FSOverlayID overlayID;
 } sAppOverlayIDs[] = {
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_DIGITALWATCH, FS_OVERLAY_ID(poketch_digital_watch) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_UNUSED_STOPWATCH, FS_OVERLAY_ID(poketch_stopwatch) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_CALCULATOR, FS_OVERLAY_ID(poketch_calculator) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_MEMOPAD, FS_OVERLAY_ID(poketch_memo_pad) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_ANALOGWATCH, FS_OVERLAY_ID(poketch_analog_watch) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_DOTART, FS_OVERLAY_ID(poketch_dot_artist) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_PARTYSTATUS, FS_OVERLAY_ID(poketch_party_status) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_FRIENDSHIPCHECKER, FS_OVERLAY_ID(poketch_friendship_checker) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_DOWSINGMACHINE, FS_OVERLAY_ID(poketch_dowsing_machine) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_COUNTER, FS_OVERLAY_ID(poketch_counter) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_PEDOMETER, FS_OVERLAY_ID(poketch_pedometer) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_DAYCARECHECKER, FS_OVERLAY_ID(poketch_daycare_checker) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_ROULETTE, FS_OVERLAY_ID(poketch_roulette) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_COINTOSS, FS_OVERLAY_ID(poketch_coin_toss) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_MOVETESTER, FS_OVERLAY_ID(poketch_move_tester) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_MATCHUPCHECKER, FS_OVERLAY_ID(poketch_matchup_checker) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_UNUSED_ALARMCLOCK, FS_OVERLAY_ID(poketch_alarm_clock) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_KITCHENTIMER, FS_OVERLAY_ID(poketch_kitchen_timer) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_MARKINGMAP, FS_OVERLAY_ID(poketch_marking_map) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_BERRYSEARCHER, FS_OVERLAY_ID(poketch_berry_searcher) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_COLORCHANGER, FS_OVERLAY_ID(poketch_color_changer) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_CALENDAR, FS_OVERLAY_ID(poketch_calendar) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_LINKSEARCHER, FS_OVERLAY_ID(poketch_link_searcher) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_TRAINERCOUNTER, FS_OVERLAY_ID(poketch_trainer_counter) },
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { POKETCH_APPID_POKEMONHISTORY, FS_OVERLAY_ID(overlay54) }
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static PoketchSystem *PoketchSystem_GetFromFieldSystem(void)

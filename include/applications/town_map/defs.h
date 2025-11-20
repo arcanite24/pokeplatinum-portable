@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_TOWN_MAP_DEFS_H
 #define POKEPLATINUM_APPLICATIONS_TOWN_MAP_DEFS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/town_map/main.h"
 
 #include "bg_window.h"

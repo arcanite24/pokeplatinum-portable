@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV115_02262F50_H
 #define POKEPLATINUM_STRUCT_OV115_02262F50_H
 
+#include "platform/platform_types.h"
+
 #include "overlay115/struct_ov115_02262DC4.h"
 
 #include "trainer_info.h"

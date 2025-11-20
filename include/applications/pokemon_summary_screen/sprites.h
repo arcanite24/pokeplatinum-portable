@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_SUMMARY_SCREEN_SPRITES_H
 #define POKEPLATINUM_POKEMON_SUMMARY_SCREEN_SPRITES_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pokemon_summary_screen/main.h"
 
 #include "bg_window.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02090800_H
 #define POKEPLATINUM_STRUCT_02090800_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02090800_sub1.h"
 
 #include "message.h"

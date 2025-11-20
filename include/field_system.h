@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_SYSTEM_H
 #define POKEPLATINUM_FIELD_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #include "applications/poketch/poketch_system.h"
 #include "field/field_system_decl.h"
 

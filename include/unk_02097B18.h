@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02097B18_H
 #define POKEPLATINUM_UNK_02097B18_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02097F18.h"
 
 #include "field_task.h"

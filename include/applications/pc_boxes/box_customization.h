@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BOX_CUSTOMIZATION_H
 #define POKEPLATINUM_STRUCT_BOX_CUSTOMIZATION_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 
 typedef struct {

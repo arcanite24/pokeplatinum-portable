@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0205C924_H
 #define POKEPLATINUM_STRUCT_0205C924_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/sentence.h"
 
 #include "strbuf.h"

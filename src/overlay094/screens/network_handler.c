@@ -193,10 +193,26 @@ int GTSApplication_NetworkHandler_Exit(GTSApplicationState *appState, int unused
 static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -207,10 +223,18 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -225,10 +249,18 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -243,10 +275,18 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -261,10 +301,18 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -279,10 +327,18 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -294,8 +350,16 @@ static void GTSApplication_NetworkHandler_InitBackground(BgConfig *bgConfig)
     Bg_ClearTilesRange(BG_LAYER_MAIN_1, 32, 0, HEAP_ID_62);
     Bg_ClearTilesRange(4, 32, 0, HEAP_ID_62);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void GTSApplication_NetworkHandler_CleanupBackground(BgConfig *appState)
@@ -319,7 +383,11 @@ static void GTSApplication_NetworkHandler_InitGraphics(GTSApplicationState *appS
     if (appState->hasAvatarFinishedMoving == FALSE) {
         Bg_ToggleLayer(BG_LAYER_SUB_0, FALSE);
         Bg_ToggleLayer(BG_LAYER_SUB_1, FALSE);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
     }
 
     if (appState->previousScreen == 9) {

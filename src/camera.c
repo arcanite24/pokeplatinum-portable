@@ -251,9 +251,17 @@ void Camera_ComputeViewMatrixWithRoll(void)
         cameraUp.y += cosRoll;
         cameraUp.z += -FX_Mul(sinRoll, sinYaw);
 
+        #ifdef PLATFORM_DS
         NNS_G3dGlbLookAt(&cameraPos, &cameraUp, targetPos);
+        #else
+        // TODO: Port NNS_G3dGlbLookAt to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbLookAt(&sActiveCamera->lookAt.position, &sActiveCamera->lookAt.up, &sActiveCamera->lookAt.target);
+        #else
+        // TODO: Port NNS_G3dGlbLookAt to PAL
+        #endif
     }
 }
 
@@ -370,7 +378,11 @@ void Camera_InitWithTargetAndPosition(const VecFx32 *target, const VecFx32 *posi
 void Camera_ComputeProjectionMatrix(const u8 projection, Camera *camera)
 {
     if (projection == CAMERA_PROJECTION_PERSPECTIVE) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPerspective(
+        #else
+        // TODO: Port NNS_G3dGlbPerspective to PAL
+        #endif
             camera->perspective.sinFovY,
             camera->perspective.cosFovY,
             camera->perspective.aspectRatio,
@@ -378,15 +390,27 @@ void Camera_ComputeProjectionMatrix(const u8 projection, Camera *camera)
             camera->perspective.farClip);
 
         camera->projection = CAMERA_PROJECTION_PERSPECTIVE;
+        #ifdef PLATFORM_DS
         gBufferMode = GX_BUFFERMODE_Z;
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     } else {
         fx32 top = FX_Mul(FX_Div(camera->perspective.sinFovY, camera->perspective.cosFovY), camera->distance);
         fx32 right = FX_Mul(top, camera->perspective.aspectRatio);
 
+        #ifdef PLATFORM_DS
         NNS_G3dGlbOrtho(top, -top, -right, right, camera->perspective.nearClip, camera->perspective.farClip);
+        #else
+        // TODO: Port NNS_G3dGlbOrtho to PAL
+        #endif
 
         camera->projection = CAMERA_PROJECTION_ORTHOGRAPHIC;
+        #ifdef PLATFORM_DS
         gBufferMode = GX_BUFFERMODE_Z;
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 }
 

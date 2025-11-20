@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV22_02255D44_H
 #define POKEPLATINUM_OV22_02255D44_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 int ov22_02255D44(ApplicationManager *appMan, int *param1);

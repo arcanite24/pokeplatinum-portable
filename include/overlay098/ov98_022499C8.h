@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV98_022499C8_H
 #define POKEPLATINUM_OV98_022499C8_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 
 void ov98_022499C8(Strbuf *param0, char *param1, int heapID);

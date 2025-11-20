@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0209843C_H
 #define POKEPLATINUM_STRUCT_0209843C_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0203E2FC.h"
 
 #include "applications/naming_screen.h"

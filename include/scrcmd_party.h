@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_PARTY_H
 #define POKEPLATINUM_SCRCMD_PARTY_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_GivePokemon(ScriptContext *ctx);

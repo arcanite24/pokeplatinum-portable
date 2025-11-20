@@ -117,12 +117,20 @@ static void ov20_021D4F74(SysTask *param0, void *param1)
 
     v2 = 16 - v1;
 
+    #ifdef PLATFORM_DS
     G2_SetBlendAlpha(v0->unk_00, v0->unk_04, v1, v2);
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
 }
 
 void ov20_021D4FB0(UnkStruct_ov20_021D4FF0 *param0, int param1, int param2, int param3, int param4)
 {
+    #ifdef PLATFORM_DS
     G2_SetBlendBrightness(param1, param2);
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
 
     param0->unk_00 = param1;
     param0->unk_14 = param4;
@@ -163,5 +171,9 @@ static void ov20_021D5018(SysTask *param0, void *param1)
         v1 = v0->unk_0C >> FX32_SHIFT;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetBlendBrightness(v0->unk_00, v1);
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
 }

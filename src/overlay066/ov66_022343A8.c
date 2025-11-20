@@ -189,9 +189,21 @@ UnkStruct_ov66_02234548 *ov66_022343A8(u32 param0, u32 param1, u32 heapID, u32 h
                 NNSG3dResMdlSet *v7;
                 NNSG3dResMdl *v8;
 
+                #ifdef PLATFORM_DS
                 v7 = NNS_G3dGetMdlSet(v5);
+                #else
+                // TODO: Port NNS_G3dGetMdlSet to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 v8 = NNS_G3dGetMdlByIdx(v7, 0);
+                #else
+                // TODO: Port NNS_G3dGetMdlByIdx to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 v0->unk_2C = NNS_G3dMdlGetMdlLightEnableFlag(v8, 0);
+                #else
+                // TODO: Port NNS_G3dMdlGetMdlLightEnableFlag to PAL
+                #endif
             }
         }
 
@@ -508,13 +520,29 @@ static void ov66_022348FC(UnkStruct_ov66_02234958 *param0, NARC *param1, u32 par
     ov70_0225C730(&v0, param1, param2, heapID);
 
     param0->unk_00.data = v0;
+    #ifdef PLATFORM_DS
     param0->unk_00.set = NNS_G3dGetMdlSet(param0->unk_00.data);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_00.model = NNS_G3dGetMdlByIdx(param0->unk_00.set, 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_00.texture = NNS_G3dGetTex(param0->unk_00.data);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     Easy3D_BindTextureToResource(param0->unk_00.data, param0->unk_00.texture);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlPolygonIDAll(param0->unk_00.model, 20);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlPolygonIDAll to PAL
+    #endif
 }
 
 static void ov66_02234958(UnkStruct_ov66_02234958 *param0)
@@ -525,7 +553,11 @@ static void ov66_02234958(UnkStruct_ov66_02234958 *param0)
 static void ov66_02234960(UnkStruct_ov66_02234958 *param0, u32 param1)
 {
     param0->unk_10 = param1;
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlAlphaAll(param0->unk_00.model, param0->unk_10);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+    #endif
 }
 
 static u32 ov66_0223496C(const UnkStruct_ov66_02234958 *param0)
@@ -814,7 +846,11 @@ static void ov66_02234D78(UnkStruct_020216E0 *param0, void *param1)
 {
     UnkStruct_ov66_02234798 *v0 = param1;
     NNSG3dResMdl *v1 = sub_02021430(param0);
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlLightEnableFlagAll(v1, v0->unk_8C);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlLightEnableFlagAll to PAL
+    #endif
 }
 
 static BOOL ov66_02234D8C(UnkStruct_020216E0 *param0)
@@ -827,7 +863,11 @@ static BOOL ov66_02234D8C(UnkStruct_020216E0 *param0)
     MtxFx33 v5;
 
     v3 = sub_020213F4(param0);
+    #ifdef PLATFORM_DS
     v2 = NNS_G3dGetMdlInfo(v3);
+    #else
+    // TODO: Port NNS_G3dGetMdlInfo to PAL
+    #endif
     v1 = *sub_020212C0(param0);
 
     v4.width = v2->boxW;
@@ -843,8 +883,16 @@ static BOOL ov66_02234D8C(UnkStruct_020216E0 *param0)
     v1.z -= FX_Mul(v2->boxH, v2->boxPosScale);
 
     MTX_Identity33(&v5);
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseRot(&v5);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseRot to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseScale(sub_020212EC(param0));
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseScale to PAL
+    #endif
 
     v0 = GFXBoxTest_IsBoxAtPositionInView(&v1, &v4);
 

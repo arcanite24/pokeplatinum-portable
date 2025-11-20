@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_AMITY_SQUARE_H
 #define POKEPLATINUM_SCRCMD_AMITY_SQUARE_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 #define NUM_FINDABLE_ACCESSORY_POOLS    6

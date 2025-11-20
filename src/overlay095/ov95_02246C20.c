@@ -138,7 +138,11 @@ int TradeSequence_Init(ApplicationManager *appMan, int *param1)
                 break;
             }
 
+            #ifdef PLATFORM_DS
             NNS_G2dInitOamManagerModule();
+            #else
+            // TODO: Port NNS_G2dInitOamManagerModule to PAL
+            #endif
 
             RenderOam_Init(0, 128, 0, 32, 1, 127, 0, 32, 57);
             tradeData->unk_18 = SpriteList_InitRendering(64, &tradeData->unk_1C, HEAP_ID_57);
@@ -155,8 +159,16 @@ int TradeSequence_Init(ApplicationManager *appMan, int *param1)
             GXLayers_DisableEngineALayers();
             GXLayers_DisableEngineBLayers();
 
+            #ifdef PLATFORM_DS
             GX_SetVisiblePlane(0);
+            #else
+            // TODO: Port GX_SetVisiblePlane to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_SetVisiblePlane(0);
+            #else
+            // TODO: Port GXS_SetVisiblePlane to PAL
+            #endif
 
             tradeData->unk_1A8 = SysTask_CreateOnPrintQueue(ov95_02246F0C, tradeData, 1);
             tradeData->unk_1B8 = NULL;
@@ -181,7 +193,11 @@ int TradeSequence_Exit(ApplicationManager *appMan, int *param1)
     OSIntrMode v0;
     TradeSequenceData *v1;
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
     v1 = ApplicationManager_Data(appMan);
 
     SysTask_Done(v1->unk_1A8);
@@ -196,7 +212,11 @@ int TradeSequence_Exit(ApplicationManager *appMan, int *param1)
     Heap_Destroy(HEAP_ID_57);
     Heap_Destroy(HEAP_ID_58);
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     return 1;
 }
@@ -238,7 +258,15 @@ static void ov95_02246F0C(SysTask *param0, void *param1)
     SpriteList_Update(v0->unk_18);
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 UnkStruct_ov95_02247004 *ov95_02246F30(BOOL *param0, int param1)
@@ -272,8 +300,24 @@ UnkStruct_ov95_02247004 *ov95_02246F30(BOOL *param0, int param1)
             v0->unk_C4[v4] = NULL;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 16, 8);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 16, 8);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
 
         v0->unk_C0 = SysTask_ExecuteAfterVBlank(ov95_02247060, v0, 20);
 
@@ -321,29 +365,77 @@ static void ov95_02247060(SysTask *param0, void *param1)
         }
 
         if (v0->unk_EC) {
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
 
             DC_FlushRange(v0->unk_00, 96);
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(v0->unk_00, 0x6000, 96);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt(v0->unk_00, 0x6000, 96);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
 
             v0->unk_EC = 0;
         }
     } else {
         if (v0->unk_EC) {
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
 
             DC_FlushRange(v0->unk_00, 96);
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(v0->unk_00, 0x6000, 96);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt(v0->unk_00, 0x6000, 96);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
 
             v0->unk_EC = 0;
         }

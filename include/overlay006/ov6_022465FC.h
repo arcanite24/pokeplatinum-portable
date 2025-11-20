@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV6_022465FC_H
 #define POKEPLATINUM_OV6_022465FC_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "string_template.h"

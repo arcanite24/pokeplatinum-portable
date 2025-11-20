@@ -80,7 +80,11 @@ static void SetupSprites(LinkSearcherGraphics *graphics, const LinkResults *resu
         [SPRITE_DS] = {
             .translation = { FX32_CONST(112), FX32_CONST(150) },
             .animIdx = 3,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -88,7 +92,11 @@ static void SetupSprites(LinkSearcherGraphics *graphics, const LinkResults *resu
         [SPRITE_WIFI_BARS] = {
             .translation = { FX32_CONST(112), FX32_CONST(102) },
             .animIdx = 1,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -96,7 +104,11 @@ static void SetupSprites(LinkSearcherGraphics *graphics, const LinkResults *resu
         [SPRITE_ERROR_BUBBLE] = {
             .translation = { FX32_CONST(112), FX32_CONST(102) },
             .animIdx = 2,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -104,7 +116,11 @@ static void SetupSprites(LinkSearcherGraphics *graphics, const LinkResults *resu
         [SPRITE_CONNECTED] = {
             .translation = { FX32_CONST(112), FX32_CONST(150) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -174,10 +190,18 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -198,8 +222,20 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
     PrintIntroMessage(graphics);
     Bg_CopyTilemapBufferToVRAM(graphics->bgConfig, BG_LAYER_SUB_2);
 
+    #ifdef PLATFORM_DS
     GXSDispCnt dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     EndTask(taskMan);
 }

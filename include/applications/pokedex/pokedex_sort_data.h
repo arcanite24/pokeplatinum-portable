@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_SORT_DATA_H
 #define POKEPLATINUM_POKEDEX_SORT_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pokedexdata_decl.h"
 #include "struct_decls/struct_02098700_decl.h"
 

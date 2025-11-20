@@ -411,7 +411,11 @@ static void Shop_InitContextMenu(ShopMenu *shopMenu)
     LoadStandardWindowGraphics(shopMenu->bgConfig, BG_LAYER_MAIN_3, 1024 - (18 + 12) - 9, FIELD_WINDOW_PALETTE_INDEX, 0, HEAP_ID_FIELD2);
     Window_DrawStandardFrame(&shopMenu->windows[0], TRUE, 1024 - (18 + 12) - 9, FIELD_WINDOW_PALETTE_INDEX);
 
+    #ifdef PLATFORM_DS
     shopMenu->choiceMenu = Menu_NewAndCopyToVRAM(&menuTemplate, 8, 0, 0, HEAP_ID_FIELD2, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 static u8 Shop_SelectContextMenu(ShopMenu *shopMenu)
@@ -446,7 +450,15 @@ static u8 Shop_Exit(FieldSystem *fieldSystem, ShopMenu *shopMenu)
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         void *journalEntryLocationEvent;
 
         Window_EraseMessageBox(&shopMenu->windows[SHOP_WINDOW_ITEM_DESCRIPTION], FALSE);
@@ -560,10 +572,26 @@ static void Shop_SetBgPriorities(ShopMenu *shopMenu)
     Bg_SetPriority(BG_LAYER_MAIN_2, 1);
     Bg_SetPriority(BG_LAYER_MAIN_3, 0);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static void Shop_RestoreBgPriorities(ShopMenu *shopMenu)
@@ -1001,7 +1029,11 @@ static u8 Shop_SelectPurchaseMenu(ShopMenu *shopMenu)
         return SHOP_STATE_SELECT_PURCHASE_MENU;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sprite_SetDrawFlag(shopMenu->sprites[SHOP_SPRITE_SCROLL_ARROW_UP], FALSE);
         Sprite_SetDrawFlag(shopMenu->sprites[SHOP_SPRITE_SCROLL_ARROW_DOWN], FALSE);
         Window_EraseStandardFrame(&shopMenu->windows[SHOP_WINDOW_ITEMS_IN_BAG], TRUE);
@@ -1012,7 +1044,11 @@ static u8 Shop_SelectPurchaseMenu(ShopMenu *shopMenu)
         return Shop_ShowPurchaseMessage(shopMenu);
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseStandardFrame(&shopMenu->windows[SHOP_WINDOW_ITEMS_IN_BAG], TRUE);
         Window_EraseStandardFrame(&shopMenu->windows[SHOP_WINDOW_QUANTITY_TOTAL_PRICE], TRUE);
         Window_EraseMessageBox(&shopMenu->windows[SHOP_WINDOW_MESSAGE], FALSE);
@@ -1252,7 +1288,15 @@ static u8 Shop_FinishPurchase(ShopMenu *shopMenu)
         return SHOP_STATE_FINISH_PURCHASE;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         if (shopMenu->incBuyCount == TRUE) {
             SystemVars_IncrementDepartmentStoreBuyCount(shopMenu->varsFlags);
         }
@@ -1293,7 +1337,15 @@ static u8 Shop_FinishFreePremierBall(ShopMenu *shopMenu)
         return SHOP_STATE_FINISH_FREE_PREMIER;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseMessageBox(&shopMenu->windows[SHOP_WINDOW_MESSAGE], 0);
         Shop_SetScrollSpritesPositionXY(shopMenu, FALSE);
         Sprite_SetDrawFlag(shopMenu->sprites[SHOP_SPRITE_SCROLL_ARROW_UP], shopMenu->spriteDrawFlags[SHOP_SPRITE_SCROLL_ARROW_UP]);
@@ -1490,7 +1542,11 @@ static const SpriteTemplateFromResourceHeader sShop_SpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -1504,7 +1560,11 @@ static const SpriteTemplateFromResourceHeader sShop_SpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -1518,7 +1578,11 @@ static const SpriteTemplateFromResourceHeader sShop_SpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -1532,7 +1596,11 @@ static const SpriteTemplateFromResourceHeader sShop_SpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -1548,7 +1616,11 @@ static void Shop_DrawSprites(ShopMenu *shopMenu)
         shopMenu->sprites[i] = ov5_021D3104(&shopMenu->unk_94, &sShop_SpriteTemplates[i]);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void Shop_DestroySprites(ShopMenu *shopMenu)

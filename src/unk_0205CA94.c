@@ -111,10 +111,26 @@ const static u8 Unk_020ED8B4[2][2] = {
 };
 
 const static u8 Unk_020ED8B0[4] = {
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_MAX,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_MAX,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 };
 
 void sub_0205CA94(SysTask *param0, void *param1)
@@ -198,8 +214,16 @@ void sub_0205CBFC(SysTask *param0, void *param1)
         break;
     case 1:
         Bg_LoadPalette(4, &v3, 2, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         sub_0205D274(v0, &v0->unk_1C0[0], 2);
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_IN, FADE_TYPE_BRIGHTNESS_IN, COLOR_BLACK, 6, 1, HEAP_ID_FIELD1);
         Sound_PlayEffect(SEQ_SE_DP_PYUU);
@@ -259,7 +283,11 @@ void sub_0205CD3C(SysTask *param0, void *param1)
         v0->unk_1E8 -= 32;
 
         if (v0->unk_1E8 < -255) {
+            #ifdef PLATFORM_DS
             GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
 
             v0->unk_1E4++;
         }
@@ -287,7 +315,11 @@ void sub_0205CD3C(SysTask *param0, void *param1)
         v0->unk_1E4++;
         break;
     case 6:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         *(v0->unk_1EC) = 1;
         sub_0205D080(param0, v0);
         break;
@@ -420,8 +452,16 @@ static void sub_0205D0B4(UnkStruct_0205D094 *param0)
 {
     param0->unk_00 = SpriteList_InitRendering(2, &param0->unk_30, HEAP_ID_FIELD1);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void sub_0205D0D8(UnkStruct_0205D094 *param0, int param1, u32 param2)

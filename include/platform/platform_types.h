@@ -280,38 +280,7 @@
     }
     
     // Graphics control structs (DS specific)
-    typedef struct {
-        int screenSize;
-        int colorMode;
-        int screenBase;
-        int charBase;
-        int bgExtPltt;
-        int priority;
-    } GXBg01Control;
-
-    typedef struct {
-        int screenSize;
-        int colorMode;
-        int screenBase;
-        int charBase;
-        int priority;
-    } GXBg23ControlText;
-
-    typedef struct {
-        int screenSize;
-        int areaOver;
-        int screenBase;
-        int charBase;
-        int priority;
-    } GXBg23ControlAffine;
-
-    typedef struct {
-        int screenSize;
-        int areaOver;
-        int screenBase;
-        int charBase;
-        int priority;
-    } GXBg23Control256x16Pltt;
+    // Moved to nns_types.h
 
     // Missing constants for BG screen sizes
     #define GX_BG_SCRSIZE_TEXT_256x256 0
@@ -328,28 +297,6 @@
     #define GX_BG_SCRSIZE_256x16PLTT_256x256 1
     #define GX_BG_SCRSIZE_256x16PLTT_512x512 2
     #define GX_BG_SCRSIZE_256x16PLTT_1024x1024 3
-
-    static inline GXBg01Control G2_GetBG0Control(void) { GXBg01Control c = {0}; return c; }
-    static inline GXBg01Control G2_GetBG1Control(void) { GXBg01Control c = {0}; return c; }
-    
-    static inline GXBg23ControlText G2_GetBG2ControlText(void) { GXBg23ControlText c = {0}; return c; }
-    static inline GXBg23ControlAffine G2_GetBG2ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
-    static inline GXBg23Control256x16Pltt G2_GetBG2Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
-    
-    static inline GXBg23ControlText G2_GetBG3ControlText(void) { GXBg23ControlText c = {0}; return c; }
-    static inline GXBg23ControlAffine G2_GetBG3ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
-    static inline GXBg23Control256x16Pltt G2_GetBG3Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
-
-    static inline GXBg01Control G2S_GetBG0Control(void) { GXBg01Control c = {0}; return c; }
-    static inline GXBg01Control G2S_GetBG1Control(void) { GXBg01Control c = {0}; return c; }
-    
-    static inline GXBg23ControlText G2S_GetBG2ControlText(void) { GXBg23ControlText c = {0}; return c; }
-    static inline GXBg23ControlAffine G2S_GetBG2ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
-    static inline GXBg23Control256x16Pltt G2S_GetBG2Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
-    
-    static inline GXBg23ControlText G2S_GetBG3ControlText(void) { GXBg23ControlText c = {0}; return c; }
-    static inline GXBg23ControlAffine G2S_GetBG3ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
-    static inline GXBg23Control256x16Pltt G2S_GetBG3Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
 
     // Graphics hardware functions (DS specific, stub for SDL)
     static inline void G2_SetBG0Priority(int priority) {
@@ -932,18 +879,6 @@
     #define GX_FOGSLOPE_0x1000 0
     
     // GX VRAM Constants
-    #define GX_VRAM_OBJ_80_EF 0
-    #define GX_VRAM_TEX_0_A 0
-    #define GX_VRAM_TEXPLTT_0_G 0
-    #define GX_VRAM_OBJ_32_FG 0
-    #define GX_VRAM_TEXPLTT_0123_E 0
-    #define GX_VRAM_BG_256_AB 0
-    #define GX_VRAM_SUB_BG_NONE 0
-    #define GX_VRAM_BG_NONE 0
-    #define GX_VRAM_OBJ_NONE 0
-    #define GX_VRAM_SUB_OBJ_NONE 0
-    #define GX_VRAM_TEX_NONE 0
-    #define GX_VRAM_TEXPLTT_NONE 0
     
     #define GX_BG0_AS_2D 0
     #define GX_BG_CHARBASE_0x18000 0
@@ -955,13 +890,12 @@
     
     // Sine/cosine lookup table stubs (proper implementation would use lookup table)
     #include <math.h>
-#endif // PLATFORM_SDL
-
-// GX Display Control Stubs
-static inline void GX_SetVisiblePlane(u32 mask) { (void)mask; }
-static inline void GXS_SetVisiblePlane(u32 mask) { (void)mask; }
-static inline void GX_DispOn(void) {}
-static inline void GXS_DispOn(void) {}
+    
+    // GX Display Control Stubs
+    static inline void GX_SetVisiblePlane(u32 mask) { (void)mask; }
+    static inline void GXS_SetVisiblePlane(u32 mask) { (void)mask; }
+    static inline void GX_DispOn(void) {}
+    static inline void GXS_DispOn(void) {}
 
     // CTRDG Stubs
     static inline u32 CTRDG_GetAgbGameCode(void) { return 0; }
@@ -982,5 +916,16 @@ static inline void GXS_DispOn(void) {}
         (void)data; (void)size; (void)signature; (void)key; 
         return TRUE; 
     }
+
+#endif // PLATFORM_SDL
+
+// Common macros (both platforms)
+#ifndef min
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
 
 #endif // PLATFORM_TYPES_H

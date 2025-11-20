@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ENCOUNTER_H
 #define POKEPLATINUM_ENCOUNTER_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "field_battle_data_transfer.h"

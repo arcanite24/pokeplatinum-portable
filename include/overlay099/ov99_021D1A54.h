@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV99_021D1A54_H
 #define POKEPLATINUM_OV99_021D1A54_H
 
+#include "platform/platform_types.h"
+
 #include "overlay099/struct_ov99_021D2CB0.h"
 
 void ov99_021D1CC8(UnkStruct_ov99_021D2CB0 *param0, int param1);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_020708E0_H
 #define POKEPLATINUM_STRUCT_020708E0_H
 
+#include "platform/platform_types.h"
+
 #include "overlay005/struct_ov5_021D30A8.h"
 
 #include "bg_window.h"

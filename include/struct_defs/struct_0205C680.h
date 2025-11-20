@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0205C680_H
 #define POKEPLATINUM_STRUCT_0205C680_H
 
+#include "platform/platform_types.h"
+
 #include "overworld_anim_manager.h"
 
 typedef struct {

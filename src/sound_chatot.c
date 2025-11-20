@@ -86,7 +86,11 @@ BOOL Sound_Impl_PlayChatotCry(const ChatotCry *cry, u32 unused, int volume, int 
 
     WaveOutParam param;
     param.handle = Sound_GetWaveOutHandle(WAVE_OUT_CHANNEL_PRIMARY);
+    #ifdef PLATFORM_DS
     param.format = NNS_SND_WAVE_FORMAT_PCM8;
+    #else
+    // TODO: Port NNS_SND_WAVE_FORMAT_PCM8 to PAL
+    #endif
     param.data = Sound_GetWaveBuffer();
     param.loop = FALSE;
     param.loopStartSample = 0;

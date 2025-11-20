@@ -32,7 +32,11 @@
 
 #include "constdata/const_020EA358.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay107);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #include <nitro/code16.h>
 
@@ -108,13 +112,21 @@ BOOL ov104_0223597C(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_0223597C *v2;
     UnkStruct_ov104_02230BE4 *v3 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay107);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v4 = {
         ov107_02241AE0,
         ov107_02241BD4,
         ov107_02241D2C,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay107)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v1 = sub_0209B978(param0->unk_00->unk_00);
@@ -136,13 +148,21 @@ BOOL ov104_022359D0(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_0223597C *v2;
     UnkStruct_ov104_02230BE4 *v3 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay107);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v4 = {
         NULL,
         NULL,
         NULL,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay107)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v1 = sub_0209B978(param0->unk_00->unk_00);
@@ -212,13 +232,21 @@ BOOL ov104_02235AE8(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_0223597C *v2;
     UnkStruct_ov104_02230BE4 *v3 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay107);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v4 = {
         ov107_02245EB0,
         ov107_02245FD0,
         ov107_02246130,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay107)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v1 = sub_0209B978(param0->unk_00->unk_00);
@@ -317,7 +345,11 @@ BOOL ov104_02235BC0(UnkStruct_ov104_0222E930 *param0)
         }
         break;
     case 7:
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     case 9:
         *v17 = sub_020302EC(v3->unk_08);

@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u16 cyclingGear;
     u16 runningShoes;

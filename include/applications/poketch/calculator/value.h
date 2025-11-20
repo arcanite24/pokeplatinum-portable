@@ -8,6 +8,8 @@
 #define DISPLAY_SYMBOL_INVALID   12
 #define DISPLAY_SYMBOL_TERMINATE 13
 
+#include "platform/platform_types.h"
+
 typedef struct CalculatorValue {
     u64 significand;
     u8 decimalPlaces;

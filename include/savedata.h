@@ -2,6 +2,8 @@
 #define POKEPLATINUM_SAVEDATA_H
 
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #include "constants/savedata/save_table.h"
 #include "constants/savedata/savedata.h"
 

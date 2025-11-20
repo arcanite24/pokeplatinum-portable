@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GTS_SCREENS_SELECT_POKEMON_H
 #define POKEPLATINUM_GTS_SCREENS_SELECT_POKEMON_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_boxes_decl.h"
 
 #include "overlay094/gts_application_state.h"

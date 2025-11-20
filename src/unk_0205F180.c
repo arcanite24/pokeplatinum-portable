@@ -1171,7 +1171,11 @@ static void PlayerAvatar_TryCyclingGearChange(PlayerAvatar *playerAvatar, u16 pa
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (pad & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         u32 v0 = MapObject_GetCurrTileBehavior(Player_MapObject(playerAvatar));
 
         if (TileBehavior_IsBikeRampEastward(v0) || TileBehavior_IsBikeRampWestward(v0)) {
@@ -2103,11 +2107,19 @@ enum FaceDirection PlayerAvatar_CalcFaceDirection(PlayerAvatar *playerAvatar, u1
 
 static enum FaceDirection Movement_FaceLeftRightFromInput(u16 pad)
 {
+    #ifdef PLATFORM_DS
     if (pad & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         return FACE_LEFT;
     }
 
+    #ifdef PLATFORM_DS
     if (pad & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         return FACE_RIGHT;
     }
 
@@ -2116,11 +2128,19 @@ static enum FaceDirection Movement_FaceLeftRightFromInput(u16 pad)
 
 static enum FaceDirection Movement_FaceUpDownFromInput(u16 pad)
 {
+    #ifdef PLATFORM_DS
     if (pad & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         return FACE_UP;
     }
 
+    #ifdef PLATFORM_DS
     if (pad & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         return FACE_DOWN;
     }
 
@@ -2195,7 +2215,11 @@ static BOOL IsMovementWalkOnSpotSlow(enum MovementAction movementAction)
 
 int sub_020613FC(PlayerAvatar *playerAvatar, u16 pad)
 {
+    #ifdef PLATFORM_DS
     if (pad & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return 1;
     }
 

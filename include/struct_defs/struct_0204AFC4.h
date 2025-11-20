@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0204AFC4_H
 #define POKEPLATINUM_STRUCT_0204AFC4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0202D060_decl.h"
 #include "struct_decls/struct_0202D750_decl.h"
 #include "struct_defs/struct_0204B404.h"

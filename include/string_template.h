@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRING_TEMPLATE_H
 #define POKEPLATINUM_STRING_TEMPLATE_H
 
+#include "platform/platform_types.h"
+
 #include "generated/abilities.h"
 #include "generated/genders.h"
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV117_02265EC8_H
 #define POKEPLATINUM_STRUCT_OV117_02265EC8_H
 
+#include "platform/platform_types.h"
+
 #include "overlay117/struct_ov117_02265EB0.h"
 
 #include "sprite_system.h"

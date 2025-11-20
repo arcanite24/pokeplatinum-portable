@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_0223E01C_SUB1_H
 #define POKEPLATINUM_STRUCT_OV62_0223E01C_SUB1_H
 
+#include "platform/platform_types.h"
+
 #include "message.h"
 
 typedef struct {

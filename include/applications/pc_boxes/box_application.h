@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BOX_APPLICATION_H
 #define POKEPLATINUM_STRUCT_BOX_APPLICATION_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_boxes_decl.h"
 
 #include "applications/pc_boxes/box_cursor.h"

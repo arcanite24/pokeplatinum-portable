@@ -164,7 +164,19 @@ BOOL TownMap_FadeInBothScreens(TownMapAppData *appData)
     ResetScreenMasterBrightness(DS_SCREEN_MAIN);
     ResetScreenMasterBrightness(DS_SCREEN_SUB);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 28, 4);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
     return FALSE;
 }
 
@@ -185,7 +197,19 @@ BOOL TownMap_FadeInTopScreen(TownMapAppData *appData)
     Sound_PlayEffect(SEQ_SE_DP_MEKURU);
     ResetScreenMasterBrightness(DS_SCREEN_MAIN);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 28, 4);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
     return FALSE;
 }
 
@@ -203,7 +227,11 @@ BOOL TownMap_HandleInput_Item(TownMapAppData *appData)
 {
     TownMapGraphicsManager *graphicsMan = appData->graphicsMan;
 
+    #ifdef PLATFORM_DS
     if (graphicsMan->zoomedInMapTransitionStage <= 1 && JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         return TRUE;
     }
@@ -222,14 +250,22 @@ BOOL TownMap_HandleInput_Fly(TownMapAppData *appData)
     TownMapGraphicsManager *graphicsMan = appData->graphicsMan;
 
     if (graphicsMan->zoomedInMapTransitionStage <= 1) {
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (CanFlyToHoveredLocation(appData)) {
                 Sound_PlayEffect(SEQ_SE_DP_DECIDE);
                 return TRUE;
             }
 
             return FALSE;
+        #ifdef PLATFORM_DS
         } else if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             return TRUE;
         }
@@ -245,7 +281,11 @@ BOOL TownMap_HandleInput_Fly(TownMapAppData *appData)
 
 BOOL TownMap_HandleInput_WallMap(TownMapAppData *appData)
 {
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         return TRUE;
     }
@@ -372,7 +412,11 @@ static void HandleInput(TownMapAppData *appData, int heldKeys)
     TownMapGraphicsManager *graphicsMan = appData->graphicsMan;
 
     if (graphicsMan->queuedMovement) {
+        #ifdef PLATFORM_DS
         if (!(heldKeys & (PAD_KEY_UP | PAD_KEY_DOWN | PAD_KEY_RIGHT | PAD_KEY_LEFT))) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             if (graphicsMan->unk_15_0 == 1) {
                 ++graphicsMan->unk_15_0;
             }
@@ -385,7 +429,11 @@ static void HandleInput(TownMapAppData *appData, int heldKeys)
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (!(heldKeys & (PAD_KEY_UP | PAD_KEY_DOWN | PAD_KEY_RIGHT | PAD_KEY_LEFT))) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (graphicsMan->unk_15_0 == 1) {
             ++graphicsMan->unk_15_0;
         }
@@ -393,28 +441,44 @@ static void HandleInput(TownMapAppData *appData, int heldKeys)
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (heldKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (graphicsMan->cursorZ >= 7) {
             graphicsMan->cursorZ -= 1;
             graphicsMan->queuedMovement |= TOWN_MAP_UP;
         }
     }
 
+    #ifdef PLATFORM_DS
     if (heldKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (graphicsMan->cursorZ <= 27) {
             graphicsMan->cursorZ += 1;
             graphicsMan->queuedMovement |= TOWN_MAP_DOWN;
         }
     }
 
+    #ifdef PLATFORM_DS
     if (heldKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (graphicsMan->cursorX <= 27) {
             graphicsMan->cursorX += 1;
             graphicsMan->queuedMovement |= TOWN_MAP_RIGHT;
         }
     }
 
+    #ifdef PLATFORM_DS
     if (heldKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (graphicsMan->cursorX >= 2) {
             graphicsMan->cursorX -= 1;
             graphicsMan->queuedMovement |= TOWN_MAP_LEFT;
@@ -802,7 +866,11 @@ static const SpriteTemplateFromResourceHeader sTownMapSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = PLTT_0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DSUB,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -816,7 +884,11 @@ static const SpriteTemplateFromResourceHeader sTownMapSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = PLTT_0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -830,7 +902,11 @@ static const SpriteTemplateFromResourceHeader sTownMapSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = PLTT_1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,
@@ -917,7 +993,11 @@ static void LoadLocationHistory(TownMapAppData *appData)
         .animIdx = 0,
         .priority = 2,
         .plttIdx = PLTT_2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,

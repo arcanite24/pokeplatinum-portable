@@ -66,8 +66,16 @@
 #include "res/text/bank/mystery_gift_menu.h"
 #include "res/text/bank/unk_0695.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(main_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #define EVENT_LOCATION_MOVIES_START     3
 #define EVENT_LOCATION_MOVIES_END       14
@@ -823,10 +831,18 @@ static void InitBgLayer(BgConfig *bgConfig, int bgLayer, u32 screenBase, u32 cha
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -842,10 +858,26 @@ static void InitBgLayer(BgConfig *bgConfig, int bgLayer, u32 screenBase, u32 cha
 static void SetupGraphics(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -1018,7 +1050,11 @@ static BOOL ShowAppMainMenu(ApplicationManager *appMan, MysteryGiftAppData *appD
     LoadMessageBoxGraphics(appData->bgConfig, BG_LAYER_MAIN_0, BASE_TILE_MESSAGE_BOX_FRAME, PLTT_2, frameType, HEAP_ID_MYSTERY_GIFT_APP);
     LoadStandardWindowGraphics(appData->bgConfig, BG_LAYER_MAIN_0, BASE_TILE_STANDARD_WINDOW_FRAME, PLTT_3, STANDARD_WINDOW_FIELD, HEAP_ID_MYSTERY_GIFT_APP);
 
+    #ifdef PLATFORM_DS
     *HW_BG_A_PLTT_COLOR(PLTT_0, 0) = GX_RGB(12, 12, 31);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     if (!Window_IsInUse(&appData->messageBox)) {
         Window_Add(appData->bgConfig, &appData->messageBox, BG_LAYER_MAIN_0, 2, 19, 27, TEXT_LINES_TILES(2), PLTT_0, BASE_TILE_MAIN_APP_MENU_MSG_BOX);
@@ -1057,7 +1093,11 @@ static void SearchForWiFiDistributionEvent(ApplicationManager *appMan, enum Myst
         Bg_ClearTilemap(appData->bgConfig, BG_LAYER_MAIN_0);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         ShowMysteryGiftMenuOptions(appMan, BASE_TILE_MAIN_APP_MENU, MysteryGiftMenu_Text_Welcome);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         *state = MG_APP_STATE_WAIT_MAIN_MENU_INPUT;
         break;
     }
@@ -1068,7 +1108,11 @@ void MysteryGiftApp_ShowWiFiCommError(MysteryGiftAppData *appData)
     int textEntryID = appData->wifiCommErrorStringID != -1 ? appData->wifiCommErrorStringID : pl_msg_00000695_00011;
 
     ToggleWaitDial(appData, FALSE);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_ClearTilemap(appData->bgConfig, BG_LAYER_MAIN_0);
 
     StringTemplate *strTemplate = StringTemplate_Default(HEAP_ID_MYSTERY_GIFT_APP);
@@ -1203,12 +1247,20 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     int cellsID = 38;
     int animationID = 37;
     int compressed = TRUE;
+    #ifdef PLATFORM_DS
     int vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     int resourceID = 20000 + vramType;
     int heapID = HEAP_ID_MYSTERY_GIFT_APP;
     int baseIndex = 0;
 
+    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     resourceID = 20000 + vramType;
 
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], narcID, tilesID, compressed, resourceID, vramType, heapID);
@@ -1216,7 +1268,11 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_Add(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CELL], narcID, cellsID, compressed, resourceID, SPRITE_RESOURCE_CELL, heapID);
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_ANIM] = SpriteResourceCollection_Add(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_ANIM], narcID, animationID, compressed, resourceID, SPRITE_RESOURCE_ANIM, heapID);
 
+    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     resourceID = 20000 + vramType;
 
     animMan->spriteResources[DS_SCREEN_SUB][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], narcID, tilesID, compressed, resourceID, vramType, heapID);
@@ -1230,12 +1286,20 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     SpriteTransfer_RequestPlttFreeSpace(animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_PLTT]);
     SpriteTransfer_RequestPlttFreeSpace(animMan->spriteResources[DS_SCREEN_SUB][SPRITE_RESOURCE_PLTT]);
 
+    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     resourceID = 20000 + vramType;
 
     SpriteResourcesHeader_Init(&animMan->spriteResourcesHeaders[DS_SCREEN_MAIN], resourceID, resourceID, resourceID, resourceID, -1, -1, FALSE, 0, animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_PLTT], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CELL], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_ANIM], NULL, NULL);
 
+    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     resourceID = 20000 + vramType;
 
     // Despite baseIndex always being 0, replacing `baseIndex + DS_SCREEN_SUB` with `DS_SCREEN_SUB` doesn't match here.
@@ -1250,7 +1314,11 @@ static Sprite *InitParticleSprite(MysteryGiftAnimationManager *animMan, int vram
         AffineSpriteListTemplate template;
 
         // 0 is the top screen, 1 is the bottom screen. Using enum variants doesn't match.
+        #ifdef PLATFORM_DS
         enum DSScreen screen = (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) ? 0 : 1;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         template.list = animMan->spriteMan->spriteList;
         template.resourceData = &animMan->spriteResourcesHeaders[screen];
@@ -1265,7 +1333,11 @@ static Sprite *InitParticleSprite(MysteryGiftAnimationManager *animMan, int vram
         template.vramType = vramType;
         template.heapID = HEAP_ID_MYSTERY_GIFT_APP;
 
+        #ifdef PLATFORM_DS
         if (template.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
             template.position.y += FX32_CONST(256);
         }
 
@@ -1284,7 +1356,11 @@ static Sprite *InitParticleSprite(MysteryGiftAnimationManager *animMan, int vram
 
 static void SetupTopScreenLargeParticle(MysteryGiftAnimationManager *animMan)
 {
+    #ifdef PLATFORM_DS
     animMan->topScreenLargeParticle.sprite = InitParticleSprite(animMan, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     Sprite_SetAnimNoRestart(animMan->topScreenLargeParticle.sprite, 2);
     Sprite_SetAnimFrame(animMan->topScreenLargeParticle.sprite, 0);
@@ -1300,7 +1376,11 @@ static void SetupTopScreenLargeParticle(MysteryGiftAnimationManager *animMan)
 
 static void SetupBottomScreenLargeParticle(MysteryGiftAnimationManager *animMan)
 {
+    #ifdef PLATFORM_DS
     animMan->bottomScreenLargeParticle.sprite = InitParticleSprite(animMan, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Sprite_SetAnimNoRestart(animMan->bottomScreenLargeParticle.sprite, 4);
     Sprite_SetAnimFrame(animMan->bottomScreenLargeParticle.sprite, 0);
@@ -1350,7 +1430,11 @@ static void UpdateAllParticleSpritesAnimations(MysteryGiftAnimationManager *anim
 static void InitAllTopScreenParticlesSprite(MysteryGiftAnimationManager *animMan)
 {
     for (int i = 0; i < NUM_MYSTERY_GIFT_PARTICLES; i++) {
+        #ifdef PLATFORM_DS
         animMan->topScreenSmallParticles[i].sprite = InitParticleSprite(animMan, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         Sprite_SetAnimNoRestart(animMan->topScreenSmallParticles[i].sprite, 1);
         Sprite_SetAnimFrame(animMan->topScreenSmallParticles[i].sprite, 0);
     }
@@ -1360,7 +1444,11 @@ static void InitSomeTopScreenParticlesSprite(MysteryGiftAnimationManager *animMa
 {
     for (int i = 0; i < NUM_MYSTERY_GIFT_PARTICLES; i++) {
         if (i < (NUM_MYSTERY_GIFT_PARTICLES / 4)) {
+            #ifdef PLATFORM_DS
             animMan->topScreenSmallParticles[i].sprite = InitParticleSprite(animMan, NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             Sprite_SetAnimNoRestart(animMan->topScreenSmallParticles[i].sprite, 1);
             Sprite_SetAnimFrame(animMan->topScreenSmallParticles[i].sprite, 0);
         } else {
@@ -1372,7 +1460,11 @@ static void InitSomeTopScreenParticlesSprite(MysteryGiftAnimationManager *animMa
 static void InitAllBottomScreenParticlesSprite(MysteryGiftAnimationManager *animMan)
 {
     for (int i = 0; i < NUM_MYSTERY_GIFT_PARTICLES; i++) {
+        #ifdef PLATFORM_DS
         animMan->bottomScreenSmallParticles[i].sprite = InitParticleSprite(animMan, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         Sprite_SetAnimNoRestart(animMan->bottomScreenSmallParticles[i].sprite, 5);
         Sprite_SetAnimFrame(animMan->bottomScreenSmallParticles[i].sprite, 0);
     }
@@ -1691,12 +1783,24 @@ static void RunParticleAnimationFrame(SysTask *sysTask, MysteryGiftParticle *par
 
 static void SetTopScreenBlendBrightness(MysteryGiftAnimationManager *animMan)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BD, animMan->blendBrightness);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 static void SetBottomScreenBlendBrightness(MysteryGiftAnimationManager *animMan)
 {
+    #ifdef PLATFORM_DS
     G2S_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BD, animMan->blendBrightness);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 static void SetBothScreensBlendBrightness(MysteryGiftAnimationManager *animMan)
@@ -1809,8 +1913,16 @@ static void SetupTopScreenParticlesAnimation(MysteryGiftAnimationManager *animMa
     SetupTopScreenParticlesForGather(animMan);
     SetupTopScreenLargeParticle(animMan);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void RunMysteryGiftAnimationFrame(SysTask *sysTask, MysteryGiftAnimationManager *animMan)
@@ -1860,7 +1972,11 @@ static void RunMysteryGiftAnimationFrame(SysTask *sysTask, MysteryGiftAnimationM
         if (*animMan->animationStatusPtr == MG_ANIMATION_STATUS_PROCEED_IMPLOSION) {
             InitSomeTopScreenParticlesSprite(animMan);
             SetupTopScreenParticlesForImplosion(animMan);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, FALSE);
+            #else
+            // TODO: Port GX_PLANEMASK_BG1 to PAL
+            #endif
             MakeBlackTransparent();
             animMan->animationStage = MG_ANIMATION_STAGE_IMPLODE;
         }
@@ -1928,7 +2044,11 @@ static void RunMysteryGiftAnimationFrame(SysTask *sysTask, MysteryGiftAnimationM
                 DeleteTopScreenLargeParticle(animMan);
                 InitAllBottomScreenParticlesSprite(animMan);
                 SetupBottomScreenSmallParticlesForSpiralOut(animMan);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, TRUE);
+                #else
+                // TODO: Port GX_PLANEMASK_BG1 to PAL
+                #endif
             }
         }
         break;
@@ -2093,7 +2213,11 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
     case MG_APP_STATE_WAIT_FOR_ANIMATION_FINISHED:
         if (appData->animationStatus == MG_ANIMATION_STATUS_DONE) {
             *state = ShowMessageBoxIntoStateTransition(appMan, &appData->messageBox, MysteryGiftMenu_Text_GiftReceivedPickUpInPokeMart, MG_APP_STATE_EXIT_AFTER_RECEIVING_GIFT);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, TRUE);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
         }
         break;
     case MG_APP_STATE_WAIT_LOCAL_WIRELESS_GIFT_SAVED: {
@@ -2109,7 +2233,11 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
             EraseMsgBoxIfInUse(&appData->messageBox, FALSE);
 
             Bg_ClearTilemap(appData->bgConfig, BG_LAYER_MAIN_0);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, FALSE);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
 
             WonderCard *wonderCard = &appData->eventData.wonderCard;
 
@@ -2158,7 +2286,11 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
             *state = MG_APP_STATE_WAIT_CONFIRM_RECEIVE_FRIEND_GIFT;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B) || --appData->wirelessCommsTimeout == 0) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ToggleWaitDial(appData, FALSE);
             ov97_0222D2DC();
             NetworkIcon_Destroy();
@@ -2190,7 +2322,11 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B) || --appData->wirelessCommsTimeout == 0) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ov97_0222D2DC();
             NetworkIcon_Destroy();
             SetDownloadArrowAnim(appData, HIDE_DOWNLOADING_ARROW);
@@ -2205,7 +2341,11 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
 
         int netID = CommSys_CurNetId();
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             || --appData->wirelessCommsTimeout == 0
             || (netID != 0 && CommSys_IsPlayerConnected(netID) == FALSE)) {
             ToggleWaitDial(appData, FALSE);
@@ -2414,14 +2554,26 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
         break;
     case MG_APP_STATE_SHOW_RECEIVED_WONDERCARD:
         LoadBottomScreenBg(appData->bgConfig);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         WonderCardsApp_ShowWondercard(appData->bgConfig, &appData->eventData.wonderCard, HEAP_ID_MYSTERY_GIFT_APP);
         MainMenuUtil_StartScreenFadeToState(FADE_TYPE_BRIGHTNESS_IN, MG_APP_STATE_EXIT_AFTER_RECEIVING_GIFT, (int *)appData->statePtr, MG_APP_STATE_WAIT_SCREEN_TRANSITION);
         appData->eventData.header.hasWonderCard = FALSE; // Makes the game exit the application
         break;
     case MG_APP_STATE_RESET_SYSTEM:
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     default:
         // Should never be reached
@@ -2450,15 +2602,31 @@ extern const ApplicationManagerTemplate gWonderCardsAppTemplate;
 
 static int MysteryGiftApp_Exit(ApplicationManager *appMan, int *unused)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(game_opening);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(main_menu);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     MysteryGiftAppData *appData = ApplicationManager_Data(appMan);
 
     if (appData->exitToWondercardsApp == FALSE) {
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     } else if (appData->exitToWondercardsApp == TRUE) {
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(main_menu), &gWonderCardsAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     }
 
     Heap_Destroy(HEAP_ID_91);
@@ -2592,7 +2760,11 @@ static void UpdateLocalWirelessDistributionState(MysteryGiftAppData *appData)
         break;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         switch (sWirelessDistribState) {
         case WIRELESS_DISTRIBUTION_STATE_40:
         case WIRELESS_DISTRIBUTION_STATE_41:
@@ -2615,5 +2787,9 @@ const ApplicationManagerTemplate gMysteryGiftAppTemplate = {
     MysteryGiftApp_Init,
     (OverlayFunc)MysteryGiftApp_Main,
     MysteryGiftApp_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV12_0222421C_H
 #define POKEPLATINUM_OV12_0222421C_H
 
+#include "platform/platform_types.h"
+
 #include "battle_anim/struct_ov12_02225640.h"
 
 #include "spl.h"

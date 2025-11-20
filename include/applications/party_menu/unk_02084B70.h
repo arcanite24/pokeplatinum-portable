@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02084B70_H
 #define POKEPLATINUM_UNK_02084B70_H
 
+#include "platform/platform_types.h"
+
 #include "applications/party_menu/defs.h"
 
 #include "pokemon.h"

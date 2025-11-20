@@ -135,7 +135,11 @@ static const SpriteTemplate Unk_ov17_02254C5C = {
     0x0,
     0x64,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x80EA, 0x80EB, 0x80EA, 0x80EA, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -148,7 +152,11 @@ static const SpriteTemplate Unk_ov17_02254C28 = {
     0x0,
     0x14,
     0x2,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x80EF, 0x80E9, 0x80EC, 0x80EC, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -161,7 +169,11 @@ static const SpriteTemplate Unk_ov17_02254C90 = {
     0x0,
     0x64,
     0x3,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x80EE, 0x80E9, 0x80EB, 0x80EB, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -174,7 +186,11 @@ static const SpriteTemplate Unk_ov17_02254CC4 = {
     0x0,
     0x6E,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x80F0, 0x80EC, 0x80ED, 0x80ED, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -345,12 +361,56 @@ void ov17_02250B00(UnkStruct_ov17_0224FCA0 *param0)
         Strbuf_Free(v2);
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0 | GX_WNDMASK_W1);
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd1InsidePlane to PAL
+    #endif
     G2_SetWnd1InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane((GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ) ^ (GX_WND_PLANEMASK_BG2), 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 255, 0);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd1Position(0, 0, 255, 0);
+    #else
+    // TODO: Port G2_SetWnd1Position to PAL
+    #endif
 
     NARC_dtor(v1);
 }
@@ -370,7 +430,11 @@ void ov17_02250D28(UnkStruct_ov17_0224FCA0 *param0)
 {
     NARC *v0 = NARC_ctor(NARC_INDEX_CONTEST__GRAPHIC__CONTEST_OBJ, HEAP_ID_24);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_10.unk_C0, 2, param0->unk_10.unk_18, param0->unk_10.unk_1C, v0, 10, 0, 4, NNS_G2D_VRAM_TYPE_2DMAIN, 33001);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     ov17_02250F68(param0, v0);
     ov17_02250DB0(param0);
@@ -395,14 +459,22 @@ void ov17_02250DB0(UnkStruct_ov17_0224FCA0 *param0)
     int v1, v2;
     NARC *v3 = NARC_ctor(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, HEAP_ID_24);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_10.unk_C0, PLTTBUF_MAIN_OBJ, param0->unk_10.unk_18, param0->unk_10.unk_1C, v3, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 33003);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, v3, PokeIcon64KCellsFileIndex(), FALSE, 33002);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, v3, PokeIcon64KAnimationFileIndex(), FALSE, 33002);
 
     v0 = Unk_ov17_02254C5C;
 
     for (v2 = 0; v2 < 4; v2++) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(param0->unk_10.unk_18, param0->unk_10.unk_1C, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, Pokemon_IconSpriteIndex(param0->unk_00->unk_00.unk_00[v2]), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 33002 + v2);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v0.resources[0] = 33002 + v2;
         param0->unk_10.unk_128[v2] = SpriteSystem_NewSprite(param0->unk_10.unk_18, param0->unk_10.unk_1C, &v0);
@@ -450,7 +522,11 @@ static void ov17_02250F4C(SysTask *param0, void *param1)
 
 void ov17_02250F68(UnkStruct_ov17_0224FCA0 *param0, NARC *param1)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 102, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, 33007);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 101, TRUE, 33004);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 100, TRUE, 33004);
 }
@@ -563,7 +639,11 @@ static void ov17_02251140(SysTask *param0, void *param1)
 
 void ov17_0225122C(UnkStruct_ov17_0224FCA0 *param0, NARC *param1)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 84, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, 33006);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 83, TRUE, 33003);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 82, TRUE, 33003);
 
@@ -607,8 +687,16 @@ void ov17_0225131C(UnkStruct_ov17_0224FCA0 *param0, int param1, int param2)
 
 void ov17_02251344(UnkStruct_ov17_0224FCA0 *param0, NARC *param1)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_10.unk_C0, PLTTBUF_MAIN_OBJ, param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 11, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 33004);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 87, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, 33008);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 86, TRUE, 33005);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_10.unk_18, param0->unk_10.unk_1C, param1, 85, TRUE, 33005);
 }

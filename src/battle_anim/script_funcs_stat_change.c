@@ -136,9 +136,21 @@ static void BattleAnimTask_StatChange(SysTask *task, void *param)
         ctx->common.state++;
         break;
     case STAT_CHANGE_STATE_SET_BLENDING:
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
             BATTLE_BG_BLENDMASK_BASE,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ | BATTLE_BG_BLENDMASK_3D | BATTLE_BG_BLENDMASK_EFFECT,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
             ctx->param.overlayAlpha,
             ctx->param.otherAlpha);
         ctx->common.state++;
@@ -167,14 +179,42 @@ static void BattleAnimTask_StatChange(SysTask *task, void *param)
             ctx->common.state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->param.overlayAlpha, ctx->param.otherAlpha);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         break;
     default:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOBJInsidePlane to PAL
+        #endif
         G2_SetWndOBJInsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
         Bg_SetOffset(ctx->common.bgConfig, BATTLE_BG_BASE, BG_OFFSET_UPDATE_SET_X, 0);
         Bg_SetOffset(ctx->common.bgConfig, BATTLE_BG_BASE, BG_OFFSET_UPDATE_SET_Y, 0);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
         BattleAnimSystem_EndAnimTask(ctx->common.battleAnimSys, task);
         BattleAnimUtil_Free(ctx);
         ctx = NULL;
@@ -247,11 +287,39 @@ static void BattleAnimScriptFunc_StatChangeCommon(BattleAnimSystem *system, Stat
         }
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOBJInsidePlane to PAL
+    #endif
     G2_SetWndOBJInsidePlane(GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_OBJ | GX_WND_PLANEMASK_BG2, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_OW);
+    #else
+    // TODO: Port GX_WNDMASK_OW to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->attackerSprite2, GX_OAM_MODE_OBJWND);
+    #else
+    // TODO: Port GX_OAM_MODE_OBJWND to PAL
+    #endif
 
     ctx->param.offsetX = 0;
     ctx->param.offsetY = 0;

@@ -51,7 +51,11 @@ Menu *Menu_NewAndCopyToVRAM(const MenuTemplate *template, u8 xOffset, u8 yOffset
 
 Menu *Menu_NewSimple(const MenuTemplate *template, u8 cursorStart, u8 heapID)
 {
+    #ifdef PLATFORM_DS
     return Menu_NewAndCopyToVRAM(template, Font_GetAttribute(template->fontID, FONTATTR_MAX_LETTER_WIDTH), 0, cursorStart, heapID, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 void Menu_Free(Menu *menu, u8 *outCursorPos)
@@ -68,7 +72,11 @@ u32 Menu_ProcessInput(Menu *menu)
 {
     menu->lastAction = MENU_ACTION_NONE;
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         return menu->template.choices[menu->cursorPos].index;
     }
@@ -78,7 +86,11 @@ u32 Menu_ProcessInput(Menu *menu)
         return MENU_CANCELED;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_UP, SEQ_SE_CONFIRM) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_UP;
         }
@@ -86,7 +98,11 @@ u32 Menu_ProcessInput(Menu *menu)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_DOWN, SEQ_SE_CONFIRM) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_DOWN;
         }
@@ -94,7 +110,11 @@ u32 Menu_ProcessInput(Menu *menu)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_LEFT, SEQ_SE_CONFIRM) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_LEFT;
         }
@@ -102,7 +122,11 @@ u32 Menu_ProcessInput(Menu *menu)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_RIGHT, SEQ_SE_CONFIRM) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_RIGHT;
         }
@@ -117,7 +141,11 @@ u32 Menu_ProcessInputWithSound(Menu *menu, u16 sdatID)
 {
     menu->lastAction = MENU_ACTION_NONE;
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         return menu->template.choices[menu->cursorPos].index;
     }
@@ -127,7 +155,11 @@ u32 Menu_ProcessInputWithSound(Menu *menu, u16 sdatID)
         return MENU_CANCELED;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_UP, sdatID) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_UP;
         }
@@ -135,7 +167,11 @@ u32 Menu_ProcessInputWithSound(Menu *menu, u16 sdatID)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_DOWN, sdatID) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_DOWN;
         }
@@ -143,7 +179,11 @@ u32 Menu_ProcessInputWithSound(Menu *menu, u16 sdatID)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_LEFT, sdatID) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_LEFT;
         }
@@ -151,7 +191,11 @@ u32 Menu_ProcessInputWithSound(Menu *menu, u16 sdatID)
         return MENU_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (TryMovingCursorAndPlaySound(menu, SCROLL_DIRECTION_RIGHT, sdatID) == TRUE) {
             menu->lastAction = MENU_ACTION_MOVE_RIGHT;
         }
@@ -370,7 +414,11 @@ Menu *Menu_MakeYesNoChoiceWithCursorAt(BgConfig *bgConfig, const WindowTemplate 
     Window_AddFromTemplate(bgConfig, menuTemplate.window, winTemplate);
     Window_DrawStandardFrame(menuTemplate.window, 1, borderTileStart, borderPalette);
 
+    #ifdef PLATFORM_DS
     return Menu_NewAndCopyToVRAM(&menuTemplate, 8, 0, cursorStart, heapID, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 Menu *Menu_MakeYesNoChoice(BgConfig *bgConfig, const WindowTemplate *winTemplate, u16 borderTileStart, u8 borderPalette, u32 heapID)

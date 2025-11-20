@@ -330,12 +330,20 @@ static int ov20_021D1050(UnkStruct_ov20_021D16E8 *param0, int *param1)
 {
     switch (*param1) {
     case 0:
+        #ifdef PLATFORM_DS
         if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             ov20_021D1C4C(param0, ov20_021D1F38);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & (PAD_KEY_DOWN | PAD_BUTTON_START)) {
+        #else
+        // TODO: Port PAD_BUTTON_START to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_4C = 0;
             ov20_021D21A0(param0->unk_14, 4);
@@ -343,13 +351,21 @@ static int ov20_021D1050(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D1C4C(param0, ov20_021D1DBC);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_50 = 0;
             ov20_021D21A0(param0->unk_14, 6);
@@ -376,12 +392,20 @@ static int ov20_021D1130(UnkStruct_ov20_021D16E8 *param0, int *param1)
 {
     switch (*param1) {
     case 0:
+        #ifdef PLATFORM_DS
         if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             ov20_021D1C4C(param0, ov20_021D1F38);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & (PAD_KEY_DOWN | PAD_BUTTON_START)) {
+        #else
+        // TODO: Port PAD_BUTTON_START to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_4C = 0;
             ov20_021D21A0(param0->unk_14, 4);
@@ -389,7 +413,11 @@ static int ov20_021D1130(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             if (param0->unk_4E != 0) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 param0->unk_4E = 0;
@@ -398,7 +426,11 @@ static int ov20_021D1130(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             if (param0->unk_4E == 0) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 param0->unk_4E = 1;
@@ -407,13 +439,21 @@ static int ov20_021D1130(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D1C4C(param0, ov20_021D1DBC);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_50 = 0;
             ov20_021D21A0(param0->unk_14, 6);
@@ -443,12 +483,20 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
         param0->unk_64 = ov20_021D2DF4(param0->unk_14);
         (*param1) = 1;
     case 1:
+        #ifdef PLATFORM_DS
         if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             ov20_021D1C4C(param0, ov20_021D1F38);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             if ((param0->unk_64) && (param0->unk_4E != 0)) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 param0->unk_4E--;
@@ -457,7 +505,11 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
 
             if ((param0->unk_64) && (param0->unk_4E < (param0->unk_64 - 1))) {
@@ -471,7 +523,11 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
             }
         }
 
+        #ifdef PLATFORM_DS
         if ((param0->unk_30 & PAD_BUTTON_START) || ((param0->unk_30 & PAD_BUTTON_A) && (param0->unk_64 == 0))) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_4C = 0;
             ov20_021D21A0(param0->unk_14, 4);
@@ -479,7 +535,11 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_4E = 0;
             ov20_021D0FCC(&param0->unk_60, &param0->unk_08);
@@ -488,7 +548,11 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_4E = 0;
             ov20_021D0F88(&param0->unk_60, &param0->unk_08);
@@ -497,13 +561,21 @@ static int ov20_021D1260(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D1C4C(param0, ov20_021D1DBC);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             param0->unk_50 = 0;
             ov20_021D21A0(param0->unk_14, 6);
@@ -536,33 +608,53 @@ static int ov20_021D1468(UnkStruct_ov20_021D16E8 *param0, int *param1)
     switch (*param1) {
     case 0:
         if (ov20_021D21F8(param0->unk_14)) {
+            #ifdef PLATFORM_DS
             if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+            #else
+            // TODO: Port PAD_BUTTON_SELECT to PAL
+            #endif
                 ov20_021D1C4C(param0, ov20_021D1F38);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_30 & (PAD_KEY_LEFT | PAD_KEY_RIGHT)) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 param0->unk_4C ^= 1;
                 ov20_021D21A0(param0->unk_14, 13);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_30 & PAD_BUTTON_START) {
+            #else
+            // TODO: Port PAD_BUTTON_START to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 param0->unk_4C = 0;
                 ov20_021D21A0(param0->unk_14, 13);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_30 & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 ov20_021D21A0(param0->unk_14, 5);
                 (*param1) = 5;
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_30 & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
 
                 if (param0->unk_4C == 0) {
@@ -574,7 +666,11 @@ static int ov20_021D1468(UnkStruct_ov20_021D16E8 *param0, int *param1)
                 }
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_30 & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 (*param1) = 2;
                 break;
@@ -611,7 +707,11 @@ static int ov20_021D15A0(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_BUTTON9);
             param0->unk_65 ^= 1;
             param0->unk_50 = 0;
@@ -620,7 +720,11 @@ static int ov20_021D15A0(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D21A0(param0->unk_14, 7);
             param0->unk_24 = ov20_021D103C;
@@ -628,7 +732,11 @@ static int ov20_021D15A0(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (param0->unk_50 == 0xfe) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 ov20_021D21A0(param0->unk_14, 7);
@@ -717,32 +825,56 @@ static BOOL ov20_021D1738(UnkStruct_ov20_021D16E8 *param0)
     if (param0->unk_50 != 0xfe) {
         param0->unk_52 = param0->unk_50;
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             param0->unk_50 = v0[v1].unk_00;
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             param0->unk_50 = v0[v1].unk_01;
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             param0->unk_50 = v0[v1].unk_02;
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             param0->unk_50 = v0[v1].unk_03;
             return 1;
         }
     } else {
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             param0->unk_50 = v0[12].unk_00 + (param0->unk_52 % 3);
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             param0->unk_50 = v0[12].unk_01 + (param0->unk_52 % 3);
             return 1;
         }
@@ -757,22 +889,38 @@ static BOOL ov20_021D17F0(UnkStruct_ov20_021D16E8 *param0)
         int v0 = 0xff;
 
         do {
+            #ifdef PLATFORM_DS
             if (param0->unk_34 & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 v0 = ov20_021D5098(param0->unk_50);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_34 & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 v0 = ov20_021D50B4(param0->unk_50);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_34 & PAD_KEY_RIGHT) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 v0 = ov20_021D50EC(param0->unk_50);
                 break;
             }
 
+            #ifdef PLATFORM_DS
             if (param0->unk_34 & PAD_KEY_LEFT) {
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
                 v0 = ov20_021D50D0(param0->unk_50);
                 break;
             }
@@ -784,12 +932,20 @@ static BOOL ov20_021D17F0(UnkStruct_ov20_021D16E8 *param0)
             return 1;
         }
     } else {
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             param0->unk_50 = ov20_021D5124(param0->unk_52);
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_34 & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             param0->unk_50 = ov20_021D5108(param0->unk_52);
             return 1;
         }
@@ -843,7 +999,11 @@ static int ov20_021D18E4(UnkStruct_ov20_021D16E8 *param0, int *param1)
     switch (*param1) {
     case 0:
 
+        #ifdef PLATFORM_DS
         if ((param0->unk_38 == 0) && (param0->unk_65 != 0) || (param0->unk_38 == 1) && (param0->unk_65 != 1) || (param0->unk_30 & PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_BUTTON9);
             param0->unk_50 = 0;
             param0->unk_65 ^= 1;
@@ -882,7 +1042,11 @@ static int ov20_021D18E4(UnkStruct_ov20_021D16E8 *param0, int *param1)
             }
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D21A0(param0->unk_14, 9);
             param0->unk_24 = ov20_021D15A0;
@@ -890,7 +1054,11 @@ static int ov20_021D18E4(UnkStruct_ov20_021D16E8 *param0, int *param1)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ov20_021D1BB0(param0);
             param0->unk_24 = ov20_021D103C;
@@ -923,7 +1091,11 @@ static int ov20_021D18E4(UnkStruct_ov20_021D16E8 *param0, int *param1)
 
 static int ov20_021D1A68(UnkStruct_ov20_021D18BC *param0, u16 param1)
 {
+    #ifdef PLATFORM_DS
     if (param1 & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (param0->unk_07 < 4) {
             u32 v0;
 
@@ -958,7 +1130,11 @@ static int ov20_021D1A68(UnkStruct_ov20_021D18BC *param0, u16 param1)
         return 4;
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (param0->unk_07) {
             param0->unk_07--;
             return 1;
@@ -971,7 +1147,15 @@ static int ov20_021D1A68(UnkStruct_ov20_021D18BC *param0, u16 param1)
         return 4;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
     if (param1 & (PAD_KEY_LEFT | PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         param0->unk_06 ^= 1;
 
         if (ov20_021D18C8(param0) < param0->unk_04) {
@@ -982,11 +1166,19 @@ static int ov20_021D1A68(UnkStruct_ov20_021D18BC *param0, u16 param1)
         return 4;
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_BUTTON_L) {
+    #else
+    // TODO: Port PAD_BUTTON_L to PAL
+    #endif
         return ov20_021D1B48(param0);
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_BUTTON_R) {
+    #else
+    // TODO: Port PAD_BUTTON_R to PAL
+    #endif
         return ov20_021D1B70(param0);
     }
 
@@ -1149,7 +1341,11 @@ static void ov20_021D1C90(UnkStruct_ov20_021D16E8 *param0, int *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (param0->unk_30 & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_PLUS_KEY_MASK)) {
+        #else
+        // TODO: Port PAD_PLUS_KEY_MASK to PAL
+        #endif
             ov20_021D21A0(param0->unk_14, 17);
             (*param1) = 3;
         }
@@ -1226,7 +1422,11 @@ static void ov20_021D1ED4(UnkStruct_ov20_021D1F34 *param0, int param1, int param
 
 static int ov20_021D1EDC(UnkStruct_ov20_021D1F34 *param0, u16 param1)
 {
+    #ifdef PLATFORM_DS
     if (param1 & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (param0->unk_00 == 0) {
             return -4;
         } else {
@@ -1235,7 +1435,11 @@ static int ov20_021D1EDC(UnkStruct_ov20_021D1F34 *param0, u16 param1)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (param0->unk_00 == param0->unk_01) {
             return -4;
         } else {
@@ -1244,11 +1448,19 @@ static int ov20_021D1EDC(UnkStruct_ov20_021D1F34 *param0, u16 param1)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return param0->unk_00;
     }
 
+    #ifdef PLATFORM_DS
     if (param1 & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return -2;
     }
 

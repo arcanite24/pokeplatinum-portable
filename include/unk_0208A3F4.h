@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0208A3F4_H
 #define POKEPLATINUM_UNK_0208A3F4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02089688.h"
 
 #include "bg_window.h"

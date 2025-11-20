@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FRONTIER_DATA_TRANSFER
 #define POKEPLATINUM_FRONTIER_DATA_TRANSFER
 
+#include "platform/platform_types.h"
+
 #include "constants/moves.h"
 #include "constants/string.h"
 

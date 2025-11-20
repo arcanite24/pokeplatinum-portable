@@ -35,9 +35,21 @@
 #include "text.h"
 #include "unk_02012744.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay11);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(battle_anim);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay22);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static void ov17_0223F6E8(SysTask *param0, void *param1);
 static void ov17_0223F15C(void);
@@ -50,7 +62,11 @@ static const SpriteTemplate Unk_ov17_022531FC = {
     0x0,
     0x0,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x0, 0x0, 0x0, 0x0, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -72,9 +88,21 @@ static const struct {
 
 static void NitroStaticInit(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay11), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(battle_anim), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay22), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 G3DPipelineBuffers *ov17_0223F140(int heapID)
@@ -84,16 +112,36 @@ G3DPipelineBuffers *ov17_0223F140(int heapID)
 
 static void ov17_0223F15C(void)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(1);
     G3X_AlphaTest(0, 0);
     G3X_AlphaBlend(1);
     G3X_EdgeMarking(0);
+    #ifdef PLATFORM_DS
     G3X_SetFog(0, GX_FOGBLEND_COLOR_ALPHA, GX_FOGSLOPE_0x8000, 0);
+    #else
+    // TODO: Port GX_FOGBLEND_COLOR_ALPHA to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3X_SetClearColor(GX_RGB(0, 0, 0), 0, 0x7fff, 63, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     G3_ViewPort(0, 0, 255, 191);
 }
 
@@ -127,8 +175,16 @@ void ov17_0223F1E8(int heapID, BgConfig *param1, SpriteManager *param2, UnkStruc
         Text_AddPrinterWithParamsColorAndSpacing(&v1, param6, param5, 0, 0, TEXT_SPEED_NO_TRANSFER, param7, v7, 0, NULL);
     }
 
+    #ifdef PLATFORM_DS
     v3 = sub_02012898(&v1, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     CharTransfer_AllocRange(v3, 1, NNS_G2D_VRAM_TYPE_2DMAIN, &v2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     if (param12 == 1) {
         param10 -= v5 / 2;
@@ -146,7 +202,11 @@ void ov17_0223F1E8(int heapID, BgConfig *param1, SpriteManager *param2, UnkStruc
     v0.unk_1C = param11;
     v0.unk_20 = param13;
     v0.unk_24 = param14;
+    #ifdef PLATFORM_DS
     v0.unk_28 = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.heapID = heapID;
 
     v4 = sub_020127E8(&v0);
@@ -305,11 +365,19 @@ void ov17_0223F374(UnkStruct_02095C48 *param0)
 void ov17_0223F560(SpriteSystem *param0, SpriteManager *param1, PaletteData *param2, int param3, int param4, int param5, int param6)
 {
     if (param3 != -1) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObj(param0, param1, NARC_INDEX_CONTEST__GRAPHIC__CONTEST_OBJ, 73, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, param3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     if (param4 != -1) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBuffer(param2, PLTTBUF_MAIN_OBJ, param0, param1, NARC_INDEX_CONTEST__GRAPHIC__CONTEST_OBJ, 7, 0, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, param4);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     if (param5 != -1) {
@@ -433,7 +501,11 @@ static void ov17_0223F774(SysTask *param0, void *param1)
     v0->unk_08++;
 
     if (v0->unk_08 > v0->unk_0C[v0->unk_11]) {
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(6, 0, 4, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         Sound_PlayEffect(SEQ_SE_DP_CON_014);
 
         v0->unk_08 = 0;

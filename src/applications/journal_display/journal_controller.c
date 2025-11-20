@@ -72,9 +72,21 @@ int JournalController_Init(ApplicationManager *appMan, int *state)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
 
     SetAutorepeat(4, 8);
@@ -103,7 +115,11 @@ int JournalController_Init(ApplicationManager *appMan, int *state)
     SetVBlankCallback(JournalController_MainCallback, journalManager);
     GXLayers_TurnBothDispOn();
     sub_02039734();
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_67, SEQ_NONE, 0);
 
     return TRUE;
@@ -157,22 +173,70 @@ static void JournalController_MainCallback(void *data)
     JournalManager *journalManager = data;
 
     Bg_RunScheduledUpdates(journalManager->bgConfig);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void JournalController_SetVRAMBanks(void)
 {
     UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_256_AB,
+        #else
+        // TODO: Port GX_VRAM_BG_256_AB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v0);
@@ -181,10 +245,26 @@ static void JournalController_SetVRAMBanks(void)
 static void JournalController_SetupBgs(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -195,10 +275,18 @@ static void JournalController_SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -213,10 +301,18 @@ static void JournalController_SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x20000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -231,10 +327,18 @@ static void JournalController_SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -248,10 +352,18 @@ static void JournalController_SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -323,7 +435,11 @@ static int JournalController_IsOpeningTransitionDone(JournalManager *journalMana
 
 static int JournalController_HandleInput(JournalManager *journalManager)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (JournalController_NewDirectionPageExists(journalManager, -1) == TRUE) {
             return JOURNAL_STATE_TURN_LEFT;
         }
@@ -331,7 +447,11 @@ static int JournalController_HandleInput(JournalManager *journalManager)
         return JOURNAL_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (JournalController_NewDirectionPageExists(journalManager, 1) == TRUE) {
             return JOURNAL_STATE_TURN_RIGHT;
         }
@@ -339,7 +459,11 @@ static int JournalController_HandleInput(JournalManager *journalManager)
         return JOURNAL_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         if (journalManager->page != 0) {
             if (JournalController_NewDirectionPageExists(journalManager, -1) == TRUE) {
                 return JOURNAL_STATE_TURN_LEFT;
@@ -350,7 +474,11 @@ static int JournalController_HandleInput(JournalManager *journalManager)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_START) {
+    #else
+    // TODO: Port PAD_BUTTON_START to PAL
+    #endif
         App_StartScreenFade(TRUE, HEAP_ID_JOURNAL);
         return JOURNAL_STATE_CLOSE;
     }

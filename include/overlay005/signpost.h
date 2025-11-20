@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SIGNPOST_H
 #define POKEPLATINUM_SIGNPOST_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "bg_window.h"

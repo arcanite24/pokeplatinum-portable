@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_022395F0_H
 #define POKEPLATINUM_OV104_022395F0_H
 
+#include "platform/platform_types.h"
+
 #include "overlay104/struct_ov104_0222E930_decl.h"
 
 BOOL ov104_022395F0(UnkStruct_ov104_0222E930 *param0);

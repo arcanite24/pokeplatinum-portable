@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0202854C_H
 #define POKEPLATINUM_UNK_0202854C_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02029894_decl.h"
 #include "struct_defs/underground.h"
 #include "struct_defs/underground_record.h"

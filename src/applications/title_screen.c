@@ -37,10 +37,26 @@
 
 #include "res/graphics/title_screen/titledemo.naix.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay89);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(main_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(d_startmenu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #define LIGHT_COLOR(r, g, b) ((((r) << 0) & GX_RGB_R_MASK) | (((g) << 5) & GX_RGB_G_MASK) | (((b) << 10) & GX_RGB_B_MASK))
 #define ANGLE(angle)         FX_DEG_TO_IDX(FX32_CONST(angle))
@@ -248,54 +264,118 @@ const ApplicationManagerTemplate gTitleScreenAppTemplate = {
     .init = TitleScreen_Init,
     .main = TitleScreen_Main,
     .exit = TitleScreen_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 static inline void ToggleGiratinaLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 }
 
 static inline void ToggleGiratinaBgLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static inline void ToggleCopyrightLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
 }
 
 static inline void ToggleLogoBgLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static inline void ToggleLogoLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 }
 
 static inline void TogglePressStartLayer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 }
 
 static inline void ToggleLogoBg2Layer(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, enable);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
 }
 
 static inline void DisableAllLayers(void)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static BOOL TitleScreen_Init(ApplicationManager *appMan, int *unused)
@@ -304,7 +384,11 @@ static BOOL TitleScreen_Init(ApplicationManager *appMan, int *unused)
     SetScreenColorBrightness(DS_SCREEN_SUB, COLOR_BLACK);
 
     G2S_BlendNone();
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 
     SetVBlankCallback(NULL, NULL);
     SetHBlankCallback(NULL, NULL);
@@ -312,8 +396,16 @@ static BOOL TitleScreen_Init(ApplicationManager *appMan, int *unused)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
 
     SetAutorepeat(4, 8);
 
@@ -383,7 +475,15 @@ static BOOL TitleScreen_Main(ApplicationManager *appMan, int *state)
 
         appData->titleScreenTimer++;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW_ONLY(PAD_BUTTON_A) || JOY_NEW_ONLY(PAD_BUTTON_START)) {
+        #else
+        // TODO: Port PAD_BUTTON_START to PAL
+        #endif
             appData->nextApp = NEXT_APP_START_MENU;
             Sound_FadeOutBGM(0, 60);
             Sound_PlayPokemonCry(SPECIES_GIRATINA, 1);
@@ -392,7 +492,11 @@ static BOOL TitleScreen_Main(ApplicationManager *appMan, int *state)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD_ONLY(PAD_BUTTON_B | PAD_KEY_UP | PAD_BUTTON_SELECT)) {
+        #else
+        // TODO: Port PAD_BUTTON_SELECT to PAL
+        #endif
             appData->nextApp = NEXT_APP_CLEAR_SAVE_FILE;
             StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_OUT, FADE_TYPE_BRIGHTNESS_OUT, COLOR_BLACK, 6, 1, appData->heapID);
             *state = TITLE_SCREEN_APP_STATE_CLEANUP;
@@ -403,7 +507,11 @@ static BOOL TitleScreen_Main(ApplicationManager *appMan, int *state)
             appData->nextApp = NEXT_APP_REPLAY_OPENING;
             gSystem.showTitleScreenIntro = TRUE;
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, FALSE);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
             Sound_FadeOutBGM(0, 60);
             *state = TITLE_SCREEN_APP_STATE_EXIT_REPLAY_OPENING;
             break;
@@ -465,14 +573,26 @@ static BOOL TitleScreen_Exit(ApplicationManager *appMan, int *state)
     switch (nextApp) {
     default:
     case NEXT_APP_START_MENU:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID_NONE, &Unk_020F8AB4);
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
         break;
     case NEXT_APP_CLEAR_SAVE_FILE:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID_NONE, &Unk_020F8A48);
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
         break;
     case NEXT_APP_REPLAY_OPENING:
         Sound_SetScene(SOUND_SCENE_NONE);
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(game_opening), &gOpeningCutsceneAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     }
 
@@ -488,16 +608,56 @@ static void TitleScreen_VBlank(void *param)
 static void TitleScreen_SetVRAMBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_0123_H,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_0123_H to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJ_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_0_G
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_0_G to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -505,7 +665,15 @@ static void TitleScreen_SetVRAMBanks(void)
 
 static BOOL TitleScreen_ShouldSkipIntro(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW_ONLY(PAD_BUTTON_A) || JOY_NEW_ONLY(PAD_BUTTON_START) || JOY_NEW_ONLY(PAD_BUTTON_SELECT)) {
+    #else
+    // TODO: Port PAD_BUTTON_SELECT to PAL
+    #endif
         return TRUE;
     }
 
@@ -515,7 +683,11 @@ static BOOL TitleScreen_ShouldSkipIntro(void)
 static void TitleScreen_Init3DPipeline(TitleScreenAppData *appData)
 {
     appData->buffers = G3DPipeline_Init(appData->heapID, TEXTURE_VRAM_SIZE_128K, PALETTE_VRAM_SIZE_64K, NULL);
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
 }
 
 static void TitleScreen_Free3DPipelineBuffers(TitleScreenAppData *appData)
@@ -533,18 +705,54 @@ static void TitleScreen_Load3DGfx(TitleScreenGraphics *gfx, int giratinaModel, i
 
     Easy3D_InitRenderObjFromResource(&gfx->giratinaRenderObj, &gfx->giratinaModel, &gfx->giratinaModelRes);
 
+    #ifdef PLATFORM_DS
     void *texAnim = NNS_G3dGetAnmByIdx(gfx->giratinaTexAnimRes, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     void *skeletalAnim = NNS_G3dGetAnmByIdx(gfx->giratinaAnimRes, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     gfx->giratinaTexAnim = NNS_G3dAllocAnmObj(&gfx->allocator, texAnim, gfx->giratinaModel);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
+    #ifdef PLATFORM_DS
     gfx->giratinaAnim = NNS_G3dAllocAnmObj(&gfx->allocator, skeletalAnim, gfx->giratinaModel);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNSG3dResTex *texRes = NNS_G3dGetTex(gfx->giratinaModelRes);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(gfx->giratinaTexAnim, texAnim, gfx->giratinaModel, texRes);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(gfx->giratinaAnim, skeletalAnim, gfx->giratinaModel, texRes);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(&gfx->giratinaRenderObj, gfx->giratinaTexAnim);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(&gfx->giratinaRenderObj, gfx->giratinaAnim);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
 
     VecFx32 pos = { 0, 0, 0 };
     VecFx32 scale = { FX32_ONE, FX32_ONE, FX32_ONE };
@@ -565,8 +773,16 @@ static void TitleScreen_LoadCutscene3DGfx(TitleScreenGraphics *gfx, enum HeapID 
 
     Easy3DModel_LoadFrom(&gfx->giratinaFaceModel, narc, giratina_face_nsbmd, heapID);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlAlpha(gfx->giratinaFaceModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlPolygonID(gfx->giratinaFaceModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlPolygonID to PAL
+    #endif
 
     Easy3DAnim_LoadFrom(&gfx->giratinaFaceAnim, &gfx->giratinaFaceModel, narc, giratina_face_nsbca, heapID, &gfx->allocator);
     Easy3DAnim_SetFrame(&gfx->giratinaFaceAnim, 0);
@@ -584,8 +800,16 @@ static void TitleScreen_LoadCutscene3DGfx(TitleScreenGraphics *gfx, enum HeapID 
     Easy3DObject_AddAnim(&gfx->giratinaFaceObj, &gfx->giratinaFaceMatAnim);
 
     Easy3DModel_LoadFrom(&gfx->portalModel, narc, giratina_portal_nsbmd, heapID);
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlAlpha(gfx->portalModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlPolygonID(gfx->portalModel.model);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlPolygonID to PAL
+    #endif
 
     Easy3DAnim_LoadFrom(&gfx->portalAnim, &gfx->portalModel, narc, giratina_portal_nsbca, heapID, &gfx->allocator);
     Easy3DAnim_SetFrame(&gfx->portalAnim, 0);
@@ -614,8 +838,16 @@ static void TitleScreen_Release3DGfx(TitleScreenGraphics *gfx)
 {
     TitleScreen_ReleaseIntro3DGfx(gfx);
 
+    #ifdef PLATFORM_DS
     NNS_G3dFreeAnmObj(&gfx->allocator, gfx->giratinaTexAnim);
+    #else
+    // TODO: Port NNS_G3dFreeAnmObj to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dFreeAnmObj(&gfx->allocator, gfx->giratinaAnim);
+    #else
+    // TODO: Port NNS_G3dFreeAnmObj to PAL
+    #endif
 
     Heap_Free(gfx->giratinaTexAnimRes);
     Heap_Free(gfx->giratinaAnimRes);
@@ -661,7 +893,11 @@ static void TitleScreen_Render(TitleScreen *titleScreen, TitleScreenGraphics *gf
         break;
     case RENDER_STATE_DISABLE:
         G3_ResetG3X();
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_W);
+        #else
+        // TODO: Port GX_BUFFERMODE_W to PAL
+        #endif
         gfx->renderState = RENDER_STATE_OFF;
         break;
     case RENDER_STATE_ENABLE:
@@ -692,17 +928,29 @@ static void TitleScreen_Render(TitleScreen *titleScreen, TitleScreenGraphics *gf
             gfx->giratinaTexAnim->frame += FX32_ONE;
             gfx->giratinaAnim->frame += FX32_ONE;
 
+            #ifdef PLATFORM_DS
             if (gfx->giratinaTexAnim->frame == NNS_G3dAnmObjGetNumFrame(gfx->giratinaTexAnim)) {
+            #else
+            // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+            #endif
                 gfx->giratinaTexAnim->frame = 0;
             }
 
+            #ifdef PLATFORM_DS
             if (gfx->giratinaAnim->frame == NNS_G3dAnmObjGetNumFrame(gfx->giratinaAnim)) {
+            #else
+            // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+            #endif
                 gfx->giratinaAnim->frame = 0;
             }
             break;
         }
 
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_W);
+        #else
+        // TODO: Port GX_BUFFERMODE_W to PAL
+        #endif
         break;
     }
 }
@@ -724,7 +972,11 @@ static void TitleScreen_RenderIntroGraphics(TitleScreenGraphics *gfx)
     Easy3DAnim_UpdateLooped(&gfx->portalAnim, FX32_ONE);
     Easy3DAnim_UpdateLooped(&gfx->portalTexAnim, FX32_ONE);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     Easy3DObject_Draw(&gfx->portalObj);
 
@@ -734,7 +986,11 @@ static void TitleScreen_RenderIntroGraphics(TitleScreenGraphics *gfx)
         Easy3DObject_SetVisible(&gfx->giratinaFaceObj, FALSE);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 }
 
 static void TitleScreen_InitBgs(TitleScreenAppData *appData)
@@ -742,10 +998,26 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
     appData->bgConfig = BgConfig_New(appData->heapID);
 
     GraphicsModes gfxModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_3D
+        #else
+        // TODO: Port GX_BG0_AS_3D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&gfxModes);
@@ -756,10 +1028,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x2800,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -772,10 +1052,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x3000,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -788,10 +1076,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x3800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_23,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_23 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -804,10 +1100,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x3800,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -820,10 +1124,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x2000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE
@@ -836,10 +1148,18 @@ static void TitleScreen_InitBgs(TitleScreenAppData *appData)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x2000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE
@@ -968,10 +1288,42 @@ static BOOL TitleScreen_LoadGfx(TitleScreen *titleScreen, BgConfig *bgConfig, en
     Camera_Move(&pos, titleScreen->graphics.introCamera);
     Camera_SetAsActive(titleScreen->graphics.introCamera);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
     NNS_G3dGlbLightVector(GX_LIGHTID_0, titleScreen->light0Dir.x, titleScreen->light0Dir.y, titleScreen->light0Dir.z);
+    #else
+    // TODO: Port GX_LIGHTID_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(GX_LIGHTID_0, COLOR_WHITE);
+    #else
+    // TODO: Port GX_LIGHTID_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
     NNS_G3dGlbLightVector(GX_LIGHTID_1, titleScreen->light1Dir.x, titleScreen->light1Dir.y, titleScreen->light1Dir.z);
+    #else
+    // TODO: Port GX_LIGHTID_1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(GX_LIGHTID_1, COLOR_WHITE);
+    #else
+    // TODO: Port GX_LIGHTID_1 to PAL
+    #endif
 
     G3X_AntiAlias(TRUE);
 
@@ -1005,10 +1357,18 @@ static void TitleScreen_LoadTopScreenBg(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x3000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE
@@ -1019,8 +1379,16 @@ static void TitleScreen_LoadTopScreenBg(BgConfig *bgConfig, enum HeapID heapID)
     Graphics_LoadTilesToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, top_screen_border_NCGR, bgConfig, TITLE_SCREEN_LAYER_LOGO_BG_2, 0, 0, FALSE, heapID);
     Graphics_LoadTilemapToBgLayer(NARC_INDEX_DEMO__TITLE__TITLEDEMO, top_screen_border_2_NSCR, bgConfig, TITLE_SCREEN_LAYER_LOGO_BG_2, 0, 0, FALSE, heapID);
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG3, 10, 10);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
 
     ToggleLogoBg2Layer(TRUE);
 }
@@ -1039,10 +1407,18 @@ static void TitleScreen_ShowBlurEffect(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x2800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_23,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_23 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE
@@ -1059,7 +1435,11 @@ static void TitleScreen_ShowBlurEffect(BgConfig *bgConfig, enum HeapID heapID)
     Bg_SetOffset(bgConfig, TITLE_SCREEN_LAYER_LOGO, BG_OFFSET_UPDATE_SET_X, 0);
     Bg_SetOffset(bgConfig, TITLE_SCREEN_LAYER_LOGO, BG_OFFSET_UPDATE_SET_Y, 1);
 
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 26, 10);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
 
     TogglePressStartLayer(TRUE);
 }
@@ -1104,13 +1484,29 @@ static BOOL TitleScreen_ShowIntro(TitleScreen *titleScreen, BgConfig *bgConfig, 
                     10,
                     BRIGHTNESS_WHITE,
                     BRIGHTNESS_NORMAL,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+                    #endif
                     BRIGHTNESS_MAIN_SCREEN);
                 BrightnessController_StartTransition(
                     10,
                     BRIGHTNESS_WHITE,
                     BRIGHTNESS_NORMAL,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BD,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+                    #endif
                     BRIGHTNESS_SUB_SCREEN);
 
                 titleScreen->light1State = LIGHT1_STATE_BRIGHTEN;
@@ -1129,13 +1525,29 @@ static BOOL TitleScreen_ShowIntro(TitleScreen *titleScreen, BgConfig *bgConfig, 
                 10,
                 BRIGHTNESS_NORMAL,
                 BRIGHTNESS_WHITE,
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+                #endif
                 GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2,
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+                #endif
                 BRIGHTNESS_MAIN_SCREEN);
             BrightnessController_StartTransition(
                 10,
                 BRIGHTNESS_NORMAL,
                 BRIGHTNESS_WHITE,
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+                #endif
                 GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BD,
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+                #endif
                 BRIGHTNESS_SUB_SCREEN);
 
             titleScreen->light1State = LIGHT1_STATE_DARKEN;
@@ -1242,7 +1654,15 @@ static BOOL TitleScreen_RenderMain(TitleScreen *titleScreen, BgConfig *bgConfig,
         ResetScreenMasterBrightness(DS_SCREEN_SUB);
 
         titleScreen->graphics.giratinaAnimState = GIRATINA_ANIM_STATE_PLAY;
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGlbLightColor to PAL
+        #endif
         NNS_G3dGlbLightColor(GX_LIGHTID_1, COLOR_WHITE);
+        #else
+        // TODO: Port GX_LIGHTID_1 to PAL
+        #endif
 
         TitleScreen_LoadTopScreenBg(bgConfig, heapID);
 
@@ -1278,7 +1698,11 @@ static BOOL TitleScreen_ReleaseGfx(TitleScreen *titleScreen, BgConfig *bgConfig,
     TitleScreen_Release3DGfx(&titleScreen->graphics);
     TitleScreen_Release2DGfx(bgConfig, heapID, titleScreen);
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G3X_EdgeMarking(FALSE);
 
     gSystem.whichScreenIs3D = DS_SCREEN_MAIN;
@@ -1346,8 +1770,16 @@ static void TitleScreen_Load2DGfx(BgConfig *bgConfig, enum HeapID heapID, TitleS
     Strbuf_Free(buffer);
     MessageLoader_Free(msgLoader);
 
+    #ifdef PLATFORM_DS
     u16 letterColor = GX_RGB(21, 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     u16 shadowColor = GX_RGB(21, 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     Bg_LoadPalette(TITLE_SCREEN_LAYER_PRESS_START, &letterColor, sizeof(u16), PLTT_OFFSET(2) + 1 * sizeof(u16));
     Bg_LoadPalette(TITLE_SCREEN_LAYER_PRESS_START, &shadowColor, sizeof(u16), PLTT_OFFSET(2) + 2 * sizeof(u16));
 }
@@ -1384,7 +1816,15 @@ static void TitleScreen_UpdateLight1(TitleScreen *titleScreen)
         break;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(GX_LIGHTID_1, LIGHT_COLOR(titleScreen->light1Brightness, titleScreen->light1Brightness, titleScreen->light1Brightness));
+    #else
+    // TODO: Port GX_LIGHTID_1 to PAL
+    #endif
 }
 
 static void TitleScreen_InitCoordinates(TitleScreen *titleScreen)

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_BAG_WINDOWS_H
 #define POKEPLATINUM_APPLICATIONS_BAG_WINDOWS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/bag/defs.h"
 
 #include "bag.h"

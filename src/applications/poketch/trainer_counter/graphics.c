@@ -87,10 +87,18 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -105,8 +113,20 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
     PoketchGraphics_LoadActivePalette(0, 0);
     SetupSprites(graphics, chainData);
 
+    #ifdef PLATFORM_DS
     GXSDispCnt dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
     EndTask(taskMan);
 }
 
@@ -180,7 +200,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(96), FX32_CONST(32) },
             .animIdx = 4,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 10,
             .hasAffineTransform = TRUE,
@@ -188,7 +212,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(112), FX32_CONST(80) },
             .animIdx = 4,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = TRUE,
@@ -196,7 +224,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(176), FX32_CONST(96) },
             .animIdx = 4,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 1,
             .hasAffineTransform = TRUE,
@@ -204,7 +236,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(48), FX32_CONST(104) },
             .animIdx = 4,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 2,
             .hasAffineTransform = TRUE,
@@ -212,7 +248,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(144), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -220,7 +260,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(144 + 8), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -228,7 +272,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(144 + 8 * 2), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -236,7 +284,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(100), FX32_CONST(144) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -244,7 +296,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(100 + 8), FX32_CONST(144) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -252,7 +308,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(100 + 8 * 2), FX32_CONST(144) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -260,7 +320,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(164), FX32_CONST(160) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -268,7 +332,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(164 + 8), FX32_CONST(160) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -276,7 +344,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(164 + 8 * 2), FX32_CONST(160) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -284,7 +356,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(36), FX32_CONST(168) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -292,7 +368,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(36 + 8), FX32_CONST(168) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,
@@ -300,7 +380,11 @@ static void SetupSprites(TrainerCounterGraphics *graphics, const TrainerCounterD
         {
             .translation = { FX32_CONST(36 + 8 * 2), FX32_CONST(168) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 3,
             .hasAffineTransform = FALSE,

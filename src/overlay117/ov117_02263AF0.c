@@ -139,7 +139,11 @@ static const SpriteTemplate Unk_ov117_02266CCC = {
     0x0,
     0x14,
     0x1,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -152,7 +156,11 @@ static const SpriteTemplate Unk_ov117_02266D00 = {
     0x0,
     0xC,
     0x5,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -165,7 +173,11 @@ static const SpriteTemplate Unk_ov117_02266D34 = {
     0x0,
     0xB,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -178,7 +190,11 @@ static const SpriteTemplate Unk_ov117_02266D68 = {
     0x0,
     0x13,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -191,7 +207,11 @@ static const SpriteTemplate Unk_ov117_02266D9C = {
     0x0,
     0x10,
     0x2,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -204,7 +224,11 @@ static const SpriteTemplate Unk_ov117_02266DD0 = {
     0x0,
     0xF,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -217,7 +241,11 @@ static const SpriteTemplate Unk_ov117_02266E04 = {
     0x0,
     0x12,
     0x1,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -230,7 +258,11 @@ static const SpriteTemplate Unk_ov117_02266E38 = {
     0x0,
     0x11,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2716, 0x2714, 0x2714, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -243,7 +275,11 @@ static const SpriteTemplate Unk_ov117_02266E6C = {
     0x0,
     0xD,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x2712, 0x2714, 0x2712, 0x2712, 0xFFFFFFFF, 0xFFFFFFFF },
     0x3,
     0x0
@@ -256,7 +292,11 @@ static const SpriteTemplate Unk_ov117_02266EA0 = {
     0x0,
     0xB,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x2711, 0x2712, 0x2711, 0x2711, 0xFFFFFFFF, 0xFFFFFFFF },
     0x0,
     0x0
@@ -1266,7 +1306,11 @@ void ov117_02264BF8(UnkStruct_ov117_02261280 *param0)
     int v3 = 0;
     int v4, v5, v6, v7;
     u16 *v8, *v9;
+    #ifdef PLATFORM_DS
     int v10 = SpriteManager_FindPlttResourceOffset(param0->unk_28, 10006, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     for (v2 = 0; v2 < param0->unk_00->unk_30; v2++) {
         v4 = Unk_ov117_02266B8A[v2];
@@ -1305,7 +1349,11 @@ void ov117_02264D1C(UnkStruct_ov117_02261280 *param0)
     int v3 = 0;
     int v4, v5, v6, v7;
     u16 *v8, *v9;
+    #ifdef PLATFORM_DS
     int v10 = SpriteManager_FindPlttResourceOffset(param0->unk_28, 10006, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     for (v2 = 0; v2 < param0->unk_00->unk_30; v2++) {
         v4 = Unk_ov117_02266B82[v2];
@@ -1496,7 +1544,11 @@ void ov117_02265064(UnkStruct_ov117_02261280 *param0, UnkStruct_ov117_022653F4 *
 
         param1->unk_00[v1].unk_08 = SpriteSystem_NewSprite(param0->unk_24, param0->unk_28, &Unk_ov117_02266E04);
         ManagedSprite_SetPositionXYWithSubscreenOffset(param1->unk_00[v1].unk_08, v3, v4 + -24 + 24, ((192 + 160) << FX32_SHIFT));
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(param1->unk_00[v1].unk_08, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetAffineOverwriteMode(param1->unk_00[v1].unk_08, AFFINE_OVERWRITE_MODE_NORMAL);
         ManagedSprite_SetAffineScale(param1->unk_00[v1].unk_08, 1.0f, 1.0f);
         ManagedSprite_SetAnim(param1->unk_00[v1].unk_08, 34 + v1);
@@ -2023,8 +2075,16 @@ void ov117_02265DB8(BgConfig *param0, SpriteManager *param1, UnkStruct_02012744 
         Text_AddPrinterWithParamsColorAndSpacing(&v1, param5, param4, 0, 0, TEXT_SPEED_NO_TRANSFER, param6, v7, 0, NULL);
     }
 
+    #ifdef PLATFORM_DS
     v3 = sub_02012898(&v1, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_110);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     CharTransfer_AllocRange(v3, 1, NNS_G2D_VRAM_TYPE_2DMAIN, &v2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     if (param11 == 1) {
         param9 -= v5 / 2;
@@ -2042,7 +2102,11 @@ void ov117_02265DB8(BgConfig *param0, SpriteManager *param1, UnkStruct_02012744 
     v0.unk_1C = param10;
     v0.unk_20 = param12;
     v0.unk_24 = param13;
+    #ifdef PLATFORM_DS
     v0.unk_28 = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.heapID = HEAP_ID_110;
 
     v4 = sub_020127E8(&v0);
@@ -2336,7 +2400,11 @@ static void ov117_02266344(UnkStruct_ov117_02261280 *param0, UnkStruct_ov117_022
         v0 = SpriteSystem_NewSprite(param0->unk_24, param0->unk_28, &Unk_ov117_02266E38);
 
         ManagedSprite_SetAnim(v0, 27);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v0, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetDrawFlag(v0, 0);
         Sprite_TickFrame(v0->sprite);
 
@@ -2363,7 +2431,11 @@ static void ov117_0226639C(UnkStruct_ov117_02261280 *param0, UnkStruct_ov117_022
     for (v2 = 0; v2 < 2; v2++) {
         ManagedSprite_SetPositionXYWithSubscreenOffset(param2->unk_00[v2], v0, v1 + 28, ((192 + 160) << FX32_SHIFT));
         ManagedSprite_SetAnim(param2->unk_00[v2], 27);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(param2->unk_00[v2], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetDrawFlag(param2->unk_00[v2], 1);
 
         param2->unk_08[v2] = LCRNG_Next() % 0x1000 + 0x1000;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_PARTY_H
 #define POKEPLATINUM_BATTLE_PARTY_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 
 #include "overlay013/battle_sub_menu_cursor.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPRITE_TRANSFER_H
 #define POKEPLATINUM_SPRITE_TRANSFER_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -30,6 +32,10 @@ void SpriteTransfer_ReplacePlttData(const SpriteResource *resource);
 void SpriteTransfer_ResetPlttTransfer(SpriteResource *resource);
 void SpriteTransfer_ResetPlttTransferList(SpriteResourceList *resourceList);
 const NNSG2dImagePaletteProxy *SpriteTransfer_GetPaletteProxy(const SpriteResource *resource, NNSG2dImageProxy *imageProxy);
+#ifdef PLATFORM_DS
 u32 SpriteTransfer_GetPlttOffset(const SpriteResource *resource, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 
 #endif // POKEPLATINUM_SPRITE_TRANSFER_H

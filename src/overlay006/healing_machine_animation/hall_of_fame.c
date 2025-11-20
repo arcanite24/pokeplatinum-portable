@@ -77,7 +77,15 @@ static BOOL FieldTask_PlayHealingAnimation_HallOfFame(FieldTask *param0)
         NNSG3dRenderObj *unused;
 
         pokeballModelFile = AreaDataManager_GetMapPropModelFile(MAP_PROP_MODEL_POKECENTER_HEALING_MACHINE_MINI_POKEBALL, fieldSystem->areaDataManager);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
         pokeballModel = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(*pokeballModelFile), 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
 
         MapPropOneShotAnimationManager_LoadPropAnimations(fieldSystem->mapPropAnimMan, fieldSystem->mapPropOneShotAnimMan, HEALING_MACHINE_ANIMATION_POKEBALL_TAG, MAP_PROP_MODEL_POKECENTER_HEALING_MACHINE_MINI_POKEBALL, NULL, pokeballModel, AreaDataManager_GetMapPropTexture(fieldSystem->areaDataManager), 1, 1, 0);
         (animation->state)++;

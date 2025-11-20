@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRIPT_FUNC_TABLES_H
 #define POKEPLATINUM_SCRIPT_FUNC_TABLES_H
 
+#include "platform/platform_types.h"
+
 #include "sprite_system.h"
 
 struct BattleAnimSystem;

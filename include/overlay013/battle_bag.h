@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_BAG_H
 #define POKEPLATINUM_BATTLE_BAG_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 
 #include "battle/struct_ov16_0226DEEC_decl.h"

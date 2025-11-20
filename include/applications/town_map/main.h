@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_TOWN_MAP_MAIN_H
 #define POKEPLATINUM_APPLICATIONS_TOWN_MAP_MAIN_H
 
+#include "platform/platform_types.h"
+
 #include "generated/map_headers.h"
 
 #include "field/field_system_decl.h"

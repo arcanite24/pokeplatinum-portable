@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_CAMERA_CONFIGURATION_H
 #define POKEPLATINUM_STRUCT_CAMERA_CONFIGURATION_H
 
+#include "platform/platform_types.h"
+
 #include "camera.h"
 
 typedef struct {

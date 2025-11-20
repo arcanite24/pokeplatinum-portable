@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_BAG_MAIN_H
 #define POKEPLATINUM_APPLICATIONS_BAG_MAIN_H
 
+#include "platform/platform_types.h"
+
 #include "applications/bag/defs.h"
 
 u16 BagInterface_GetItemSlotParam(BagController *controller, u16 slotIndex, u16 itemParam);

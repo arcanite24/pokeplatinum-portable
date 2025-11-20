@@ -40,8 +40,16 @@ void ov79_021D20F4(UnkStruct_ov79_021D0E1C *param0)
             3,
             1024,
             1024,
+            #ifdef PLATFORM_DS
             GX_OBJVRAMMODE_CHAR_1D_32K,
+            #else
+            // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_OBJVRAMMODE_CHAR_1D_32K,
+            #else
+            // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+            #endif
         };
 
         SpriteSystem_Init(param0->unk_1B8, &v0, &v1, 32);
@@ -65,14 +73,26 @@ void ov79_021D20F4(UnkStruct_ov79_021D0E1C *param0)
         SpriteSystem_LoadResourceDataFromFilepaths(param0->unk_1B8, param0->unk_1BC, &v2);
     }
 
+    #ifdef PLATFORM_DS
     param0->unk_1F8 = sub_02098FFC(param0->heapID, 1, 1, (NNS_G2D_VRAM_TYPE_2DMAIN), 0);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     if (CommSys_IsInitialized()) {
         sub_02039734();
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 void ov79_021D21CC(UnkStruct_ov79_021D0E1C *param0)

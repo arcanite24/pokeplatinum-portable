@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_JOURNAL_PRINTER_H
 #define POKEPLATINUM_JOURNAL_PRINTER_H
 
+#include "platform/platform_types.h"
+
 #include "applications/journal_display/journal_controller.h"
 
 void JournalPrinter_AddWindows(JournalManager *param0);

@@ -346,7 +346,15 @@ BOOL HallOfFameManager_Init(ApplicationManager *appMan, int *state)
 
     hallOfFameMan->taskConfetti = HallOfFame_InitConfettiTask(hallOfFameMan);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetDispSelect to PAL
+    #endif
     GX_SetDispSelect(GX_DISP_SELECT_MAIN_SUB);
+    #else
+    // TODO: Port GX_DISP_SELECT_MAIN_SUB to PAL
+    #endif
 
     hallOfFameMan->state = 0;
     hallOfFameMan->task_1C28 = HallOfFame_ExecuteSysTaskOnVBlank(ov86_0223B6CC, hallOfFameMan, 6);
@@ -553,7 +561,11 @@ static BOOL HallOfFame_State_ShowPartyAndPlayer(HallOfFameMan *hallOfFameMan)
         hallOfFameMan->state++;
         break;
     case 8:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             return TRUE;
         }
         break;
@@ -592,17 +604,41 @@ static void ov86_0223B6CC(SysTask *task, void *data)
     }
 
     G3X_Reset();
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     ov86_0223CD00(hallOfFameMan->taskSpotlights);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     ov86_0223D220(hallOfFameMan->taskConfetti);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_MANUAL to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
 
     SpriteList_Update(hallOfFameMan->spriteList);
     RenderOam_Transfer();
@@ -617,22 +653,78 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
 {
     NARC *narc;
     static const UnkStruct_02099F80 v1 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
     static const GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_3D
+        #else
+        // TODO: Port GX_BG0_AS_3D to PAL
+        #endif
     };
     static const BgTemplate v3 = {
         .x = 0,
@@ -640,10 +732,18 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x512,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -654,10 +754,18 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x18000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -668,10 +776,18 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x18000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -680,7 +796,15 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
     hallOfFameMan->bgConfig = BgConfig_New(HEAP_ID_HALL_OF_FAME);
 
     GXLayers_SetBanks(&v1);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetDispSelect to PAL
+    #endif
     GX_SetDispSelect(GX_DISP_SELECT_SUB_MAIN);
+    #else
+    // TODO: Port GX_DISP_SELECT_SUB_MAIN to PAL
+    #endif
 
     SetAllGraphicsModes(&graphicsModes);
     Bg_InitFromTemplate(hallOfFameMan->bgConfig, BG_LAYER_MAIN_1, &v3, 0);
@@ -701,17 +825,53 @@ static void ov86_0223B74C(HallOfFameMan *hallOfFameMan)
     Graphics_LoadTilemapToBgLayerFromOpenNARC(narc, 2, hallOfFameMan->bgConfig, BG_LAYER_MAIN_2, 0, 0, TRUE, HEAP_ID_HALL_OF_FAME);
     Bg_CopyTilemapBufferToVRAM(hallOfFameMan->bgConfig, 1);
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 0, 0);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_ALL ^ GX_WND_PLANEMASK_BG2, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_ALL, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_ALL to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 
     NARC_dtor(narc);
 }
 
 static void ov86_0223B8C4(HallOfFameMan *hallOfFameMan)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     Window_Remove(&(hallOfFameMan->window));
     Bg_FreeTilemapBuffer(hallOfFameMan->bgConfig, BG_LAYER_MAIN_1);
@@ -722,25 +882,73 @@ static void ov86_0223B8C4(HallOfFameMan *hallOfFameMan)
 
 static void ov86_0223B900(HallOfFameMan *hallOfFameMan)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dInit();
+    #else
+    // TODO: Port NNS_G3dInit to PAL
+    #endif
 
     G3X_InitMtxStack();
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(1);
     G3X_AlphaTest(0, 0);
     G3X_AlphaBlend(1);
+    #ifdef PLATFORM_DS
     G3X_SetClearColor(GX_RGB(0, 0, 0), 0, 0x7fff, 63, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
     G3_ViewPort(VIEWPORT_X_MIN, VIEWPORT_Y_MIN, VIEWPORT_X_MAX, VIEWPORT_Y_MAX);
 
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmTexVramManager(1, 1);
+    #else
+    // TODO: Port NNS_GfdInitFrmTexVramManager to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmPlttVramManager(0x4000, 1);
+    #else
+    // TODO: Port NNS_GfdInitFrmPlttVramManager to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, 0, 0);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 
     HallOfFame_InitCamera(hallOfFameMan);
 }
@@ -779,7 +987,11 @@ static void ov86_0223BA44(HallOfFameMan *hallOfFameMan)
     NNSG2dAnimBankData *animBank;
     NARC *narc = NARC_ctor(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, HEAP_ID_HALL_OF_FAME);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, HEAP_ID_HALL_OF_FAME);
 
     hallOfFameMan->spriteList = SpriteList_InitRendering(64, &hallOfFameMan->g2dRenderer, HEAP_ID_HALL_OF_FAME);
@@ -789,7 +1001,11 @@ static void ov86_0223BA44(HallOfFameMan *hallOfFameMan)
     ov86_0223BAC8(hallOfFameMan, cellBank, animBank, narc);
 
     NARC_dtor(narc);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov86_0223BAC8(HallOfFameMan *hallOfFameMan, NNSG2dCellDataBank *cellBank, NNSG2dAnimBankData *animBank, NARC *narc)
@@ -826,17 +1042,45 @@ static void ov86_0223BAC8(HallOfFameMan *hallOfFameMan, NNSG2dCellDataBank *cell
 
     VEC_Set(&(spriteListTemplate.position), 0, 0, 0);
 
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteListTemplate.heapID = HEAP_ID_HALL_OF_FAME;
 
     ncgrBuffer = Graphics_GetCharDataFromOpenNARC(narc, 76, FALSE, &charData, HEAP_ID_HALL_OF_FAME);
     nclrBuffer = Graphics_GetPlttDataFromOpenNARC(narc, 75, &paletteData, HEAP_ID_HALL_OF_FAME);
 
     for (i = 0; i < hallOfFameMan->monCount; i++) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&imageProxy);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G2dInitImagePaletteProxy(&paletteProxy);
+        #else
+        // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+        #endif
         NNS_G2dLoadImage1DMapping(charData, i * 2 * 3200, NNS_G2D_VRAM_TYPE_2DMAIN, &imageProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadPalette to PAL
+        #endif
         NNS_G2dLoadPalette(paletteData, i * 0x20, NNS_G2D_VRAM_TYPE_2DMAIN, &paletteProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         spriteListTemplate.priority = 1 + i;
         hallOfFameMan->monSprites[i] = SpriteList_Add(&spriteListTemplate);
@@ -861,7 +1105,11 @@ static void ov86_0223BAC8(HallOfFameMan *hallOfFameMan, NNSG2dCellDataBank *cell
             hallOfFameMan->species[i]);
 
         DC_FlushRange(hallOfFameMan->unk_310, 3200);
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(hallOfFameMan->unk_310, i * 2 * 3200, 3200);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
 
         CharacterSprite_LoadPokemonSpriteRegion(spriteTemplate.narcID,
             spriteTemplate.character,
@@ -876,22 +1124,54 @@ static void ov86_0223BAC8(HallOfFameMan *hallOfFameMan, NNSG2dCellDataBank *cell
             hallOfFameMan->species[i]);
 
         DC_FlushRange(hallOfFameMan->unk_310, 3200);
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(hallOfFameMan->unk_310, i * 2 * 3200 + 3200, 3200);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
 
         Graphics_LoadPalette(spriteTemplate.narcID, spriteTemplate.palette, 1, i * 0x20, 0x20, HEAP_ID_HALL_OF_FAME);
         PokemonSprite_LoadAnimFrames(hallOfFameMan->narc, &hallOfFameMan->animFrames[i][0], hallOfFameMan->species[i], 1);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&imageProxy);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&paletteProxy);
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+    #endif
     NNS_G2dLoadImage1DMapping(charData, 38400, NNS_G2D_VRAM_TYPE_2DMAIN, &imageProxy);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dLoadPalette to PAL
+    #endif
     NNS_G2dLoadPalette(paletteData, 192, NNS_G2D_VRAM_TYPE_2DMAIN, &paletteProxy);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     sub_02076AAC((TrainerInfo_Gender(hallOfFameMan->displayData->trainerInfo) == GENDER_FEMALE) ? 1 : 0, 2, &v4);
     CharacterSprite_LoadSpriteRegion(v4.narcID, v4.unk_14, HEAP_ID_HALL_OF_FAME, &tileRegions[0], hallOfFameMan->unk_310);
 
     DC_FlushRange(hallOfFameMan->unk_310, 3200);
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(hallOfFameMan->unk_310, 38400, 3200);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
 
     Graphics_LoadPalette(v4.narcID, v4.unk_08, 1, 192, 0x20, HEAP_ID_HALL_OF_FAME);
 
@@ -1026,7 +1306,11 @@ static void HallOfFame_SlideFrameHorizontal(SysTask *task, void *data)
         right = VIEWPORT_X_MAX;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(left, 32, right, 32 + POKEMON_FRAME_HEIGHT);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 
     if (HallOfFameMovement_IsDone(&(sliderHorizontal->movement))) {
         HallOfFameTask_FinishAfterVBlank(&sliderHorizontal->hallOfFameTask);
@@ -1056,7 +1340,11 @@ static void HallOfFame_SlideFrameVertical(SysTask *task, void *data)
         bottom = VIEWPORT_Y_MAX;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(sliderVertical->left, top, sliderVertical->right, bottom);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 
     if (HallOfFameMovement_IsDone(&(sliderVertical->movement))) {
         HallOfFameTask_FinishAfterVBlank(&sliderVertical->hallOfFameTask);
@@ -1086,7 +1374,11 @@ static void HallOfFame_ExpandFrameHorizontal(SysTask *task, void *data)
         right = VIEWPORT_X_MAX;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(left, frameExpander->top, right, frameExpander->bottom);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 
     if (HallOfFameMovement_IsDone(&(frameExpander->movementLeft))) {
         HallOfFameTask_FinishAfterVBlank(&frameExpander->hallOfFameTask);
@@ -1116,7 +1408,11 @@ static void HallOfFame_SlideToBlack(SysTask *task, void *data)
         bottom = VIEWPORT_Y_MAX;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(sliderToBlack->left, top, sliderToBlack->right, bottom);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 
     if (HallOfFameMovement_IsDone(&(sliderToBlack->movementTop))) {
         HallOfFameTask_FinishAfterVBlank(&sliderToBlack->hallOfFameTask);
@@ -1220,8 +1516,20 @@ static void HallOfFame_InitPokemonAnimation(HallOfFameMan *hallOfFameMan, int mo
     pokemonAnimation->imageProxies[0] = *Sprite_GetImageProxy(pokemonAnimation->sprite);
     pokemonAnimation->imageProxies[1] = pokemonAnimation->imageProxies[0];
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&pokemonAnimation->imageProxies[1]);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dSetImageLocation to PAL
+    #endif
     NNS_G2dSetImageLocation(&(pokemonAnimation->imageProxies[1]), NNS_G2D_VRAM_TYPE_2DMAIN, monIndex * 2 * 3200 + 3200);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     hallOfFameMan->tasks[taskID] = SysTask_Start(HallOfFame_PlayPokemonAnimation, pokemonAnimation, 0);
 }
@@ -1519,8 +1827,16 @@ static void ov86_0223CA10(SysTask *task, void *data)
         HallOfFameSpotlights *spotlights = data;
 
         G3_BeginMakeDL(&spotlights->info, spotlights->ptr, sizeof(spotlights->ptr));
+        #ifdef PLATFORM_DS
         G3B_MaterialColorDiffAmb(&spotlights->info, GX_RGB(31, 31, 31), GX_RGB(16, 16, 16), 0);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G3B_MaterialColorSpecEmi(&spotlights->info, GX_RGB(16, 16, 16), GX_RGB(0, 0, 0), 0);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     } else {
         Unk_ov86_0223D564--;
         SysTask_Done(task);
@@ -1553,14 +1869,46 @@ static void ov86_0223CAA0(SysTask *task, fx16 param1, fx32 param2)
 static SysTask *ov86_0223CAE4(HallOfFameSpotlights *spotlights, fx16 param1, fx32 param2, int taskID)
 {
     static const int colors[] = {
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 16),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 28, 8),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 16),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 28, 8),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 12)
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     };
     static const fx16 v1[] = {
         0xc00,
@@ -1619,8 +1967,16 @@ static void ov86_0223CB74(SysTask *task, void *data)
 
         inline_ov86_0223CB74(v0);
 
+        #ifdef PLATFORM_DS
         G3B_PolygonAttr(v0->info, GX_LIGHTMASK_NONE, GX_POLYGONMODE_MODULATE, GX_CULL_BACK, v0->unk_814, 16, 0);
+        #else
+        // TODO: Port GX_CULL_BACK to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G3B_Begin(v0->info, GX_BEGIN_QUADS);
+        #else
+        // TODO: Port GX_BEGIN_QUADS to PAL
+        #endif
 
         G3B_Color(v0->info, v0->color);
         G3B_Vtx(v0->info, v0->unk_81A.x, v0->unk_81A.y, v0->unk_81A.z);
@@ -1670,14 +2026,46 @@ static BOOL ov86_0223CD80(void)
 static SysTask *HallOfFame_InitConfettiTask(HallOfFameMan *hallOfFameMan)
 {
     static const int colors[] = {
+        #ifdef PLATFORM_DS
         GX_RGB(16, 28, 21),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 16, 29),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(8, 8, 31),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(6, 31, 31),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 31, 0),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(9, 31, 0),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(31, 18, 0),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(22, 0, 31)
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     };
     static const VecFx16 v1[4] = {
         { -156, -205, 0 },
@@ -1729,7 +2117,11 @@ static SysTask *HallOfFame_InitConfettiTask(HallOfFameMan *hallOfFameMan)
     confettiAnim->unk_04 = 0;
     confettiAnim->unk_8D20 = 0;
 
+    #ifdef PLATFORM_DS
     G3_MtxMode(GX_MTXMODE_POSITION_VECTOR);
+    #else
+    // TODO: Port GX_MTXMODE_POSITION_VECTOR to PAL
+    #endif
 
     return SysTask_Start(HallOfFame_DoConfettiAnimation, confettiAnim, 2);
 }
@@ -1758,8 +2150,16 @@ static void HallOfFame_DoConfettiAnimation(SysTask *task, void *data)
         int i, v2;
 
         G3_BeginMakeDL(&confettiAnim->info, confettiAnim->unk_151C, sizeof(confettiAnim->unk_151C));
+        #ifdef PLATFORM_DS
         G3B_PolygonAttr(&confettiAnim->info, GX_LIGHTMASK_01, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, 63, 31, 0);
+        #else
+        // TODO: Port GX_CULL_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G3B_MaterialColorDiffAmb(&confettiAnim->info, GX_RGB(20, 20, 20), GX_RGB(0, 0, 0), 0);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         for (i = 0; i < NUM_CONFETTI; i++) {
             confettiAnim->confetti[i].unk_08[3].y -= 85;
@@ -1777,20 +2177,36 @@ static void HallOfFame_DoConfettiAnimation(SysTask *task, void *data)
             MTX_Identity44(&(confettiAnim->confetti[i].pDst));
             MTX_TransApply44(&(confettiAnim->confetti[i].pDst), &(confettiAnim->confetti[i].pDst), confettiAnim->confetti[i].unk_08[0].x, confettiAnim->confetti[i].unk_08[0].y, confettiAnim->confetti[i].unk_08[0].z);
 
+            #ifdef PLATFORM_DS
             G3B_LightColor(&(confettiAnim->info), GX_LIGHTID_0, GX_RGB(11, 11, 11));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G3B_LightColor(&(confettiAnim->info), GX_LIGHTID_1, confettiAnim->confetti[i].color);
+            #else
+            // TODO: Port GX_LIGHTID_1 to PAL
+            #endif
 
             VecFx16 v3;
 
             VEC_Fx16Set(&v3, 0, FX16_ONE - 1, -FX16_ONE + 1);
             VEC_Fx16Normalize(&v3, &v3);
 
+            #ifdef PLATFORM_DS
             G3B_LightVector(&confettiAnim->info, GX_LIGHTID_0, v3.x, v3.y, v3.z);
+            #else
+            // TODO: Port GX_LIGHTID_0 to PAL
+            #endif
 
             VEC_Fx16Set(&v3, 0, -FX16_ONE + 1, FX16_ONE - 1);
             VEC_Fx16Normalize(&v3, &v3);
 
+            #ifdef PLATFORM_DS
             G3B_LightVector(&confettiAnim->info, GX_LIGHTID_1, v3.x, v3.y, v3.z);
+            #else
+            // TODO: Port GX_LIGHTID_1 to PAL
+            #endif
 
             MtxFx44 pDst;
 
@@ -1803,10 +2219,18 @@ static void HallOfFame_DoConfettiAnimation(SysTask *task, void *data)
             MTX_RotZ44(&pDst, FX_SinIdx((u16)(confettiAnim->confetti[i].unk_20.z)), FX_CosIdx((u16)(confettiAnim->confetti[i].unk_20.z)));
             MTX_Concat44(&pDst, &(confettiAnim->confetti[i].pDst), &(confettiAnim->confetti[i].pDst));
 
+            #ifdef PLATFORM_DS
             G3B_MaterialColorSpecEmi(&confettiAnim->info, GX_RGB(31, 31, 31), confettiAnim->confetti[i].color, 0);
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             G3B_PushMtx(&confettiAnim->info);
             G3B_LoadMtx44(&confettiAnim->info, &(confettiAnim->confetti[i].pDst));
+            #ifdef PLATFORM_DS
             G3B_Begin(&confettiAnim->info, GX_BEGIN_QUADS);
+            #else
+            // TODO: Port GX_BEGIN_QUADS to PAL
+            #endif
 
             G3B_Normal(&confettiAnim->info, 0, 0, -FX16_ONE + 1);
             G3B_Vtx(&confettiAnim->info, -156, -205, 0);

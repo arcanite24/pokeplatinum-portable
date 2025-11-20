@@ -575,7 +575,11 @@ static BOOL ov23_02251960(SysTask *param0, void *param1)
 static BOOL ov23_02251A58(UndergroundMenu *param0)
 {
     if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetMiscTextPrinter());
             return 1;
         }
@@ -702,7 +706,11 @@ static void ov23_02251C04(SysTask *param0, void *param1)
         v0->state = 7;
         break;
     case 7:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ov23_02253D10(v0->unk_270);
             v0->unk_270 = NULL;
             v0->state = 0;
@@ -723,7 +731,11 @@ static void ov23_02251C04(SysTask *param0, void *param1)
         UndergroundMenu_EraseCurrentMenu(v0);
         ov23_02242FF8();
         ov23_022412F0();
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, -6, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         UndergroundTextPrinter_PrintText(CommManUnderground_GetMiscTextPrinter(), 48, FALSE, NULL);
         v0->state = 16;
         break;
@@ -735,7 +747,11 @@ static void ov23_02251C04(SysTask *param0, void *param1)
         UndergroundMenu_EraseCurrentMenu(v0);
         ov23_02242FD0();
         SphereRadar_Start();
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, -6, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         UndergroundTextPrinter_PrintText(CommManUnderground_GetMiscTextPrinter(), 49, FALSE, NULL);
         v0->state = 16;
         break;
@@ -747,7 +763,11 @@ static void ov23_02251C04(SysTask *param0, void *param1)
         UndergroundMenu_EraseCurrentMenu(v0);
         ov23_02242FE4();
         TrapRadar_Start();
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, -6, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         UndergroundTextPrinter_PrintText(CommManUnderground_GetMiscTextPrinter(), 50, FALSE, NULL);
         v0->state = 16;
         break;
@@ -757,9 +777,17 @@ static void ov23_02251C04(SysTask *param0, void *param1)
         break;
     case 16:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 if (!sub_02033DFC()) {
+                    #ifdef PLATFORM_DS
                     BrightnessController_StartTransition(1, 0, -6, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+                    #endif
                 }
 
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetMiscTextPrinter());

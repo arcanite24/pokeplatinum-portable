@@ -108,15 +108,39 @@ void ov62_02230330(UnkStruct_0208C06C *param0)
     PaletteData *v4 = param0->unk_14.unk_14;
 
     if (param0->unk_00 == 0) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_MAIN_OBJ, v2, v3, v0, ov62_02231710(param0, 2), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 9999);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_SUB_OBJ, v2, v3, v0, ov62_02231710(param0, 2), FALSE, 3, NNS_G2D_VRAM_TYPE_2DSUB, 10000);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_MAIN_OBJ, v2, v3, v0, 51, FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 9999);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_SUB_OBJ, v2, v3, v0, 51, FALSE, 3, NNS_G2D_VRAM_TYPE_2DSUB, 10000);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, 65, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 9999);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, 65, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 10000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, 46, FALSE, 9999);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v2, v3, v0, 47, FALSE, 9999);
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, 46, FALSE, 10000);
@@ -135,7 +159,11 @@ void ov62_02230464(UnkStruct_0208C06C *param0)
     v0.z = 0;
     v0.animIdx = 0;
     v0.priority = 0;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.bgPriority = 2;
     v0.vramTransfer = FALSE;
     v0.plttIdx = 0;
@@ -176,13 +204,21 @@ void ov62_02230464(UnkStruct_0208C06C *param0)
         for (v5 = 0; v5 < (3 * 2); v5++) {
             for (v4 = 0; v4 < 2; v4++) {
                 if (v4 == 0) {
+                    #ifdef PLATFORM_DS
                     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+                    #else
+                    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                    #endif
                     v0.resources[0] = 9999;
                     v0.resources[1] = 9999;
                     v0.resources[2] = 9999;
                     v0.resources[3] = 9999;
                 } else {
+                    #ifdef PLATFORM_DS
                     v0.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+                    #else
+                    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+                    #endif
                     v0.resources[0] = 10000;
                     v0.resources[1] = 10000;
                     v0.resources[2] = 10000;
@@ -304,8 +340,16 @@ void ov62_022306B8(UnkStruct_0208C06C *param0)
         break;
     }
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, v5, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 10001);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, v5, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 10002);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, v6, FALSE, 10001);
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, v6, FALSE, 10002);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v2, v3, v0, v7, FALSE, 10001);
@@ -374,7 +418,11 @@ void ov62_0223088C(UnkStruct_0208C06C *param0)
     v2.z = 0;
     v2.animIdx = 0;
     v2.priority = 0;
+    #ifdef PLATFORM_DS
     v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v2.bgPriority = 3;
     v2.vramTransfer = FALSE;
     v2.plttIdx = (2 - 1);
@@ -386,7 +434,11 @@ void ov62_0223088C(UnkStruct_0208C06C *param0)
     v2.resources[5] = SPRITE_RESOURCE_NONE;
 
     for (v0 = 0; v0 < 5; v0++) {
+        #ifdef PLATFORM_DS
         v2.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         v2.resources[0] = 10002;
         v2.resources[1] = 10000;
         v2.resources[2] = 10002;
@@ -398,7 +450,11 @@ void ov62_0223088C(UnkStruct_0208C06C *param0)
         ManagedSprite_SetDrawFlag(v1->unk_00[v0].unk_00, 1);
         ov62_02230E68(v1->unk_00[v0].unk_00, v2.x + 8, v2.y);
 
+        #ifdef PLATFORM_DS
         v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         v2.resources[0] = 10001;
         v2.resources[1] = 9999;
         v2.resources[2] = 10001;
@@ -647,7 +703,15 @@ void ov62_02230E80(UnkStruct_0208C06C *param0)
     MessageLoader *v5;
     Window v6;
     UnkStruct_ov62_022307C0_sub1 *v7[2];
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     int v8[2] = { NNS_G2D_VRAM_TYPE_2DMAIN, NNS_G2D_VRAM_TYPE_2DSUB };
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     int v9[2] = { 9999, 10000 };
     int v10, v11;
 
@@ -768,7 +832,11 @@ void ov62_0223118C(UnkStruct_ov62_022312B0 *param0, UnkStruct_ov62_0223118C *par
     Window v6;
     int v7 = 9999;
 
+    #ifdef PLATFORM_DS
     if (param2 == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         v7 = 10000;
     }
 
@@ -894,7 +962,11 @@ ManagedSprite *ov62_022313E0(UnkStruct_0208C06C *param0, int param1)
     v1.resources[2] = 11924;
     v1.resources[3] = 11924;
 
+    #ifdef PLATFORM_DS
     if (param1 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         v1.resources[1] = 9999;
     } else {
         v1.resources[1] = 10000;
@@ -950,12 +1022,20 @@ void ov62_022314F0(int *param0, int *param1, int param2, int param3, int param4,
     *param1 = 31;
 
     if (param6 == 0) {
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(param2, param3, *param0, *param1);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
         G2S_SetBlendAlpha(param4, param5, *param0, *param1);
     }
 
     if (param6 == 1) {
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(param2, param3, *param0, *param1);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
     }
 
     if (param6 == 2) {
@@ -966,12 +1046,20 @@ void ov62_022314F0(int *param0, int *param1, int param2, int param3, int param4,
 void ov62_02231560(int *param0, int *param1, int param2, int param3, int param4, int param5, int param6)
 {
     if (param6 == 0) {
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(param2, param3, *param0, *param1);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
         G2S_SetBlendAlpha(param4, param5, *param0, *param1);
     }
 
     if (param6 == 1) {
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(param2, param3, *param0, *param1);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
     }
 
     if (param6 == 2) {
@@ -981,7 +1069,11 @@ void ov62_02231560(int *param0, int *param1, int param2, int param3, int param4,
 
 void ov62_022315C8(int *param0, int *param1, int param2)
 {
+    #ifdef PLATFORM_DS
     ov62_022314F0(param0, param1, (GX_BLEND_PLANEMASK_BG3), (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ), (GX_BLEND_PLANEMASK_BG3), (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ), param2);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 BOOL ov62_022315E0(int *param0, int *param1, int param2, int param3)
@@ -1009,12 +1101,20 @@ BOOL ov62_022315E0(int *param0, int *param1, int param2, int param3)
     }
 
     if (param3 == 0) {
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(*param0, *param1);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         G2S_ChangeBlendAlpha(*param0, *param1);
     }
 
     if (param3 == 1) {
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(*param0, *param1);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     }
 
     if (param3 == 2) {

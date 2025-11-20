@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_02248CDC_H
 #define POKEPLATINUM_STRUCT_OV62_02248CDC_H
 
+#include "platform/platform_types.h"
+
 #include "overlay062/struct_ov62_02249380.h"
 
 #include "touch_screen.h"

@@ -1059,7 +1059,11 @@ const ApplicationManagerTemplate gNamingScreenAppTemplate = {
     .init = NamingScreen_Init,
     .main = NamingScreen_Main,
     .exit = NamingScreen_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 static NamingScreen *sNamingScreenDummy;
@@ -1076,8 +1080,16 @@ static BOOL NamingScreen_Init(ApplicationManager *appMan, int *state)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
 
         Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_NAMING_SCREEN_APP, 0x20000 + 0x8000);
 
@@ -1173,9 +1185,17 @@ static void NamingScreen_LoadMonIcon(
 {
     u8 *rawData;
 
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(monIconCharData->pRawData, (21 * 32 + 31) * 0x20, 0x20 * 4 * 4);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
     rawData = (u8 *)plttData->pRawData;
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt((void *)(rawData + PokeIconPaletteIndex(monSpecies, monForm, FALSE) * 0x20), 6 * 0x20, 0x20);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 }
 
 static BOOL NamingScreen_Main(ApplicationManager *appMan, int *state)
@@ -1283,7 +1303,11 @@ static enum NamingScreenAppState NamingScreen_ProcessInputs(
 {
     NamingScreen_ProcessDirectionInputs(namingScreen);
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_SELECT) {
+    #else
+    // TODO: Port PAD_BUTTON_SELECT to PAL
+    #endif
         if (!Sprite_GetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR])) {
             Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
             return appState;
@@ -1309,7 +1333,11 @@ static enum NamingScreenAppState NamingScreen_ProcessInputs(
 
         NamingScreen_LoadKeyboardLayout(namingScreen->keyboardChars, namingScreen->currentCharsIdx);
         Sound_PlayEffect(SEQ_SE_DP_SYU03);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         appState = NamingScreen_ProcessCharacterInput(
             namingScreen,
             namingScreen->keyboardChars[namingScreen->keyboardCursor.y][namingScreen->keyboardCursor.x],
@@ -1321,12 +1349,20 @@ static enum NamingScreenAppState NamingScreen_ProcessInputs(
             namingScreen->keyboardChars[namingScreen->keyboardCursor.y][namingScreen->keyboardCursor.x],
             FALSE);
         namingScreen->keyboardCursor.hasCharacterBeenEntered = FALSE;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         appState = NamingScreen_ProcessCharacterInput(
             namingScreen,
             NMS_BUTTON_BACK,
             TRUE);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_R) {
+    #else
+    // TODO: Port PAD_BUTTON_R to PAL
+    #endif
         appState = NamingScreen_ProcessCharacterInput(
             namingScreen,
             NMS_BUTTON_PAGE_JP_UNUSED_2,
@@ -1447,7 +1483,15 @@ static BOOL NamingScreen_Exit(ApplicationManager *appMan, int *unusedState)
     NamingScreen_FreeBgs(namingScreen->bgConfig, namingScreen->windows);
     Font_UseLazyGlyphAccess(FONT_SYSTEM);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     Font_Free(FONT_SUBSCREEN);
 
@@ -1509,7 +1553,15 @@ static void NamingScreen_VBlankCallback(void *unused)
     VramTransfer_Process();
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void NamingScreen_CopyParamsFromArgs(NamingScreen *namingScreen, NamingScreenArgs *namingScreenArgs)
@@ -1525,16 +1577,56 @@ static void NamingScreen_CopyParamsFromArgs(NamingScreen *namingScreen, NamingSc
 static void NamingScreen_InitGraphicsBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         .unk_00 = GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_04 = GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_08 = GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_0C = GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_10 = GX_VRAM_OBJ_128_B,
+        #else
+        // TODO: Port GX_VRAM_OBJ_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_14 = GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_18 = GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_1C = GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_20 = GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .unk_24 = GX_VRAM_TEXPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -1543,10 +1635,26 @@ static void NamingScreen_InitGraphicsBanks(void)
 static void NamingScreen_InitBgs(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -1557,10 +1665,18 @@ static void NamingScreen_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1575,10 +1691,18 @@ static void NamingScreen_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1593,10 +1717,18 @@ static void NamingScreen_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xd000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1611,10 +1743,18 @@ static void NamingScreen_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1627,23 +1767,83 @@ static void NamingScreen_InitBgs(BgConfig *bgConfig)
     Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_NAMING_SCREEN_APP);
     Bg_ClearTilesRange(BG_LAYER_SUB_0, 32, 0, HEAP_ID_NAMING_SCREEN_APP);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 255, 64);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
     G2S_BlendNone();
 }
 
 static void NamingScreen_ToggleEngineLayers(BOOL enable)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG0, enable);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, enable);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG2, enable);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG3, FALSE);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_OBJ, enable);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_BLEND_PLANEMASK_BG0, enable);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_BLEND_PLANEMASK_BG1, FALSE);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_BLEND_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void NamingScreen_InitCursorsAndChars(NamingScreen *namingScreen, ApplicationManager *appMan)
@@ -1881,7 +2081,11 @@ static void NamingScreen_LoadObjectGfx(NamingScreen *namingScreen, NARC *narc)
 {
     int i;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, HEAP_ID_NAMING_SCREEN_APP);
 
     namingScreen->spriteList = SpriteList_InitRendering(40 + 4, &namingScreen->g2dRenderer, HEAP_ID_NAMING_SCREEN_APP);
@@ -1898,7 +2102,11 @@ static void NamingScreen_LoadObjectGfx(NamingScreen *namingScreen, NARC *narc)
         naming_screen_sprites_NCGR_lz,
         TRUE,
         0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         HEAP_ID_NAMING_SCREEN_APP);
     namingScreen->spriteResources[0][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(
         namingScreen->spriteResourceCollections[SPRITE_RESOURCE_PLTT],
@@ -1906,7 +2114,11 @@ static void NamingScreen_LoadObjectGfx(NamingScreen *namingScreen, NARC *narc)
         naming_screen_sprites_NCLR,
         FALSE,
         0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         9,
         HEAP_ID_NAMING_SCREEN_APP);
     namingScreen->spriteResources[0][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_AddFrom(
@@ -1949,7 +2161,11 @@ static void NamingScreen_LoadObjectGfx(NamingScreen *namingScreen, NARC *narc)
         naming_screen_unk_sprite_NCGR_lz,
         TRUE,
         1,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DSUB,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         HEAP_ID_NAMING_SCREEN_APP);
     namingScreen->spriteResources[1][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(
         namingScreen->spriteResourceCollections[SPRITE_RESOURCE_PLTT],
@@ -1957,7 +2173,11 @@ static void NamingScreen_LoadObjectGfx(NamingScreen *namingScreen, NARC *narc)
         naming_screen_sprites_NCLR,
         FALSE,
         1,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DSUB,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         3,
         HEAP_ID_NAMING_SCREEN_APP);
     namingScreen->spriteResources[1][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_AddFrom(
@@ -2046,7 +2266,11 @@ static void NamingScreen_InitSprites(NamingScreen *namingScreen)
     spriteTemplate.affineScale.z = FX32_ONE;
     spriteTemplate.affineZRotation = 0;
     spriteTemplate.priority = 1;
+    #ifdef PLATFORM_DS
     spriteTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteTemplate.heapID = HEAP_ID_NAMING_SCREEN_APP;
 
     for (i = 0; i < NMS_SPRITE_COUNT; i++) {
@@ -2092,8 +2316,16 @@ static void NamingScreen_InitSprites(NamingScreen *namingScreen)
         namingScreen->maxChars);
     NamingScreen_InitIconSprite(namingScreen, &spriteTemplate);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void NamingScreen_InitIconSprite(NamingScreen *namingScreen, AffineSpriteListTemplate *template)
@@ -2537,28 +2769,44 @@ static void NamingScreen_ProcessDirectionInputs(NamingScreen *namingScreen)
         buttonInputIsTransition = TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
         dpadMovement = NMS_DPAD_MOVEMENT_UP;
         didInput++;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
         dpadMovement = NMS_DPAD_MOVEMENT_DOWN;
         didInput++;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
         dpadMovement = NMS_DPAD_MOVEMENT_LEFT;
         didInput++;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
         dpadMovement = NMS_DPAD_MOVEMENT_RIGHT;
@@ -2566,7 +2814,11 @@ static void NamingScreen_ProcessDirectionInputs(NamingScreen *namingScreen)
     }
 
     // start counts as a direction input, because it moves the cursor.
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_START) {
+    #else
+    // TODO: Port PAD_BUTTON_START to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
         namingScreen->keyboardCursor.x = 12;
@@ -2637,9 +2889,17 @@ static void NamingScreen_PaletteGlowEffect(u16 *pSinArg)
     }
 
     int val = ((CalcSineDegrees_Wraparound(*pSinArg) * 10) / FX32_ONE) + 15;
+    #ifdef PLATFORM_DS
     GXRgb rgb = GX_RGB(29, val, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(&rgb, (16 + 13) * 2, 2);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 }
 
 static void NamingScreen_PrintChars(
@@ -2737,7 +2997,11 @@ static void NamingScreen_PrintCharOnWindowAndOBJ(
     for (i = 0; i < 4; i++) {
         sub_02012C60(&windows[3], 4, 2, 4 * i, 0, (char *)pixelBuf);
         DC_FlushRange(pixelBuf, 0x20 * 4 * 2);
+        #ifdef PLATFORM_DS
         GXS_LoadOBJ(pixelBuf, sUnkGXObjOffsets1[i] * 0x20, 0x20 * 4 * 2);
+        #else
+        // TODO: Port GXS_LoadOBJ to PAL
+        #endif
     }
 
     string2 = Strbuf_Init(20 + 1, HEAP_ID_NAMING_SCREEN_APP);
@@ -2756,7 +3020,11 @@ static void NamingScreen_PrintCharOnWindowAndOBJ(
             TEXT_COLOR(13, 14, 15));
 
         DC_FlushRange(ptr, 0x20 * 4);
+        #ifdef PLATFORM_DS
         GXS_LoadOBJ(ptr, sUnkGXObjOffsets0[i] * 0x20, 0x20 * 4);
+        #else
+        // TODO: Port GXS_LoadOBJ to PAL
+        #endif
     }
 
     Strbuf_Free(string2);
@@ -3020,9 +3288,21 @@ static int NamingScreen_ProcessCharacterInput(NamingScreen *namingScreen, charco
                 namingScreen->maxChars);
             Sound_PlayEffect(SEQ_SE_DP_BOX02);
             Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(namingScreen->uiSprites[NMS_SPRITE_CURSOR], GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendAlpha to PAL
+            #endif
             G2_SetBlendAlpha(0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2, 8, 8);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+            #endif
             Sprite_SetAnim(namingScreen->uiSprites[NMS_SPRITE_CURSOR], 60);
 
             namingScreen->keyboardCursor.ignoreInput = TRUE;
@@ -3239,7 +3519,11 @@ static void NamingScreen_PlaceCursorSprite(NamingScreen *namingScreen)
 
     namingScreen->keyboardCursor.ignoreInput = FALSE;
 
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(namingScreen->uiSprites[NMS_SPRITE_CURSOR], GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 }
 
 static const NamingScreenTouchHitbox sTouchHitboxes[] = {

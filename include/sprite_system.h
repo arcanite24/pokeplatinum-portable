@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPRITE_SYSTEM_H
 #define POKEPLATINUM_SPRITE_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #else
@@ -44,7 +46,11 @@ typedef struct SpriteTemplate {
     u16 animIdx;
     int priority;
     int plttIdx;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     int resources[SPRITE_RESOURCE_MAX];
     int bgPriority;
     BOOL vramTransfer;
@@ -58,7 +64,11 @@ typedef struct SpriteTemplateFromResourceHeader {
     u16 animIdx;
     int priority;
     int plttIdx;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     int dummy18;
     int dummy1C;
     int dummy20;
@@ -109,19 +119,47 @@ void SpriteSystem_Free(SpriteSystem *spriteSys);
 BOOL SpriteSystem_LoadResourceDataFromFilepaths(SpriteSystem *spriteSys, SpriteManager *spriteMan, const SpriteResourceDataPaths *paths);
 Sprite *SpriteSystem_NewSpriteFromResourceHeader(SpriteSystem *spriteSys, SpriteManager *spriteMan, const SpriteTemplateFromResourceHeader *template);
 BOOL SpriteSystem_InitManagerWithCapacities(SpriteSystem *spriteSys, SpriteManager *spriteMan, const SpriteResourceCapacities *capacities);
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 s8 SpriteSystem_LoadPlttResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 s8 SpriteSystem_LoadPlttResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 u8 SpriteSystem_LoadPaletteBuffer(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 u8 SpriteSystem_LoadPaletteBufferFromOpenNarc(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 BOOL SpriteSystem_LoadCellResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int resourceID);
 BOOL SpriteSystem_LoadCellResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int resourceID);
 BOOL SpriteSystem_LoadAnimResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int resourceID);
 BOOL SpriteSystem_LoadAnimResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int resourceID);
 ManagedSprite *SpriteSystem_NewSprite(SpriteSystem *spriteSys, SpriteManager *spriteMan, const SpriteTemplate *template);
 const NNSG2dImagePaletteProxy *SpriteManager_FindPlttResourceProxy(SpriteManager *spriteMan, int resourceID);
+#ifdef PLATFORM_DS
 u32 SpriteManager_FindPlttResourceOffset(SpriteManager *spriteMan, int resourceID, enum NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 BOOL SpriteManager_UnloadCharObjById(SpriteManager *spriteMan, int resourceID);
 BOOL SpriteManager_UnloadPlttObjById(SpriteManager *spriteMan, int resourceID);
 BOOL SpriteManager_UnloadCellObjById(SpriteManager *spriteMan, int resourceID);
@@ -181,9 +219,21 @@ void ManagedSprite_SetMosaicFlag(ManagedSprite *managedSprite, BOOL mosaic);
 void Sprite_SetExplicitOamMode2(Sprite *sprite, GXOamMode mode);
 void ManagedSprite_SetExplicitOamMode(ManagedSprite *managedSprite, GXOamMode mode);
 u32 ManagedSprite_GetUserAttrForCurrentAnimFrame(ManagedSprite *managedSprite);
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjFromOpenNarcWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 void SpriteSystem_ReplaceCharResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int resourceID);
 void SpriteSystem_ReplacePlttResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int resourceID);
 SpriteList *SpriteManager_GetSpriteList(SpriteManager *spriteMan);

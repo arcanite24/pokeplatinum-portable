@@ -240,7 +240,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
             }
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             v2->wifiExitRequested = 1;
         }
         break;
@@ -265,7 +269,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
             *param1 = 4109;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             DWC_NASLoginAbort();
         }
         break;
@@ -321,7 +329,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
         break;
     case 4107:
         if (Unk_ov97_02240400 == 0) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov97_02238E44(v2, 3, param1, 4108, 4108);
             } else {
                 if (DWC_NdGetProgress(&v2->unk_26BC, &v2->unk_26C0) == 1) {
@@ -372,7 +384,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
         *param1 = 4112;
         break;
     case 4112:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             v2->dwcCallback = NULL;
             DWC_ClearError();
             ov97_02238E94();
@@ -389,7 +405,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
             } else {
                 *param1 = v2->unk_16B0;
             }
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             v2->wifiExitRequested = 1;
         }
         break;
@@ -397,7 +417,11 @@ int ov97_02238EAC(ApplicationManager *appMan, int *param1)
         if (Unk_ov97_02240404 == 1) {
             Unk_ov97_02240404 = 0;
             *param1 = v2->unk_16B0;
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             v2->wifiExitRequested = 1;
         }
 

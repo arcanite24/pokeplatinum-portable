@@ -118,7 +118,11 @@ SoftwareSpriteChars *SoftwareSprite_LoadChars(const SoftwareSpriteCharsTemplate 
 {
     SoftwareSpriteChars *chars = FindAvailableChars(template->softSpriteMan);
     GF_ASSERT(chars);
+    #ifdef PLATFORM_DS
     GF_ASSERT(template->charsData->mapingType == GX_OBJVRAMMODE_CHAR_2D);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_2D to PAL
+    #endif
 
     chars->vramKey = AllocateVRAM_Chars(template->charsData);
     GF_ASSERT(chars->vramKey);
@@ -129,7 +133,11 @@ SoftwareSpriteChars *SoftwareSprite_LoadChars(const SoftwareSpriteCharsTemplate 
 
 void SoftwareSprite_FreeChars(SoftwareSpriteChars *chars)
 {
+    #ifdef PLATFORM_DS
     NNS_GfdFreeTexVram(chars->vramKey);
+    #else
+    // TODO: Port NNS_GfdFreeTexVram to PAL
+    #endif
     ZeroChars(chars);
 }
 
@@ -156,7 +164,11 @@ SoftwareSpritePalette *SoftwareSprite_LoadPalette(const SoftwareSpritePaletteTem
 
 void SoftwareSprite_FreePalette(SoftwareSpritePalette *palette)
 {
+    #ifdef PLATFORM_DS
     NNS_GfdFreePlttVram(palette->vramKey);
+    #else
+    // TODO: Port NNS_GfdFreePlttVram to PAL
+    #endif
     ZeroPalette(palette);
 }
 
@@ -289,13 +301,21 @@ static void ZeroSprite(SoftwareSprite *sprite)
 static void ZeroChars(SoftwareSpriteChars *chars)
 {
     chars->vramKey = 0;
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&chars->proxy);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 }
 
 static void ZeroPalette(SoftwareSpritePalette *palette)
 {
     palette->vramKey = 0;
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&palette->proxy);
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
 }
 
 static SoftwareSprite *NewSprites(int count, enum HeapID heapID)
@@ -369,25 +389,53 @@ static SoftwareSpritePalette *FindAvailablePalette(SoftwareSpriteManager *softSp
 
 static NNSGfdTexKey AllocateVRAM_Chars(NNSG2dCharacterData *charsData)
 {
+    #ifdef PLATFORM_DS
     return NNS_GfdAllocTexVram(charsData->szByte, FALSE, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
 }
 
 static NNSGfdPlttKey AllocateVRAM_Palette(int paletteSlot)
 {
+    #ifdef PLATFORM_DS
     return NNS_GfdAllocPlttVram(PLTT_OFFSET(paletteSlot), FALSE, 0);
+    #else
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    #endif
 }
 
 static void LoadProxy_Chars(NNSG2dCharacterData *charsData, NNSGfdTexKey vramKey, NNSG2dImageProxy *proxy)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dLoadImage2DMapping to PAL
+    #endif
     NNS_G2dLoadImage2DMapping(charsData, NNS_GfdGetTexKeyAddr(vramKey), NNS_G2D_VRAM_TYPE_3DMAIN, proxy);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+    #endif
 }
 
 static void LoadProxy_Palette(NNSG2dPaletteData *paletteData, NNSGfdPlttKey vramKey, NNSG2dImagePaletteProxy *proxy)
 {
     int size = paletteData->szByte;
+    #ifdef PLATFORM_DS
     paletteData->szByte = NNS_GfdGetPlttKeySize(vramKey);
+    #else
+    // TODO: Port NNS_GfdGetPlttKeySize to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dLoadPalette to PAL
+    #endif
     NNS_G2dLoadPalette(paletteData, NNS_GfdGetPlttKeyAddr(vramKey), NNS_G2D_VRAM_TYPE_3DMAIN, proxy);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+    #endif
     paletteData->szByte = size;
 }
 
@@ -398,15 +446,35 @@ static void DrawSprite(SoftwareSprite *sprite)
     G3_MaterialColorSpecEmi(COLOR_GRAY, COLOR_BLACK, FALSE);
     G3_TexImageParam(
         sprite->attributes->fmt,
+        #ifdef PLATFORM_DS
         GX_TEXGEN_TEXCOORD,
+        #else
+        // TODO: Port GX_TEXGEN_TEXCOORD to PAL
+        #endif
         sprite->attributes->sizeS,
         sprite->attributes->sizeT,
+        #ifdef PLATFORM_DS
         GX_TEXREPEAT_NONE,
+        #else
+        // TODO: Port GX_TEXREPEAT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_TEXFLIP_NONE,
+        #else
+        // TODO: Port GX_TEXFLIP_NONE to PAL
+        #endif
         sprite->attributes->plttUse,
         sprite->vramAddressChars);
     G3_TexPlttBase(sprite->vramAddressPalette + PLTT_OFFSET(sprite->paletteSlot), sprite->attributes->fmt);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_LIGHTMASK_NONE to PAL
+    #endif
     G3_PolygonAttr(GX_LIGHTMASK_NONE, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, 0, sprite->alpha, 0);
+    #else
+    // TODO: Port GX_CULL_NONE to PAL
+    #endif
 
     NNSG2dSVec2 uv0, uv1;
     if (sprite->flipH) {
@@ -432,7 +500,11 @@ static void DrawSprite(SoftwareSprite *sprite)
     G3_RotZ(FX_SinIdx(sprite->rotation), FX_CosIdx(sprite->rotation));
     G3_Scale(sprite->scaleX, sprite->scaleY, FX32_ONE);
     G3_Translate(-sprite->center.x * FX32_ONE, -sprite->center.y * FX32_ONE, 0);
+    #ifdef PLATFORM_DS
     NNS_G2dDrawSpriteFast(0, 0, 0, sprite->dimensions.x, sprite->dimensions.y, uv0.x, uv0.y, uv1.x, uv1.y);
+    #else
+    // TODO: Port NNS_G2dDrawSpriteFast to PAL
+    #endif
     G3_PopMtx(1);
 }
 
@@ -458,8 +530,16 @@ static void LoadSprite(SoftwareSprite *sprite, const SoftwareSpriteTemplate *tem
     SoftwareSprite_SetPriority(sprite, template->priority);
     SoftwareSprite_SetAlpha(sprite, template->alpha);
     SoftwareSprite_SetAttributes(sprite, &template->chars->proxy.attr);
+    #ifdef PLATFORM_DS
     SoftwareSprite_SetVRAMAddress_Chars(sprite, NNS_G2dGetImageLocation(&template->chars->proxy, NNS_G2D_VRAM_TYPE_3DMAIN));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SoftwareSprite_SetVRAMAddress_Palette(sprite, NNS_G2dGetImagePaletteLocation(&template->palette->proxy, NNS_G2D_VRAM_TYPE_3DMAIN));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_3DMAIN to PAL
+    #endif
     SoftwareSprite_SetPaletteSlot(sprite, template->paletteSlot);
     SoftwareSprite_SetFlip(sprite, SPRITE_FLIP_H, FALSE);
     SoftwareSprite_SetFlip(sprite, SPRITE_FLIP_V, FALSE);

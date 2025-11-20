@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0200679C_H
 #define POKEPLATINUM_UNK_0200679C_H
 
+#include "platform/platform_types.h"
+
 #include "sys_task_manager.h"
 
 SysTask *SysTask_StartAndAllocateParam(SysTaskFunc callback, int paramSize, u32 priority, const u32 heapID);

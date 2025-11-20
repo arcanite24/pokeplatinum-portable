@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GX_LAYERS_H
 #define POKEPLATINUM_GX_LAYERS_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02099F80.h"
 
 void GXLayers_SetBanks(const UnkStruct_02099F80 *banks);

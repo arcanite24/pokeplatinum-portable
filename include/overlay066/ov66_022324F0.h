@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV66_022324F0_H
 #define POKEPLATINUM_OV66_022324F0_H
 
+#include "platform/platform_types.h"
+
 #include <ppwlobby/ppw_lobby.h>
 
 #include "overlay066/struct_ov66_022324F0.h"

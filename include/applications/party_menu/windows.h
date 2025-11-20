@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PARTY_MENU_WINDOWS_H
 #define POKEPLATINUM_PARTY_MENU_WINDOWS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/party_menu/defs.h"
 
 #include "pokemon.h"

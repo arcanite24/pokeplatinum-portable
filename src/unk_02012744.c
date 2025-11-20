@@ -402,10 +402,38 @@ void sub_02012BE0(FontOAM *param0, const UnkStruct_02012B20 *param1, const Windo
 
     v2 = Sprite_GetImageProxy(v3);
 
+    #ifdef PLATFORM_DS
     if (v4 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dGetImageLocation to PAL
+        #endif
         GX_LoadOBJ(v1, NNS_G2dGetImageLocation(v2, NNS_G2D_VRAM_TYPE_2DMAIN), v0);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GXS_LoadOBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dGetImageLocation to PAL
+        #endif
         GXS_LoadOBJ(v1, NNS_G2dGetImageLocation(v2, NNS_G2D_VRAM_TYPE_2DSUB), v0);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     Heap_Free(v1);
@@ -556,10 +584,22 @@ static void sub_02012E6C(const Window *param0, const UnkStruct_02013034 *param1,
     int v2;
     GXOBJVRamModeChar v3;
 
+    #ifdef PLATFORM_DS
     if (param4 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v3 = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v3 = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
     v2 = CharTransfer_GetBlockSize(v3);
@@ -567,7 +607,11 @@ static void sub_02012E6C(const Window *param0, const UnkStruct_02013034 *param1,
     v0 = param1->unk_0C;
 
     while (v0 != param1) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(param2 + v1);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
         param3 = sub_02012EE0(param0, v0, param2 + v1, v2, v3, param3, param4, heapID);
         v0 = v0->unk_0C;
         v1++;
@@ -593,21 +637,65 @@ static int sub_02012EE0(const Window *param0, const UnkStruct_02013034 *param1, 
     sub_02012C60(param0, v2, v3, param1->unk_00, param1->unk_04, v0);
     DC_FlushRange(v0, v1);
 
+    #ifdef PLATFORM_DS
     if (param6 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(v0, param5, v1);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN] = param5;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param2->attr.mappingType = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_LoadOBJ(v0, param5, v1);
+        #else
+        // TODO: Port GXS_LoadOBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DSUB] = param5;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param2->attr.mappingType = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     param2->attr.sizeS = NNS_G2D_1D_MAPPING_CHAR_SIZE;
+    #else
+    // TODO: Port NNS_G2D_1D_MAPPING_CHAR_SIZE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param2->attr.sizeT = NNS_G2D_1D_MAPPING_CHAR_SIZE;
+    #else
+    // TODO: Port NNS_G2D_1D_MAPPING_CHAR_SIZE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param2->attr.fmt = GX_TEXFMT_PLTT16;
+    #else
+    // TODO: Port GX_TEXFMT_PLTT16 to PAL
+    #endif
     param2->attr.bExtendedPlt = 0;
+    #ifdef PLATFORM_DS
     param2->attr.plttUse = GX_TEXPLTTCOLOR0_TRNS;
+    #else
+    // TODO: Port GX_TEXPLTTCOLOR0_TRNS to PAL
+    #endif
     param2->attr.mappingType = param4;
 
     Heap_Free(v0);
@@ -623,10 +711,22 @@ static void sub_02012F98(const Window *param0, char *param1, const UnkStruct_020
     int v3;
     GXOBJVRamModeChar v4;
 
+    #ifdef PLATFORM_DS
     if (param3 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v4 = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v4 = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
     v2 = CharTransfer_GetBlockSize(v4);
@@ -666,10 +766,22 @@ static int sub_02013034(const UnkStruct_02013034 *param0, int param1)
     int v4;
     int v5, v6;
 
+    #ifdef PLATFORM_DS
     if (param1 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v2 = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v2 = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
     v1 = CharTransfer_GetBlockSize(v2);

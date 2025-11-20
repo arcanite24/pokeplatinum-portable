@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNDERGROUND_ITEM_LIST_MENU_H
 #define POKEPLATINUM_UNDERGROUND_ITEM_LIST_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/underground.h"
 
 #include "colored_arrow.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BOX_SETTINGS_H
 #define POKEPLATINUM_STRUCT_BOX_SETTINGS_H
 
+#include "platform/platform_types.h"
+
 enum BoxMode {
     PC_MODE_DEPOSIT = 0,
     PC_MODE_WITHDRAW,

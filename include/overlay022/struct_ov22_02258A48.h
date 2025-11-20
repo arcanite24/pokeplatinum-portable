@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV22_02258A48_H
 #define POKEPLATINUM_STRUCT_OV22_02258A48_H
 
+#include "platform/platform_types.h"
+
 typedef struct UnkStruct_ov22_02258A48_t {
     void *unk_00;
     void (*unk_04)(struct UnkStruct_ov22_02258A48_t *param0);

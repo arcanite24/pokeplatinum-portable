@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV96_0223BF40_T_H
 #define POKEPLATINUM_STRUCT_OV96_0223BF40_T_H
 
+#include "platform/platform_types.h"
+
 #include <dwc.h>
 #ifdef PLATFORM_DS
 #include <nnsys.h>

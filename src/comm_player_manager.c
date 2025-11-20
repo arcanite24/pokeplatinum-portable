@@ -479,7 +479,11 @@ static void CommPlayer_SendMoveSpeed()
 {
     u8 moveSpeed = 2;
 
+    #ifdef PLATFORM_DS
     if (PAD_BUTTON_B & gSystem.heldKeys) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         moveSpeed = 1;
     }
 
@@ -616,19 +620,35 @@ void sub_0205805C(FieldSystem *fieldSystem, BOOL param1)
 
 static int CommPlayer_Direction(u16 unused, u16 keys)
 {
+    #ifdef PLATFORM_DS
     if (keys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         return 2;
     }
 
+    #ifdef PLATFORM_DS
     if (keys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         return 3;
     }
 
+    #ifdef PLATFORM_DS
     if (keys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     if (keys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         return 1;
     }
 
@@ -1020,15 +1040,31 @@ static void CommPlayer_MoveClient(int netId)
             pad = 0;
         } else if (abs(dx) > abs(dy)) {
             if (dx > 0) {
+                #ifdef PLATFORM_DS
                 pad = PAD_KEY_LEFT;
+                #else
+                // TODO: Port PAD_KEY_LEFT to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 pad = PAD_KEY_RIGHT;
+                #else
+                // TODO: Port PAD_KEY_RIGHT to PAL
+                #endif
             }
         } else {
             if (dy > 0) {
+                #ifdef PLATFORM_DS
                 pad = PAD_KEY_UP;
+                #else
+                // TODO: Port PAD_KEY_UP to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 pad = PAD_KEY_DOWN;
+                #else
+                // TODO: Port PAD_KEY_DOWN to PAL
+                #endif
             }
         }
 
@@ -1050,7 +1086,11 @@ static void CommPlayer_MoveClient(int netId)
             break;
         case 1:
             v10 = 4;
+            #ifdef PLATFORM_DS
             pad |= PAD_BUTTON_B;
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
             break;
         case 2:
             v10 = 2;
@@ -1064,7 +1104,11 @@ static void CommPlayer_MoveClient(int netId)
             sCommPlayerManager->forceDirTimer--;
         } else if (!CommSys_IsSendingMovementData() && sCommPlayerManager->isUnderground && (netId == CommSys_CurNetId())) {
             animCode = sub_0206147C(playerAvatar, pad, pad, v10, 1, 0);
+        #ifdef PLATFORM_DS
         } else if (((pad & ~PAD_BUTTON_B) == 0) && (playerLocation->collisionFlag)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             moveSpeed = 3;
 
             switch (playerLocation->dir) {
@@ -1082,7 +1126,11 @@ static void CommPlayer_MoveClient(int netId)
                 animCode = MOVEMENT_ACTION_WALK_ON_SPOT_SLOW_EAST;
                 break;
             }
+        #ifdef PLATFORM_DS
         } else if (((pad & ~PAD_BUTTON_B) == 0) && (playerLocation->dir != dir)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             animCode = MovementAction_TurnActionTowardsDir(playerLocation->dir, MOVEMENT_ACTION_WALK_ON_SPOT_FAST_NORTH);
         } else {
             animCode = sub_0206147C(playerAvatar, pad, pad, v10, 1, 0);
@@ -1097,7 +1145,11 @@ static void CommPlayer_MoveClient(int netId)
         if (animCode != 0xff) {
             PlayerAvatar_SetAnimationCode(playerAvatar, animCode, 1);
 
+            #ifdef PLATFORM_DS
             if (pad & ~PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 if (sCommPlayerManager->moveTimer[netId] == 0) {
                     sCommPlayerManager->moveTimer[netId] = sub_020581E0(moveSpeed);
                 }

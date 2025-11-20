@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 #include "constants/items.h"
 
 #define COMMON_PICKUP_ENTRIES 9

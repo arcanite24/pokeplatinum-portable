@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_MEMORY_H
 #define POKEPLATINUM_POKEDEX_MEMORY_H
 
+#include "platform/platform_types.h"
+
 typedef struct PokedexMemory {
     u32 currentSpecies;
     u32 bootMode;

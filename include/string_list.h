@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRING_LIST_H
 #define POKEPLATINUM_STRING_LIST_H
 
+#include "platform/platform_types.h"
+
 #include "message.h"
 #include "strbuf.h"
 

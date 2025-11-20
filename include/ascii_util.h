@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ASCII_UTIL_H
 #define POKEPLATINUM_ASCII_UTIL_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

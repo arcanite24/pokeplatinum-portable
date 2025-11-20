@@ -274,7 +274,11 @@ static int ov83_0223B78C(UnkStruct_ov83_0223C344 *param0, UnkStruct_ov83_0223B78
         ov83_0223C958(param1);
 
         sub_02039734();
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         if (param1->unk_1488 > 1) {
             ov83_0223DF84(&param1->unk_5B0);
@@ -640,9 +644,21 @@ static int ov83_0223BF74(UnkStruct_ov83_0223C344 *param0, UnkStruct_ov83_0223B78
     switch (*param2) {
     case 0:
         ov83_0223EC4C(&param1->unk_6A0, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         param1->unk_31C = 0;
 
@@ -680,7 +696,11 @@ static int ov83_0223BF74(UnkStruct_ov83_0223C344 *param0, UnkStruct_ov83_0223B78
     case 4:
         param1->unk_1C--;
 
+        #ifdef PLATFORM_DS
         if ((param1->unk_1C < 0) || (gSystem.touchPressed) || (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             (*param2)++;
             break;
         }
@@ -698,7 +718,11 @@ static int ov83_0223BF74(UnkStruct_ov83_0223C344 *param0, UnkStruct_ov83_0223B78
     case 6:
         param1->unk_1C--;
 
+        #ifdef PLATFORM_DS
         if ((gSystem.touchPressed) || (param1->unk_1C < 0) || (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             (*param2)++;
         }
         break;
@@ -748,7 +772,11 @@ static int ov83_0223BF74(UnkStruct_ov83_0223C344 *param0, UnkStruct_ov83_0223B78
     case 10:
         param1->unk_1C--;
 
+        #ifdef PLATFORM_DS
         if ((gSystem.touchPressed) || (param1->unk_1C < 0) || (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             if (param1->unk_1488 > 1) {
                 ov83_0223EC8C(&param1->unk_6A0, 6);
                 ov83_0223E9BC(&param1->unk_6A0);

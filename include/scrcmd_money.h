@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_MONEY_H
 #define POKEPLATINUM_SCRCMD_MONEY_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_GiveMoney(ScriptContext *ctx);

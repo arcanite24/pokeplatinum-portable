@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 #include "generated/genders.h"
 #include "generated/trainer_classes.h"
 

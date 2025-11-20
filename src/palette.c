@@ -370,79 +370,215 @@ void PaletteData_CommitFadedBuffers(PaletteData *paletteData)
 
         switch (bufferID) {
         case PLTTBUF_MAIN_BG:
+            #ifdef PLATFORM_DS
             GX_LoadBGPltt(paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadBGPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_BG:
+            #ifdef PLATFORM_DS
             GXS_LoadBGPltt(paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadBGPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_OBJ:
+            #ifdef PLATFORM_DS
             GX_LoadOBJPltt(paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadOBJPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_OBJ:
+            #ifdef PLATFORM_DS
             GXS_LoadOBJPltt(paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadOBJPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_EX_BG_0:
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(paletteData->buffers[bufferID].faded, 0x0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_EX_BG_1:
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(paletteData->buffers[bufferID].faded, 0x2000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_EX_BG_2:
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(paletteData->buffers[bufferID].faded, 0x4000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_EX_BG_3:
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt((const void *)paletteData->buffers[bufferID].faded, 0x6000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_EX_BG_0:
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt((const void *)paletteData->buffers[bufferID].faded, 0x0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_EX_BG_1:
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt((const void *)paletteData->buffers[bufferID].faded, 0x2000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_EX_BG_2:
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt((const void *)paletteData->buffers[bufferID].faded, 0x4000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_EX_BG_3:
+            #ifdef PLATFORM_DS
             GXS_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadBGExtPltt((const void *)paletteData->buffers[bufferID].faded, 0x6000, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadBGExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_MAIN_EX_OBJ:
+            #ifdef PLATFORM_DS
             GX_BeginLoadOBJExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadOBJExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadOBJExtPltt((const void *)paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GX_LoadOBJExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadOBJExtPltt();
+            #else
+            // TODO: Port GX_EndLoadOBJExtPltt to PAL
+            #endif
             break;
 
         case PLTTBUF_SUB_EX_OBJ:
+            #ifdef PLATFORM_DS
             GXS_BeginLoadOBJExtPltt();
+            #else
+            // TODO: Port GXS_BeginLoadOBJExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_LoadOBJExtPltt((const void *)paletteData->buffers[bufferID].faded, 0, paletteData->buffers[bufferID].size);
+            #else
+            // TODO: Port GXS_LoadOBJExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_EndLoadOBJExtPltt();
+            #else
+            // TODO: Port GXS_EndLoadOBJExtPltt to PAL
+            #endif
         }
     }
 

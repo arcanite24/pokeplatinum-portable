@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020972FC_H
 #define POKEPLATINUM_UNK_020972FC_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_020972FC.h"
 
 UnkStruct_020972FC *sub_020972FC(u8 heapID);

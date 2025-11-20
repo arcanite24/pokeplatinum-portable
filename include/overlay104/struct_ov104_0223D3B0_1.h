@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV104_0223D3B0_1_H
 #define POKEPLATINUM_STRUCT_OV104_0223D3B0_1_H
 
+#include "platform/platform_types.h"
+
 #include "sprite_system.h"
 
 typedef struct {

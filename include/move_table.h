@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MOVE_TABLE_H
 #define POKEPLATINUM_MOVE_TABLE_H
 
+#include "platform/platform_types.h"
+
 #include "generated/move_attributes.h"
 
 typedef struct MoveContestData {

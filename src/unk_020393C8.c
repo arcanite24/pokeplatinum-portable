@@ -62,11 +62,31 @@ static int inline inline_02039614(NetworkIcon *networkIcon)
 {
     switch (networkIcon->screenId) {
     case 1:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_GetDispSelect to PAL
+        #endif
         return (GX_GetDispSelect() == GX_DISP_SELECT_MAIN_SUB) ? NNS_G2D_VRAM_TYPE_2DMAIN : NNS_G2D_VRAM_TYPE_2DSUB;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     case 2:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_GetDispSelect to PAL
+        #endif
         return (GX_GetDispSelect() == GX_DISP_SELECT_MAIN_SUB) ? NNS_G2D_VRAM_TYPE_2DSUB : NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     default:
+        #ifdef PLATFORM_DS
         return NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -74,25 +94,73 @@ static int inline inline_02039614_1(int param0, int param1)
 {
     int v0, v1;
 
+    #ifdef PLATFORM_DS
     if (param0 == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v0 = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v1 = GX_GetBankForOBJ();
+        #else
+        // TODO: Port GX_GetBankForOBJ to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v0 = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v1 = GX_GetBankForSubOBJ();
+        #else
+        // TODO: Port GX_GetBankForSubOBJ to PAL
+        #endif
     }
 
     switch (v0) {
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_32K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_VRAM_OBJ_16_G to PAL
+        #endif
         if ((v1 == GX_VRAM_OBJ_16_G) || (v1 == GX_VRAM_OBJ_16_F)) {
+        #else
+        // TODO: Port GX_VRAM_OBJ_16_F to PAL
+        #endif
             return 512 - 16 + 4 * param1;
         } else {
             return 1024 - 16 + 4 * param1;
         }
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_128K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_VRAM_OBJ_80_EF to PAL
+        #endif
         if ((v1 == GX_VRAM_OBJ_80_EF) || (v1 == GX_VRAM_OBJ_80_EG)) {
+        #else
+        // TODO: Port GX_VRAM_OBJ_80_EG to PAL
+        #endif
             return 640 - 4 + 1 * param1;
+        #ifdef PLATFORM_DS
         } else if (v1 == GX_VRAM_OBJ_64_E) {
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
             return 512 - 4 + 1 * param1;
         } else {
             return 1024 - 4 + 1 * param1;
@@ -104,7 +172,15 @@ static int inline inline_02039614_1(int param0, int param1)
 
 static inline void inline_02039440(GXOamAttr *param0)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetOBJAttr to PAL
+    #endif
     G2_SetOBJAttr(param0, 0, 0, 0, GX_OAM_MODE_NORMAL, 0, GX_OAM_EFFECT_NODISPLAY, GX_OAM_SHAPE_16x16, GX_OAM_COLORMODE_16, 0, 0, 0);
+    #else
+    // TODO: Port GX_OAM_COLORMODE_16 to PAL
+    #endif
 }
 
 void SetNetworkIconStrength(NetworkIcon *param0, int networkStrength)
@@ -129,8 +205,16 @@ void DestroyNetworkIcon(NetworkIcon *param0)
 
 void sub_02039474(NetworkIcon *param0, BOOL param1, u32 heapID)
 {
+    #ifdef PLATFORM_DS
     sub_020394D0(NNS_G2D_VRAM_TYPE_2DSUB, param0->isWifi, (16 * 2 * 14), heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02039530(NNS_G2D_VRAM_TYPE_2DSUB, param0->isWifi, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     param0->screenId = (param1) ? 1 : 2;
     param0->unk_12 = 1;
@@ -155,12 +239,28 @@ static void sub_020394D0(int vramType, BOOL unusedIsWifi, u32 offset, u32 heapID
 
         ReadFileToBuffer("data/pl_wm.NCLR", &heapPtr);
         DC_FlushRange(heapPtr, 600);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedPaletteData(heapPtr, &paletteData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             GX_LoadOBJPltt(paletteData->pRawData, offset, (16 * 2));
+            #else
+            // TODO: Port GX_LoadOBJPltt to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             GXS_LoadOBJPltt(paletteData->pRawData, offset, (16 * 2));
+            #else
+            // TODO: Port GXS_LoadOBJPltt to PAL
+            #endif
         }
 
         Heap_Free(heapPtr);
@@ -182,28 +282,80 @@ static void sub_02039530(int vramType, BOOL isWifi, u32 heapID)
         }
 
         DC_FlushRange(v0, 600);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedBGCharacterData(v0, &v1);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             v3 = GX_GetOBJVRamModeChar();
+            #else
+            // TODO: Port GX_GetOBJVRamModeChar to PAL
+            #endif
+            #ifdef PLATFORM_DS
             v4 = GX_GetBankForOBJ();
+            #else
+            // TODO: Port GX_GetBankForOBJ to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             v3 = GXS_GetOBJVRamModeChar();
+            #else
+            // TODO: Port GXS_GetOBJVRamModeChar to PAL
+            #endif
+            #ifdef PLATFORM_DS
             v4 = GX_GetBankForSubOBJ();
+            #else
+            // TODO: Port GX_GetBankForSubOBJ to PAL
+            #endif
         }
 
         switch (v3) {
+        #ifdef PLATFORM_DS
         case GX_OBJVRAMMODE_CHAR_1D_32K:
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_VRAM_OBJ_16_G to PAL
+            #endif
             if ((v4 == GX_VRAM_OBJ_16_G) || (v4 == GX_VRAM_OBJ_16_F)) {
+            #else
+            // TODO: Port GX_VRAM_OBJ_16_F to PAL
+            #endif
                 offset = ((512 - 16) * 32);
             } else {
                 offset = ((1024 - 16) * 32);
             }
             break;
+        #ifdef PLATFORM_DS
         case GX_OBJVRAMMODE_CHAR_1D_128K:
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+        #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_VRAM_OBJ_80_EF to PAL
+            #endif
             if ((v4 == GX_VRAM_OBJ_80_EF) || (v4 == GX_VRAM_OBJ_80_EG)) {
+            #else
+            // TODO: Port GX_VRAM_OBJ_80_EG to PAL
+            #endif
                 offset = ((2560 - 16) * 32);
+            #ifdef PLATFORM_DS
             } else if (v4 == GX_VRAM_OBJ_64_E) {
+            #else
+            // TODO: Port GX_VRAM_OBJ_64_E to PAL
+            #endif
                 offset = 0x10000 - 16 * 32;
             } else {
                 offset = ((4096 - 16) * 32);
@@ -214,10 +366,22 @@ static void sub_02039530(int vramType, BOOL isWifi, u32 heapID)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             GX_LoadOBJ(v1->pRawData, offset, (4 * 4 * 32));
+            #else
+            // TODO: Port GX_LoadOBJ to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             GXS_LoadOBJ(v1->pRawData, offset, (4 * 4 * 32));
+            #else
+            // TODO: Port GXS_LoadOBJ to PAL
+            #endif
         }
 
         Heap_Free(v0);
@@ -269,12 +433,32 @@ static void sub_02039614(NetworkIcon *v0)
 
     v1 = inline_02039614(v0);
     v2 = inline_02039614_1(v1, v0->strength);
+    #ifdef PLATFORM_DS
     v3 = (v1 == NNS_G2D_VRAM_TYPE_2DMAIN) ? (GXOamAttr *)(HW_OAM) : (GXOamAttr *)(HW_OAM_END);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetOBJAttr to PAL
+    #endif
     G2_SetOBJAttr(v3, v0->x, v0->y, 0, GX_OAM_MODE_NORMAL, 0, GX_OAM_EFFECT_NONE, GX_OAM_SHAPE_16x16, GX_OAM_COLORMODE_16, v2, 14, 0);
+    #else
+    // TODO: Port GX_OAM_COLORMODE_16 to PAL
+    #endif
 
     if (v3 != v0->unk_1C) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetOBJAttr to PAL
+        #endif
         G2_SetOBJAttr(v0->unk_1C, 0, 0, 0, GX_OAM_MODE_NORMAL, 0, GX_OAM_EFFECT_NODISPLAY, GX_OAM_SHAPE_16x16, GX_OAM_COLORMODE_16, 0, 0, 0);
+        #else
+        // TODO: Port GX_OAM_COLORMODE_16 to PAL
+        #endif
         v0->unk_1C = v3;
     }
 }
@@ -298,7 +482,11 @@ void sub_02039734(void)
         isWifi = TRUE;
     }
 
+    #ifdef PLATFORM_DS
     sub_02039750(240, 0, isWifi, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 void sub_02039750(int param0, int param1, BOOL isWifi, int param3)

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_DUMMY_23F_242_H
 #define POKEPLATINUM_SCRCMD_DUMMY_23F_242_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_Dummy23F(ScriptContext *ctx);

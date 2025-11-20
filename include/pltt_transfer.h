@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PLTT_TRANSFER_H
 #define POKEPLATINUM_PLTT_TRANSFER_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -28,6 +30,10 @@ void PlttTransfer_ResetTask(int resourceID);
 void PlttTransfer_ResetAllTasks(void);
 NNSG2dImagePaletteProxy *PlttTransfer_GetPaletteProxy(int resourceID);
 NNSG2dImagePaletteProxy *PlttTransfer_ToggleExtPalette(int resourceID, NNSG2dImageProxy *imageProxy);
+#ifdef PLATFORM_DS
 u32 PlttTransfer_GetPlttOffset(const NNSG2dImagePaletteProxy *paletteProxy, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 
 #endif // POKEPLATINUM_PLTT_TRANSFER_H

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV115_02260440_H
 #define POKEPLATINUM_STRUCT_OV115_02260440_H
 
+#include "platform/platform_types.h"
+
 #include "overlay066/struct_ov66_02230DBC.h"
 
 #include "savedata.h"

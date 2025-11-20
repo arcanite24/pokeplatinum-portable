@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_VARS_FLAGS_H
 #define POKEPLATINUM_VARS_FLAGS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/savedata/vars_flags.h"
 
 #include "savedata.h"

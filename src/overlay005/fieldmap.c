@@ -91,10 +91,26 @@
 #define FIELD_MAP_INIT_STATE_BOTTOM_SCREEN 2
 #define FIELD_MAP_INIT_STATE_DONE          3
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay6);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay7);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay8);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay9);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 struct UnkStruct_ov5_021D1A68_t {
     u16 unk_00;
@@ -161,7 +177,11 @@ static BOOL FieldMap_Init(ApplicationManager *appMan, int *state)
         SetVBlankCallback(NULL, NULL);
         DisableHBlank();
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         G2S_BlendNone();
 
         ResetVisibleHardwareWindows(DS_SCREEN_MAIN);
@@ -170,17 +190,33 @@ static BOOL FieldMap_Init(ApplicationManager *appMan, int *state)
         FieldMapChange_Set3DDisplay(fieldSystem);
 
         if (fieldSystem->mapLoadMode->unk_00_20) {
+            #ifdef PLATFORM_DS
             Overlay_LoadByID(FS_OVERLAY_ID(overlay6), 2);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
 
             switch (ov5_021D1178(fieldSystem)) {
             case 0:
+                #ifdef PLATFORM_DS
                 Overlay_LoadByID(FS_OVERLAY_ID(overlay8), 2);
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
                 break;
             case 1:
+                #ifdef PLATFORM_DS
                 Overlay_LoadByID(FS_OVERLAY_ID(overlay7), 2);
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
                 break;
             case 2:
+                #ifdef PLATFORM_DS
                 Overlay_LoadByID(FS_OVERLAY_ID(overlay9), 2);
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
                 break;
             }
         }
@@ -348,10 +384,26 @@ static BOOL FieldMap_Exit(ApplicationManager *appMan, int *param1)
             Heap_Destroy(HEAP_ID_FIELD1);
 
             if (fieldSystem->mapLoadMode->unk_00_20) {
+                #ifdef PLATFORM_DS
                 Overlay_UnloadByID(FS_OVERLAY_ID(overlay6));
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 Overlay_UnloadByID(FS_OVERLAY_ID(overlay8));
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 Overlay_UnloadByID(FS_OVERLAY_ID(overlay7));
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 Overlay_UnloadByID(FS_OVERLAY_ID(overlay9));
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
             }
 
             return TRUE;
@@ -531,16 +583,56 @@ static void ov5_021D13B4(FieldSystem *fieldSystem)
 static void ov5_021D1414(void)
 {
     UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_32_H,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_32_FG,
+        #else
+        // TODO: Port GX_VRAM_OBJ_32_FG to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_01_AB,
+        #else
+        // TODO: Port GX_VRAM_TEX_01_AB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_0123_E
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_0123_E to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v0);
@@ -560,10 +652,26 @@ static void BgConfig_Init(BgConfig *bgl)
 {
     {
         GraphicsModes v0 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v0);
@@ -576,10 +684,18 @@ static void BgConfig_Init(BgConfig *bgl)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -597,10 +713,18 @@ static void BgConfig_Init(BgConfig *bgl)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0800,
             .charBase = GX_BG_CHARBASE_0x14000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -617,10 +741,18 @@ static void BgConfig_Init(BgConfig *bgl)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x1000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -635,13 +767,21 @@ static void BgConfig_Init(BgConfig *bgl)
         u16 v4 = 0x0;
 
         DC_FlushRange((void *)v4, 2);
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(&v4, 0, 2);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     }
 }
 
 static void ov5_021D1524(BgConfig *bgl)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
     Bg_FreeTilemapBuffer(bgl, BG_LAYER_MAIN_1);
     Bg_FreeTilemapBuffer(bgl, BG_LAYER_MAIN_2);
     Bg_FreeTilemapBuffer(bgl, BG_LAYER_MAIN_3);
@@ -649,7 +789,11 @@ static void ov5_021D1524(BgConfig *bgl)
 
 static void ov5_021D154C(void)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 124, 0, 31, 0, 124, 0, 31, 4);
 }
 
@@ -660,10 +804,22 @@ static void ov5_021D1570(void)
 
 static void FieldMap_InitModelAttributes(ModelAttributes *modelAttrs)
 {
+    #ifdef PLATFORM_DS
     ModelAttributes_SetPolygonMode(modelAttrs, GX_POLYGONMODE_MODULATE, FALSE);
+    #else
+    // TODO: Port GX_POLYGONMODE_MODULATE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ModelAttributes_SetCullMode(modelAttrs, GX_CULL_BACK, FALSE);
+    #else
+    // TODO: Port GX_CULL_BACK to PAL
+    #endif
     ModelAttributes_SetAlpha(modelAttrs, 31, FALSE);
+    #ifdef PLATFORM_DS
     ModelAttributes_SetMiscAttrEnabled(modelAttrs, GX_POLYGON_ATTR_MISC_FOG, TRUE, FALSE);
+    #else
+    // TODO: Port GX_POLYGON_ATTR_MISC_FOG to PAL
+    #endif
     ModelAttributes_ApplyGlobal(modelAttrs, MODEL_ATTRIBUTES_LAST_BIT);
 }
 
@@ -674,7 +830,11 @@ void ov5_021D15B4(void)
             20, 0x8000, 0x4000, 4
         };
 
+        #ifdef PLATFORM_DS
         CharTransfer_InitWithVramModes(&v0, GX_OBJVRAMMODE_CHAR_1D_32K, GX_OBJVRAMMODE_CHAR_1D_32K);
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     }
 
     PlttTransfer_Init(20, HEAP_ID_FIELD1);
@@ -716,13 +876,25 @@ static void ov5_021D15F4(FieldSystem *fieldSystem)
     {
         const MtxFx44 *v2;
 
+        #ifdef PLATFORM_DS
         v2 = NNS_G3dGlbGetProjectionMtx();
+        #else
+        // TODO: Port NNS_G3dGlbGetProjectionMtx to PAL
+        #endif
         v0 = *v2;
         v1 = v0;
         v1._32 += FX_Mul(v1._22, 4 * FX32_ONE);
 
+        #ifdef PLATFORM_DS
         NNS_G3dGlbSetProjectionMtx(&v1);
+        #else
+        // TODO: Port NNS_G3dGlbSetProjectionMtx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dGlbFlush();
+        #else
+        // TODO: Port NNS_G3dGlbFlush to PAL
+        #endif
     }
 
     ov5_021DF4F8(fieldSystem->unk_40);
@@ -733,12 +905,24 @@ static void ov5_021D15F4(FieldSystem *fieldSystem)
     }
 
     {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbSetProjectionMtx(&v0);
+        #else
+        // TODO: Port NNS_G3dGlbSetProjectionMtx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dGlbFlush();
+        #else
+        // TODO: Port NNS_G3dGlbFlush to PAL
+        #endif
     }
 
     ov5_021D1B18(fieldSystem->unk_04->unk_04);
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_AUTO, gBufferMode);
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
 }
 
 void ov5_021D16F4(FieldSystem *fieldSystem, BOOL param1)
@@ -777,8 +961,16 @@ void FieldMap_FadeScreen(const u8 fadeInOrOut)
 
 static void ov5_021D1790(FieldSystem *fieldSystem)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3_SwapBuffers(GX_SORTMODE_AUTO, gBufferMode);
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
 
     fieldSystem->mapPropAnimMan = MapPropAnimationManager_New();
     fieldSystem->mapPropOneShotAnimMan = MapPropOneShotAnimationManager_New();
@@ -884,7 +1076,11 @@ static void ov5_021D1878(FieldSystem *fieldSystem)
 
 static void ov5_021D1968(FieldSystem *fieldSystem)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
     GXLayers_TurnBothDispOn();
     fieldSystem->areaModelAttrs = ModelAttributes_New();
     FieldMap_InitModelAttributes(fieldSystem->areaModelAttrs);

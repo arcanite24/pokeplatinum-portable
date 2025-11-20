@@ -197,7 +197,11 @@ const ApplicationManagerTemplate gPokemonSummaryScreenApp = {
     PokemonSummaryScreen_Init,
     PokemonSummaryScreen_Main,
     PokemonSummaryScreen_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 BOOL PokemonSummaryScreen_ShowContestData(SaveData *saveData)
@@ -212,11 +216,39 @@ static int PokemonSummaryScreen_Init(ApplicationManager *appMan, int *state)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
 
     SetAutorepeat(4, 8);
@@ -355,7 +387,11 @@ static int PokemonSummaryScreen_Exit(ApplicationManager *appMan, int *state)
     NARC_dtor(summaryScreen->narcPlPokeData);
     Font_UseLazyGlyphAccess(FONT_SYSTEM);
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(HEAP_ID_POKEMON_SUMMARY_SCREEN);
@@ -372,22 +408,70 @@ static void PokemonSummaryScreenVBlank(void *data)
     VramTransfer_Process();
     SpriteSystem_TransferOam();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void SetVRAMBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -396,10 +480,26 @@ static void SetVRAMBanks(void)
 static void SetupBgs(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_3D,
+        #else
+        // TODO: Port GX_BG0_AS_3D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -410,10 +510,18 @@ static void SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -428,10 +536,18 @@ static void SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x2000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x512,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xd800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE
@@ -447,10 +563,18 @@ static void SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xd000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE
@@ -464,10 +588,18 @@ static void SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -482,10 +614,18 @@ static void SetupBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE
@@ -527,7 +667,19 @@ static void LoadBgGraphics(PokemonSummaryScreen *summaryScreen, NARC *narc)
 
 static void SetAlphaBlending(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, 23, 8);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void InitializeStringsAndCopyOTName(PokemonSummaryScreen *summaryScreen)
@@ -587,33 +739,57 @@ static int HandleInput_Main(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_TRANSITION_OUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         ChangePage(summaryScreen, -1);
         return SUMMARY_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         ChangePage(summaryScreen, 1);
         return SUMMARY_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         ChangeSummaryMon(summaryScreen, -1);
         return SUMMARY_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         ChangeSummaryMon(summaryScreen, 1);
         return SUMMARY_STATE_HANDLE_INPUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         summaryScreen->data->returnMode = SUMMARY_RETURN_CANCEL;
         return SUMMARY_STATE_TRANSITION_OUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         if (summaryScreen->data->mode == SUMMARY_MODE_FEED_POFFIN && summaryScreen->page == SUMMARY_MODE_SHOW_CONDITION_CHANGE) {
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             return TryFeedPoffin(summaryScreen);
@@ -686,7 +862,11 @@ static int WaitHideContestMoveInfo(PokemonSummaryScreen *summaryScreen)
 
 static int HandleInput_MoveDetails(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, -1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -695,7 +875,11 @@ static int HandleInput_MoveDetails(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_MOVE_DETAILS;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, 1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -704,7 +888,11 @@ static int HandleInput_MoveDetails(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_MOVE_DETAILS;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         if (summaryScreen->cursor == LEARNED_MOVES_MAX) {
             Sound_PlayEffect(SEQ_SE_DP_SYU01);
             summaryScreen->pageState = PAGE_STATE_INITIAL;
@@ -722,7 +910,11 @@ static int HandleInput_MoveDetails(PokemonSummaryScreen *summaryScreen)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_SYU01);
         summaryScreen->pageState = PAGE_STATE_INITIAL;
 
@@ -738,7 +930,11 @@ static int HandleInput_MoveDetails(PokemonSummaryScreen *summaryScreen)
 
 static int HandleInput_MoveSwap(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, -1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -747,7 +943,11 @@ static int HandleInput_MoveSwap(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_MOVE_SWAP;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, 1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -756,7 +956,11 @@ static int HandleInput_MoveSwap(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_MOVE_SWAP;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sprite_SetDrawFlag(summaryScreen->sprites[SUMMARY_SPRITE_MOVE_SELECTOR_2], FALSE);
 
         if (summaryScreen->cursor != LEARNED_MOVES_MAX && summaryScreen->cursor != summaryScreen->cursorTmp) {
@@ -772,7 +976,11 @@ static int HandleInput_MoveSwap(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_MOVE_DETAILS;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         Sprite_SetDrawFlag(summaryScreen->sprites[SUMMARY_SPRITE_MOVE_SELECTOR_2], FALSE);
         return SUMMARY_STATE_MOVE_DETAILS;
@@ -783,17 +991,29 @@ static int HandleInput_MoveSwap(PokemonSummaryScreen *summaryScreen)
 
 static int HandleInput_SelectMove(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         ChangePage(summaryScreen, -1);
         return SUMMARY_STATE_SELECT_MOVE;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         ChangePage(summaryScreen, 1);
         return SUMMARY_STATE_SELECT_MOVE;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, -1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -802,7 +1022,11 @@ static int HandleInput_SelectMove(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_SELECT_MOVE;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (TryChangeSelectedMove(summaryScreen, 1) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             UpdateMoveAttributes(summaryScreen);
@@ -811,7 +1035,11 @@ static int HandleInput_SelectMove(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_SELECT_MOVE;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
 
         if (summaryScreen->cursor != LEARNED_MOVES_MAX) {
@@ -828,7 +1056,11 @@ static int HandleInput_SelectMove(PokemonSummaryScreen *summaryScreen)
         return SUMMARY_STATE_TRANSITION_OUT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         summaryScreen->data->selectedMoveSlot = LEARNED_MOVES_MAX;
         summaryScreen->data->returnMode = SUMMARY_RETURN_CANCEL;
@@ -840,7 +1072,15 @@ static int HandleInput_SelectMove(PokemonSummaryScreen *summaryScreen)
 
 static int WaitForHMMsgInput(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         UpdateMoveAttributes(summaryScreen);
         return SUMMARY_STATE_SELECT_MOVE;
     }
@@ -868,27 +1108,51 @@ static int WaitHideRibbonInfo(PokemonSummaryScreen *summaryScreen)
 
 static int HandleInput_RibbonSelect(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         ChangeSelectedRibbon(summaryScreen, -1);
         return SUMMARY_STATE_RIBBON_SELECT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         ChangeSelectedRibbon(summaryScreen, 1);
         return SUMMARY_STATE_RIBBON_SELECT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         ChangeSelectedRibbon(summaryScreen, -1 * RIBBONS_PER_ROW);
         return SUMMARY_STATE_RIBBON_SELECT;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         ChangeSelectedRibbon(summaryScreen, RIBBONS_PER_ROW);
         return SUMMARY_STATE_RIBBON_SELECT;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_B | PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         summaryScreen->pageState = PAGE_STATE_INITIAL;
         return SUMMARY_STATE_HIDE_RIBBON_INFO;
@@ -924,7 +1188,15 @@ static int HandleInput_Subscreen(PokemonSummaryScreen *summaryScreen)
 
 static int SetupPoffinFeedConditionPage(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         BoxPokemon *boxMon;
         Pokemon *mon;
 
@@ -1000,7 +1272,15 @@ static int SetupPoffinFeedConditionPage(PokemonSummaryScreen *summaryScreen)
 
 static int PrintContestStatChangeMsgs(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         for (u8 i = 0; i < CONTEST_TYPE_MAX; i++) {
             if (summaryScreen->pageState & (1 << i)) {
                 PokemonSummaryScreen_PrintPoffinFeedMsg(summaryScreen, i);
@@ -1019,7 +1299,15 @@ static int PrintContestStatChangeMsgs(PokemonSummaryScreen *summaryScreen)
 
 static int WaitForPoffinFeedMsgInput(PokemonSummaryScreen *dummy)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return SUMMARY_STATE_TRANSITION_OUT;
     }
 
@@ -1381,7 +1669,11 @@ static void LoadCurrentPageTilemap(PokemonSummaryScreen *summaryScreen)
 
     void *memberBuffer = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_GRAPHIC__PL_PST_GRA, memberIndex, HEAP_ID_POKEMON_SUMMARY_SCREEN);
     NNSG2dScreenData *tilemap;
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(memberBuffer, &tilemap);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     Bg_LoadToTilemapRect(summaryScreen->bgConfig, BG_LAYER_MAIN_3, tilemap->rawData, 0, 0, 32, 32);
     Bg_ScheduleTilemapTransfer(summaryScreen->bgConfig, BG_LAYER_MAIN_3);

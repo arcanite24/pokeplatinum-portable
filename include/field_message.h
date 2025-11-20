@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_MESSAGE_H
 #define POKEPLATINUM_FIELD_MESSAGE_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "game_options.h"
 #include "graphics.h"

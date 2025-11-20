@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ENCOUNTER_EFFECT_H
 #define POKEPLATINUM_ENCOUNTER_EFFECT_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

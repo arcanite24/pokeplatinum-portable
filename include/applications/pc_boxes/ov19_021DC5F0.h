@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV19_021DC5F0_H
 #define POKEPLATINUM_OV19_021DC5F0_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pc_boxes/box_application.h"
 #include "applications/pc_boxes/struct_ov19_021D61B0_decl.h"
 #include "applications/pc_boxes/struct_ov19_021DC680.h"

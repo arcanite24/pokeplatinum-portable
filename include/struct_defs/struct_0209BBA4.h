@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0209BBA4_H
 #define POKEPLATINUM_STRUCT_0209BBA4_H
 
+#include "platform/platform_types.h"
+
 #include "applications/party_menu/defs.h"
 #include "applications/pokemon_summary_screen/main.h"
 #include "field/field_system_decl.h"

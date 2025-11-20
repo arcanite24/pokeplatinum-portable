@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINERCARD_DISPLAY_TEXT_H
 #define POKEPLATINUM_TRAINERCARD_DISPLAY_TEXT_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "strbuf.h"
 #include "trainer_card.h"

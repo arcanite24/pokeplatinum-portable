@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV109_021D5140_SUB3_H
 #define POKEPLATINUM_STRUCT_OV109_021D5140_SUB3_H
 
+#include "platform/platform_types.h"
+
 typedef union {
     u64 val1;
     struct {

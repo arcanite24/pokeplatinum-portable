@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_SIZE_CONTEST_H
 #define POKEPLATINUM_OV5_SIZE_CONTEST_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 u8 SizeContest_CalcResultForPartyMon(FieldSystem *fieldSystem, u16 partySlot);

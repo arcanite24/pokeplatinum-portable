@@ -31,7 +31,11 @@ void ov105_02245AAC(UnkStruct_ov105_02245AAC *param0)
     int v0;
 
     ov105_02245C98();
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, 93);
 
     param0->unk_00 = SpriteList_InitRendering((6 + 2 + 1), &param0->unk_04, HEAP_ID_93);
@@ -40,8 +44,16 @@ void ov105_02245AAC(UnkStruct_ov105_02245AAC *param0)
         param0->unk_190[v0] = SpriteResourceCollection_New(Unk_ov105_02246444[v0], v0, HEAP_ID_93);
     }
 
+    #ifdef PLATFORM_DS
     param0->unk_1A0[0][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 151, 0, 1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_93);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[0][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 151, 36, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 8, HEAP_ID_93);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param0->unk_1A0[0][2] = SpriteResourceCollection_Add(param0->unk_190[2], 151, 2, 1, 0, 2, HEAP_ID_93);
     param0->unk_1A0[0][3] = SpriteResourceCollection_Add(param0->unk_190[3], 151, 1, 1, 0, 3, HEAP_ID_93);
 
@@ -50,8 +62,16 @@ void ov105_02245AAC(UnkStruct_ov105_02245AAC *param0)
         SpriteTransfer_RequestPlttWholeRange(param0->unk_1A0[v0][1]);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     return;
 }
@@ -79,9 +99,17 @@ Sprite *ov105_02245BA4(UnkStruct_ov105_02245AAC *param0, u32 param1, u32 param2,
         v3.priority = param3;
 
         if (param5 == 0) {
+            #ifdef PLATFORM_DS
             v3.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             v3.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         }
 
         v3.heapID = HEAP_ID_93;
@@ -127,7 +155,11 @@ static void ov105_02245C98(void)
             32, 2048, 2048, 93
         };
 
+        #ifdef PLATFORM_DS
         CharTransfer_InitWithVramModes(&v0, GX_OBJVRAMMODE_CHAR_1D_64K, GX_OBJVRAMMODE_CHAR_1D_64K);
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_64K to PAL
+        #endif
     }
 
     PlttTransfer_Init(8, HEAP_ID_93);

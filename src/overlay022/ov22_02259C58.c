@@ -310,7 +310,11 @@ static void ov22_0225A0E4(UnkStruct_ov22_02259C58 *param0, int param1, UnkStruct
     v2.position.y = param4 << 12;
     v2.position.z = 0;
     v2.priority = 2;
+    #ifdef PLATFORM_DS
     v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v2.heapID = HEAP_ID_14;
 
     v0.unk_00 = &v2;
@@ -336,7 +340,11 @@ static void ov22_0225A154(UnkStruct_ov22_0225A154 *param0, int param1, UnkStruct
     v2.position.y = param6 << 12;
     v2.position.z = 0;
     v2.priority = 2;
+    #ifdef PLATFORM_DS
     v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v2.heapID = HEAP_ID_14;
 
     v0.unk_00.unk_00 = &v2;
@@ -351,7 +359,11 @@ static void ov22_0225A154(UnkStruct_ov22_0225A154 *param0, int param1, UnkStruct
     v3 = SpriteResourceCollection_Find(param2->unk_48[1], 1);
     v0.unk_18 = SpriteTransfer_GetPaletteProxy(v3, NULL);
 
+    #ifdef PLATFORM_DS
     GF_ASSERT(CharTransfer_AllocRange(sub_02012898(param4, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_13), 1, NNS_G2D_VRAM_TYPE_2DMAIN, &param0->unk_14));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v0.unk_24 = param0->unk_14.offset;
 
@@ -371,13 +383,25 @@ static void ov22_0225A218(UnkStruct_ov22_0225A0E4 *param0)
     int v0;
 
     for (v0 = 0; v0 < 5; v0++) {
+        #ifdef PLATFORM_DS
         ov22_02255248(param0, param0->unk_5C, (v0) * 3 + 105 + 2, 0, NNS_G2D_VRAM_TYPE_2DMAIN, v0);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ov22_0225528C(param0, param0->unk_5C, (v0) * 3 + 105 + 1, 0, v0);
         ov22_022552A8(param0, param0->unk_5C, (v0) * 3 + 105 + 0, 0, v0);
     }
 
+    #ifdef PLATFORM_DS
     ov22_02255268(param0, param0->unk_5C, 104, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 3, 0);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov22_02255268(param0, param0->unk_5C, 120, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 2, 1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 static void ov22_0225A2A8(UnkStruct_ov22_0225A0E4 *param0)

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SHOP_MENU_H
 #define POKEPLATINUM_SHOP_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 #include "overlay005/struct_ov5_021D30A8.h"
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV104_02230BE4_H
 #define POKEPLATINUM_STRUCT_OV104_02230BE4_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "bag.h"

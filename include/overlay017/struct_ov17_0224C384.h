@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_0224C384_H
 #define POKEPLATINUM_STRUCT_OV17_0224C384_H
 
+#include "platform/platform_types.h"
+
 #include "sprite_system.h"
 #include "sys_task_manager.h"
 

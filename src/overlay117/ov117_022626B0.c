@@ -132,7 +132,11 @@ static const SpriteTemplate Unk_ov117_02266B38 = {
     0x0,
     0xE,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x2713, 0x2715, 0x2713, 0x2713, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -153,7 +157,11 @@ extern const s32 Unk_ov117_02266FD8[];
 
 inline void inline_ov117_02262EAC(int param0)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dGeNormal(Unk_ov117_02266B12[param0 * 3], Unk_ov117_02266B12[param0 * 3 + 1], Unk_ov117_02266B12[param0 * 3 + 2]);
+    #else
+    // TODO: Port NNS_G3dGeNormal to PAL
+    #endif
 }
 
 UnkStruct_ov117_022626B0 *ov117_022626B0(UnkStruct_ov117_02261280 *param0)
@@ -364,44 +372,136 @@ static void ov117_02262A70(UnkStruct_ov117_022626B0 *param0)
 {
     u32 v0, v1;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGeLightVector to PAL
+    #endif
     NNS_G3dGeLightVector(GX_LIGHTID_0, FX16_SQRT1_3, -FX16_SQRT1_3, -FX16_SQRT1_3);
+    #else
+    // TODO: Port GX_LIGHTID_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGeLightColor to PAL
+    #endif
     NNS_G3dGeLightColor(GX_LIGHTID_0, GX_RGB(31, 31, 31));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     {
         fx16 v2 = FX_SinIdx(param0->unk_08);
         fx16 v3 = FX_CosIdx(param0->unk_08);
 
+        #ifdef PLATFORM_DS
         NNS_G3dGeTranslate(0, (9 + 10) * FX32_ONE, -5 * FX32_ONE);
+        #else
+        // TODO: Port NNS_G3dGeTranslate to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dGeScale(param0->unk_260 + param0->unk_260 * (param0->unk_268 + param0->unk_26C) / 100, param0->unk_264 + param0->unk_264 * param0->unk_26A / 100, (FX32_ONE));
+        #else
+        // TODO: Port NNS_G3dGeScale to PAL
+        #endif
     }
 
     {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGeMtxMode to PAL
+        #endif
         NNS_G3dGeMtxMode(GX_MTXMODE_TEXTURE);
+        #else
+        // TODO: Port GX_MTXMODE_TEXTURE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dGeIdentity();
+        #else
+        // TODO: Port NNS_G3dGeIdentity to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGeMtxMode to PAL
+        #endif
         NNS_G3dGeMtxMode(GX_MTXMODE_POSITION_VECTOR);
+        #else
+        // TODO: Port GX_MTXMODE_POSITION_VECTOR to PAL
+        #endif
     }
 
     ov117_02262D4C(1, 1);
     ov117_02262D98();
 
+    #ifdef PLATFORM_DS
     v0 = NNS_GfdGetTexKeyAddr(param0->unk_04->texInfo.vramKey);
+    #else
+    // TODO: Port NNS_GfdGetTexKeyAddr to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v1 = NNS_GfdGetPlttKeyAddr(param0->unk_04->plttInfo.vramKey);
+    #else
+    // TODO: Port NNS_GfdGetPlttKeyAddr to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGeTexImageParam to PAL
+    #endif
     NNS_G3dGeTexImageParam(GX_TEXFMT_PLTT256, GX_TEXGEN_TEXCOORD, GX_TEXSIZE_S128, GX_TEXSIZE_T128, GX_TEXREPEAT_NONE, GX_TEXFLIP_NONE, GX_TEXPLTTCOLOR0_TRNS, v0);
+    #else
+    // TODO: Port GX_TEXPLTTCOLOR0_TRNS to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGeTexPlttBase to PAL
+    #endif
     NNS_G3dGeTexPlttBase(v1, GX_TEXFMT_PLTT256);
+    #else
+    // TODO: Port GX_TEXFMT_PLTT256 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGePolygonAttr to PAL
+    #endif
     NNS_G3dGePolygonAttr(GX_LIGHTMASK_0, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, 0, 31, GX_POLYGON_ATTR_MISC_NONE);
+    #else
+    // TODO: Port GX_POLYGON_ATTR_MISC_NONE to PAL
+    #endif
 
     ov117_02262EAC(param0);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeFlushBuffer();
+    #else
+    // TODO: Port NNS_G3dGeFlushBuffer to PAL
+    #endif
 }
 
 static void ov117_02262B98(UnkStruct_ov117_022626B0 *param0)
 {
     param0->unk_00 = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_APPLICATION__BALLOON__GRAPHIC__BALLOON_GRA, 29, 110);
+    #ifdef PLATFORM_DS
     param0->unk_04 = NNS_G3dGetTex(param0->unk_00);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     Easy3D_UploadTextureToVRAM(param0->unk_04);
 
@@ -443,9 +543,21 @@ static void ov117_02262B98(UnkStruct_ov117_022626B0 *param0)
 
 static void ov117_02262C3C(UnkStruct_ov117_022626B0 *param0)
 {
+    #ifdef PLATFORM_DS
     GX_BeginLoadTexPltt();
+    #else
+    // TODO: Port GX_BeginLoadTexPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_LoadTexPltt(param0->unk_250, param0->unk_258, param0->unk_254);
+    #else
+    // TODO: Port GX_LoadTexPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_EndLoadTexPltt();
+    #else
+    // TODO: Port GX_EndLoadTexPltt to PAL
+    #endif
 }
 
 static void ov117_02262C60(UnkStruct_ov117_022626B0 *param0, int param1)
@@ -501,16 +613,40 @@ static void ov117_02262CFC(UnkStruct_ov117_022626B0 *param0)
     }
 }
 
+#ifdef PLATFORM_DS
 static const GXRgb DEMO_DIFFUSE_COL = GX_RGB(23, 23, 23);
+#else
+// TODO: Port GX_RGB to PAL
+#endif
+#ifdef PLATFORM_DS
 static const GXRgb DEMO_AMBIENT_COL = GX_RGB(8, 8, 8);
+#else
+// TODO: Port GX_RGB to PAL
+#endif
+#ifdef PLATFORM_DS
 static const GXRgb DEMO_SPECULAR_COL = GX_RGB(31, 31, 31);
+#else
+// TODO: Port GX_RGB to PAL
+#endif
+#ifdef PLATFORM_DS
 static const GXRgb DEMO_EMISSION_COL = GX_RGB(0, 0, 0);
+#else
+// TODO: Port GX_RGB to PAL
+#endif
 static const u32 LIGHTING_L_DOT_S_SHIFT = 8;
 
 void ov117_02262D4C(BOOL param0, BOOL param1)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dGeMaterialColorDiffAmb(DEMO_DIFFUSE_COL, DEMO_AMBIENT_COL, param0);
+    #else
+    // TODO: Port NNS_G3dGeMaterialColorDiffAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGeMaterialColorSpecEmi(DEMO_SPECULAR_COL, DEMO_EMISSION_COL, param1);
+    #else
+    // TODO: Port NNS_G3dGeMaterialColorSpecEmi to PAL
+    #endif
 }
 
 #include <nitro/code32.h>
@@ -527,7 +663,11 @@ void ov117_02262D98()
 
     v1[v2 - 1] = 0xFF;
 
+    #ifdef PLATFORM_DS
     NNS_G3dGeShininess(&v0[0]);
+    #else
+    // TODO: Port NNS_G3dGeShininess to PAL
+    #endif
 }
 
 #include <nitro/codereset.h>
@@ -582,29 +722,73 @@ static void ov117_02262EAC(UnkStruct_ov117_022626B0 *param0)
     fx16 v3, v4;
 
     for (v0 = 0; v0 < 8; v0++) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGeBegin to PAL
+        #endif
         NNS_G3dGeBegin(GX_BEGIN_QUADS);
+        #else
+        // TODO: Port GX_BEGIN_QUADS to PAL
+        #endif
 
         ov117_02263168(param0->unk_0C[v0].unk_00.unk_00, param0->unk_0C[v0].unk_00.unk_04, &v3, &v4);
+        #ifdef PLATFORM_DS
         NNS_G3dGeTexCoord(param0->unk_10C[v0].unk_00.unk_00, param0->unk_10C[v0].unk_00.unk_04);
+        #else
+        // TODO: Port NNS_G3dGeTexCoord to PAL
+        #endif
         inline_ov117_02262EAC(0);
+        #ifdef PLATFORM_DS
         NNS_G3dGeVtx(v3, v4, 0);
+        #else
+        // TODO: Port NNS_G3dGeVtx to PAL
+        #endif
 
         ov117_02263168(param0->unk_0C[v0].unk_08.unk_00, param0->unk_0C[v0].unk_08.unk_04, &v3, &v4);
+        #ifdef PLATFORM_DS
         NNS_G3dGeTexCoord(param0->unk_10C[v0].unk_08.unk_00, param0->unk_10C[v0].unk_08.unk_04);
+        #else
+        // TODO: Port NNS_G3dGeTexCoord to PAL
+        #endif
         inline_ov117_02262EAC(0);
+        #ifdef PLATFORM_DS
         NNS_G3dGeVtx(v3, v4, 0);
+        #else
+        // TODO: Port NNS_G3dGeVtx to PAL
+        #endif
 
         ov117_02263168(param0->unk_0C[v0].unk_18.unk_00, param0->unk_0C[v0].unk_18.unk_04, &v3, &v4);
+        #ifdef PLATFORM_DS
         NNS_G3dGeTexCoord(param0->unk_10C[v0].unk_18.unk_00, param0->unk_10C[v0].unk_18.unk_04);
+        #else
+        // TODO: Port NNS_G3dGeTexCoord to PAL
+        #endif
         inline_ov117_02262EAC(0);
+        #ifdef PLATFORM_DS
         NNS_G3dGeVtx(v3, v4, 0);
+        #else
+        // TODO: Port NNS_G3dGeVtx to PAL
+        #endif
 
         ov117_02263168(param0->unk_0C[v0].unk_10.unk_00, param0->unk_0C[v0].unk_10.unk_04, &v3, &v4);
+        #ifdef PLATFORM_DS
         NNS_G3dGeTexCoord(param0->unk_10C[v0].unk_10.unk_00, param0->unk_10C[v0].unk_10.unk_04);
+        #else
+        // TODO: Port NNS_G3dGeTexCoord to PAL
+        #endif
         inline_ov117_02262EAC(0);
+        #ifdef PLATFORM_DS
         NNS_G3dGeVtx(v3, v4, 0);
+        #else
+        // TODO: Port NNS_G3dGeVtx to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         NNS_G3dGeEnd();
+        #else
+        // TODO: Port NNS_G3dGeEnd to PAL
+        #endif
     }
 }
 
@@ -910,8 +1094,16 @@ static void ov117_022638D8(UnkStruct_ov117_02261280 *param0)
 {
     NARC *v0 = NARC_ctor(NARC_INDEX_APPLICATION__BALLOON__GRAPHIC__BALLOON_GRA, HEAP_ID_110);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_8C, PLTTBUF_MAIN_OBJ, param0->unk_24, param0->unk_28, v0, 58, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 10005);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_24, param0->unk_28, v0, 55, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 10003);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_24, param0->unk_28, v0, 57, FALSE, 10003);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_24, param0->unk_28, v0, 56, FALSE, 10003);
     NARC_dtor(v0);

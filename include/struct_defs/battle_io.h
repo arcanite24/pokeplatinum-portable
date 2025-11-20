@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BATTLE_IO_H
 #define POKEPLATINUM_STRUCT_BATTLE_IO_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/types.h>
 #else

@@ -178,9 +178,17 @@ static void ov20_021D30F8(UnkStruct_ov20_021D30F8 *param0)
 {
     if (ov20_021D1F84(param0->unk_04) == 2) {
         int v0 = 1 + ov20_021D1F9C(param0->unk_04);
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(param0->unk_70[v0], 0 * 0x20, 0x20);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(param0->unk_70[0], 0 * 0x20, 0x20);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     }
 }
 
@@ -218,13 +226,25 @@ static void ov20_021D3184(UnkStruct_ov20_021D30F8 *param0)
     }
 
     ov20_021D2E0C(param0->unk_00, &v0, 0, 0);
+    #ifdef PLATFORM_DS
     param0->unk_3C = ov20_021D2E50(param0->unk_00, &v0, v1.unk_00, v1.unk_02, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     ov20_021D375C(param0, 1);
+    #ifdef PLATFORM_DS
     param0->unk_40 = ov20_021D2E50(param0->unk_00, &v0, 6, 24, 1, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     Sprite_SetAnim(param0->unk_40, 13);
+    #ifdef PLATFORM_DS
     param0->unk_44 = ov20_021D2E50(param0->unk_00, &v0, 250, 24, 1, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     Sprite_SetAnim(param0->unk_44, 12);
 

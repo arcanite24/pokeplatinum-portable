@@ -130,7 +130,11 @@ int ov115_0226048C(ApplicationManager *appMan, int *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (gSystem.heldKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             break;
         }
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV100_021D4DD8_H
 #define POKEPLATINUM_STRUCT_OV100_021D4DD8_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_020985E4.h"
 
 #include "overlay100/struct_ov100_021D46C8.h"

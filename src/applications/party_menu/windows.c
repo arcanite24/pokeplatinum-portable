@@ -808,7 +808,11 @@ void PartyMenu_DrawContextMenu(PartyMenuApplication *application, const u8 *entr
     }
 
     Window_DrawStandardFrame(&application->menuWindows[0], TRUE, 1, 14);
+    #ifdef PLATFORM_DS
     application->contextMenu = Menu_NewAndCopyToVRAM(&template, 8, 0, 0, HEAP_ID_PARTY_MENU, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 void PartyMenu_LoadContextMenuPrompt(PartyMenuApplication *application)

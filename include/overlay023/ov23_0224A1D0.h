@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_0224A1D0_H
 #define POKEPLATINUM_OV23_0224A1D0_H
 
+#include "platform/platform_types.h"
+
 enum PlayerStatus {
     PLAYER_STATUS_NORMAL = 0,
     PLAYER_STATUS_MOVEMENT_ALTERED,

@@ -88,7 +88,11 @@ void AreaLightManager_UpdateActiveTemplate(AreaLightManager *areaLightMan)
 
 void AreaLightTemplate_ApplyToModelAttributes(const AreaLightTemplate *template, ModelAttributes *modelAttrs)
 {
+    #ifdef PLATFORM_DS
     for (int i = 0; i < GX_LIGHTS_COUNT; i++) {
+    #else
+    // TODO: Port GX_LIGHTS_COUNT to PAL
+    #endif
         int currentLightMask = (1 << i);
 
         if ((template->validLightsMask & currentLightMask) != 0) {
@@ -96,7 +100,11 @@ void AreaLightTemplate_ApplyToModelAttributes(const AreaLightTemplate *template,
             ModelAttributes_SetLightColor(modelAttrs, i, template->lightColors[i]);
         } else {
             ModelAttributes_SetLightVector(modelAttrs, i, 0, 0, 0);
+            #ifdef PLATFORM_DS
             ModelAttributes_SetLightColor(modelAttrs, i, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         }
     }
 
@@ -114,10 +122,26 @@ static void AreaLightManager_ApplyActiveTemplateToAreaModelAttrs(AreaLightManage
 
 void AreaLight_UseGlobalModelAttributes(NNSG3dResMdl *model)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 }
 
 static u32 AreaLightTemplate_New(u32 archiveID, AreaLightTemplate **templates)
@@ -158,13 +182,21 @@ static u32 AreaLightTemplate_New(u32 archiveID, AreaLightTemplate **templates)
         iter = Ascii_CopyToTerminator(iter, endTimeBuffer, ',');
         template->endTime = Ascii_ConvertToInt(endTimeBuffer);
 
+        #ifdef PLATFORM_DS
         for (j = 0; j < GX_LIGHTS_COUNT; j++) {
+        #else
+        // TODO: Port GX_LIGHTS_COUNT to PAL
+        #endif
             fileIter = AreaLightTemplate_ParseLightAttrs(fileIter, &template->lightColors[j], &template->lightVectors[j]);
 
             if (template->lightColors[j] != INVALID_LIGHT_COLOR) {
                 template->validLightsMask |= 1 << j;
             } else {
+                #ifdef PLATFORM_DS
                 template->lightColors[j] = GX_RGB(0, 0, 0);
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
             }
         }
 
@@ -199,17 +231,37 @@ static char *AreaLightTemplate_ParseLightAttrs(char *fileIter, GXRgb *lightColor
 
     if (lightValid == TRUE) {
         int i;
+        #ifdef PLATFORM_DS
         u16 lightColorParts[GX_COLOR_DIMS];
+        #else
+        // TODO: Port GX_COLOR_DIMS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         s32 lightVectorParts[GX_VEC_FX_DIMS];
+        #else
+        // TODO: Port GX_VEC_FX_DIMS to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         for (i = 0; i < GX_COLOR_DIMS; i++) {
+        #else
+        // TODO: Port GX_COLOR_DIMS to PAL
+        #endif
             iter = Ascii_CopyToTerminator(iter, partBuffer, ',');
             lightColorParts[i] = Ascii_ConvertToInt(partBuffer);
         }
 
+        #ifdef PLATFORM_DS
         *lightColor = GX_RGB(lightColorParts[0], lightColorParts[1], lightColorParts[2]);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         for (i = 0; i < GX_VEC_FX_DIMS; i++) {
+        #else
+        // TODO: Port GX_VEC_FX_DIMS to PAL
+        #endif
             iter = Ascii_CopyToTerminator(iter, partBuffer, ',');
             lightVectorParts[i] = Ascii_ConvertToInt(partBuffer);
         }
@@ -252,17 +304,29 @@ static char *AreaLightTemplate_ParseColor(char *fileIter, GXRgb *color)
 {
     char lineBuffer[SCRATCH_BUFFER_SIZE];
     char partBuffer[SCRATCH_BUFFER_SIZE];
+    #ifdef PLATFORM_DS
     u16 colorParts[GX_COLOR_DIMS];
+    #else
+    // TODO: Port GX_COLOR_DIMS to PAL
+    #endif
 
     fileIter = Ascii_CopyToTerminator(fileIter, lineBuffer, '\r');
     char *iter = lineBuffer;
 
+    #ifdef PLATFORM_DS
     for (int i = 0; i < GX_COLOR_DIMS; i++) {
+    #else
+    // TODO: Port GX_COLOR_DIMS to PAL
+    #endif
         iter = Ascii_CopyToTerminator(iter, partBuffer, ',');
         colorParts[i] = Ascii_ConvertToInt(partBuffer);
     }
 
+    #ifdef PLATFORM_DS
     *color = GX_RGB(colorParts[0], colorParts[1], colorParts[2]);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     return fileIter;
 }

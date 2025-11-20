@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GAME_OPTIONS_H
 #define POKEPLATINUM_GAME_OPTIONS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/game_options.h"
 
 #include "savedata.h"

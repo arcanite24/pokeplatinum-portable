@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PARTY_MENU_DEFS_H
 #define POKEPLATINUM_PARTY_MENU_DEFS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/graphics.h"
 #include "constants/pokemon.h"
 

@@ -445,7 +445,11 @@ static int EnterPokedexSearch(void *graphics, PokedexGraphicsManager *graphicsMa
         break;
     case 1:
         DefaultDisplay(searchDisplay, v2, searchSettings, v1, graphicsMan->heapID);
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, -16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         graphicsMan->state++;
         break;
     case 2:
@@ -486,7 +490,11 @@ static int ExitPokedexSearch(void *graphics, PokedexGraphicsManager *graphicsMan
     switch (graphicsMan->state) {
     case 0:
         if (searchSettings->applyFilter == FALSE) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(6, -16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             graphicsMan->state++;
         } else {
             graphicsMan->state = 2;
@@ -590,12 +598,20 @@ static void GetSearchGraphics(PokedexSearchDisplay *searchDisplay, PokedexGraphi
     PokedexGraphicData *v0 = *param1;
     NARC *pokedexGraphics = PokedexGraphics_GetNARC(v0);
 
+    #ifdef PLATFORM_DS
     searchDisplay->searchGraphics[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[SPRITE_RESOURCE_CHAR], pokedexGraphics, search_body_shapes_NCGR_lz, TRUE, search_body_shapes_NCGR_lz + 15000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(searchDisplay->searchGraphics[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(searchDisplay->searchGraphics[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     searchDisplay->searchGraphics[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[SPRITE_RESOURCE_PLTT], pokedexGraphics, buttons_NCLR, FALSE, buttons_NCLR + 15000, NNS_G2D_VRAM_TYPE_2DMAIN, 12, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(searchDisplay->searchGraphics[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(searchDisplay->searchGraphics[SPRITE_RESOURCE_PLTT]);
@@ -628,7 +644,11 @@ static void InitCellActors(PokedexSearchDisplay *searchDisplay, PokedexGraphicDa
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = heapID;
 
     v1.position.x = 128 << FX32_SHIFT;

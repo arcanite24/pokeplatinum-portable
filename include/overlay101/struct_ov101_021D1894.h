@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV101_021D1894_H
 #define POKEPLATINUM_STRUCT_OV101_021D1894_H
 
+#include "platform/platform_types.h"
+
 #include "enums.h"
 #include "sys_task_manager.h"
 

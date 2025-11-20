@@ -362,7 +362,11 @@ ManagedSprite *ov5_021D3584(UnkStruct_ov5_021D30A8 *param0, const SpriteTemplate
     v3.position.y = FX32_CONST(param1->y);
     v3.position.z = FX32_CONST(param1->z);
 
+    #ifdef PLATFORM_DS
     if (param1->vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         v3.position.y += (192 << FX32_SHIFT);
     }
 

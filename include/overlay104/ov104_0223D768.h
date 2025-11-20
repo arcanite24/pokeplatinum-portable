@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0223D768_H
 #define POKEPLATINUM_OV104_0223D768_H
 
+#include "platform/platform_types.h"
+
 #include "narc.h"
 #include "palette.h"
 #include "sprite_system.h"

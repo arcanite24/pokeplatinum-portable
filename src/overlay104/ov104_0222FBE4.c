@@ -1354,9 +1354,17 @@ static BOOL ov104_02230790(UnkStruct_ov104_0222E930 *param0)
     GF_ASSERT(v0 != NULL);
 
     if (v4 == 0) {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOamMode2(v0->sprite, GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOamMode2(v0->sprite, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
     return 0;
@@ -1960,7 +1968,11 @@ static BOOL ov104_02231068(UnkStruct_ov104_0222E930 *param0)
 
 static BOOL ov104_02231078(UnkStruct_ov104_0222E930 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return 1;
     }
 
@@ -1976,7 +1988,11 @@ static BOOL ov104_02231090(UnkStruct_ov104_0222E930 *param0)
 
 static BOOL ov104_022310B0(UnkStruct_ov104_0222E930 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return 1;
     }
 
@@ -2347,7 +2363,11 @@ static BOOL ov104_02231720(UnkStruct_ov104_02231148 *param0)
             }
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(40, -16, 0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         SysTask_Start(ov104_022313FC, param0, 0x1000);
 
         param0->unk_04++;
@@ -2417,7 +2437,11 @@ static BOOL ov104_02231864(UnkStruct_ov104_02231148 *param0)
             }
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(40, -16, 0, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         SysTask_Start(ov104_022313FC, param0, 0x1000);
 
         param0->unk_04++;
@@ -2688,7 +2712,11 @@ static BOOL ov104_02231D1C(UnkStruct_ov104_0222E930 *param0)
     v0 = SaveData_GetParty(v2->saveData);
     v1 = Party_GetPokemonBySlotIndex(v0, v4);
     v8 = 8;
+    #ifdef PLATFORM_DS
     v9 = (GX_RGB(0, 0, 0));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     ov104_02232CE0(v3, v1, HEAP_ID_FIELD2, v7, v5, v6, 0, 0, v8, v9);
     return 0;

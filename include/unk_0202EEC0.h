@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0202EEC0_H
 #define POKEPLATINUM_UNK_0202EEC0_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02024440_decl.h"
 
 #include "pokemon.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPECIAL_ENCOUNTER_H
 #define POKEPLATINUM_SPECIAL_ENCOUNTER_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/radar_chain_records.h"
 #include "struct_defs/special_encounter.h"
 

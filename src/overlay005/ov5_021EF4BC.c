@@ -117,7 +117,11 @@ static void ov5_021EF5A8(SysTask *param0, void *param1)
 static void ov5_021EF634(UnkStruct_ov5_021EF4F8 *param0)
 {
     const u16 *v0;
+    #ifdef PLATFORM_DS
     int v1 = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
     v0 = BufferManager_GetReadBuffer(param0->bufferManager);
 
     if (v1 < 192) {
@@ -127,7 +131,11 @@ static void ov5_021EF634(UnkStruct_ov5_021EF4F8 *param0)
             v1 -= 192;
         }
 
+        #ifdef PLATFORM_DS
         if (GX_IsHBlank()) {
+        #else
+        // TODO: Port GX_IsHBlank to PAL
+        #endif
             G3X_SetHOffset(v0[v1]);
         }
     }

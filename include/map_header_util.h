@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_HEADER_UTIL_H
 #define POKEPLATINUM_MAP_HEADER_UTIL_H
 
+#include "platform/platform_types.h"
+
 #include "generated/map_headers.h"
 
 #include "message.h"

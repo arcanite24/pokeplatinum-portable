@@ -181,10 +181,26 @@ void EncounterEffect_Grass_HigherLevel(SysTask *task, void *param)
     case 5:
         SetColorBrightness(COLOR_BLACK);
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG0Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG1Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG1Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG3Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG3Offset to PAL
+        #endif
 
         if (encEffect->done != NULL) {
             *(encEffect->done) = 1;
@@ -274,10 +290,26 @@ void EncounterEffect_Grass_LowerLevel(SysTask *task, void *param)
     case 5:
         SetColorBrightness(COLOR_BLACK);
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG0Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG1Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG1Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG3Offset(0, 0);
+        #else
+        // TODO: Port G2_SetBG3Offset to PAL
+        #endif
 
         if (encEffect->done != NULL) {
             *(encEffect->done) = TRUE;
@@ -688,7 +720,11 @@ void EncounterEffect_Trainer_Grass_LowerLevel(SysTask *task, void *param)
             Sprite_SetPriority(trainerEffect->pokeballSprites[i], i * 2);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         encEffect->state++;
         break;
@@ -853,7 +889,11 @@ void EncounterEffect_Trainer_Grass_HigherLevel(SysTask *param0, void *param1)
                 Sprite_SetAffineOverwriteMode(v1->unk_200[v4], 2);
             }
         }
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         encEffect->state++;
         break;
@@ -998,7 +1038,11 @@ void EncounterEffect_Trainer_Water_LowerLevel(SysTask *param0, void *param1)
             Sprite_SetPriority(v1->unk_224[v5], v5);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v0->state++;
         break;
@@ -1025,7 +1069,19 @@ void EncounterEffect_Trainer_Water_LowerLevel(SysTask *param0, void *param1)
 
     case 3:
         LinearInterpolationTaskS32_Init(&v1->unk_18, 0, 16, 8);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, v1->unk_18.currentValue, 16 - v1->unk_18.currentValue);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
 
         for (v5 = 0; v5 < 2; v5++) {
             Sprite_SetDrawFlag(
@@ -1033,7 +1089,11 @@ void EncounterEffect_Trainer_Water_LowerLevel(SysTask *param0, void *param1)
 
             Sprite_SetAffineOverwriteMode(
                 v1->unk_224[v5], 2);
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(v1->unk_224[v5], GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
         }
 
         LinearInterpolationTaskS32_Init(&v1->unk_2C, 0, 0xffff, 8);
@@ -1043,7 +1103,11 @@ void EncounterEffect_Trainer_Water_LowerLevel(SysTask *param0, void *param1)
 
     case 4:
         v2 = LinearInterpolationTaskS32_Update(&v1->unk_18);
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_18.currentValue, 16 - v1->unk_18.currentValue);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         v6 = v1->unk_2C.currentValue;
         v3 = LinearInterpolationTaskS32_Update(&v1->unk_2C);
@@ -1057,10 +1121,18 @@ void EncounterEffect_Trainer_Water_LowerLevel(SysTask *param0, void *param1)
         }
 
         if (v2 == 1) {
+            #ifdef PLATFORM_DS
             G2_BlendNone();
+            #else
+            // TODO: Port G2_BlendNone to PAL
+            #endif
 
             for (v5 = 0; v5 < 2; v5++) {
+                #ifdef PLATFORM_DS
                 Sprite_SetExplicitOAMMode(v1->unk_224[v5], GX_OAM_MODE_NORMAL);
+                #else
+                // TODO: Port GX_OAM_MODE_NORMAL to PAL
+                #endif
             }
 
             v0->state++;
@@ -1171,7 +1243,11 @@ void EncounterEffect_Trainer_Water_HigherLevel(SysTask *param0, void *param1)
             v1->unk_258[v3] = ov5_021DE6A4(HEAP_ID_FIELD1);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v1->unk_270 = Window_New(HEAP_ID_FIELD1, 1);
         Window_Add(v0->fieldSystem->bgConfig, v1->unk_270, 3, 0, 0, 32, 32, 0, 0);
@@ -1374,7 +1450,11 @@ void EncounterEffect_Trainer_Cave_LowerLevel(SysTask *param0, void *param1)
         v1->unk_230 = ov5_021DE62C(
             &v1->unk_5C, &v1->unk_1FC, 128 * FX32_ONE, -32 * FX32_ONE, 0, 0);
         Sprite_SetDrawFlag(v1->unk_230, FALSE);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v0->state++;
         break;
@@ -1503,7 +1583,11 @@ void EncounterEffect_Trainer_Cave_HigherLevel(SysTask *param0, void *param1)
             Sprite_SetDrawFlag(v1->unk_1D4[v4], FALSE);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v1->unk_264 = Window_New(HEAP_ID_FIELD1, 1);
         Window_Add(v0->fieldSystem->bgConfig, v1->unk_264, 3, 0, 0, 32, 32, 0, 0);
@@ -1724,8 +1808,16 @@ void EncounterEffect_Frontier(SysTask *param0, void *param1)
         v1->unk_200 = ov5_021DE62C(
             &v1->unk_2C, &v1->unk_1CC, 128 * FX32_ONE, 96 * FX32_ONE, 0, 0);
         Sprite_SetDrawFlag(v1->unk_200, FALSE);
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(v1->unk_200, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v0->state++;
         break;
@@ -1745,7 +1837,19 @@ void EncounterEffect_Frontier(SysTask *param0, void *param1)
 
     case 3:
         LinearInterpolationTaskS32_Init(&v1->unk_00, 0, 16, 12);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, v1->unk_00.currentValue, 16 - v1->unk_00.currentValue);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
 
         Sprite_SetDrawFlag(
             v1->unk_200, 1);
@@ -1754,11 +1858,23 @@ void EncounterEffect_Frontier(SysTask *param0, void *param1)
 
     case 4:
         v2 = LinearInterpolationTaskS32_Update(&v1->unk_00);
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_00.currentValue, 16 - v1->unk_00.currentValue);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v2 == 1) {
+            #ifdef PLATFORM_DS
             G2_BlendNone();
+            #else
+            // TODO: Port G2_BlendNone to PAL
+            #endif
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(v1->unk_200, GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
             v0->state++;
         }
 
@@ -1842,7 +1958,11 @@ void EncounterEffect_Double(SysTask *param0, void *param1)
             Sprite_SetDrawFlag(v1->unk_1D4[v3], FALSE);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v0->state++;
         break;
@@ -1996,7 +2116,11 @@ void EncounterEffect_GalacticGrunt(SysTask *param0, void *param1)
             Sprite_SetDrawFlag(v1->unk_1D4[v3], FALSE);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v0->state++;
         break;
@@ -2139,9 +2263,17 @@ void EncounterEffect_GalacticBoss(SysTask *param0, void *param1)
         v1->unk_1DC = ov5_021DE62C(
             &v1->unk_08, &v1->unk_1A8, 128 * FX32_ONE, 96 * FX32_ONE, 0, 0);
         Sprite_SetDrawFlag(v1->unk_1DC, FALSE);
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(v1->unk_1DC, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         Sprite_SetExplicitPriority(v1->unk_1DC, 1);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v1->unk_04 = ov5_021DEBEC(HEAP_ID_FIELD1);
 
@@ -2176,17 +2308,41 @@ void EncounterEffect_GalacticBoss(SysTask *param0, void *param1)
     case 3:
         LinearInterpolationTaskS32_Init(&v1->unk_1F4, 0, 16, 15);
         Sprite_SetDrawFlag(v1->unk_1DC, TRUE);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, v1->unk_1F4.currentValue, 16 - v1->unk_1F4.currentValue);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         v0->state++;
         break;
 
     case 4:
         v2 = LinearInterpolationTaskS32_Update(&v1->unk_1F4);
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_1F4.currentValue, 16 - v1->unk_1F4.currentValue);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v2 == 1) {
+            #ifdef PLATFORM_DS
             G2_BlendNone();
+            #else
+            // TODO: Port G2_BlendNone to PAL
+            #endif
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(v1->unk_1DC, GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
             v0->state++;
             v1->unk_21C = 16;
         }
@@ -2207,7 +2363,11 @@ void EncounterEffect_GalacticBoss(SysTask *param0, void *param1)
 
     case 6:
         LinearInterpolationTaskS32_Update(&v1->unk_1E0);
+        #ifdef PLATFORM_DS
         G2_SetOBJMosaicSize(v1->unk_1E0.currentValue, v1->unk_1E0.currentValue);
+        #else
+        // TODO: Port G2_SetOBJMosaicSize to PAL
+        #endif
 
         if (ov5_021DECB8(v1->unk_04)) {
             v0->state++;
@@ -2236,7 +2396,11 @@ void EncounterEffect_GalacticBoss(SysTask *param0, void *param1)
         Bg_ClearTilesRange(BG_LAYER_MAIN_3, 32, 0, HEAP_ID_FIELD1);
         Bg_ClearTilemap(v0->fieldSystem->bgConfig, 3);
 
+        #ifdef PLATFORM_DS
         G2_SetOBJMosaicSize(0, 0);
+        #else
+        // TODO: Port G2_SetOBJMosaicSize to PAL
+        #endif
 
         EncounterEffect_Finish(v0, param0);
         break;
@@ -2408,9 +2572,21 @@ void EncounterEffect_Mythical(SysTask *task, void *param)
         encEffect->param = Heap_Alloc(HEAP_ID_FIELD1, sizeof(MythicalEncounterEffect));
         memset(encEffect->param, 0, sizeof(MythicalEncounterEffect));
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         encEffect->state++;
         break;
 
@@ -2468,7 +2644,11 @@ void EncounterEffect_Mythical(SysTask *task, void *param)
 
         FieldMotionBlur_Stop(&mythicalEffect->motionBlur);
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
 
         if (encEffect->done != NULL) {
             *(encEffect->done) = TRUE;
@@ -2491,9 +2671,21 @@ void EncounterEffect_Legendary(SysTask *task, void *param)
         encEffect->param = Heap_Alloc(HEAP_ID_FIELD1, sizeof(LegendaryEncounterEffect));
         memset(encEffect->param, 0, sizeof(LegendaryEncounterEffect));
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         encEffect->state++;
         break;
 
@@ -2571,7 +2763,11 @@ void EncounterEffect_Legendary(SysTask *task, void *param)
 
         FieldMotionBlur_Stop(&legendaryEffect->motionBlur);
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
 
         if (encEffect->done != NULL) {
             *(encEffect->done) = TRUE;
@@ -2898,7 +3094,11 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
 
         Graphics_LoadPaletteFromOpenNARC(encEffect->narc, 11, 0, 2 * 0x20, 0x20, heapID);
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         Window_Add(encEffect->fieldSystem->bgConfig, &v0->unk_2E0, 2, 0, 10, 16, 2, 2, 1);
         Window_FillTilemap(&v0->unk_2E0, 0);
         v7 = EncounterEffect_GetGymLeaderName(param->trainerID, heapID);
@@ -2918,7 +3118,11 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
         Sprite_SetDrawFlag(v0->unk_24C, FALSE);
         ov5_021E5128(&v0->unk_250, &v0->unk_44, &v0->unk_1E4[1], FX32_CONST(72), FX32_CONST(74), heapID);
 
+        #ifdef PLATFORM_DS
         ov5_021DE5D0(v0->unk_24C, heapID, param->trainerClass, 14, GX_RGB(0, 0, 0));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v0->unk_40 = ov5_021DECEC();
 
@@ -2944,9 +3148,17 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
             encEffect->narc, param->bannerTilemapIdx, param->bannerTileIdx, param->bannerPlttIdx, 0, 1, encEffect->fieldSystem->bgConfig, 3);
         v0->unk_2F0 = 1;
 
+        #ifdef PLATFORM_DS
         ov5_021DED20(encEffect, v0->unk_40, 6, 8, 16, GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_OBJ);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
 
         encEffect->state++;
         break;
@@ -2971,7 +3183,11 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
             break;
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         v1 = ov5_021E51B4(&v0->unk_250);
 
@@ -3024,12 +3240,24 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
         ov5_021DEF8C(&v0->unk_18.currentValue);
 
         if (v1 == 1) {
+            #ifdef PLATFORM_DS
             ov5_021DE5D0(v0->unk_24C, heapID, param->trainerClass, 0, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             BrightnessController_SetScreenBrightness(-14, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BD, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
 
             Bg_ScheduleScroll(encEffect->fieldSystem->bgConfig, 2, 0, -((v0->unk_00.currentValue >> FX32_SHIFT) + -92));
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
             Bg_SetPriority(BG_LAYER_MAIN_2, 0);
             encEffect->state++;
         }
@@ -3090,9 +3318,21 @@ static BOOL EncounterEffect_GymLeader(EncounterEffect *encEffect, enum HeapID he
 
         Window_Remove(&v0->unk_2E0);
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_NONE, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
 
         Bg_SetOffset(encEffect->fieldSystem->bgConfig, 2, 0, 0);
 
@@ -3261,14 +3501,30 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
         }
 
         if (v0->unk_368) {
+            #ifdef PLATFORM_DS
             ov5_021DE5D0(v0->unk_2CC[0], heapID, 0, 14, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             ov5_021DE5D0(v0->unk_2CC[0], heapID, 1, 14, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         ov5_021DE5D0(v0->unk_2CC[1], heapID, param->trainerClass, 14, GX_RGB(0, 0, 0));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         ov5_021E5128(&v0->unk_2F4, &v0->unk_5C, &v0->unk_1FC[3], FX32_CONST(128), FX32_CONST(96), heapID);
 
@@ -3301,7 +3557,19 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
         if (ov5_021DF054() == 1) {
             ov5_021DF0CC(encEffect->narc, 107);
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendAlpha to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, 0, 8);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
             encEffect->state++;
         }
 
@@ -3333,7 +3601,11 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
 
             Graphics_LoadPaletteFromOpenNARC(encEffect->narc, 11, 0, 2 * 0x20, 0x20, heapID);
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
             Window_Add(encEffect->fieldSystem->bgConfig, &v0->unk_358, 2, 21, 13, 11, 2, 2, 1);
             Window_FillTilemap(&v0->unk_358, 0);
             v9 = EncounterEffect_GetGymLeaderName(param->trainerID, heapID);
@@ -3353,9 +3625,17 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
             if (encEffect->effectComplete == 0) {
                 ov5_021DF17C(3);
                 GXLayers_EngineAToggleLayers(
+                    #ifdef PLATFORM_DS
                     GX_PLANEMASK_BG0, 1);
+                    #else
+                    // TODO: Port GX_PLANEMASK_BG0 to PAL
+                    #endif
 
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
         } else {
             ov5_021E51B4(&v0->unk_2F4);
@@ -3405,9 +3685,17 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
         ov5_021DEF8C(&v0->unk_48.currentValue);
 
         if (v1 == 1) {
+            #ifdef PLATFORM_DS
             ov5_021DE5D0(v0->unk_2CC[0], heapID, v0->unk_368, 0, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             ov5_021DE5D0(v0->unk_2CC[1], heapID, param->trainerClass, 0, GX_RGB(0, 0, 0));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
 
             Sprite_SetAnimateFlag(v0->unk_2CC[2], 1);
             Sprite_SetAnimSpeed(v0->unk_2CC[2], FX32_ONE * 2);
@@ -3501,7 +3789,11 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
         if (v1) {
             encEffect->state++;
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
 
             QuadraticInterpolationTaskFX32_Init(&v0->unk_00, 0, FX32_CONST(192.0f), FX32_CONST(24.0f), 16);
             QuadraticInterpolationTaskFX32_Init(&v0->unk_18, 0, FX32_CONST(192.0f), FX32_CONST(24.0f), 16);
@@ -3560,7 +3852,11 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
 
         ov5_021DF084();
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
 
         return 1;
     }
@@ -3572,7 +3868,11 @@ static BOOL EncounterEffect_EliteFourChampion(EncounterEffect *encEffect, enum H
             G3_ResetG3X();
             ov5_021DF1CC();
             ov5_021DF070();
+            #ifdef PLATFORM_DS
             G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+            #else
+            // TODO: Port GX_BUFFERMODE_Z to PAL
+            #endif
         }
     }
 

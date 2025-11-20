@@ -98,7 +98,11 @@ static void ov97_02238584(int param0)
 
 static BOOL ov97_022385A0(void)
 {
+    #ifdef PLATFORM_DS
     Unk_ov97_022403F8->unk_11C4 != 4 ? (void)0 : OS_Terminate();
+    #else
+    // TODO: Port OS_Terminate to PAL
+    #endif
 
     ov97_02238534(2);
 
@@ -130,7 +134,11 @@ static BOOL ov97_02238624(void)
     WMErrCode v0;
     u16 v1;
 
+    #ifdef PLATFORM_DS
     (void)(((*Unk_ov97_022403F8).unk_11C4 == 2) || (OS_Terminate(), 0));
+    #else
+    // TODO: Port OS_Terminate to PAL
+    #endif
 
     v1 = WM_GetAllowedChannel();
 
@@ -397,7 +405,11 @@ static void ov97_0223893C(void *param0)
 
 static BOOL ov97_02238978(void)
 {
+    #ifdef PLATFORM_DS
     (void)(((*Unk_ov97_022403F8).unk_11C4 == 1) || (OS_Terminate(), 0));
+    #else
+    // TODO: Port OS_Terminate to PAL
+    #endif
 
     ov97_02238534(3);
 

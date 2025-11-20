@@ -113,7 +113,11 @@ s16 BattleAnimUtil_GetBattlerPos(BattleAnimSystem *system, int battler, enum Bat
 
 u8 BattleAnimUtil_GetSpritePalette(ManagedSprite *sprite)
 {
+    #ifdef PLATFORM_DS
     return PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(sprite->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 int BattleAnimUtil_GetTransformDirectionX(BattleAnimSystem *system, int battler)
@@ -765,7 +769,11 @@ static void AlphaFadeContext_Update(SysTask *task, void *param)
             ctx->lerp.y = 0;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->lerp.x, ctx->lerp.y);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     }
 }
 
@@ -1109,9 +1117,21 @@ PaletteFadeContext *PaletteFadeContext_New(PaletteData *paletteData, enum HeapID
 static void BattleAnimUtil_ConvertColorsToGrayscale(u16 *colors, u16 param1)
 {
     for (int i = 0; i < param1; i++) {
+        #ifdef PLATFORM_DS
         int r = GX_RGB_R(*colors);
+        #else
+        // TODO: Port GX_RGB_R to PAL
+        #endif
+        #ifdef PLATFORM_DS
         int g = GX_RGB_G(*colors);
+        #else
+        // TODO: Port GX_RGB_G to PAL
+        #endif
+        #ifdef PLATFORM_DS
         int b = GX_RGB_B(*colors);
+        #else
+        // TODO: Port GX_RGB_B to PAL
+        #endif
         u32 y = RGB_TO_GRAYSCALE(r, g, b);
         *colors = (u16)((y << 10) | (y << 5) | y);
         colors++;

@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u8 *buffer;
     s16 startIndex;

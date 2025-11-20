@@ -22,22 +22,38 @@ FS_EXTERN_OVERLAY(overlay89);
 
 void sub_02099550(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay4), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 void sub_02099560(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay4));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 void sub_02099570(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay18), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 void sub_02099580(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay18));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static void sub_02099590(SaveData *saveData, int heapID)
@@ -50,17 +66,29 @@ static void sub_02099590(SaveData *saveData, int heapID)
     sub_02099580();
     sub_02099560();
 
+    #ifdef PLATFORM_DS
     OS_ResetSystem(0);
+    #else
+    // TODO: Port OS_ResetSystem to PAL
+    #endif
 }
 
 void Overlay_LoadHttpOverlay(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay60), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 void Overlay_UnloadHttpOverlay(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay60));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static int sub_020995D4(ApplicationManager *appMan, int *param1)
@@ -69,7 +97,11 @@ static int sub_020995D4(ApplicationManager *appMan, int *param1)
     sub_02099590(((ApplicationArgs *)ApplicationManager_Args(appMan))->saveData, HEAP_ID_49);
     Heap_Destroy(HEAP_ID_49);
 
+    #ifdef PLATFORM_DS
     OS_ResetSystem(0);
+    #else
+    // TODO: Port OS_ResetSystem to PAL
+    #endif
     return 1;
 }
 

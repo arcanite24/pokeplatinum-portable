@@ -24,7 +24,11 @@
 #include "system.h"
 #include "text.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(main_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int heapID;
@@ -99,8 +103,16 @@ int sub_0209A300(ApplicationManager *appMan, int *param1)
         SetHBlankCallback(NULL, NULL);
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
         SetAutorepeat(4, 8);
         sub_0209A3D0(v0);
         sub_0209A4E4(v0);
@@ -130,7 +142,11 @@ int sub_0209A3A4(ApplicationManager *appMan, int *param1)
 
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(heapID);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(main_menu), &gMainMenuAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     return 1;
 }
@@ -139,16 +155,56 @@ static void sub_0209A3D0(UnkStruct_0209A3D0 *param0)
 {
     {
         UnkStruct_02099F80 v0 = {
+            #ifdef PLATFORM_DS
             GX_VRAM_BG_256_AB,
+            #else
+            // TODO: Port GX_VRAM_BG_256_AB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BG_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BG_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEX_NONE,
+            #else
+            // TODO: Port GX_VRAM_TEX_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEXPLTT_NONE
+            #else
+            // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+            #endif
         };
         GXLayers_SetBanks(&v0);
     }
@@ -157,10 +213,26 @@ static void sub_0209A3D0(UnkStruct_0209A3D0 *param0)
     }
     {
         GraphicsModes v1 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
         SetAllGraphicsModes(&v1);
     }
@@ -171,10 +243,18 @@ static void sub_0209A3D0(UnkStruct_0209A3D0 *param0)
             .bufferSize = 0x800,
             .baseTile = 0x0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0000,
             .charBase = GX_BG_CHARBASE_0x18000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0x1,
             .areaOver = 0x0,
             .mosaic = FALSE,
@@ -318,7 +398,11 @@ static BOOL sub_0209A688(UnkStruct_0209A3D0 *param0, u32 param1, int param2, int
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if ((param2 != 0) || (gSystem.pressedKeys & PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             param0->unk_0C = 0;
             v0 = 1;
         }

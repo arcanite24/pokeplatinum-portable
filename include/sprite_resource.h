@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPRITE_RESOURCE_H
 #define POKEPLATINUM_SPRITE_RESOURCE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -41,7 +43,11 @@ typedef struct SpriteResourceCollection {
 typedef struct SpriteResourceTableEntryFile {
     int id;
     char filename[64];
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     int paletteIndex;
 } SpriteResourceTableEntryFile;
 
@@ -50,7 +56,11 @@ typedef struct SpriteResourceTableEntryNARC {
     int memberIndex;
     BOOL compressed;
     int id;
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     int paletteIndex;
 } SpriteResourceTableEntryNARC;
 
@@ -71,15 +81,39 @@ typedef struct SpriteResourceList {
 SpriteResourceCollection *SpriteResourceCollection_New(int capacity, enum SpriteResourceType type, enum HeapID heapID);
 void SpriteResourceCollection_Delete(SpriteResourceCollection *spriteResources);
 SpriteResource *SpriteResourceCollection_AddFromTable(SpriteResourceCollection *spriteResources, const SpriteResourceTable *table, int index, enum HeapID heapID);
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddTiles(SpriteResourceCollection *spriteResources, enum NarcID narcID, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, enum HeapID heapID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddPalette(SpriteResourceCollection *spriteResources, enum NarcID narcID, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, int paletteIdx, enum HeapID heapID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 SpriteResource *SpriteResourceCollection_Add(SpriteResourceCollection *spriteResources, enum NarcID narcID, int memberIdx, BOOL compressed, int id, enum SpriteResourceType type, enum HeapID heapID);
 void SpriteResourceCollection_ModifyTiles(SpriteResourceCollection *spriteResources, SpriteResource *spriteRes, enum NarcID narcID, int memberIdx, BOOL compressed, enum HeapID heapID);
 void SpriteResourceCollection_ModifyPalette(SpriteResourceCollection *spriteResources, SpriteResource *spriteRes, enum NarcID narcID, int memberIdx, BOOL compressed, enum HeapID heapID);
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddTilesFrom(SpriteResourceCollection *spriteResources, NARC *narc, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, enum HeapID heapID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddTilesFromEx(SpriteResourceCollection *spriteResources, NARC *narc, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, enum HeapID heapID, BOOL allocAtEnd);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddPaletteFrom(SpriteResourceCollection *spriteResources, NARC *narc, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, int paletteIdx, enum HeapID heapID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 SpriteResource *SpriteResourceCollection_AddPaletteFromEx(SpriteResourceCollection *spriteResources, NARC *narc, int memberIdx, BOOL compressed, int id, NNS_G2D_VRAM_TYPE vramType, int paletteIdx, enum HeapID heapID, BOOL allocAtEnd);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 SpriteResource *SpriteResourceCollection_AddFrom(SpriteResourceCollection *spriteResources, NARC *narc, int memberIdx, BOOL compressed, int id, enum SpriteResourceType type, enum HeapID heapID);
 void SpriteResourceCollection_ModifyTilesFrom(SpriteResourceCollection *spriteResources, SpriteResource *spriteRes, NARC *narc, int memberIdx, BOOL compressed, enum HeapID heapID);
 int SpriteResourceCollection_Extend(SpriteResourceCollection *spriteResources, const SpriteResourceTable *table, SpriteResourceList *outList, enum HeapID heapID);
@@ -99,9 +133,17 @@ NNSG2dCellAnimBankData *SpriteResource_GetSpriteAnimData(const SpriteResource *s
 NNSG2dMultiCellDataBank *SpriteResource_GetMultiSpriteData(const SpriteResource *spriteRes);
 NNSG2dMultiCellAnimBankData *SpriteResource_GetMultiSpriteAnimData(const SpriteResource *spriteRes);
 enum SpriteResourceType SpriteResource_GetType(const SpriteResource *spriteRes);
+#ifdef PLATFORM_DS
 NNS_G2D_VRAM_TYPE SpriteResource_GetVRAMType(const SpriteResource *spriteRes);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 int SpriteResource_GetPaletteIndex(const SpriteResource *spriteRes);
+#ifdef PLATFORM_DS
 void SpriteResource_SetVRAMType(SpriteResource *spriteRes, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 int SpriteResourceTable_Size(void);
 SpriteResourceTable *SpriteResourceTable_GetArrayElement(SpriteResourceTable *table, int index);
 void SpriteResourceTable_LoadFromBinary(const void *data, SpriteResourceTable *table, enum HeapID heapID);
@@ -110,7 +152,11 @@ int SpriteResourceTable_GetCount(const SpriteResourceTable *table);
 int SpriteResourceTable_GetEntryID(const SpriteResourceTable *table, int index);
 int SpriteResourceTable_GetNARCEntryMemberIndex(const SpriteResourceTable *table, int index);
 BOOL SpriteResourceTable_IsNARCEntryCompressed(const SpriteResourceTable *table, int index);
+#ifdef PLATFORM_DS
 NNS_G2D_VRAM_TYPE SpriteResourceTable_GetEntryVRAMType(const SpriteResourceTable *table, int index);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 int SpriteResourceTable_GetPaletteIndex(const SpriteResourceTable *table, int index);
 
 #endif // POKEPLATINUM_SPRITE_RESOURCE_H

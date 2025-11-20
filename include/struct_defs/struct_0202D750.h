@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0202D750_H
 #define POKEPLATINUM_STRUCT_0202D750_H
 
+#include "platform/platform_types.h"
+
 #include "overlay104/frontier_data_transfer.h"
 
 typedef struct UnkStruct_0202D750_t {

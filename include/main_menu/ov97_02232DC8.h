@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_02232DC8_H
 #define POKEPLATINUM_MAIN_MENU_02232DC8_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/struct_ov97_02232E38.h"
 
 void ov97_02232E38(UnkStruct_ov97_02232E38 *param0, void *param1);

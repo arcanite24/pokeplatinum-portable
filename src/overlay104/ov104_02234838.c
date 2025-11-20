@@ -31,7 +31,11 @@
 
 #include "constdata/const_020EA358.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay106);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #include <nitro/code16.h>
 
@@ -96,13 +100,21 @@ BOOL ov104_022348BC(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_02235208 *v4;
     UnkStruct_ov104_02230BE4 *v5 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay106);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v6 = {
         ov106_02241AE0,
         ov106_02241B9C,
         ov106_02241CF0,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay106)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v3 = sub_0209B978(param0->unk_00->unk_00);
@@ -210,7 +222,11 @@ BOOL ov104_02234A1C(UnkStruct_ov104_0222E930 *param0)
         }
         break;
     case 7:
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     case 9:
         *v11 = sub_02030124(v3->unk_6F8);
@@ -270,9 +286,17 @@ BOOL ov104_02234A1C(UnkStruct_ov104_0222E930 *param0)
         break;
     case 31:
         if (v9 == 0) {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         }
         break;
     case 32:

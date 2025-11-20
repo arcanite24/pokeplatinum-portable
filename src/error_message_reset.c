@@ -28,23 +28,79 @@
 #include "unk_020366A0.h"
 
 static const UnkStruct_02099F80 sErrorMessageBanksConfig = {
+    #ifdef PLATFORM_DS
     GX_VRAM_BG_256_AB,
+    #else
+    // TODO: Port GX_VRAM_BG_256_AB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_BGEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_BG_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_BG_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_BGEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_OBJ_NONE,
+    #else
+    // TODO: Port GX_VRAM_OBJ_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_OBJEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_OBJ_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_OBJEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_TEX_NONE,
+    #else
+    // TODO: Port GX_VRAM_TEX_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_TEXPLTT_NONE
+    #else
+    // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+    #endif
 };
 
 static const GraphicsModes sErrorMessageBgModeSet = {
+    #ifdef PLATFORM_DS
     GX_DISPMODE_GRAPHICS,
+    #else
+    // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BGMODE_0,
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BGMODE_0,
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BG0_AS_2D
+    #else
+    // TODO: Port GX_BG0_AS_2D to PAL
+    #endif
 };
 
 static const BgTemplate sErrorMessageBgTemplate = {
@@ -53,10 +109,18 @@ static const BgTemplate sErrorMessageBgTemplate = {
     .bufferSize = 0x800,
     .baseTile = 0x0,
     .screenSize = BG_SCREEN_SIZE_256x256,
+    #ifdef PLATFORM_DS
     .colorMode = GX_BG_COLORMODE_16,
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
     .screenBase = GX_BG_SCRBASE_0x0000,
     .charBase = GX_BG_CHARBASE_0x18000,
+    #ifdef PLATFORM_DS
     .bgExtPltt = GX_BG_EXTPLTT_01,
+    #else
+    // TODO: Port GX_BG_EXTPLTT_01 to PAL
+    #endif
     .priority = 0x1,
     .areaOver = 0x0,
     .mosaic = FALSE,
@@ -74,15 +138,31 @@ static const WindowTemplate sErrorMessageWindowTemplate = {
 
 static const HeapParam sErrorMessageHeapParams[] = {
     { .size = 0x20000,
+        #ifdef PLATFORM_DS
         .arena = OS_ARENA_MAIN }
+        #else
+        // TODO: Port OS_ARENA_MAIN to PAL
+        #endif
 };
 
 static BOOL sErrorMessagePrinterLock;
 
 static void VBlankIntr(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
     MI_WaitDma(GX_DEFAULT_DMAID);
+    #else
+    // TODO: Port GX_DEFAULT_DMAID to PAL
+    #endif
 }
 
 void ErrorMessageReset_PrintErrorAndReset(void)
@@ -100,7 +180,15 @@ void ErrorMessageReset_PrintErrorAndReset(void)
 
     sErrorMessagePrinterLock = TRUE;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_InitArenaHiAndLo to PAL
+    #endif
     OS_InitArenaHiAndLo(OS_ARENA_MAIN);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
     Heap_InitSystem(sErrorMessageHeapParams, NELEMS(sErrorMessageHeapParams), NELEMS(sErrorMessageHeapParams), 0);
 
     v4 = 3;
@@ -108,9 +196,33 @@ void ErrorMessageReset_PrintErrorAndReset(void)
     SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);
     SetScreenColorBrightness(DS_SCREEN_SUB, COLOR_BLACK);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_DisableIrqMask to PAL
+    #endif
     OS_DisableIrqMask(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqFunction to PAL
+    #endif
     OS_SetIrqFunction(OS_IE_V_BLANK, VBlankIntr);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_EnableIrqMask to PAL
+    #endif
     OS_EnableIrqMask(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 
     SetVBlankCallback(NULL, NULL);
     SetHBlankCallback(NULL, NULL);
@@ -118,17 +230,45 @@ void ErrorMessageReset_PrintErrorAndReset(void)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
 
     SetAutorepeat(4, 8);
     gSystem.whichScreenIs3D = DS_SCREEN_MAIN;
     GXLayers_SwapDisplay();
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     GXLayers_SetBanks(&sErrorMessageBanksConfig);
     bgConfig = BgConfig_New(heapID);
@@ -157,7 +297,11 @@ void ErrorMessageReset_PrintErrorAndReset(void)
     GXLayers_TurnBothDispOn();
     ResetScreenMasterBrightness(DS_SCREEN_MAIN);
     ResetScreenMasterBrightness(DS_SCREEN_SUB);
+    #ifdef PLATFORM_DS
     BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, BRIGHTNESS_BOTH_SCREENS);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
     sub_02037DB0();
 
     while (TRUE) {
@@ -168,17 +312,41 @@ void ErrorMessageReset_PrintErrorAndReset(void)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_WaitIrq to PAL
+        #endif
         OS_WaitIrq(1, OS_IE_V_BLANK);
+        #else
+        // TODO: Port OS_IE_V_BLANK to PAL
+        #endif
     }
 
     while (TRUE) {
         HandleConsoleFold();
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+                #ifdef PLATFORM_DS
+        #endif
         if (PAD_Read() & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_WaitIrq to PAL
+        #endif
         OS_WaitIrq(1, OS_IE_V_BLANK);
+        #else
+        // TODO: Port OS_IE_V_BLANK to PAL
+        #endif
     }
 
     SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_WHITE);
@@ -188,5 +356,9 @@ void ErrorMessageReset_PrintErrorAndReset(void)
     MessageLoader_Free(errorMsgData);
     Heap_Free(bgConfig);
 
+    #ifdef PLATFORM_DS
     OS_ResetSystem(0);
+    #else
+    // TODO: Port OS_ResetSystem to PAL
+    #endif
 }

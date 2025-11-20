@@ -370,7 +370,12 @@ static BOOL BerryPatches_TaskMain(FieldTask *taskManager)
         task->timer = 0;
         task->state = BERRY_WATERING_STATE_INPUT;
     case BERRY_WATERING_STATE_INPUT:
+        #ifdef PLATFORM_DS
         if (gSystem.heldKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        if (0) {
+        #endif
             MapObject *adjacentObject = BerryPatches_GetAdjacentObject(fieldSystem, FACE_LEFT);
 
             if ((adjacentObject == NULL) || !BerryPatches_IsBerryPatch(adjacentObject)) {
@@ -381,7 +386,12 @@ static BOOL BerryPatches_TaskMain(FieldTask *taskManager)
                 task->state = BERRY_WATERING_STATE_ANIMATION;
                 break;
             }
+        #ifdef PLATFORM_DS
         } else if (gSystem.heldKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        } else if (0) {
+        #endif
             MapObject *adjacentObject = BerryPatches_GetAdjacentObject(fieldSystem, FACE_RIGHT);
 
             if ((adjacentObject == NULL) || !BerryPatches_IsBerryPatch(adjacentObject)) {
@@ -392,11 +402,19 @@ static BOOL BerryPatches_TaskMain(FieldTask *taskManager)
                 task->state = BERRY_WATERING_STATE_ANIMATION;
                 break;
             }
+        #ifdef PLATFORM_DS
         } else if ((gSystem.heldKeys & PAD_KEY_UP) && (task->direction == FACE_DOWN)) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             Player_SetDir(fieldSystem->playerAvatar, FACE_UP);
             task->state = BERRY_WATERING_STATE_CLEANUP;
             break;
+        #ifdef PLATFORM_DS
         } else if ((gSystem.heldKeys & PAD_KEY_DOWN) && (task->direction == FACE_UP)) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             task->state = BERRY_WATERING_STATE_CLEANUP;
             break;
         }

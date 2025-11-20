@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FEEBAS_FISHING_H
 #define POKEPLATINUM_FEEBAS_FISHING_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 BOOL PlayerAvatar_IsFacingFeebasTile(FieldSystem *fieldSystem);

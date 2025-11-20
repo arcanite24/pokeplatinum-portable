@@ -370,8 +370,16 @@ BOOL QuadraticInterpolationTaskFX32_Update(QuadraticInterpolationTaskFX32 *task)
 void BrightnessFadeTask_ApplyBrightnessToScreen(enum Screen screen, int brightness)
 {
     screen == SCREEN_TOP
+        #ifdef PLATFORM_DS
         ? GX_SetMasterBrightness(brightness)
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
+        #ifdef PLATFORM_DS
         : GXS_SetMasterBrightness(brightness);
+        #else
+        // TODO: Port GXS_SetMasterBrightness to PAL
+        #endif
 }
 
 void BrightnessFadeTask_Init(BrightnessFadeTask *task, s32 startValue, s32 endValue, s32 screen, s32 sync)
@@ -401,8 +409,24 @@ ScreenSliceEffect *ScreenSliceEffect_New(void)
     ScreenSliceEffect *efx = Heap_Alloc(HEAP_ID_FIELD1, sizeof(ScreenSliceEffect));
     memset(efx, 0, sizeof(ScreenSliceEffect));
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd1InsidePlane to PAL
+    #endif
     G2_SetWnd1InsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+    #endif
 
     return efx;
 }
@@ -413,7 +437,15 @@ void ScreenSliceEffect_Delete(ScreenSliceEffect *efx)
         ScreenSliceEffect_Finish(efx);
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
     Heap_Free(efx);
 }
 
@@ -430,11 +462,27 @@ void EncounterEffect_ScreenSlice(EncounterEffect *encEffect, ScreenSliceEffect *
     QuadraticInterpolationTaskFX32_Init(&screenSliceEfx->interpolationTask, startX, endX, initialSpeed, numSteps);
 
     if (startX >= 0) {
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, 255 - startX, 192);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd1Position(0, 0, 1 + startX, 192);
+        #else
+        // TODO: Port G2_SetWnd1Position to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, 255 + startX, 192);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd1Position(0, 0, 1 - startX, 192);
+        #else
+        // TODO: Port G2_SetWnd1Position to PAL
+        #endif
     }
 
     SysTask_ExecuteAfterVBlank(ScreenSliceEffect_CreateTasks, screenSliceEfx, 1024);
@@ -473,11 +521,27 @@ static void ScreenSliceSystem_VBlankCallback(SysTask *task, void *param)
         s32 currentX = screenSliceEfx->interpolationTask.currentValue >> FX32_SHIFT;
 
         if (currentX >= 0) {
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(0, 0, 255 - currentX, 192);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd1Position(0, 0, 1 + currentX, 192);
+            #else
+            // TODO: Port G2_SetWnd1Position to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(0, 0, 255 + currentX, 192);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd1Position(0, 0, 1 - currentX, 192);
+            #else
+            // TODO: Port G2_SetWnd1Position to PAL
+            #endif
         }
         break;
     case SCREENSLICE_STATE_FINISH:
@@ -488,10 +552,38 @@ static void ScreenSliceSystem_VBlankCallback(SysTask *task, void *param)
 
 static void ScreenSliceEffect_Finish(ScreenSliceEffect *screenSliceEfx)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 0, 0);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 
     *(screenSliceEfx->done) = TRUE;
 
@@ -507,7 +599,11 @@ static void ScreenSliceEffect_HBlankCallback(HBlankTask *task, void *param)
     int vCount;
     int currentX;
 
+    #ifdef PLATFORM_DS
     vCount = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     if (((vCount / screenSliceEfx->pixelsPerSlice) % 2) == 0) {
         currentX = screenSliceEfx->interpolationTask.currentValue >> FX32_SHIFT;
@@ -515,17 +611,65 @@ static void ScreenSliceEffect_HBlankCallback(HBlankTask *task, void *param)
         currentX = -screenSliceEfx->interpolationTask.currentValue >> FX32_SHIFT;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Offset(currentX, 0);
+    #else
+    // TODO: Port G2_SetBG0Offset to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG1Offset(currentX, 0);
+    #else
+    // TODO: Port G2_SetBG1Offset to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG2Offset(currentX, 0);
+    #else
+    // TODO: Port G2_SetBG2Offset to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Offset(currentX, 0);
+    #else
+    // TODO: Port G2_SetBG3Offset to PAL
+    #endif
 
     if (currentX >= 0) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W0);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W1);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
     }
 }
 
@@ -534,9 +678,33 @@ ScreenSplitEffect *ScreenSplitEffect_New(void)
     ScreenSplitEffect *screenSplitEfx = Heap_Alloc(HEAP_ID_FIELD1, sizeof(ScreenSplitEffect));
     memset(screenSplitEfx, 0, sizeof(ScreenSplitEffect));
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd1InsidePlane to PAL
+    #endif
     G2_SetWnd1InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+    #endif
 
     return screenSplitEfx;
 }
@@ -547,7 +715,15 @@ void ScreenSplitEffect_Delete(ScreenSplitEffect *screenSplitEfx)
         ScreenSplitEffect_Finish(screenSplitEfx);
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
     Heap_Free(screenSplitEfx);
 }
 
@@ -564,8 +740,16 @@ void EncounterEffect_ScreenSplit(EncounterEffect *encEffect, ScreenSplitEffect *
     QuadraticInterpolationTaskFX32_Init(&screenSplitEfx->xInterpolationTask, 0, 255 * FX32_ONE, initialSpeedX, numSteps);
     QuadraticInterpolationTaskFX32_Init(&screenSplitEfx->yInterpolationTask, 0, 96 * FX32_ONE, initialSpeedY, numSteps);
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 255, 192);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd1Position(0, 0, 255, 192);
+    #else
+    // TODO: Port G2_SetWnd1Position to PAL
+    #endif
 
     SysTask_ExecuteAfterVBlank(ScreenSplitEffect_SetupTasks, screenSplitEfx, 1024);
 }
@@ -594,8 +778,16 @@ static void ScreenSplitEffect_VBlankCallback(SysTask *task, void *param)
 
         s32 currentX = screenSplitEfx->xInterpolationTask.currentValue >> FX32_SHIFT;
         s32 currentY = screenSplitEfx->yInterpolationTask.currentValue >> FX32_SHIFT;
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, 255 - currentX, 96 - currentY);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd1Position(currentX, 96 + currentY, 255, 192);
+        #else
+        // TODO: Port G2_SetWnd1Position to PAL
+        #endif
         break;
     case SCREENSPLIT_STATE_FINISH:
         ScreenSplitEffect_Finish(param);
@@ -610,21 +802,69 @@ static void ScreenSplitEffect_HBlankCallback(HBlankTask *task, void *param)
     int v2;
     int v3;
 
+    #ifdef PLATFORM_DS
     vCount = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     if (vCount <= screenSplitEfx->splitHeight) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W0);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W1);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 }
 
 static void ScreenSplitEffect_Finish(ScreenSplitEffect *screenSplitEfx)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 0, 0);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 
     *(screenSplitEfx->done) = TRUE;
 
@@ -643,10 +883,26 @@ static void EncounterEffect_UnusedTask(SysTask *dummy1, void *dummy2)
 {
     {
         GraphicsModes v0 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_1,
+            #else
+            // TODO: Port GX_BGMODE_1 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
     }
 
@@ -657,10 +913,18 @@ static void EncounterEffect_UnusedTask(SysTask *dummy1, void *dummy2)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe800,
             .charBase = GX_BG_CHARBASE_0x04000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -674,10 +938,18 @@ static void EncounterEffect_UnusedTask(SysTask *dummy1, void *dummy2)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -691,10 +963,18 @@ static void EncounterEffect_UnusedTask(SysTask *dummy1, void *dummy2)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_256,
+            #else
+            // TODO: Port GX_BG_COLORMODE_256 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 0,
             .areaOver = 1,
             .mosaic = FALSE,
@@ -742,8 +1022,16 @@ void ov5_021DE4AC(UnkStruct_ov5_021DE47C *param0)
 
 void ov5_021DE4CC(NARC *param0, UnkStruct_ov5_021DE47C *param1, UnkStruct_ov5_021DE5A4 *param2, u32 param3, u32 param4, u32 param5, u32 param6, u32 param7, u32 param8)
 {
+    #ifdef PLATFORM_DS
     param2->unk_00[0] = SpriteResourceCollection_AddTilesFromEx(param1->unk_190[0], param0, param5, 0, param8, NNS_G2D_VRAM_TYPE_2DMAIN, 4, HEAP_ID_SAVE);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param2->unk_00[1] = SpriteResourceCollection_AddPaletteFrom(param1->unk_190[1], param0, param3, 0, param8, NNS_G2D_VRAM_TYPE_2DMAIN, param4, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param2->unk_00[2] = SpriteResourceCollection_AddFrom(param1->unk_190[2], param0, param6, 0, param8, 2, HEAP_ID_FIELD1);
     param2->unk_00[3] = SpriteResourceCollection_AddFrom(param1->unk_190[3], param0, param7, 0, param8, 3, HEAP_ID_FIELD1);
 
@@ -794,7 +1082,11 @@ Sprite *ov5_021DE62C(UnkStruct_ov5_021DE47C *param0, UnkStruct_ov5_021DE5A4 *par
     v0.position.y = param3;
     v0.position.z = param4;
     v0.priority = param5;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.heapID = HEAP_ID_FIELD1;
 
     v1 = SpriteList_Add(&v0);
@@ -812,7 +1104,15 @@ static void ov5_021DE67C(Sprite *param0, void *param1, u32 param2)
     NNSG2dImagePaletteProxy *v0 = Sprite_GetPaletteProxy(param0);
 
     DC_FlushRange(param1, param2);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
     GX_LoadOBJPltt(param1, NNS_G2dGetImagePaletteLocation(v0, NNS_G2D_VRAM_TYPE_2DMAIN), param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 UnkStruct_ov5_021DE6BC *ov5_021DE6A4(u32 heapID)
@@ -1216,10 +1516,30 @@ void ov5_021DED20(EncounterEffect *param0, UnkStruct_ov5_021DED04 *param1, u32 p
         }
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWnd0InsidePlane(param5, 1);
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWndOutsidePlane(param6, 0);
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 0, 192);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 
     SysTask_ExecuteAfterVBlank(ov5_021DEDE8, param1, 1024);
 }
@@ -1257,7 +1577,11 @@ static void ov5_021DEE50(HBlankTask *param0, void *param1)
 {
     UnkStruct_ov5_021DED04 *v0 = param1;
     int v1;
+    #ifdef PLATFORM_DS
     int v2 = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     if (v2 < 192) {
         v1 = -v0->unk_18[v2] + v0->unk_00.currentValue;
@@ -1266,13 +1590,25 @@ static void ov5_021DEE50(HBlankTask *param0, void *param1)
             v1 = 0;
         }
 
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(v1, 0, 255, 192);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
     }
 }
 
 static void ov5_021DEE84(UnkStruct_ov5_021DED04 *param0)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     *(param0->unk_E4) = 1;
     HBlankTask_Delete(param0->unk_DC);
@@ -1340,7 +1676,11 @@ static void ov5_021DEF74(SysTask *param0, void *param1)
 {
     int *v0 = param1;
 
+    #ifdef PLATFORM_DS
     GX_SetMasterBrightness(*v0);
+    #else
+    // TODO: Port GX_SetMasterBrightness to PAL
+    #endif
     SysTask_Done(param0);
 }
 
@@ -1360,13 +1700,37 @@ void ov5_021DEFA0(FieldSystem *fieldSystem)
     Unk_ov5_02202120->unk_02 = 0;
     Unk_ov5_02202120->fieldSystem = fieldSystem;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GX_ResetBankForBG();
+    #else
+    // TODO: Port GX_ResetBankForBG to PAL
+    #endif
     MI_CpuClearFast((void *)HW_LCDC_VRAM_C, HW_VRAM_C_SIZE);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetCapture to PAL
+    #endif
     GX_SetCapture(GX_CAPTURE_SIZE_256x192, GX_CAPTURE_MODE_AB, GX_CAPTURE_SRCA_2D3D, GX_CAPTURE_SRCB_VRAM_0x00000, GX_CAPTURE_DEST_VRAM_C_0x00000, 4, 12);
+    #else
+    // TODO: Port GX_CAPTURE_SRCA_2D3D to PAL
+    #endif
 
     SysTask_ExecuteAfterVBlank(ov5_021DF258, Unk_ov5_02202120, 1024);
     SysTask_Start(ov5_021DF28C, Unk_ov5_02202120, 1024);
@@ -1512,9 +1876,21 @@ static void ov5_021DF28C(SysTask *param0, void *param1)
 
             MTX_Identity33(&v3);
 
+            #ifdef PLATFORM_DS
             NNS_G3dGlbSetBaseTrans(&v1);
+            #else
+            // TODO: Port NNS_G3dGlbSetBaseTrans to PAL
+            #endif
+            #ifdef PLATFORM_DS
             NNS_G3dGlbSetBaseScale(&v2);
+            #else
+            // TODO: Port NNS_G3dGlbSetBaseScale to PAL
+            #endif
+            #ifdef PLATFORM_DS
             NNS_G3dGlbSetBaseRot(&v3);
+            #else
+            // TODO: Port NNS_G3dGlbSetBaseRot to PAL
+            #endif
         }
 
         ov5_021D16F4(v0->fieldSystem, 0);
@@ -1534,30 +1910,90 @@ static void ov5_021DF30C(FieldSystem *fieldSystem)
 {
     {
         UnkStruct_02099F80 v0 = {
+            #ifdef PLATFORM_DS
             GX_VRAM_BG_256_BC,
+            #else
+            // TODO: Port GX_VRAM_BG_256_BC to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BG_32_H,
+            #else
+            // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJ_16_F,
+            #else
+            // TODO: Port GX_VRAM_OBJ_16_F to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJ_16_I,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEX_0_A,
+            #else
+            // TODO: Port GX_VRAM_TEX_0_A to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEXPLTT_0123_E
+            #else
+            // TODO: Port GX_VRAM_TEXPLTT_0123_E to PAL
+            #endif
         };
 
         GXLayers_SetBanks(&v0);
     }
 
     GXLayers_EngineAToggleLayers(
+        #ifdef PLATFORM_DS
         GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
 
     {
         GraphicsModes v1 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_3,
+            #else
+            // TODO: Port GX_BGMODE_3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v1);
@@ -1567,16 +2003,32 @@ static void ov5_021DF30C(FieldSystem *fieldSystem)
         ov5_021D143C(fieldSystem->bgConfig);
 
         {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBG3ControlDCBmp to PAL
+            #endif
             G2_SetBG3ControlDCBmp(GX_BG_SCRSIZE_DCBMP_256x256, GX_BG_AREAOVER_XLU, GX_BG_BMPSCRBASE_0x20000);
+            #else
+            // TODO: Port GX_BG_AREAOVER_XLU to PAL
+            #endif
 
             Bg_SetPriority(BG_LAYER_MAIN_3, 3);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG3 to PAL
+            #endif
 
             {
                 MtxFx22 v2;
 
                 MTX_Identity22(&v2);
+                #ifdef PLATFORM_DS
                 G2_SetBG3Affine(&v2, 0, 0, 0, 0);
+                #else
+                // TODO: Port G2_SetBG3Affine to PAL
+                #endif
             }
         }
 
@@ -1587,10 +2039,18 @@ static void ov5_021DF30C(FieldSystem *fieldSystem)
                 .bufferSize = 0x800,
                 .baseTile = 0,
                 .screenSize = BG_SCREEN_SIZE_256x256,
+                #ifdef PLATFORM_DS
                 .colorMode = GX_BG_COLORMODE_16,
+                #else
+                // TODO: Port GX_BG_COLORMODE_16 to PAL
+                #endif
                 .screenBase = GX_BG_SCRBASE_0xe800,
                 .charBase = GX_BG_CHARBASE_0x00000,
+                #ifdef PLATFORM_DS
                 .bgExtPltt = GX_BG_EXTPLTT_23,
+                #else
+                // TODO: Port GX_BG_EXTPLTT_23 to PAL
+                #endif
                 .priority = 0,
                 .areaOver = 0,
                 .mosaic = FALSE,
@@ -1602,7 +2062,11 @@ static void ov5_021DF30C(FieldSystem *fieldSystem)
         }
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov5_021DF3D4(FieldSystem *fieldSystem)

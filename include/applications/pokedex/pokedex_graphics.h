@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_GRAPHICS_H
 #define POKEPLATINUM_POKEDEX_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include <nitro.h>
 
 #include "constants/species.h"

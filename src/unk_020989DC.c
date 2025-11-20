@@ -32,7 +32,11 @@
 #include "constdata/const_020F410C.h"
 #include "constdata/const_020F6890.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay79);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static const u8 Unk_020F685C[][2] = {
     { 0x5, 0x5 },
@@ -260,13 +264,21 @@ static void sub_02098BE4(UnkStruct_02098BE4 *param0)
 
 static int sub_02098C2C(UnkStruct_02098BE4 *param0)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay79);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov79_021D0D80,
         ov79_021D0DC4,
         ov79_021D0DDC,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay79),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     param0->appMan = ApplicationManager_New(&v0, param0->unk_0C, param0->heapID);
@@ -369,13 +381,21 @@ static int sub_02098D38(UnkStruct_02098BE4 *param0)
 
 static int sub_02098D7C(UnkStruct_02098BE4 *param0)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay79);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov79_021D22AC,
         ov79_021D22E4,
         ov79_021D2460,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay79),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
     UnkStruct_02098DE8 *v1 = Heap_Alloc(param0->heapID, sizeof(UnkStruct_02098DE8));
     MI_CpuClear8(v1, sizeof(UnkStruct_02098DE8));

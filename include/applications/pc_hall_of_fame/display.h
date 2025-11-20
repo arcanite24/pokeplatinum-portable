@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PC_HALL_OF_FAME_DISPLAY_H
 #define POKEPLATINUM_PC_HALL_OF_FAME_DISPLAY_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_hall_of_fame_app_decl.h"
 #include "struct_decls/pc_hall_of_fame_man_decl.h"
 #include "struct_defs/pc_hall_of_fame_screen_def.h"

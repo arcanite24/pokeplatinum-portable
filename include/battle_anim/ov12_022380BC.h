@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV12_022380BC_H
 #define POKEPLATINUM_OV12_022380BC_H
 
+#include "platform/platform_types.h"
+
 #include "battle_anim/struct_ov12_022380DC.h"
 
 void ov12_022380BC(UnkStruct_ov12_022380DC *param0, int heapID);

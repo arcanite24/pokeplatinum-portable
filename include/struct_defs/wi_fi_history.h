@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_WI_FI_HISTORY_H
 #define POKEPLATINUM_STRUCT_WI_FI_HISTORY_H
 
+#include "platform/platform_types.h"
+
 typedef struct WiFiHistory {
     u32 unused_00;
     u8 hasInteractedOutsideOfJapan;

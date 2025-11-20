@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MYSTERY_GIFT_H
 #define POKEPLATINUM_MYSTERY_GIFT_H
 
+#include "platform/platform_types.h"
+
 #include "generated/items.h"
 #include "generated/poketch_apps.h"
 #include "generated/species.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_02231B80_H
 #define POKEPLATINUM_STRUCT_OV66_02231B80_H
 
+#include "platform/platform_types.h"
+
 #include "enums.h"
 #include "trainer_info.h"
 

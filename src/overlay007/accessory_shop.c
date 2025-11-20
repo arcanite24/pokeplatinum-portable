@@ -250,7 +250,15 @@ BOOL AccessoryShop_Main(AccessoryShop *shop)
         break;
     case ACCESSORY_SHOP_STATE_WAIT_AB_INPUT:
         if (AccessoryShop_HasMsgBoxFinishedPrinting(&shop->msgbox)) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 shop->state = shop->nextState;
             }
         }
@@ -539,7 +547,11 @@ static void AccessoryShop_ShowItemList(AccessoryShopItemList *itemList, BgConfig
     scrollArrowCellParams.list = spriteList;
     scrollArrowCellParams.resourceData = &scrollArrowResource;
     scrollArrowCellParams.priority = 0;
+    #ifdef PLATFORM_DS
     scrollArrowCellParams.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     scrollArrowCellParams.heapID = heapID;
     scrollArrowCellParams.position.x = 192 * FX32_ONE;
 
@@ -620,8 +632,16 @@ static void AccessoryShop_LoadScrollArrowGfx(SpriteResourcesHeader *scrollArrowR
 {
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__SHOP_GRA, heapID);
 
+    #ifdef PLATFORM_DS
     itemList->spriteResources[ACCESSORY_SHOP_RES_IDX_TILES] = SpriteResourceCollection_AddTilesFrom(itemList->spriteResCollections[ACCESSORY_SHOP_RES_IDX_TILES], narc, scroll_arrow_NCGR, FALSE, 5000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     itemList->spriteResources[ACCESSORY_SHOP_RES_IDX_PALETTE] = SpriteResourceCollection_AddPaletteFrom(itemList->spriteResCollections[ACCESSORY_SHOP_RES_IDX_PALETTE], narc, sprites_NCLR, FALSE, 5000, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     itemList->spriteResources[ACCESSORY_SHOP_RES_IDX_CELL] = SpriteResourceCollection_AddFrom(itemList->spriteResCollections[ACCESSORY_SHOP_RES_IDX_CELL], narc, scroll_arrow_cell_NCER, FALSE, 5000, 2, heapID);
     itemList->spriteResources[ACCESSORY_SHOP_RES_IDX_ANIM] = SpriteResourceCollection_AddFrom(itemList->spriteResCollections[ACCESSORY_SHOP_RES_IDX_ANIM], narc, scroll_arrow_anim_NANR, FALSE, 5000, 3, heapID);
 

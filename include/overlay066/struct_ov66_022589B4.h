@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_022589B4_H
 #define POKEPLATINUM_STRUCT_OV66_022589B4_H
 
+#include "platform/platform_types.h"
+
 typedef void (*UnkFuncPtr_ov66_022589B4)(s32, const void *, u32, void *);
 
 typedef struct {

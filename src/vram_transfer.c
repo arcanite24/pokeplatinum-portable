@@ -30,7 +30,11 @@ void VramTransfer_New(u32 capacity, enum HeapID heapID)
     sTransferTaskManager->max = capacity;
     sTransferTaskManager->cur = 0;
 
+    #ifdef PLATFORM_DS
     NNS_GfdInitVramTransferManager(sTransferTaskManager->tasks, sTransferTaskManager->max);
+    #else
+    // TODO: Port NNS_GfdInitVramTransferManager to PAL
+    #endif
 }
 
 void VramTransfer_Free(void)
@@ -43,7 +47,11 @@ void VramTransfer_Free(void)
     sTransferTaskManager = NULL;
 }
 
+#ifdef PLATFORM_DS
 BOOL VramTransfer_Request(NNS_GFD_DST_TYPE type, u32 destAddr, void *buf, u32 size)
+#else
+// TODO: Port NNS_GFD_DST_TYPE to PAL
+#endif
 {
     GF_ASSERT(sTransferTaskManager);
     sTransferTaskManager->cur++;
@@ -53,13 +61,21 @@ BOOL VramTransfer_Request(NNS_GFD_DST_TYPE type, u32 destAddr, void *buf, u32 si
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
     return NNS_GfdRegisterNewVramTransferTask(type, destAddr, buf, size);
+    #else
+    // TODO: Port NNS_GfdRegisterNewVramTransferTask to PAL
+    #endif
 }
 
 void VramTransfer_Process(void)
 {
     if (sTransferTaskManager) {
+        #ifdef PLATFORM_DS
         NNS_GfdDoVramTransfer();
+        #else
+        // TODO: Port NNS_GfdDoVramTransfer to PAL
+        #endif
         sTransferTaskManager->cur = 0;
     }
 }

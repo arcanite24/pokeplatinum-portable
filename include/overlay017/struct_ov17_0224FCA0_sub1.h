@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_0224FCA0_SUB1_H
 #define POKEPLATINUM_STRUCT_OV17_0224FCA0_SUB1_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02095C48_sub1_sub1.h"
 
 typedef struct {

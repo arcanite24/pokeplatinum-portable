@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINER_DATA_H
 #define POKEPLATINUM_TRAINER_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "generated/trainer_message_types.h"
 
 #include "struct_defs/trainer.h"

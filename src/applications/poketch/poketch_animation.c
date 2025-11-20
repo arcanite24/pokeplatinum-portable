@@ -69,7 +69,11 @@ PoketchAnimation_AnimationManager *PoketchAnimation_SetupAnimationManager(NNSG2d
         animMan->animatedSpritePtrArray = NULL;
         animMan->oamMan = oamMan;
         animMan->heapID = heapID;
+        #ifdef PLATFORM_DS
         animMan->numSlots = NNS_G2dGetOamManagerOamCapacity(oamMan);
+        #else
+        // TODO: Port NNS_G2dGetOamManagerOamCapacity to PAL
+        #endif
         animMan->oam = Heap_Alloc(heapID, sizeof(GXOamAttr) * animMan->numSlots);
 
         if (animMan->oam == NULL) {
@@ -147,7 +151,11 @@ void PoketchAnimation_UpdateAnimations(PoketchAnimation_AnimationManager *animMa
         u32 numSlotsUsed;
 
         while (animatedSprite != NULL) {
+            #ifdef PLATFORM_DS
             NNS_G2dTickCellAnimation(&animatedSprite->spriteAnimation, FX32_ONE * 2); // Advance cell animation time
+            #else
+            // TODO: Port NNS_G2dTickCellAnimation to PAL
+            #endif
 
             if (animatedSprite->isHidden == FALSE) {
                 const NNSG2dSRTControl *srtCtrl = &(animatedSprite->spriteAnimation.srtCtrl);
@@ -157,14 +165,26 @@ void PoketchAnimation_UpdateAnimations(PoketchAnimation_AnimationManager *animMa
                 position.y = animatedSprite->position.y + (fx32)(srtCtrl->srtData.trans.y << FX32_SHIFT);
 
                 if (animatedSprite->hasAffineTransform == FALSE) {
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port NNS_G2dMakeCellToOams to PAL
+                    #endif
                     numSlotsUsed = NNS_G2dMakeCellToOams(oam, numSlots, NNS_G2dGetCellAnimationCurrentCell(&animatedSprite->spriteAnimation), NULL, &(position), 0, FALSE);
+                    #else
+                    // TODO: Port NNS_G2dGetCellAnimationCurrentCell to PAL
+                    #endif
                 } else {
                     u16 affineIdx;
 
                     MTX_Identity22(animatedSprite->affineTransformationPtr); // Create 2x2 identity matrix
 
                     // Apply rotation
+                    #ifdef PLATFORM_DS
                     if (srtCtrl->srtData.SRT_EnableFlag & NNS_G2D_AFFINEENABLE_ROTATE) {
+                    #else
+                    // TODO: Port NNS_G2D_AFFINEENABLE_ROTATE to PAL
+                    #endif
                         u16 rotZ = srtCtrl->srtData.rotZ + animatedSprite->rotZ;
                         MTX_Rot22(animatedSprite->affineTransformationPtr, FX_SinIdx(rotZ), FX_CosIdx(rotZ));
                     } else if (animatedSprite->rotZ) {
@@ -172,12 +192,28 @@ void PoketchAnimation_UpdateAnimations(PoketchAnimation_AnimationManager *animMa
                     }
 
                     // Apply scale
+                    #ifdef PLATFORM_DS
                     if (srtCtrl->srtData.SRT_EnableFlag & NNS_G2D_AFFINEENABLE_SCALE) {
+                    #else
+                    // TODO: Port NNS_G2D_AFFINEENABLE_SCALE to PAL
+                    #endif
                         MTX_ScaleApply22(animatedSprite->affineTransformationPtr, animatedSprite->affineTransformationPtr, FX_Inv(srtCtrl->srtData.scale.x), FX_Inv(srtCtrl->srtData.scale.y));
                     }
 
+                    #ifdef PLATFORM_DS
                     affineIdx = NNS_G2dEntryOamManagerAffine(animMan->oamMan, animatedSprite->affineTransformationPtr);
+                    #else
+                    // TODO: Port NNS_G2dEntryOamManagerAffine to PAL
+                    #endif
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port NNS_G2dMakeCellToOams to PAL
+                    #endif
                     numSlotsUsed = NNS_G2dMakeCellToOams(oam, numSlots, NNS_G2dGetCellAnimationCurrentCell(&animatedSprite->spriteAnimation), animatedSprite->affineTransformationPtr, &(position), affineIdx, TRUE);
+                    #else
+                    // TODO: Port NNS_G2dGetCellAnimationCurrentCell to PAL
+                    #endif
                 }
 
                 numSlots -= numSlotsUsed;
@@ -197,7 +233,11 @@ void PoketchAnimation_UpdateAnimations(PoketchAnimation_AnimationManager *animMa
         }
 
         if (oam > animMan->oam) {
+            #ifdef PLATFORM_DS
             NNS_G2dEntryOamManagerOam(animMan->oamMan, animMan->oam, oam - animMan->oam);
+            #else
+            // TODO: Port NNS_G2dEntryOamManagerOam to PAL
+            #endif
         }
     }
 }
@@ -215,13 +255,29 @@ PoketchAnimation_AnimatedSpriteData *PoketchAnimation_SetupNewAnimatedSprite(Pok
         animatedSprite->cell = spriteData->cell;
         animatedSprite->anim = spriteData->anim;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dInitCellAnimation to PAL
+        #endif
         NNS_G2dInitCellAnimation(&(animatedSprite->spriteAnimation), NNS_G2dGetAnimSequenceByIdx(animatedSprite->anim, animData->animIdx), animatedSprite->cell);
+        #else
+        // TODO: Port NNS_G2dGetAnimSequenceByIdx to PAL
+        #endif
 
         animatedSprite->position = animData->translation;
         animatedSprite->cParam = 0;
         animatedSprite->charNo = 0;
+        #ifdef PLATFORM_DS
         animatedSprite->flipH = ((animData->flip & NNS_G2D_RENDERERFLIP_H) != NNS_G2D_RENDERERFLIP_NONE);
+        #else
+        // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         animatedSprite->flipV = ((animData->flip & NNS_G2D_RENDERERFLIP_V) != NNS_G2D_RENDERERFLIP_NONE);
+        #else
+        // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+        #endif
         animatedSprite->mosaic = FALSE;
         animatedSprite->rotZ = 0;
         animatedSprite->affineTransformationPtr = &(animatedSprite->affineTransformation);
@@ -240,13 +296,29 @@ void PoketchAnimation_RemoveAnimatedSprite(PoketchAnimation_AnimationManager *an
 
 void PoketchAnimation_UpdateAnimationIdx(PoketchAnimation_AnimatedSpriteData *animatedSprite, u32 animIdx)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dInitCellAnimation to PAL
+    #endif
     NNS_G2dInitCellAnimation(&(animatedSprite->spriteAnimation), NNS_G2dGetAnimSequenceByIdx(animatedSprite->anim, animIdx), animatedSprite->cell);
+    #else
+    // TODO: Port NNS_G2dGetAnimSequenceByIdx to PAL
+    #endif
 }
 
 BOOL PoketchAnimation_AnimationInactive(PoketchAnimation_AnimatedSpriteData *animatedSprite)
 {
+    #ifdef PLATFORM_DS
     NNSG2dAnimController *animCtrl = NNS_G2dGetCellAnimationAnimCtrl(&(animatedSprite->spriteAnimation));
+    #else
+    // TODO: Port NNS_G2dGetCellAnimationAnimCtrl to PAL
+    #endif
+    #ifdef PLATFORM_DS
     return NNS_G2dIsAnimCtrlActive(animCtrl) == FALSE;
+    #else
+    // TODO: Port NNS_G2dIsAnimCtrlActive to PAL
+    #endif
 }
 
 void PoketchAnimation_TranslateSprite(PoketchAnimation_AnimatedSpriteData *animatedSprite, fx32 x, fx32 y)
@@ -306,11 +378,19 @@ BOOL PoketchAnimation_LoadSpriteFromNARC(PoketchAnimation_SpriteData *spriteData
     spriteData->compressedAnim = LoadCompressedMemberFromNARC(narcID, animID, heapID);
 
     if ((spriteData->compressedSprite != NULL) && (spriteData->compressedAnim != NULL)) {
+        #ifdef PLATFORM_DS
         if (!NNS_G2dGetUnpackedCellBank(spriteData->compressedSprite, &(spriteData->cell))) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCellBank to PAL
+        #endif
             return FALSE;
         }
 
+        #ifdef PLATFORM_DS
         if (!NNS_G2dGetUnpackedMCAnimBank(spriteData->compressedAnim, &(spriteData->anim))) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedMCAnimBank to PAL
+        #endif
             return FALSE;
         }
     }

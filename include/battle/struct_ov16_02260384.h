@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV16_02260384_H
 #define POKEPLATINUM_STRUCT_OV16_02260384_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 
 #include "sprite_system.h"

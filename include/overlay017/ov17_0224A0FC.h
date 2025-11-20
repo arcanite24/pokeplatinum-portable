@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV17_0224A0FC_H
 #define POKEPLATINUM_OV17_0224A0FC_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #else

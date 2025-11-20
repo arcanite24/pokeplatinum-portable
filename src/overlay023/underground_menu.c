@@ -219,7 +219,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 0x38C0, 0x38C0, 0x38C0, 0x38C0, 0x0, 0x0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -231,7 +235,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 0x38C1, 0x38C0, 0x38C1, 0x38C1, 0x0, 0x0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -254,10 +262,18 @@ static void UndergroundMenu_InitStartMenuSprites(UndergroundMenu *menu, u8 *opti
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__MENU_GRA, HEAP_ID_FIELD2);
 
     ov5_021D3190(&menu->unk_74, &capacities, UNDERGROUND_START_MENU_OPTION_COUNT + 1, HEAP_ID_FIELD2);
+    #ifdef PLATFORM_DS
     ov5_021D32E8(&menu->unk_74, narc, underground_menu_NCLR, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov5_021D3374(&menu->unk_74, narc, cursor_cell_NCER, FALSE, 14528);
     ov5_021D339C(&menu->unk_74, narc, cursor_anim_NANR, FALSE, 14528);
+    #ifdef PLATFORM_DS
     ov5_021D3414(&menu->unk_74, narc, cursor_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     menu->sprites[ICON_CURSOR_INDEX] = ov5_021D3584(&menu->unk_74, &sSpriteTemplates[UNDERGROUND_MENU_CURSOR_TEMPLATE]);
 
@@ -265,7 +281,11 @@ static void UndergroundMenu_InitStartMenuSprites(UndergroundMenu *menu, u8 *opti
 
     ov5_021D3374(&menu->unk_74, narc, underground_icons_cell_NCER, FALSE, 14529);
     ov5_021D339C(&menu->unk_74, narc, underground_icons_anim_NANR, FALSE, 14529);
+    #ifdef PLATFORM_DS
     ov5_021D3414(&menu->unk_74, narc, underground_icons_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 14529);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     NARC_dtor(narc);
 
@@ -282,7 +302,11 @@ static void UndergroundMenu_InitStartMenuSprites(UndergroundMenu *menu, u8 *opti
 
     UndergroundMenu_SetIconAnimationAndPalette(menu->sprites[menu->menuCursorPos + 1]->sprite, ICON_ANIM_WIGGLE, ICON_COLORED);
     menu->spriteCount = menuOptionCount + 1;
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void UndergroundMenu_FreeSprites(UndergroundMenu *menu)
@@ -548,7 +572,11 @@ static void UndergroundMenu_InitStartMenu(UndergroundMenu *menu)
     template.suppressCursor = TRUE;
     template.loopAround = TRUE;
 
+    #ifdef PLATFORM_DS
     menu->menu = Menu_New(&template, 28, 4, menu->menuCursorPos, HEAP_ID_FIELD2, PAD_BUTTON_B | PAD_BUTTON_X);
+    #else
+    // TODO: Port PAD_BUTTON_X to PAL
+    #endif
     menu->unk_48 = NULL;
 
     Window_ScheduleCopyToVRAM(&menu->primaryWindow);
@@ -603,7 +631,11 @@ static void UndergroundMenu_Main(SysTask *sysTask, void *data)
         break;
     case UNDERGROUND_MENU_STATE_CLOSE_AFTER_TEXT:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 UndergroundMenu_Free(sysTask, menu, FALSE);
                 ov23_02243204();
@@ -613,7 +645,11 @@ static void UndergroundMenu_Main(SysTask *sysTask, void *data)
         break;
     case UNDERGROUND_MENU_STATE_CHANGE_STATE_AFTER_TEXT:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 OpenMenuFn openNextMenu = (OpenMenuFn)menu->openMenuFn;
 
                 openNextMenu(menu);
@@ -1512,7 +1548,11 @@ static void ov23_02250B9C(SysTask *sysTask, void *data)
         return;
     case UNDERGROUND_MENU_STATE_UNUSED:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCaptureFlagTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 menu->state = UNDERGROUND_MENU_STATE_CLOSE;
             }
         }
@@ -1862,6 +1902,10 @@ void UndergroundMenu_MoveListCursorPosInBounds(UndergroundMenu *menu, int maxDis
 
 void ov23_02251270(SysTask *sysTask, void *param1)
 {
+    #ifdef PLATFORM_DS
     BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
     ov23_02251044(param1, 0xfffffffe);
 }

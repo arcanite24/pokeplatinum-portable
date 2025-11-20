@@ -3,6 +3,8 @@
 
 #ifndef PLATFORM_DS
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #endif
 
 #include "struct_defs/seal_case.h"

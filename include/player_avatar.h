@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PLAYER_AVATAR_H
 #define POKEPLATINUM_PLAYER_AVATAR_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

@@ -135,7 +135,11 @@ void CommInfo_SendBattleRegulation(void)
     }
 
     TrainerInfo_Copy(trainerInfo, sCommInfo->trainerInfo[netId]);
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(&sCommInfo->playerInfo[netId].macAddress[0]);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     v2 = RecordMixedRNG_GetEntryName(v3, 1, 0);
 

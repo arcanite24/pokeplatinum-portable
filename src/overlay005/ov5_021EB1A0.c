@@ -1623,8 +1623,16 @@ static void ov5_021EC804(UnkStruct_020216E0 *param0, void *param1)
     UnkStruct_ov5_021EC804 *v0 = param1;
     NNSG3dResMdl *v1 = sub_020213F4(param0);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlAlpha(v1);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlAlphaAll(v1, v0->unk_10);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+    #endif
 }
 
 void ov5_021EC824(MapObject *mapObj)

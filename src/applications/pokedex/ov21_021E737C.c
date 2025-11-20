@@ -462,10 +462,18 @@ static void ov21_021E771C(UnkStruct_ov21_021E7714 *param0, UnkStruct_ov21_021E74
 
     if (ov21_021E2A54(param2->unk_04)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             ov21_021E8400(param0, -PokedexGraphics_BlendScreen(&param1->unk_00->blendMain), 0);
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -548,12 +556,20 @@ static void ov21_021E7904(UnkStruct_ov21_021E7714 *param0, UnkStruct_ov21_021E74
     v3 = PokeIconCellsFileIndex();
     v4 = PokeIconAnimationFileIndex();
 
+    #ifdef PLATFORM_DS
     param0->unk_14[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v9, v1, 0, 8000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEndWithHardwareMappingType(param0->unk_14[0]);
     SpriteResource_ReleaseData(param0->unk_14[0]);
 
+    #ifdef PLATFORM_DS
     param0->unk_14[1] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[1], v9, v2, 0, 8000, NNS_G2D_VRAM_TYPE_2DMAIN, 3, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v6 = SpriteTransfer_RequestPlttFreeSpace(param0->unk_14[1]);
     GF_ASSERT(v6);
@@ -564,12 +580,20 @@ static void ov21_021E7904(UnkStruct_ov21_021E7714 *param0, UnkStruct_ov21_021E74
 
     param0->unk_14[2] = SpriteResourceCollection_AddFrom(v0->spriteResourceCollection[2], v9, v3, 0, 8000, 2, heapID);
     param0->unk_14[3] = SpriteResourceCollection_AddFrom(v0->spriteResourceCollection[3], v9, v4, 0, 8000, 3, heapID);
+    #ifdef PLATFORM_DS
     param0->unk_24[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v7, size_check_icons_NCGR_lz, TRUE, size_check_icons_NCGR_lz + 7000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0->unk_24[0]);
     SpriteResource_ReleaseData(param0->unk_24[0]);
 
+    #ifdef PLATFORM_DS
     param0->unk_24[1] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[1], v7, size_check_icons_NCLR, FALSE, size_check_icons_NCLR + 7000, NNS_G2D_VRAM_TYPE_2DMAIN, 5, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0->unk_24[1]);
 
@@ -623,7 +647,11 @@ static void ov21_021E7B34(UnkStruct_ov21_021E7714 *param0, UnkStruct_ov21_021E74
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = heapID;
     v1.position.x = 184 << FX32_SHIFT;
     v1.position.y = 64 << FX32_SHIFT;
@@ -661,7 +689,11 @@ static void ov21_021E7B34(UnkStruct_ov21_021E7714 *param0, UnkStruct_ov21_021E74
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = heapID;
     v1.position.x = 72 << FX32_SHIFT;
     v1.position.y = 64 << FX32_SHIFT;
@@ -1073,11 +1105,19 @@ static void ov21_021E8400(UnkStruct_ov21_021E7714 *param0, u8 param1, u16 param2
     const NNSG2dImagePaletteProxy *v1 = SpriteTransfer_GetPaletteProxy(param0->unk_14[1], NULL);
 
     BlendPalette(v0->pRawData, param0->unk_BC, 3 * 16, param1, param2);
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_2D_OBJ_PLTT_MAIN, NNS_G2dGetImagePaletteLocation(v1, NNS_G2D_VRAM_TYPE_2DMAIN), param0->unk_BC, 3 * 32);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v0 = SpriteResource_GetPaletteFade(param0->unk_24[1]);
     v1 = SpriteTransfer_GetPaletteProxy(param0->unk_24[1], NULL);
 
     BlendPalette(v0->pRawData, param0->unk_C0, 5 * 16, param1, param2);
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_2D_OBJ_PLTT_MAIN, NNS_G2dGetImagePaletteLocation(v1, NNS_G2D_VRAM_TYPE_2DMAIN), param0->unk_C0, 5 * 32);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }

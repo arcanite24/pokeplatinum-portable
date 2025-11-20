@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02015F84_H
 #define POKEPLATINUM_UNK_02015F84_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pokemon_animation_sys_decl.h"
 #include "struct_defs/poke_animation_settings.h"
 

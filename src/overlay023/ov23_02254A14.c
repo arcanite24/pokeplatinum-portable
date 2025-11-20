@@ -411,22 +411,38 @@ static BOOL ov23_02254DF8(FieldTask *param0)
             v12 = 1;
             v13 = v6->unk_3C.unk_00;
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
                 v0 = -(FX32_ONE * 16);
                 v1 = 0;
                 v13.unk_00--;
                 v13.unk_08--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 v0 = (FX32_ONE * 16);
                 v1 = 0;
                 v13.unk_00++;
                 v13.unk_08++;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 v0 = 0;
                 v1 = -(FX32_ONE * 16);
                 v13.unk_04--;
                 v13.unk_0C--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 v0 = 0;
                 v1 = (FX32_ONE * 16);
                 v13.unk_04++;
@@ -450,9 +466,17 @@ static BOOL ov23_02254DF8(FieldTask *param0)
                 }
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v4 = 1;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_02254A94(fieldSystem, v6->unk_3C.unk_10);
                 v6->unk_04 = 0;
                 return 0;
@@ -566,22 +590,38 @@ static BOOL ov23_02255100(FieldTask *param0)
         v3 = v7->unk_4FC->unk_58.z;
 
         if (!v4) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v2 -= (FX32_ONE * 16);
                 v1.unk_00--;
                 v1.unk_08--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v2 += (FX32_ONE * 16);
                 v1.unk_00++;
                 v1.unk_08++;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v3 -= (FX32_ONE * 16);
                 v1.unk_04--;
                 v1.unk_0C--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v3 += (FX32_ONE * 16);
                 v1.unk_04++;
@@ -590,9 +630,17 @@ static BOOL ov23_02255100(FieldTask *param0)
                 v0 = 0;
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v5 = 1;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_02255F20(v7->unk_4FC);
                 ov23_0225628C(fieldSystem, &v7->unk_4DC);
                 ov23_02255EBC(3, v7);
@@ -801,22 +849,38 @@ static BOOL ov23_02255580(FieldTask *param0)
         v3 = v7->unk_4FC->unk_58.z;
 
         if (!v4) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v2 -= (FX32_ONE * 16);
                 v1.unk_00--;
                 v1.unk_08--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v2 += (FX32_ONE * 16);
                 v1.unk_00++;
                 v1.unk_08++;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v3 -= (FX32_ONE * 16);
                 v1.unk_04--;
                 v1.unk_0C--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BUTTON3);
                 v3 += (FX32_ONE * 16);
                 v1.unk_04++;
@@ -825,9 +889,17 @@ static BOOL ov23_02255580(FieldTask *param0)
                 v0 = 0;
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v5 = 1;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_02255F20(v7->unk_4FC);
                 ov23_0225628C(fieldSystem, &v7->unk_4DC);
                 ov23_02255EBC(3, v7);
@@ -939,22 +1011,38 @@ static BOOL ov23_02255850(FieldTask *param0)
             v7 = 1;
             v8 = v6->unk_3C.unk_00;
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
                 v0 = -(FX32_ONE * 16);
                 v1 = 0;
                 v8.unk_00--;
                 v8.unk_08--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
                 v0 = (FX32_ONE * 16);
                 v1 = 0;
                 v8.unk_00++;
                 v8.unk_08++;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
                 v0 = 0;
                 v1 = -(FX32_ONE * 16);
                 v8.unk_04--;
                 v8.unk_0C--;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 v0 = 0;
                 v1 = (FX32_ONE * 16);
                 v8.unk_04++;
@@ -978,9 +1066,17 @@ static BOOL ov23_02255850(FieldTask *param0)
                 }
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v4 = 1;
+            #ifdef PLATFORM_DS
             } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_02255BB8(&v6->unk_0C.unk_10, v6->unk_0C.unk_00, v6->unk_5C);
                 ov23_02255E8C(v6);
                 ov23_0225628C(fieldSystem, &v6->unk_4DC);

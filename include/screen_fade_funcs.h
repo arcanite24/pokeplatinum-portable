@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCREEN_FADE_FUNCS_H
 #define POKEPLATINUM_SCREEN_FADE_FUNCS_H
 
+#include "platform/platform_types.h"
+
 #include "screen_fade.h"
 
 typedef BOOL (*ScreenFadeFunc)(ScreenFade *);

@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 u16 *GetHardwareMainBgPaletteAddress(void);
 u32 GetHardwareMainBgPaletteSize(void);
 u16 *GetHardwareSubBgPaletteAddress(void);

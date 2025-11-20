@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPRITE_UTIL_H
 #define POKEPLATINUM_SPRITE_UTIL_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #else
@@ -59,7 +61,15 @@ void SpriteResourcesHeaderList_Free(SpriteResourcesHeaderList *param0);
 SpriteList *SpriteList_InitRendering(int maxElements, G2dRenderer *g2dRenderer, enum HeapID heapID);
 void SetMainScreenViewRect(G2dRenderer *g2dRenderer, fx32 x, fx32 y);
 void SetSubScreenViewRect(G2dRenderer *g2dRenderer, fx32 x, fx32 y);
+#ifdef PLATFORM_DS
 void ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE vramType, GXOBJVRamModeChar vramMode);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
+#ifdef PLATFORM_DS
 void ReserveSlotsForWirelessIconPalette(NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 
 #endif // POKEPLATINUM_SPRITE_UTIL_H

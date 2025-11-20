@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CATCHING_SHOW_H
 #define POKEPLATINUM_CATCHING_SHOW_H
 
+#include "platform/platform_types.h"
+
 #include "constants/pokemon.h"
 
 #include "field/field_system_decl.h"

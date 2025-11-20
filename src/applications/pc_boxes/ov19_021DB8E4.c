@@ -108,8 +108,16 @@ BOOL ov19_021DB8E4(UnkStruct_ov19_021DBA9C *param0, UnkStruct_ov19_021D61B0 *par
             DC_FlushRange(param0->unk_E4, 8 * 96);
         }
 
+        #ifdef PLATFORM_DS
         GX_LoadOBJPltt(param0->unk_E4[8 - 1], 13 * 0x20, 96);
+        #else
+        // TODO: Port GX_LoadOBJPltt to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_LoadOBJPltt(param0->unk_E4[0], 13 * 0x20, 96);
+        #else
+        // TODO: Port GXS_LoadOBJPltt to PAL
+        #endif
     }
 
     param0->unk_14 = Graphics_GetCharDataFromOpenNARC(param5, 17, 1, &(param0->unk_18), HEAP_ID_BOX_GRAPHICS);
@@ -226,7 +234,11 @@ BOOL ov19_021DBBA0(UnkStruct_ov19_021DBA9C *param0)
     return ov19_021DC090(param0);
 }
 
+#ifdef PLATFORM_DS
 void ov19_021DBBA8(UnkStruct_ov19_021DBA9C *param0, u32 param1, u32 param2, NNS_G2D_VRAM_TYPE param3, NNSG2dImageProxy *param4)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     const PCBoxes *pcBoxes;
     BoxPokemon *boxMon;
@@ -285,24 +297,60 @@ void ov19_021DBBA8(UnkStruct_ov19_021DBA9C *param0, u32 param1, u32 param2, NNS_
 
     if (param4) {
         switch (param3) {
+        #ifdef PLATFORM_DS
         case NNS_G2D_VRAM_TYPE_2DMAIN:
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             param0->unk_18->mapingType = GX_GetOBJVRamModeChar();
+            #else
+            // TODO: Port GX_GetOBJVRamModeChar to PAL
+            #endif
             break;
+        #ifdef PLATFORM_DS
         case NNS_G2D_VRAM_TYPE_2DSUB:
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
+            #ifdef PLATFORM_DS
             param0->unk_18->mapingType = GXS_GetOBJVRamModeChar();
+            #else
+            // TODO: Port GXS_GetOBJVRamModeChar to PAL
+            #endif
             break;
         }
 
+        #ifdef PLATFORM_DS
         NNS_G2dLoadImage1DMapping(param0->unk_18, param2 * 0x20, param3, param4);
+        #else
+        // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+        #endif
     } else {
         DC_FlushRange(param0->unk_18->pRawData, param0->unk_18->szByte);
 
         switch (param3) {
+        #ifdef PLATFORM_DS
         case NNS_G2D_VRAM_TYPE_2DMAIN:
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             GX_LoadOBJ(param0->unk_18->pRawData, param2 * 0x20, param0->unk_18->szByte);
+            #else
+            // TODO: Port GX_LoadOBJ to PAL
+            #endif
             break;
+        #ifdef PLATFORM_DS
         case NNS_G2D_VRAM_TYPE_2DSUB:
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
+            #ifdef PLATFORM_DS
             GXS_LoadOBJ(param0->unk_18->pRawData, param2 * 0x20, param0->unk_18->szByte);
+            #else
+            // TODO: Port GXS_LoadOBJ to PAL
+            #endif
             break;
         }
     }
@@ -345,12 +393,24 @@ static void ov19_021DBD9C(UnkStruct_ov19_021DBA9C *param0, u32 param1, u32 param
     u32 v0 = 1584 + 32 * param1;
 
     if (param0->unk_4BE4[param2]) {
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(param0->unk_3E4[param2], v0 * 0x20, 1024);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
     } else {
         NNSG2dImageProxy v1;
 
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v1);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         ov19_021DBBA8(param0, param2, v0, NNS_G2D_VRAM_TYPE_2DMAIN, &v1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ov19_021DBD68(param0, param2);
     }
 }
@@ -369,11 +429,23 @@ static void ov19_021DBDF4(UnkStruct_ov19_021DBA9C *param0)
     v5 = ov19_021DBD40(param0);
 
     for (v4 = 0; v4 < 7; v4++) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v2);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         ov19_021DBBA8(param0, v5, 1584 + 32 * v4, NNS_G2D_VRAM_TYPE_2DMAIN, &v2);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v0.imageProxy = &v2;
+        #ifdef PLATFORM_DS
         param0->unk_48[v4] = ov19_021D785C(param0->unk_08, &v0, 512, 256, 11, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         GF_ASSERT(param0->unk_48[v4] != NULL);
 
@@ -532,7 +604,11 @@ static void ov19_021DC0A0(SysTask *param0, void *param1)
         v0->unk_05 = 8 - 1;
         break;
     case 1:
+        #ifdef PLATFORM_DS
         GX_LoadOBJPltt(v1->unk_E4[v0->unk_05], 13 * 0x20, 96);
+        #else
+        // TODO: Port GX_LoadOBJPltt to PAL
+        #endif
         ov19_021DBF18(v1);
         v0->unk_04++;
         break;
@@ -541,7 +617,11 @@ static void ov19_021DC0A0(SysTask *param0, void *param1)
             v0->unk_05--;
         }
 
+        #ifdef PLATFORM_DS
         GX_LoadOBJPltt(v1->unk_E4[v0->unk_05], 13 * 0x20, 96);
+        #else
+        // TODO: Port GX_LoadOBJPltt to PAL
+        #endif
 
         if (v0->unk_05 == 0) {
             Window_PutToTilemap(&v1->unk_10[0]);
@@ -716,14 +796,34 @@ static void ov19_021DC4F8(UnkStruct_ov19_021DBA9C *param0, u32 param1)
 
         v1 = ov19_021D77D8(param0->unk_00);
         ov19_021D783C(&v0, &v2, ov19_021D77D0(param0->unk_00), v1->unk_1C, v1->unk_20, 0);
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v2);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
 
         v4 = Graphics_GetCharData(NARC_INDEX_ITEMTOOL__ITEMDATA__ITEM_ICON, Item_FileID(param1, 1), 0, &v3, HEAP_ID_BOX_GRAPHICS);
+        #ifdef PLATFORM_DS
         v3->mapingType = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+        #endif
         NNS_G2dLoadImage1DMapping(v3, 1520 * 0x20, NNS_G2D_VRAM_TYPE_2DMAIN, &v2);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         Graphics_LoadPalette(NARC_INDEX_ITEMTOOL__ITEMDATA__ITEM_ICON, Item_FileID(param1, 2), 1, 6 * 0x20, 0x20, HEAP_ID_BOX_GRAPHICS);
+        #ifdef PLATFORM_DS
         param0->unk_90 = ov19_021D785C(param0->unk_08, &v0, 18, 224, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         if (param0->unk_90) {
             Sprite_SetExplicitPalette(param0->unk_90, 6);

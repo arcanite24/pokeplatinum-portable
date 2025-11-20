@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MOVE_PALETTES_H
 #define POKEPLATINUM_MOVE_PALETTES_H
 
+#include "platform/platform_types.h"
+
 #include "generated/pokemon_types.h"
 
 #include "palette.h"

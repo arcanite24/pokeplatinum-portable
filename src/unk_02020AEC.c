@@ -128,9 +128,21 @@ void sub_02020B14(UnkStruct_020216E0 *param0)
 
     memset(&param0->unk_A0, 0, sizeof(UnkStruct_02024184));
 
+    #ifdef PLATFORM_DS
     param0->unk_94 = (NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_98 = (NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_9C = (NNS_GFD_ALLOC_ERROR_PLTTKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
     param0->unk_B0 = NULL;
 
     VEC_Set(&(param0->unk_00), 0, 0, 0);
@@ -379,27 +391,67 @@ static void sub_02020E78(UnkStruct_020216E0 *param0, const UnkStruct_ov5_021DF84
 
 static void sub_02020EF8(const NNSG3dResTex *param0, NNSG3dTexKey *param1, NNSG3dTexKey *param2, NNSG3dPlttKey *param3)
 {
+    #ifdef PLATFORM_DS
     u32 v0 = NNS_G3dTexGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dTexGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     u32 v1 = NNS_G3dTex4x4GetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dTex4x4GetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     u32 v2 = NNS_G3dPlttGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dPlttGetRequiredSize to PAL
+    #endif
 
     if (v0 > 0) {
+        #ifdef PLATFORM_DS
         *param1 = NNS_GfdAllocTexVram(v0, 0, 0);
+        #else
+        // TODO: Port NNS_GfdAllocTexVram to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(*param1 != (NNS_GFD_ALLOC_ERROR_TEXKEY));
+        #else
+        // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+        #endif
     } else {
         *param1 = 0;
     }
 
     if (v1 > 0) {
+        #ifdef PLATFORM_DS
         *param2 = NNS_GfdAllocTexVram(v1, 1, 0);
+        #else
+        // TODO: Port NNS_GfdAllocTexVram to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(*param2 != (NNS_GFD_ALLOC_ERROR_TEXKEY));
+        #else
+        // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+        #endif
     } else {
         *param2 = 0;
     }
 
     if (v2 > 0) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_GfdAllocPlttVram to PAL
+        #endif
         *param3 = NNS_GfdAllocPlttVram(v2, param0->tex4x4Info.flag & NNS_G3D_RESPLTT_USEPLTT4, 0);
+        #else
+        // TODO: Port NNS_G3D_RESPLTT_USEPLTT4 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(*param3 != (NNS_GFD_ALLOC_ERROR_PLTTKEY));
+        #else
+        // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+        #endif
     } else {
         *param3 = 0;
     }
@@ -407,29 +459,73 @@ static void sub_02020EF8(const NNSG3dResTex *param0, NNSG3dTexKey *param1, NNSG3
 
 static void sub_02020F90(NNSG3dResTex *param0, NNSG3dTexKey *param1, NNSG3dTexKey *param2, NNSG3dPlttKey *param3)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dTexReleaseTexKey(param0, param1, param2);
+    #else
+    // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     *param3 = NNS_G3dPlttReleasePlttKey(param0);
+    #else
+    // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+    #endif
 }
 
 static void sub_02020FA4(NNSG3dResTex *param0, NNSG3dResMdlSet *param1, NNSG3dTexKey *param2, NNSG3dTexKey *param3, NNSG3dPlttKey *param4)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dTexSetTexKey(param0, *param2, *param3);
+    #else
+    // TODO: Port NNS_G3dTexSetTexKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dPlttSetPlttKey(param0, *param4);
+    #else
+    // TODO: Port NNS_G3dPlttSetPlttKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dBindMdlSet(param1, param0);
+    #else
+    // TODO: Port NNS_G3dBindMdlSet to PAL
+    #endif
 }
 
 static void sub_02020FC8(NNSG3dTexKey *param0, NNSG3dTexKey *param1, NNSG3dPlttKey *param2)
 {
+    #ifdef PLATFORM_DS
     if (*param0 != (NNS_GFD_ALLOC_ERROR_TEXKEY)) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(*param0);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (*param1 != (NNS_GFD_ALLOC_ERROR_TEXKEY)) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(*param1);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (*param2 != (NNS_GFD_ALLOC_ERROR_PLTTKEY)) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreePlttVram(*param2);
+        #else
+        // TODO: Port NNS_GfdFreePlttVram to PAL
+        #endif
     }
 }
 
@@ -443,12 +539,36 @@ static BOOL sub_02020FFC(const NNSG3dResTex *param0, const NNSG3dResTex *param1)
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dTexGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dTexGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v1 = NNS_G3dTex4x4GetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dTex4x4GetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v2 = NNS_G3dPlttGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dPlttGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v3 = NNS_G3dTexGetRequiredSize(param1);
+    #else
+    // TODO: Port NNS_G3dTexGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v4 = NNS_G3dTex4x4GetRequiredSize(param1);
+    #else
+    // TODO: Port NNS_G3dTex4x4GetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v5 = NNS_G3dPlttGetRequiredSize(param1);
+    #else
+    // TODO: Port NNS_G3dPlttGetRequiredSize to PAL
+    #endif
 
     if ((v0 != v3) || (v1 != v4) || (v2 != v5)) {
         v6 = 0;
@@ -475,7 +595,11 @@ static void sub_02021078(UnkStruct_020216E0 *param0, const UnkStruct_ov5_021DF84
     v0 = param0->unk_8C;
     param0->unk_84 = sub_02021788(param1, &param0->unk_88, &param0->unk_8C);
 
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(&param0->unk_30, param0->unk_88);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 
     if (param0->unk_B4 != 3) {
         v1 = sub_02020FFC(v0, param0->unk_8C);
@@ -502,7 +626,11 @@ static void sub_020210F4(const UnkStruct_02020C44 *param0, UnkStruct_020216E0 *p
 static void sub_02021148(UnkStruct_020216E0 *param0, const UnkStruct_ov5_021DF84C *param1)
 {
     param0->unk_84 = sub_02021788(param1, &param0->unk_88, &param0->unk_8C);
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(&param0->unk_30, param0->unk_88);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
     param0->unk_90 = sub_020217D4(param1);
 }
 
@@ -584,9 +712,21 @@ void sub_02021284(UnkStruct_ov5_021DF84C *param0, void *param1, const NNSG3dResT
     param0->unk_04 = param2;
     param0->unk_08 = param3;
     param0->unk_0C = *param4;
+    #ifdef PLATFORM_DS
     param0->unk_1C = (NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_20 = (NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_24 = (NNS_GFD_ALLOC_ERROR_PLTTKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
 }
 
 void sub_020212A8(UnkStruct_020216E0 *param0, const VecFx32 *param1)
@@ -741,13 +881,29 @@ static void sub_0202149C(NNSG3dResMdl *param0, const NNSG3dResTex *param1, u8 pa
     u32 v4;
     int v5;
 
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dGetMat(param0);
+    #else
+    // TODO: Port NNS_G3dGetMat to PAL
+    #endif
     v1 = (NNSG3dResDict *)((u8 *)v0 + v0->ofsDictTexToMatList);
+    #ifdef PLATFORM_DS
     v3 = NNS_G3dGetTexDataByIdx(param1, param2);
+    #else
+    // TODO: Port NNS_G3dGetTexDataByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v4 = (v3->texImageParam & NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK);
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK to PAL
+    #endif
 
     for (v5 = 0; v5 < v1->numEntry; ++v5) {
+        #ifdef PLATFORM_DS
         v2 = (NNSG3dResDictTexToMatIdxData *)NNS_G3dGetResDataByIdx(v1, v5);
+        #else
+        // TODO: Port NNS_G3dGetResDataByIdx to PAL
+        #endif
 
         if (v2->flag & 1) {
             sub_02021524(v0, v2, v4);
@@ -764,8 +920,16 @@ static void sub_02021524(NNSG3dResMat *param0, const NNSG3dResDictTexToMatIdxDat
     v0 = (u8 *)param0 + param1->offset;
 
     for (v1 = 0; v1 < param1->numIdx; v1++) {
+        #ifdef PLATFORM_DS
         v2 = NNS_G3dGetMatDataByIdx(param0, *(v0 + v1));
+        #else
+        // TODO: Port NNS_G3dGetMatDataByIdx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(((v2->texImageParam & NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK) + param2) <= NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK);
+        #else
+        // TODO: Port NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK to PAL
+        #endif
         v2->texImageParam += param2;
     }
 }
@@ -779,9 +943,17 @@ static void sub_020215A0(NNSG3dResMdl *param0, const NNSG3dResTex *param1, u8 pa
     u32 v4;
     u32 v5;
 
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dGetMat(param0);
+    #else
+    // TODO: Port NNS_G3dGetMat to PAL
+    #endif
     v1 = (NNSG3dResDict *)((u8 *)v0 + v0->ofsDictPlttToMatList);
+    #ifdef PLATFORM_DS
     v3 = NNS_G3dGetPlttDataByIdx(param1, param2);
+    #else
+    // TODO: Port NNS_G3dGetPlttDataByIdx to PAL
+    #endif
     v4 = v3->offset;
 
     if (!(v3->flag & 1)) {
@@ -789,7 +961,11 @@ static void sub_020215A0(NNSG3dResMdl *param0, const NNSG3dResTex *param1, u8 pa
     }
 
     for (v5 = 0; v5 < v1->numEntry; ++v5) {
+        #ifdef PLATFORM_DS
         v2 = (NNSG3dResDictPlttToMatIdxData *)NNS_G3dGetResDataByIdx(v1, v5);
+        #else
+        // TODO: Port NNS_G3dGetResDataByIdx to PAL
+        #endif
 
         if (v2->flag & 1) {
             sub_0202162C(v0, v2, v4);
@@ -805,7 +981,11 @@ static void sub_0202162C(NNSG3dResMat *param0, const NNSG3dResDictPlttToMatIdxDa
     v0 = (u8 *)param0 + param1->offset;
 
     for (v1 = 0; v1 < param1->numIdx; v1++) {
+        #ifdef PLATFORM_DS
         NNSG3dResMatData *v2 = NNS_G3dGetMatDataByIdx(param0, *(v0 + v1));
+        #else
+        // TODO: Port NNS_G3dGetMatDataByIdx to PAL
+        #endif
 
         GF_ASSERT(((v2->texPlttBase & 0x1fff) + param2) <= 0x1fff);
         v2->texPlttBase += param2;
@@ -869,12 +1049,24 @@ static void sub_02021768(UnkStruct_020216E0 *param0)
 static NNSG3dResMdlSet *sub_02021788(const UnkStruct_ov5_021DF84C *param0, NNSG3dResMdl **param1, NNSG3dResTex **param2)
 {
     void *v0 = sub_0202189C(param0, 0);
+    #ifdef PLATFORM_DS
     NNSG3dResMdlSet *v1 = NNS_G3dGetMdlSet(v0);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     *param1 = NNS_G3dGetMdlByIdx(v1, 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
 
     if (param2) {
+        #ifdef PLATFORM_DS
         *param2 = NNS_G3dGetTex(v0);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
     }
 
     return v1;
@@ -888,7 +1080,11 @@ static NNSG3dResTex *sub_020217D4(const UnkStruct_ov5_021DF84C *param0)
 
 static void sub_020217E0(UnkStruct_020216E0 *param0, const UnkStruct_ov5_021DF84C *param1)
 {
+    #ifdef PLATFORM_DS
     if (param1->unk_1C == (NNS_GFD_ALLOC_ERROR_TEXKEY)) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
         sub_02020E28(param0, param1);
     } else {
         sub_02020E78(param0, param1);
@@ -940,7 +1136,11 @@ static void sub_0202187C(UnkStruct_020216E0 *param0)
     NNSG3dTexKey v1;
     NNSG3dPlttKey v2;
 
+    #ifdef PLATFORM_DS
     NNS_G3dReleaseMdlSet(param0->unk_84);
+    #else
+    // TODO: Port NNS_G3dReleaseMdlSet to PAL
+    #endif
     sub_02020F90(param0->unk_8C, &v1, &v0, &v2);
 }
 

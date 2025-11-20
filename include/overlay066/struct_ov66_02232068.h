@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_02232068_H
 #define POKEPLATINUM_STRUCT_OV66_02232068_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u8 unk_00[20];
 } UnkStruct_ov66_02232068;

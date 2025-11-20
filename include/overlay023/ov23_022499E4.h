@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_022499E4_H
 #define POKEPLATINUM_OV23_022499E4_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void ov23_022499E8(FieldSystem *fieldSystem);

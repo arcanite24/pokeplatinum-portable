@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_CONTROL_H
 #define POKEPLATINUM_FIELD_CONTROL_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 typedef struct FieldInput {

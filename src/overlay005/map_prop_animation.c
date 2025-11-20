@@ -44,13 +44,25 @@ static void *MapPropAnimation_LoadAnimationObj(NARC *animeNARC, const u32 animeA
     void *animationFile = NARC_AllocAndReadWholeMember(animeNARC, animeArchiveID, HEAP_ID_FIELD1);
     GF_ASSERT(animationFile != NULL);
 
+    #ifdef PLATFORM_DS
     animation = NNS_G3dGetAnmByIdx(animationFile, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
     GF_ASSERT(animation != NULL);
 
+    #ifdef PLATFORM_DS
     *animationObj = NNS_G3dAllocAnmObj(allocator, animation, mapPropModel);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
     GF_ASSERT(animationObj != NULL);
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(*animationObj, animation, mapPropModel, mapPropTexture);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
     return animationFile;
 }
 
@@ -62,7 +74,11 @@ static const BOOL MapPropAnimation_RemoveAnimationObjFromRenderObj(NNSG3dRenderO
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjRemoveAnmObj(renderObj, animationObj);
+    #else
+    // TODO: Port NNS_G3dRenderObjRemoveAnmObj to PAL
+    #endif
     return TRUE;
 }
 
@@ -265,7 +281,11 @@ BOOL MapPropAnimationManager_AddAnimationToRenderObj(const int mapPropModelID, c
             }
 
             if (addAnimationObj) {
+                #ifdef PLATFORM_DS
                 NNS_G3dRenderObjAddAnmObj(mapPropRenderObj, manager->animations[i].animationObj);
+                #else
+                // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+                #endif
             }
 
             return TRUE;
@@ -313,7 +333,11 @@ BOOL MapPropAnimationManager_AddAllAnimationsToRenderObj(const int mapPropModelI
                 }
 
                 if (addAnimationObj) {
+                    #ifdef PLATFORM_DS
                     NNS_G3dRenderObjAddAnmObj(mapPropRenderObj, manager->animations[j].animationObj);
+                    #else
+                    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+                    #endif
                     res = TRUE;
                 }
 
@@ -334,7 +358,11 @@ void MapPropAnimationManager_UnloadAllAnimations(MapPropAnimationManager *manage
     for (int i = 0; i < MAP_PROP_ANIMATION_MANAGER_MAX_ANIMATIONS; i++) {
         if (manager->animations[i].loaded) {
             if (manager->animations[i].loaded == TRUE) {
+                #ifdef PLATFORM_DS
                 NNS_G3dFreeAnmObj(&manager->allocator, manager->animations[i].animationObj);
+                #else
+                // TODO: Port NNS_G3dFreeAnmObj to PAL
+                #endif
                 manager->animations[i].animationObj = NULL;
                 Heap_Free(manager->animations[i].animationFile);
             }
@@ -355,7 +383,11 @@ void MapPropAnimationManager_UnloadAnimation(MapPropAnimation *animation, MapPro
 
     if (animation->loaded) {
         if (animation->loaded == TRUE) {
+            #ifdef PLATFORM_DS
             NNS_G3dFreeAnmObj(&manager->allocator, animation->animationObj);
+            #else
+            // TODO: Port NNS_G3dFreeAnmObj to PAL
+            #endif
             animation->animationObj = NULL;
             Heap_Free(animation->animationFile);
         }
@@ -449,7 +481,11 @@ BOOL MapPropAnimation_IsOnLastFrame(MapPropAnimation *animation)
     BOOL onLastFrame;
 
     if (!animation->reversed) {
+        #ifdef PLATFORM_DS
         if (animation->animationObj->frame >= NNS_G3dAnmObjGetNumFrame(animation->animationObj) - (FX32_ONE)) {
+        #else
+        // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+        #endif
             onLastFrame = TRUE;
         } else {
             onLastFrame = FALSE;
@@ -470,14 +506,22 @@ void MapPropAnimation_GoToFirstFrame(MapPropAnimation *animation)
     if (!animation->reversed) {
         animation->animationObj->frame = 0;
     } else {
+        #ifdef PLATFORM_DS
         animation->animationObj->frame = NNS_G3dAnmObjGetNumFrame(animation->animationObj) - (FX32_ONE);
+        #else
+        // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+        #endif
     }
 }
 
 void MapPropAnimation_GoToLastFrame(MapPropAnimation *animation)
 {
     if (!animation->reversed) {
+        #ifdef PLATFORM_DS
         animation->animationObj->frame = NNS_G3dAnmObjGetNumFrame(animation->animationObj) - (FX32_ONE);
+        #else
+        // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+        #endif
     } else {
         animation->animationObj->frame = 0;
     }
@@ -488,12 +532,20 @@ void MapPropAnimation_AdvanceFrame(MapPropAnimation *animation)
     if (!animation->reversed) {
         animation->animationObj->frame += (FX32_ONE);
 
+        #ifdef PLATFORM_DS
         if (animation->animationObj->frame == NNS_G3dAnmObjGetNumFrame(animation->animationObj)) {
+        #else
+        // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+        #endif
             animation->animationObj->frame = 0;
         }
     } else {
         if (animation->animationObj->frame <= 0) {
+            #ifdef PLATFORM_DS
             animation->animationObj->frame = NNS_G3dAnmObjGetNumFrame(animation->animationObj) - (FX32_ONE);
+            #else
+            // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+            #endif
         } else {
             animation->animationObj->frame -= (FX32_ONE);
         }
@@ -653,7 +705,11 @@ static MapPropAnimation *MapPropOneShotAnimation_SwitchAnimation(MapPropOneShotA
     for (u8 i = 0; i < MAP_PROP_ONE_SHOT_ANIMATION_MAX_RENDER_OBJS; i++) {
         if (oneShotAnimation->mapPropRenderObjs[i] != NULL) {
             MapPropAnimation_RemoveAnimationObjFromRenderObj(oneShotAnimation->mapPropRenderObjs[i], currentAnimationObj);
+            #ifdef PLATFORM_DS
             NNS_G3dRenderObjAddAnmObj(oneShotAnimation->mapPropRenderObjs[i], newAnimationObj);
+            #else
+            // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+            #endif
         }
     }
 

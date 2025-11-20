@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_FRONTIER_POKEMON_DATA
 #define POKEPLATINUM_BATTLE_FRONTIER_POKEMON_DATA
 
+#include "platform/platform_types.h"
+
 #include "constants/moves.h"
 
 typedef struct BattleFrontierPokemonData {

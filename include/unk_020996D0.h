@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020996D0_H
 #define POKEPLATINUM_UNK_020996D0_H
 
+#include "platform/platform_types.h"
+
 u32 sub_020996D0(void);
 u32 sub_020996D4(u32 param0);
 u32 sub_020996F4(u32 param0);

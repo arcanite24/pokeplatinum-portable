@@ -77,7 +77,11 @@ void ov95_0224773C(UnkStruct_ov95_0224773C *param0)
 
 void ov95_02247770(UnkStruct_ov95_0224773C *param0)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
     {
         int v0;
 
@@ -90,7 +94,11 @@ void ov95_02247770(UnkStruct_ov95_0224773C *param0)
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 }
 
 static void inline inline_ov95_022477B8(MtxFx33 *param0, const VecFx16 *param1)
@@ -113,7 +121,11 @@ static void ov95_022477B8(UnkStruct_ov95_02247958 *param0)
     inline_ov95_022477B8(&v0, &(param0->unk_80));
 
     if (param0->unk_88 != 31) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, 0, param0->unk_88, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
     }
 
     Easy3D_DrawRenderObj(&param0->unk_04, &param0->unk_68, &v0, &param0->unk_74);
@@ -145,14 +157,30 @@ UnkStruct_ov95_02247958 *ov95_022478B4(UnkStruct_ov95_0224773C *param0, int para
     DC_FlushRange(v0->unk_00, NARC_GetMemberSizeByIndexPair(narcID, param3));
 
     if (v0->unk_00) {
+        #ifdef PLATFORM_DS
         v0->unk_58 = NNS_G3dGetMdlSet(v0->unk_00);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v0->unk_5C = NNS_G3dGetMdlByIdx(v0->unk_58, 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v0->unk_60 = NNS_G3dGetTex(v0->unk_00);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
 
         Easy3D_UploadTextureToVRAM(v0->unk_60);
         Easy3D_BindTextureToResource(v0->unk_00, v0->unk_60);
 
+        #ifdef PLATFORM_DS
         NNS_G3dRenderObjInit(&v0->unk_04, v0->unk_5C);
+        #else
+        // TODO: Port NNS_G3dRenderObjInit to PAL
+        #endif
 
         v0->unk_68.x = param4;
         v0->unk_68.y = param5;
@@ -194,9 +222,17 @@ void ov95_022479AC(UnkStruct_ov95_02247958 *param0, int param1)
     param0->unk_88 = param1;
 
     if (param1 != 31) {
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param0->unk_5C);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseMdlAlpha(param0->unk_5C);
+        #else
+        // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+        #endif
     }
 }
 
@@ -214,12 +250,20 @@ BOOL ov95_022479DC(UnkStruct_ov95_02247958 *param0)
 
     inline_ov95_022477B8(&v0, &(param0->unk_80));
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     Camera_ComputeViewMatrix();
     v1 = GFXBoxTest_IsModelInView(param0->unk_5C, &param0->unk_68, &v0, &param0->unk_74);
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 
     return v1;
 }

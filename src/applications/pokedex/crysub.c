@@ -501,24 +501,72 @@ static BOOL CrySubGraphicsExit(void *graphics, PokedexGraphicsManager *graphicsM
 
 static void SetSpriteOAMModesXLU(PokedexCrySubGraphics *pokedexCrySubGraphics)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->dialSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->switchSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->playButtonSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->loopButtonSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     sub_02012AF0(pokedexCrySubGraphics->switchLabel[SWITCH_CHORUS]->fontOAM, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(pokedexCrySubGraphics->switchLabel[SWITCH_PAN]->fontOAM, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 }
 
 static void SetSpriteOAMModesNormal(PokedexCrySubGraphics *pokedexCrySubGraphics)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->dialSprite, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->switchSprite, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->playButtonSprite, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(pokedexCrySubGraphics->loopButtonSprite, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     sub_02012AF0(pokedexCrySubGraphics->switchLabel[SWITCH_CHORUS]->fontOAM, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(pokedexCrySubGraphics->switchLabel[SWITCH_PAN]->fontOAM, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 }
 
 static void InitBlendTransition(PokedexCrySubGraphics *pokedexCrySubGraphics, PokedexGraphicData **graphicData, const PokedexCrySubData *pokedexCrySubData, BOOL isEntering)
@@ -527,9 +575,17 @@ static void InitBlendTransition(PokedexCrySubGraphics *pokedexCrySubGraphics, Po
 
     if (ov21_021E33A4(pokedexCrySubData->screenMan)) {
         if (isEntering) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*graphicData)->blendSub, 3, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), TRUE);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*graphicData)->blendSub, 3, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), TRUE);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -868,12 +924,20 @@ static void LoadCryDialSprite(PokedexCrySubGraphics *pokedexCrySubGraphics, Poke
     PokedexGraphicData *graphicsData = *graphics;
     NARC *narc = PokedexGraphics_GetNARC(*graphics);
 
+    #ifdef PLATFORM_DS
     pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(graphicsData->spriteResourceCollection[SPRITE_RESOURCE_CHAR], narc, cry_dials_NCGR_lz, TRUE, cry_dials_NCGR_lz + CRYSUB_GRAPHIC_ID, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(graphicsData->spriteResourceCollection[1], narc, cry_dials_NCLR, FALSE, cry_dials_NCLR + CRYSUB_GRAPHIC_ID, NNS_G2D_VRAM_TYPE_2DSUB, 3, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(pokedexCrySubGraphics->dialSpriteResource[SPRITE_RESOURCE_PLTT]);
@@ -905,7 +969,11 @@ static void AnimateSprites(PokedexCrySubGraphics *pokedexCrySubGraphics, Pokedex
     spriteListTemplate.list = graphicData->spriteList;
     spriteListTemplate.resourceData = &spriteResourcesHeader;
     spriteListTemplate.priority = 31;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     spriteListTemplate.heapID = heapID;
 
     spriteListTemplate.position.x = SWITCH_X << FX32_SHIFT;
@@ -984,10 +1052,18 @@ static void LoadSwitchText(PokedexCrySubGraphics *pokedexCrySubGraphics, Pokedex
     displayBox.y = SWITCH_LABEL_Y + HW_LCD_HEIGHT;
     displayBox.spriteResourcePriority = 2;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     displayBox.heapID = heapID;
 
+    #ifdef PLATFORM_DS
     int paletteOffset = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     Window *window = PokedexTextManager_NewWindow(graphicData->textMan, SWITCH_LABEL_WIDTH, SWITCH_LABEL_HEIGHT);
 
     u32 strWidth = PokedexTextManager_DisplayMessage(graphicData->textMan, window, TEXT_BANK_POKEDEX, pl_msg_pokedex_chorus, 0, 0);
@@ -1345,12 +1421,20 @@ static void FreeCryPalette(PokedexCrySubGraphics *pokedexCrySubGraphics)
 
 static void PokeballPaletteActive(PokedexCrySubGraphics *pokedexCrySubGraphics)
 {
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_SUB, 7 * 32, pokedexCrySubGraphics->paletteData->pRawData, 32);
+    #else
+    // TODO: Port NNS_GFD_DST_2D_BG_PLTT_SUB to PAL
+    #endif
 }
 
 static void PokeballPaletteDefault(PokedexCrySubGraphics *pokedexCrySubGraphics)
 {
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_SUB, 7 * 32, &((u8 *)(pokedexCrySubGraphics->paletteData->pRawData))[32], 32);
+    #else
+    // TODO: Port NNS_GFD_DST_2D_BG_PLTT_SUB to PAL
+    #endif
 }
 
 static void SetPokeballActiveReset(PokedexCrySubPageData *pokedexCrySubPageData, BOOL pokeballActive)
@@ -1405,7 +1489,11 @@ static void AdvancePlayButton(PokedexCrySubPageData *pokedexCrySubPageData, Poke
 {
     enum Species species = PokedexSort_CurrentSpecies(pokedexCrySubData->sortData);
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         pokedexCrySubPageData->playButtonState = PLAY_APRESS;
 
         pokedexCrySubPageData->buttonState[CRYSUB_PLAY] = TOUCH_BUTTON_PRESSED;

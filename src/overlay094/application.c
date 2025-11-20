@@ -95,8 +95,16 @@ BOOL GTSApplication_Init(ApplicationManager *appMan, int *loopState)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
 
         Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_62, 0x70000);
 
@@ -106,10 +114,26 @@ BOOL GTSApplication_Init(ApplicationManager *appMan, int *loopState)
         unused_GTSApplicationState = appState;
 
         GraphicsModes graphicsModes = {
+            #ifdef PLATFORM_DS
             .displayMode = GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .mainBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .subBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bg0As2DOr3D = GX_BG0_AS_2D,
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&graphicsModes);
@@ -129,7 +153,11 @@ BOOL GTSApplication_Init(ApplicationManager *appMan, int *loopState)
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_11, SEQ_WIFILOBBY, 1);
 
         appState->dwcHeapPointer = Heap_Alloc(HEAP_ID_62, 0x20000 + 32);
+        #ifdef PLATFORM_DS
         appState->dwcHeapHandle = NNS_FndCreateExpHeap((void *)(((u32)appState->dwcHeapPointer + 31) / 32 * 32), 0x20000);
+        #else
+        // TODO: Port NNS_FndCreateExpHeap to PAL
+        #endif
         *loopState = 1;
         break;
     case 1:
@@ -240,22 +268,70 @@ static void GTSApplication_VBlankCallback(void *appStatePtr)
     VramTransfer_Process();
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void GTSApplication_SetVRAMBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -308,7 +384,11 @@ static void GTSApplication_InitGraphics(GTSApplicationState *appState)
 {
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__WORLDTRADE, HEAP_ID_62);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 126, 0, 32, 0, 126, 0, 32, HEAP_ID_62);
 
     appState->spriteList = SpriteList_InitRendering(72 + 6, &appState->g2dRenderer, HEAP_ID_62);
@@ -319,13 +399,29 @@ static void GTSApplication_InitGraphics(GTSApplicationState *appState)
         appState->spriteResourceCollection[i] = SpriteResourceCollection_New(3, i, HEAP_ID_62);
     }
 
+    #ifdef PLATFORM_DS
     appState->spriteResource[0][0] = SpriteResourceCollection_AddTilesFrom(appState->spriteResourceCollection[0], narc, 18, 1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_62);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     appState->spriteResource[0][1] = SpriteResourceCollection_AddPaletteFrom(appState->spriteResourceCollection[1], narc, 9, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 3, HEAP_ID_62);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     appState->spriteResource[0][2] = SpriteResourceCollection_AddFrom(appState->spriteResourceCollection[2], narc, 19, 1, 0, SPRITE_RESOURCE_CELL, HEAP_ID_62);
     appState->spriteResource[0][3] = SpriteResourceCollection_AddFrom(appState->spriteResourceCollection[3], narc, 20, 1, 0, SPRITE_RESOURCE_ANIM, HEAP_ID_62);
 
+    #ifdef PLATFORM_DS
     appState->spriteResource[1][0] = SpriteResourceCollection_AddTilesFrom(appState->spriteResourceCollection[0], narc, 32, 1, 1, NNS_G2D_VRAM_TYPE_2DSUB, HEAP_ID_62);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     appState->spriteResource[1][1] = SpriteResourceCollection_AddPaletteFrom(appState->spriteResourceCollection[1], narc, 8, 0, 1, NNS_G2D_VRAM_TYPE_2DSUB, 9, HEAP_ID_62);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     appState->spriteResource[1][2] = SpriteResourceCollection_AddFrom(appState->spriteResourceCollection[2], narc, 33, 1, 1, SPRITE_RESOURCE_CELL, HEAP_ID_62);
     appState->spriteResource[1][3] = SpriteResourceCollection_AddFrom(appState->spriteResourceCollection[3], narc, 34, 1, 1, SPRITE_RESOURCE_ANIM, HEAP_ID_62);
 
@@ -339,7 +435,11 @@ static void GTSApplication_InitGraphics(GTSApplicationState *appState)
     void *palettePointer = Graphics_GetPlttData(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconPalettesFileIndex(), &paletteData, HEAP_ID_62);
 
     DC_FlushRange(paletteData->pRawData, (3 * 16) * 2);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(paletteData->pRawData, 3 * 0x20, (3 * 16) * 2);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 
     u16 *rgb = (u16 *)paletteData->pRawData;
 
@@ -354,14 +454,22 @@ static void GTSApplication_InitGraphics(GTSApplicationState *appState)
     }
 
     DC_FlushRange(paletteData->pRawData, (3 * 16) * 2);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(paletteData->pRawData, (3 + 3) * 0x20, (3 * 16) * 2);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 
     Heap_Free(palettePointer);
 
     NARC_dtor(narc);
 }
 
+#ifdef PLATFORM_DS
 void GTSApplication_InitAffineTemplate(AffineSpriteListTemplate *template, GTSApplicationState *appState, SpriteResourcesHeader *spriteResourceHeader, enum NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     template->list = appState->spriteList;
     template->resourceData = spriteResourceHeader;
@@ -379,8 +487,16 @@ static void GTSApplication_InitSpriteHeaders(GTSApplicationState *appState)
 {
     SpriteResourcesHeader_Init(&appState->cursorSpriteResourceHeader, 0, 0, 0, 0, -1, -1, 0, 0, appState->spriteResourceCollection[0], appState->spriteResourceCollection[1], appState->spriteResourceCollection[2], appState->spriteResourceCollection[3], NULL, NULL);
     SpriteResourcesHeader_Init(&appState->avatarSpriteResourceHeader, 1, 1, 1, 1, -1, -1, 0, 0, appState->spriteResourceCollection[0], appState->spriteResourceCollection[1], appState->spriteResourceCollection[2], appState->spriteResourceCollection[3], NULL, NULL);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static const WindowTemplate sGTSYesNoWindowTemplate = {
@@ -423,10 +539,22 @@ static void *GTSApplication_DWCAlloc(DWCAllocType name, u32 size, int align)
 {
     UNUSED(name);
 
+    #ifdef PLATFORM_DS
     OSIntrMode oldInterruptMode = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     void *ptr = NNS_FndAllocFromExpHeapEx(sGTSHeapHandle, size, align);
+    #else
+    // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(oldInterruptMode);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     return ptr;
 }
@@ -440,10 +568,22 @@ static void GTSApplication_DWCFree(DWCAllocType name, void *ptr, u32 size)
         return;
     }
 
+    #ifdef PLATFORM_DS
     OSIntrMode oldInterruptMode = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_FndFreeToExpHeap(sGTSHeapHandle, ptr);
+    #else
+    // TODO: Port NNS_FndFreeToExpHeap to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(oldInterruptMode);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }
 
 int GTSApplication_GetNetworkStrength(void)

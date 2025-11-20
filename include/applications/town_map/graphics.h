@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_TOWN_MAP_GRAPHICS_H
 #define POKEPLATINUM_APPLICATIONS_TOWN_MAP_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/town_map/defs.h"
 
 BOOL TownMap_CreateGraphicsMan(TownMapAppData *appData);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SYSTEM_FLAGS_H
 #define POKEPLATINUM_SYSTEM_FLAGS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/savedata/vars_flags.h"
 #include "generated/first_arrival_to_zones.h"
 #include "generated/giratina_shadow_animations.h"

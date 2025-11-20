@@ -468,7 +468,11 @@ UnkStruct_020216E0 *ov5_021DF7F8(UnkStruct_ov5_021DF47C *param0, const UnkStruct
     GF_ASSERT(v1 != NULL);
 
     if (v1 != NULL) {
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlFogEnableFlagAll(sub_020213F4(v1), 1);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlFogEnableFlagAll to PAL
+        #endif
         AreaLight_UseGlobalModelAttributes(sub_020213F4(v1));
     }
 

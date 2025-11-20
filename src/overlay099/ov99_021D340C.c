@@ -101,25 +101,45 @@ BOOL ov99_021D340C(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D3A40 *par
                 v1 = Unk_ov99_021D4CAC[v2];
             }
 
+            #ifdef PLATFORM_DS
             NNS_G3dRenderObjInit(&param0->unk_6C[0][v2].renderObj, param0->unk_2C[v1].model);
+            #else
+            // TODO: Port NNS_G3dRenderObjInit to PAL
+            #endif
         }
 
         v0->unk_120 = 16;
     }
         ov99_021D3588(param0, v0);
         ov99_021D36B0(param0);
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(24, 0, -16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         param1->unk_00++;
         break;
     case 1:
         if (BrightnessController_IsTransitionComplete(BRIGHTNESS_BOTH_SCREENS) == TRUE) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendAlpha to PAL
+            #endif
             G2_SetBlendAlpha(0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ, 31, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
             param1->unk_00++;
         }
         break;
     case 2:
         if (param0->unk_10FC >= 7980) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(24, -16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             param1->unk_00++;
         }
         break;
@@ -216,8 +236,16 @@ static void ov99_021D35E8(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D34
 
 static void ov99_021D36B0(UnkStruct_ov99_021D2CB0 *param0)
 {
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(param0->unk_10E0[3], GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(param0->unk_10E0[4], GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 }
 
 static void ov99_021D36D4(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D340C *param1)
@@ -251,8 +279,20 @@ static void ov99_021D372C(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D34
     ManagedSprite_SetDrawFlag(param0->unk_10E0[4], 1);
     ManagedSprite_SetDrawFlag(param0->unk_10E0[3], 0);
 
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ, param1->unk_11E, param1->unk_11F);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
     G2_SetBlendAlpha(0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ, param1->unk_11F, param1->unk_11E);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov99_021D37E0(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D340C *param1)
@@ -298,7 +338,11 @@ static void ov99_021D37E0(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D34
             param1->unk_11E = 0;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(param1->unk_11E, param1->unk_11F);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         ManagedSprite_OffsetPositionFxXY(param0->unk_10E0[3], -0x6000, 0xd000);
         Sprite_GetPositionXYWithSubscreenOffset2(param0->unk_10E0[3], &v0, &v1, ((192 + 80) << FX32_SHIFT));

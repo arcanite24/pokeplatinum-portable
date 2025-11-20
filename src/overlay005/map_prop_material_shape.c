@@ -18,15 +18,31 @@ MapPropMaterialShape *MapPropMaterialShape_Alloc(void)
 void MapPropMaterialShape_Load(const char *path, MapPropMaterialShape *propMatShp)
 {
     FSFile file;
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (FS_OpenFile(&file, path)) {
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
         u16 idsLocatorsCount;
+        #ifdef PLATFORM_DS
         int readLength = FS_ReadFile(&file, &idsLocatorsCount, 2);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
         GF_ASSERT(readLength >= 0);
 
         u16 idsCount;
+        #ifdef PLATFORM_DS
         readLength = FS_ReadFile(&file, &idsCount, 2);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
         GF_ASSERT(readLength >= 0);
 
         int idsLocatorsSize = sizeof(MapPropMaterialShapeIDsLocator) * idsLocatorsCount;
@@ -38,13 +54,25 @@ void MapPropMaterialShape_Load(const char *path, MapPropMaterialShape *propMatSh
         propMatShp->ids = Heap_Alloc(HEAP_ID_FIELD1, idsSize);
         GF_ASSERT(propMatShp->ids != NULL);
 
+        #ifdef PLATFORM_DS
         readLength = FS_ReadFile(&file, propMatShp->idsLocators, idsLocatorsSize);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
         GF_ASSERT(readLength >= 0);
 
+        #ifdef PLATFORM_DS
         readLength = FS_ReadFile(&file, propMatShp->ids, idsSize);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
         GF_ASSERT(readLength >= 0);
 
+        #ifdef PLATFORM_DS
         FS_CloseFile(&file);
+        #else
+        // TODO: Port FS_CloseFile to PAL
+        #endif
     } else {
         GF_ASSERT(FALSE);
     }

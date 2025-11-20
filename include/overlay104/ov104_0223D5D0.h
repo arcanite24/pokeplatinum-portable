@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0223D5D0_H
 #define POKEPLATINUM_OV104_0223D5D0_H
 
+#include "platform/platform_types.h"
+
 #include "overlay104/struct_ov104_0223D5F0_decl.h"
 
 #include "particle_system.h"

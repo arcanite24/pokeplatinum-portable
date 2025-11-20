@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HALL_OF_FAME_ENTRIES_H
 #define POKEPLATINUM_HALL_OF_FAME_ENTRIES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/rtc.h>
 #else

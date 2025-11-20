@@ -21,7 +21,11 @@
 
 typedef struct PlttTransferTask {
     NNSG2dPaletteData *data;
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     u32 numPalettes;
     u32 resourceID;
     NNSG2dImagePaletteProxy paletteProxy;
@@ -82,11 +86,23 @@ void PlttTransfer_Init(int capacity, enum HeapID heapID)
     }
 }
 
+#ifdef PLATFORM_DS
 void PlttTransfer_MarkReservedSlots(u16 reservedMask, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         sTaskManager->vramTransferMain |= reservedMask;
+    #ifdef PLATFORM_DS
     } else if (vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         sTaskManager->vramTransferSub |= reservedMask;
     }
 }
@@ -167,12 +183,28 @@ void PlttTransfer_ReplacePlttData(int resourceID, NNSG2dPaletteData *data)
     GF_ASSERT(task);
     task->data = data;
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_2D_OBJ_PLTT_MAIN, task->baseAddrMain, data->pRawData, task->numPalettes * PALETTE_SIZE_BYTES);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_OBJ_PLTT_MAIN to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_2D_OBJ_PLTT_SUB, task->baseAddrSub, data->pRawData, task->numPalettes * PALETTE_SIZE_BYTES);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_OBJ_PLTT_SUB to PAL
+        #endif
     }
 }
 
@@ -230,24 +262,40 @@ NNSG2dImagePaletteProxy *PlttTransfer_ToggleExtPalette(int resourceID, NNSG2dIma
     }
 
     if (task->data->bExtendedPlt) {
+        #ifdef PLATFORM_DS
         NNS_G2dSetImageExtPaletteFlag(imageProxy, TRUE);
+        #else
+        // TODO: Port NNS_G2dSetImageExtPaletteFlag to PAL
+        #endif
     }
 
     return &task->paletteProxy;
 }
 
+#ifdef PLATFORM_DS
 u32 PlttTransfer_GetPlttOffset(const NNSG2dImagePaletteProxy *paletteProxy, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     u32 size;
     if (paletteProxy->bExtendedPlt) {
         size = PALETTE_SIZE_EXT_BYTES;
+    #ifdef PLATFORM_DS
     } else if (paletteProxy->fmt == GX_TEXFMT_PLTT256) {
+    #else
+    // TODO: Port GX_TEXFMT_PLTT256 to PAL
+    #endif
         size = 0;
     } else {
         size = PALETTE_SIZE_BYTES;
     }
 
+    #ifdef PLATFORM_DS
     return size != 0 ? NNS_G2dGetImagePaletteLocation(paletteProxy, vramType) / size : 0;
+    #else
+    // TODO: Port NNS_G2dGetImagePaletteLocation to PAL
+    #endif
 }
 
 static void ResetTransferTask(PlttTransferTask *task)
@@ -275,7 +323,11 @@ static void InitTransferTask(PlttTransferTask *task)
 {
     memset(task, 0, sizeof(PlttTransferTask));
     task->resourceID = PLTT_RESOURCE_ID_NONE;
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&task->paletteProxy);
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
 }
 
 static BOOL ReserveAndTransferWholeRange(const PlttTransferTaskTemplate *unused, PlttTransferTask *task)
@@ -310,7 +362,11 @@ static BOOL ReserveAndTransferFreeSpace(const PlttTransferTaskTemplate *unused, 
     }
 
     int offsetMain;
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         offsetMain = FindAvailableTransferSlot(sTaskManager->vramTransferMain, task->numPalettes);
         if (offsetMain == -1) {
             return FALSE;
@@ -318,18 +374,30 @@ static BOOL ReserveAndTransferFreeSpace(const PlttTransferTaskTemplate *unused, 
     }
 
     int offsetSub;
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         offsetSub = FindAvailableTransferSlot(sTaskManager->vramTransferSub, task->numPalettes);
         if (offsetSub == -1) {
             return FALSE;
         }
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         task->baseAddrMain = offsetMain;
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         task->baseAddrSub = offsetSub;
     }
 
@@ -363,9 +431,21 @@ static PlttTransferTask *FindNextFreeTask(void)
 
 static void UpdateVramCapacities(void)
 {
+    #ifdef PLATFORM_DS
     switch (GX_GetBankForOBJExtPltt()) {
+    #else
+    // TODO: Port GX_GetBankForOBJExtPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJEXTPLTT_0_F:
+    #else
+    // TODO: Port GX_VRAM_OBJEXTPLTT_0_F to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJEXTPLTT_0_G:
+    #else
+    // TODO: Port GX_VRAM_OBJEXTPLTT_0_G to PAL
+    #endif
         sTaskManager->extPlttVramSizeMain = PLTT_EXT_RANGE_SIZE;
         break;
     default:
@@ -373,8 +453,16 @@ static void UpdateVramCapacities(void)
         break;
     }
 
+    #ifdef PLATFORM_DS
     switch (GX_GetBankForSubOBJExtPltt()) {
+    #else
+    // TODO: Port GX_GetBankForSubOBJExtPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_SUB_OBJEXTPLTT_0_I:
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_0_I to PAL
+    #endif
         sTaskManager->extPlttVramSizeSub = PLTT_EXT_RANGE_SIZE;
         break;
     default:
@@ -391,13 +479,41 @@ static void UpdateTransferSize(PlttTransferTask *task)
 
 static void LoadImagePalette(PlttTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&task->paletteProxy);
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadPalette to PAL
+        #endif
         NNS_G2dLoadPalette(task->data, task->baseAddrMain, NNS_G2D_VRAM_TYPE_2DMAIN, &task->paletteProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadPalette to PAL
+        #endif
         NNS_G2dLoadPalette(task->data, task->baseAddrSub, NNS_G2D_VRAM_TYPE_2DSUB, &task->paletteProxy);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 }
 
@@ -449,22 +565,38 @@ static void ResetBothTransferRanges(PlttTransferTaskManager *manager)
 
 static void ReserveTaskTransferRanges(PlttTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         ReserveTransferRange(&sTaskManager->vramTransferMain, task->numPalettes, task->baseAddrMain / PALETTE_SIZE_BYTES);
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         ReserveTransferRange(&sTaskManager->vramTransferSub, task->numPalettes, task->baseAddrSub / PALETTE_SIZE_BYTES);
     }
 }
 
 static void ClearTaskTransferRanges(PlttTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         ClearTransferRange(&sTaskManager->vramTransferMain, task->numPalettes, task->baseAddrMain / PALETTE_SIZE_BYTES);
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         ClearTransferRange(&sTaskManager->vramTransferSub, task->numPalettes, task->baseAddrSub / PALETTE_SIZE_BYTES);
     }
 }
@@ -473,7 +605,11 @@ static BOOL TryGetDestOffsets(PlttTransferTask *task, u32 offsetMain, u32 offset
 {
     BOOL result = TRUE;
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         if (offsetMain + (task->numPalettes * PALETTE_SIZE_BYTES) > sizeMain) {
             GF_ASSERT(FALSE);
             DummyFunc();
@@ -483,7 +619,11 @@ static BOOL TryGetDestOffsets(PlttTransferTask *task, u32 offsetMain, u32 offset
         }
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         if (offsetSub + (task->numPalettes * PALETTE_SIZE_BYTES) > sizeSub) {
             GF_ASSERT(FALSE);
             DummyFunc();
@@ -498,11 +638,19 @@ static BOOL TryGetDestOffsets(PlttTransferTask *task, u32 offsetMain, u32 offset
 
 static void ReserveVramSpace(PlttTransferTask *task, u32 *offsetMain, u32 *offsetSub)
 {
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         *offsetMain += task->numPalettes * PALETTE_SIZE_BYTES;
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         *offsetSub += task->numPalettes * PALETTE_SIZE_BYTES;
     }
 }

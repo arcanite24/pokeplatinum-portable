@@ -12,8 +12,16 @@
 
 void TownMap_InitSpriteSystem(TownMapAppData *appData)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     VramTransfer_New(32, appData->heapID);
 
     appData->spriteSystem = SpriteSystem_Alloc(appData->heapID);
@@ -34,8 +42,16 @@ void TownMap_InitSpriteSystem(TownMapAppData *appData)
         .maxTasks = 5,
         .sizeMain = 1024,
         .sizeSub = 1024,
+        #ifdef PLATFORM_DS
         .modeMain = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .modeSub = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     };
 
     SpriteSystem_Init(appData->spriteSystem, &oamTemplate, &charTransferTemplate, 32);

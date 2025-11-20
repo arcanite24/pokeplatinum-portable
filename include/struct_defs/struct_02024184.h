@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02024184_H
 #define POKEPLATINUM_STRUCT_02024184_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     const u16 *unk_00;
     const u8 *unk_04;

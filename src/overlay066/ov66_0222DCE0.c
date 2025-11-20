@@ -19,7 +19,11 @@
 #include "system.h"
 #include "unk_02099550.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay63);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     SaveData *saveData;
@@ -36,8 +40,16 @@ int ov66_0222DCE0(ApplicationManager *appMan, int *param1)
     UnkStruct_ov66_0222DCE0 *v1;
 
     {
+        #ifdef PLATFORM_DS
         FS_EXTERN_OVERLAY(overlay63);
+        #else
+        // TODO: Port FS_EXTERN_OVERLAY to PAL
+        #endif
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay63), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         sub_02099550();
         Overlay_LoadHttpOverlay();
     }
@@ -95,8 +107,16 @@ int ov66_0222DD90(ApplicationManager *appMan, int *param1)
     Heap_Destroy(HEAP_ID_104);
 
     {
+        #ifdef PLATFORM_DS
         FS_EXTERN_OVERLAY(overlay63);
+        #else
+        // TODO: Port FS_EXTERN_OVERLAY to PAL
+        #endif
+        #ifdef PLATFORM_DS
         Overlay_UnloadByID(FS_OVERLAY_ID(overlay63));
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         Overlay_UnloadHttpOverlay();
         sub_02099560();
     }

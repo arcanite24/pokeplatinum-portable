@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020573FC_H
 #define POKEPLATINUM_UNK_020573FC_H
 
+#include "platform/platform_types.h"
+
 const u8 sub_020573FC(const int param0);
 const u8 sub_0205740C(const int param0);
 const u8 *sub_0205741C(const int param0);

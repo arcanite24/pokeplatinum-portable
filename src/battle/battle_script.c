@@ -2050,7 +2050,11 @@ static BOOL BtlCmd_WaitButtonABTime(BattleSystem *battleSys, BattleContext *batt
     int frames = BattleScript_Read(battleCtx);
 
     if ((BattleSystem_BattleType(battleSys) & BATTLE_TYPE_LINK) == FALSE) {
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_BUTTON_X | PAD_BUTTON_Y)) || TouchScreen_Tapped()) {
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
             battleCtx->waitCounter = frames;
         }
     }
@@ -10125,7 +10129,11 @@ static void BattleScript_GetExpTask(SysTask *task, void *inData)
         Window *window = BattleSystem_Window(data->battleSys, 1);
         PaletteData *paletteSys = BattleSystem_PaletteSys(data->battleSys);
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(1 + 1); // this is the background + 1; could do with a constant
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
         Bg_SetPriority(BG_LAYER_MAIN_1, 1);
         Bg_SetPriority(BG_LAYER_MAIN_2, 0);
 
@@ -10202,7 +10210,11 @@ static void BattleScript_GetExpTask(SysTask *task, void *inData)
 
     case SEQ_GET_EXP_LEVEL_UP_SUMMARY_PRINT_DIFF_WAIT:
     case SEQ_GET_EXP_LEVEL_UP_SUMMARY_PRINT_TRUE_WAIT:
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_BUTTON_X | PAD_BUTTON_Y)) || TouchScreen_Tapped()) {
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             data->seqNum++;
         }
@@ -10214,7 +10226,11 @@ static void BattleScript_GetExpTask(SysTask *task, void *inData)
         Window_EraseStandardFrame(window, 0);
         Window_Remove(window);
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(1);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
         Bg_SetPriority(BG_LAYER_MAIN_1, 0);
         Bg_SetPriority(BG_LAYER_MAIN_2, 1);
 
@@ -10772,7 +10788,11 @@ static void BattleScript_CatchMonTask(SysTask *param0, void *param1)
         break;
     case 13:
         if (ov21_021E8DEC(v2->tmpPtr[0])) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v2->seqNum = 14;
             } else if (TouchScreen_Tapped()) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -12169,7 +12189,11 @@ static const SpriteTemplate Unk_ov16_0226E6C4 = {
     0x0,
     0xC8,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x4E35, 0x4E30, 0x4E2D, 0x4E2D, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -12182,7 +12206,11 @@ static const SpriteTemplate Unk_ov16_0226E6F8 = {
     0x0,
     0x64,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x4E36, 0x4E31, 0x4E2E, 0x4E2E, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -12212,16 +12240,32 @@ static void BattleScript_LoadPartyLevelUpIcon(BattleSystem *battleSys, BattleScr
     v2 = BattleSystem_GetSpriteManager(battleSys);
     v3 = BattleSystem_PaletteSys(battleSys);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(v1, v2, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 256, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, 20021);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(v3, PLTTBUF_MAIN_OBJ, v1, v2, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 82, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 20016);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObj(v1, v2, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 257, TRUE, 20013);
     SpriteSystem_LoadAnimResObj(v1, v2, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 258, TRUE, 20013);
 
     param1->sprites[0] = SpriteSystem_NewSprite(v1, v2, &Unk_ov16_0226E6C4);
 
     ManagedSprite_TickFrame(param1->sprites[0]);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(v1, v2, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, Pokemon_IconSpriteIndex(param2), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 20022);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(v3, PLTTBUF_MAIN_OBJ, v1, v2, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 20017);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObj(v1, v2, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon64KCellsFileIndex(), FALSE, 20014);
     SpriteSystem_LoadAnimResObj(v1, v2, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon64KAnimationFileIndex(), FALSE, 20014);
 
@@ -12254,8 +12298,16 @@ static void BattleScript_LoadPartyLevelUpIcon(BattleSystem *battleSys, BattleScr
     Window_AddToTopLeftCorner(v8, &v9, 12, 4, 0, 0);
     Text_AddPrinterWithParamsAndColor(&v9, FONT_SYSTEM, v7, 0, 0, TEXT_SPEED_NO_TRANSFER, TEXT_COLOR(1, 2, 0), NULL);
 
+    #ifdef PLATFORM_DS
     v10 = sub_02012898(&v9, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_BATTLE);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     CharTransfer_AllocRange(v10, 1, NNS_G2D_VRAM_TYPE_2DMAIN, &v11);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v12.unk_00 = param1->tmpPtr[0];
     v12.unk_04 = &v9;
@@ -12267,7 +12319,11 @@ static void BattleScript_LoadPartyLevelUpIcon(BattleSystem *battleSys, BattleScr
     v12.unk_1C = 8;
     v12.unk_20 = 0;
     v12.unk_24 = 100;
+    #ifdef PLATFORM_DS
     v12.unk_28 = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v12.heapID = HEAP_ID_BATTLE;
 
     param1->fontOAM = sub_020127E8(&v12);

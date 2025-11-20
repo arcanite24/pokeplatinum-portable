@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_0223F744_H
 #define POKEPLATINUM_STRUCT_OV17_0223F744_H
 
+#include "platform/platform_types.h"
+
 #include "palette.h"
 #include "sys_task_manager.h"
 

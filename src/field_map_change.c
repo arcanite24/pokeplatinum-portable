@@ -76,7 +76,11 @@
 #include "unk_02070428.h"
 #include "vars_flags.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay23);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct MapChangeData {
     int state;
@@ -1223,7 +1227,11 @@ BOOL FieldTask_MapChangeToUnderground(FieldTask *task)
         break;
     case 9:
         fieldSystem->mapLoadType = MAP_LOAD_TYPE_UNDERGROUND;
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay23), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         ov23_022499E8(fieldSystem);
         FieldTask_ChangeMapToLocation(task, mapChangeUndergroundData->mapId, -1, mapChangeUndergroundData->unk_10, mapChangeUndergroundData->unk_14, 1);
         mapChangeUndergroundData->state++;
@@ -1242,7 +1250,11 @@ BOOL FieldTask_MapChangeToUnderground(FieldTask *task)
         if (sub_0205444C(task, 1)) {
             ov23_02249A2C();
             fieldSystem->unk_6C = ov23_02249404(fieldSystem);
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(30, 0, -16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, BRIGHTNESS_SUB_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
             mapChangeUndergroundData->state++;
         }
         break;
@@ -1269,7 +1281,11 @@ BOOL FieldTask_MapChangeFromUnderground(FieldTask *task)
         ov23_0224DBF4(0);
         ov23_02249A5C();
         ov23_0224942C(fieldSystem->unk_6C);
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(30, -16, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_SUB_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         mapChangeUndergroundData->state++;
         break;
     case 1:
@@ -1291,7 +1307,11 @@ BOOL FieldTask_MapChangeFromUnderground(FieldTask *task)
         break;
     case 4:
         fieldSystem->mapLoadType = MAP_LOAD_TYPE_OVERWORLD;
+        #ifdef PLATFORM_DS
         Overlay_UnloadByID(FS_OVERLAY_ID(overlay23));
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         FieldTask_ChangeMapToLocation(task, mapChangeUndergroundData->mapId, -1, mapChangeUndergroundData->unk_10, mapChangeUndergroundData->unk_14, 1);
         mapChangeUndergroundData->state++;
         break;

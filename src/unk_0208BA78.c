@@ -38,8 +38,16 @@
 #include "constdata/const_020F3050.h"
 #include "constdata/const_020F3060.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay61);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay62);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int unk_00;
@@ -251,7 +259,11 @@ static BOOL sub_0208BC8C(UnkStruct_0208BC3C *param0, int heapID)
     switch (param0->unk_00) {
     case 0:
         if (param0->unk_14->unk_00 != 0) {
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay61));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             Overlay_UnloadHttpOverlay();
         }
 
@@ -272,9 +284,17 @@ static BOOL sub_0208BC8C(UnkStruct_0208BC3C *param0, int heapID)
         param0->unk_10->bagCursor = BagCursor_New(heapID);
         param0->unk_10->records = SaveData_GetGameRecords(param0->saveData);
 
+        #ifdef PLATFORM_DS
         if (Overlay_LoadByID(FS_OVERLAY_ID(overlay62), 2) == 1) {
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
             ov62_02248408(sub_0202F264(), param0->unk_10, heapID);
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay62));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         }
 
         param0->unk_14->unk_874 = 1;
@@ -334,7 +354,11 @@ static BOOL sub_0208BC8C(UnkStruct_0208BC3C *param0, int heapID)
 
         if (param0->unk_14->unk_00 != 0) {
             Overlay_LoadHttpOverlay();
+            #ifdef PLATFORM_DS
             Overlay_LoadByID(FS_OVERLAY_ID(overlay61), 2);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         }
 
         return 1;

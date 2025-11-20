@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02097624_H
 #define POKEPLATINUM_UNK_02097624_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/mail.h"
 #include "struct_defs/struct_02097728.h"
 

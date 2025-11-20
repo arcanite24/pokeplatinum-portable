@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0207DE04_H
 #define POKEPLATINUM_STRUCT_0207DE04_H
 
+#include "platform/platform_types.h"
+
 #include "savedata.h"
 
 typedef struct {

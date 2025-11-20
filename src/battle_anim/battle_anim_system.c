@@ -881,7 +881,19 @@ static const BattleAnimScriptCmd sBattleAnimScriptCmdTable[] = {
 
 void BattleAnimSystem_SetDefaultAlphaBlending(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, BATTLE_BG_BLENDMASK_ALL | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 8, 8);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 static inline void BattleAnimScript_Next(BattleAnimSystem *system)
@@ -908,9 +920,21 @@ static void BattleAnimScriptCmd_WaitForLRX(BattleAnimSystem *system)
 {
     system->scriptDelay = 1;
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_L) {
+    #else
+    // TODO: Port PAD_BUTTON_L to PAL
+    #endif
+        #ifdef PLATFORM_DS
         if (gSystem.heldKeys & PAD_BUTTON_R) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_X) {
+            #else
+            // TODO: Port PAD_BUTTON_X to PAL
+            #endif
                 BattleAnimScript_Next(system);
                 system->scriptDelay = 0;
             }
@@ -1899,7 +1923,11 @@ static void BattleAnimScriptCmd_LoadPokemonSpriteDummyResources(BattleAnimSystem
         system->arcs[BATTLE_ANIM_SYSTEM_ARC_BATT_OBJ],
         76,
         FALSE,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         resourceIDs[SPRITE_RESOURCE_PLTT]);
 
     SpriteSystem_LoadPaletteBufferFromOpenNarc(
@@ -1911,7 +1939,11 @@ static void BattleAnimScriptCmd_LoadPokemonSpriteDummyResources(BattleAnimSystem
         75,
         FALSE,
         1,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         resourceIDs[SPRITE_RESOURCE_PLTT]);
 
     SpriteSystem_LoadCellResObjFromOpenNarc(
@@ -1981,7 +2013,11 @@ static void BattleAnimScriptCmd_AddPokemonSprite(BattleAnimSystem *system)
     template.animIdx = 0;
     template.priority = 100;
     template.plttIdx = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.bgPriority = 1;
     template.vramTransfer = FALSE;
 
@@ -2007,15 +2043,27 @@ static void BattleAnimScriptCmd_AddPokemonSprite(BattleAnimSystem *system)
     if (BattleAnimSystem_GetBattlerSprite(system, battler) != NULL) {
         NNSG2dImageProxy *proxy = Sprite_GetImageProxy(sprite->sprite);
         VramTransfer_Request(
+            #ifdef PLATFORM_DS
             NNS_GFD_DST_2D_OBJ_CHAR_MAIN,
+            #else
+            // TODO: Port NNS_GFD_DST_2D_OBJ_CHAR_MAIN to PAL
+            #endif
+            #ifdef PLATFORM_DS
             proxy->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN],
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             charData,
             10 * 10 * ((8 / 2) * 8));
     }
 
     if (BattleAnimSystem_GetBattlerSprite(system, battler) != NULL) {
         NNSG2dImagePaletteProxy *proxy = Sprite_GetPaletteProxy(sprite->sprite);
+        #ifdef PLATFORM_DS
         int offset = PlttTransfer_GetPlttOffset(proxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         PaletteData_LoadBufferFromFileStart(
             system->paletteData,
@@ -2432,7 +2480,11 @@ static BOOL BattleBgSwitch_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
         Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x0c000);
 
         if (BattleAnimSystem_IsContest(bgSwitch->battleAnimSystem) != TRUE) {
+            #ifdef PLATFORM_DS
             Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_CONTROL_PARAM_COLOR_MODE, GX_BG_COLORMODE_16);
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
         }
 
         // Load new BG into effect BG
@@ -2440,7 +2492,11 @@ static BOOL BattleBgSwitch_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
 
         // Set BG blending
         // blendCoeffB will, in all cases, have the higher value, thus BG2 (normal battle/contest BG) will be more visible
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(BATTLE_BG_BLENDMASK_BASE, BATTLE_BG_BLENDMASK_EFFECT, bgSwitch->blendCoeffB, bgSwitch->blendCoeffA);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
         BattleBgSwitch_ApplyFlags(bgSwitch);
 
         bgSwitch->state++;
@@ -2468,7 +2524,11 @@ static BOOL BattleBgSwitch_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
             bgSwitch->state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(bgSwitch->blendCoeffB, bgSwitch->blendCoeffA);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (bgSwitch->state != 2) {
             return FALSE;
@@ -2500,7 +2560,11 @@ static BOOL BattleBgRestore_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
         Bg_SetPriority(BATTLE_BG_EFFECT, effectPrio);
         Bg_SetPriority(BATTLE_BG_BASE, effectPrio);
 
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(BATTLE_BG_BLENDMASK_BASE, BATTLE_BG_BLENDMASK_EFFECT, bgSwitch->blendCoeffA, bgSwitch->blendCoeffB);
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
         BattleBgSwitch_ApplyFlags(bgSwitch);
 
         bgSwitch->state++;
@@ -2529,7 +2593,11 @@ static BOOL BattleBgRestore_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
             bgSwitch->state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(bgSwitch->blendCoeffA, bgSwitch->blendCoeffB);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     } break;
 
     case 3:
@@ -2547,7 +2615,11 @@ static BOOL BattleBgRestore_Blend(SysTask *task, BattleBgSwitch *bgSwitch)
         Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x10000);
 
         if (!BattleAnimSystem_IsContest(bgSwitch->battleAnimSystem)) {
+            #ifdef PLATFORM_DS
             Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_CONTROL_PARAM_COLOR_MODE, GX_BG_COLORMODE_256);
+            #else
+            // TODO: Port GX_BG_COLORMODE_256 to PAL
+            #endif
             BattleAnimSystem_LoadBattleBgTiles(bgSwitch->battleAnimSystem, BATTLE_BG_EFFECT);
             BattleAnimSystem_LoadBattleBgPaletteBuffer(bgSwitch->battleAnimSystem);
         } else {
@@ -2585,11 +2657,27 @@ static BOOL BattleBgSwitch_Fade(SysTask *task, BattleBgSwitch *bgSwitch)
         // Fade normal battle/contest palettes to black/white and
         // set effect BG palette to black/white immediately
         if (bgSwitch->fadeType == BATTLE_BG_FADE_TO_BLACK) {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, bgSwitch->battleAnimSystem->baseBgPalettes, 0, 0, 16, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
+            #ifdef PLATFORM_DS
             PaletteData_BlendMulti(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG, BATTLE_BG_PALETTE_FLAG_EFFECT, 16, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, bgSwitch->battleAnimSystem->baseBgPalettes, 0, 0, 16, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
+            #ifdef PLATFORM_DS
             PaletteData_BlendMulti(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG, BATTLE_BG_PALETTE_FLAG_EFFECT, 16, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         }
 
         bgSwitch->state++;
@@ -2602,14 +2690,26 @@ static BOOL BattleBgSwitch_Fade(SysTask *task, BattleBgSwitch *bgSwitch)
         }
 
         // Load new BG data into effect BG
+        #ifdef PLATFORM_DS
         Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_CONTROL_PARAM_COLOR_MODE, GX_BG_COLORMODE_16);
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         BattleBgSwitch_SetBg(bgSwitch, bgSwitch->battleAnimSystem, BATTLE_BG_EFFECT, bgSwitch->bgID);
 
         // Fade effect BG palette back to normal
         if (bgSwitch->fadeType == BATTLE_BG_FADE_TO_BLACK) {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, BATTLE_BG_PALETTE_FLAG_EFFECT, 0, 16, 0, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, BATTLE_BG_PALETTE_FLAG_EFFECT, 0, 16, 0, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         }
 
         BattleBgSwitch_ApplyFlags(bgSwitch);
@@ -2642,11 +2742,27 @@ static BOOL BattleBgRestore_Fade(SysTask *task, BattleBgSwitch *bgSwitch)
         // Fade effect BG palette to black/white and
         // set normal battle/contest BG palettes to black/white
         if (bgSwitch->fadeType == BATTLE_BG_FADE_TO_BLACK) {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, BATTLE_BG_PALETTE_FLAG_EFFECT, 0, 0, 16, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
+            #ifdef PLATFORM_DS
             PaletteData_BlendMulti(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG, bgSwitch->battleAnimSystem->baseBgPalettes, 16, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, BATTLE_BG_PALETTE_FLAG_EFFECT, 0, 0, 16, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
+            #ifdef PLATFORM_DS
             PaletteData_BlendMulti(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG, bgSwitch->battleAnimSystem->baseBgPalettes, 16, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         }
 
         bgSwitch->state++;
@@ -2670,7 +2786,11 @@ static BOOL BattleBgRestore_Fade(SysTask *task, BattleBgSwitch *bgSwitch)
         Bg_ToggleLayer(BATTLE_BG_EFFECT, FALSE);
 
         if (!BattleAnimSystem_IsContest(bgSwitch->battleAnimSystem)) {
+            #ifdef PLATFORM_DS
             Bg_SetControlParam(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, 0, GX_BG_COLORMODE_256);
+            #else
+            // TODO: Port GX_BG_COLORMODE_256 to PAL
+            #endif
             BattleAnimSystem_LoadBattleBgTiles(bgSwitch->battleAnimSystem, BATTLE_BG_EFFECT);
             BattleAnimSystem_LoadBattleBgPaletteBuffer(bgSwitch->battleAnimSystem);
         } else {
@@ -2689,9 +2809,17 @@ static BOOL BattleBgRestore_Fade(SysTask *task, BattleBgSwitch *bgSwitch)
         Bg_SetOffset(bgSwitch->battleAnimSystem->bgConfig, BATTLE_BG_EFFECT, BG_OFFSET_UPDATE_SET_Y, 0);
 
         if (bgSwitch->fadeType == BATTLE_BG_FADE_TO_BLACK) {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, bgSwitch->battleAnimSystem->baseBgPalettes, 0, 16, 0, GX_RGBA(0, 0, 0, 0));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PaletteData_StartFade(bgSwitch->battleAnimSystem->paletteData, PLTTBUF_MAIN_BG_F, bgSwitch->battleAnimSystem->baseBgPalettes, 0, 16, 0, GX_RGBA(31, 31, 31, 1));
+            #else
+            // TODO: Port GX_RGBA to PAL
+            #endif
         }
 
         bgSwitch->state++;
@@ -2890,7 +3018,11 @@ void BattleAnimSystem_LoadBaseBg(BattleAnimSystem *system, enum BgLayer bgLayer)
     if (BattleAnimSystem_IsContest(system) == TRUE) {
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x10000);
     } else {
+        #ifdef PLATFORM_DS
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_COLOR_MODE, GX_BG_COLORMODE_256);
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x10000);
     }
 
@@ -2913,7 +3045,11 @@ void BattleAnimSystem_UnloadBaseBg(BattleAnimSystem *system, enum BgLayer bgLaye
     if (BattleAnimSystem_IsContest(system) == TRUE) {
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x0c000);
     } else {
+        #ifdef PLATFORM_DS
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_COLOR_MODE, GX_BG_COLORMODE_16);
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         Bg_SetControlParam(system->bgConfig, bgLayer, BG_CONTROL_PARAM_CHAR_BASE, GX_BG_CHARBASE_0x0c000);
     }
 
@@ -3350,7 +3486,11 @@ static void BattleAnimScriptCmd_SetBG0BG1AlphaBlending(BattleAnimSystem *system)
     u16 ev2 = (u16)BattleAnimScript_ReadWord(system->scriptPtr);
     BattleAnimScript_Next(system);
 
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG1, ev1, ev2);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
 }
 
 static void BattleAnimScriptCmd_SetDefaultAlphaBlending(BattleAnimSystem *system)
@@ -3406,7 +3546,11 @@ static void BattleAnimScriptCmd_LoadCharResObj(BattleAnimSystem *system)
         system->arcs[BATTLE_ANIM_SYSTEM_ARC_WECHAR],
         memberIndex,
         TRUE,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         BATTLE_ANIM_SCRIPT_RES_ID(memberIndex));
 }
 
@@ -3431,7 +3575,11 @@ static void BattleAnimScriptCmd_LoadPlttRes(BattleAnimSystem *system)
         system->arcs[BATTLE_ANIM_SYSTEM_ARC_WEPLTT],
         memberIndex,
         FALSE,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         paletteIndex, // This is a bug, this parameter should be swapped with the VRAM type parameter
         BATTLE_ANIM_SCRIPT_RES_ID(memberIndex));
 }
@@ -3493,7 +3641,11 @@ static void BattleAnimScriptCmd_AddSpriteWithFunc(BattleAnimSystem *system)
     template.animIdx = 0;
     template.priority = 100;
     template.plttIdx = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.bgPriority = 1;
     template.vramTransfer = FALSE;
 
@@ -3542,7 +3694,11 @@ static void BattleAnimScriptCmd_AddSprite(BattleAnimSystem *system)
     template.animIdx = 0;
     template.priority = 100;
     template.plttIdx = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.bgPriority = 1;
     template.vramTransfer = FALSE;
 
@@ -3977,8 +4133,16 @@ UnkStruct_ov12_02223764 *ov12_022234F8(BattleSystem *battleSys, int heapID, int 
             v3[4] = 0;
             v3[5] = 0;
 
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadCharResObjFromOpenNarc(v2->unk_08.unk_00, v2->unk_08.unk_04, v4, 76, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, v3[SPRITE_RESOURCE_CHAR]);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadPaletteBufferFromOpenNarc(v2->unk_08.unk_08, 2, v2->unk_08.unk_00, v2->unk_08.unk_04, v4, 75, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 1, v3[SPRITE_RESOURCE_PLTT]);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             SpriteSystem_LoadCellResObjFromOpenNarc(v2->unk_08.unk_00, v2->unk_08.unk_04, v4, 77, FALSE, v3[SPRITE_RESOURCE_CELL]);
             SpriteSystem_LoadAnimResObjFromOpenNarc(v2->unk_08.unk_00, v2->unk_08.unk_04, v4, 78, FALSE, v3[SPRITE_RESOURCE_ANIM]);
         }
@@ -4034,7 +4198,11 @@ UnkStruct_ov12_02223764 *ov12_022234F8(BattleSystem *battleSys, int heapID, int 
                 v12.animIdx = 0;
                 v12.priority = v1[v2->unk_44[v5]];
                 v12.plttIdx = 0;
+                #ifdef PLATFORM_DS
                 v12.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
                 v12.bgPriority = 1;
                 v12.vramTransfer = FALSE;
 
@@ -4062,7 +4230,11 @@ UnkStruct_ov12_02223764 *ov12_022234F8(BattleSystem *battleSys, int heapID, int 
                     NNSG2dImageProxy *v17;
 
                     v17 = Sprite_GetImageProxy(v10->sprite);
+                    #ifdef PLATFORM_DS
                     VramTransfer_Request(NNS_GFD_DST_2D_OBJ_CHAR_MAIN, v17->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN], v8, 10 * 10 * ((8 / 2) * 8));
+                    #else
+                    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                    #endif
                 }
 
                 if (v13 != NULL) {
@@ -4070,7 +4242,11 @@ UnkStruct_ov12_02223764 *ov12_022234F8(BattleSystem *battleSys, int heapID, int 
                     int v19;
 
                     v18 = Sprite_GetPaletteProxy(v10->sprite);
+                    #ifdef PLATFORM_DS
                     v19 = PlttTransfer_GetPlttOffset(v18, NNS_G2D_VRAM_TYPE_2DMAIN);
+                    #else
+                    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                    #endif
 
                     PaletteData_LoadBufferFromFileStart(v2->unk_08.unk_08, v6, v7, v2->heapID, 2, 0x20, v19 * 16);
                 }

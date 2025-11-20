@@ -164,7 +164,11 @@ void BagUI_PrintPocketNames(BagController *controller)
 static void *LoadPocketSelectorIcons(BagController *interface, NNSG2dCharacterData **charData)
 {
     void *file = NARC_AllocAndReadWholeMember(interface->bagGraphicsNARC, pocket_selector_icons_NCGR, HEAP_ID_BAG);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedBGCharacterData(file, charData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+    #endif
     return file;
 }
 
@@ -346,7 +350,11 @@ void BagUI_PrintBerryNumber(BagController *controller, BagItem *itemSlot, u32 yO
 static void *LoadBagUIItemEntrySprites(BagController *controller, NNSG2dCharacterData **charData)
 {
     void *file = NARC_AllocAndReadWholeMember(controller->bagGraphicsNARC, item_entry_icons_NCGR, HEAP_ID_BAG);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedBGCharacterData(file, charData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+    #endif
     return file;
 }
 
@@ -432,7 +440,11 @@ void BagUI_ShowItemActionsMenu(BagController *controller, u8 *actions, u8 numAct
         menuTemplate.loopAround = FALSE;
     }
 
+    #ifdef PLATFORM_DS
     controller->menu = Menu_New(&menuTemplate, 8, 0, 0, HEAP_ID_BAG, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 
     if (controller->bagCtx->accessiblePockets[controller->bagCtx->currPocketIdx].pocketType == POCKET_TMHMS) {
         Window_FillTilemap(&controller->windows[BAG_UI_WINDOW_ITEM_DESCRIPTION], 0);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV92_021D0D80_H
 #define POKEPLATINUM_OV92_021D0D80_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 #include "strbuf.h"
 

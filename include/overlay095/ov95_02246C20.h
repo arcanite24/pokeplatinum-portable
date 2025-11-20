@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV95_02246C20_H
 #define POKEPLATINUM_OV95_02246C20_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

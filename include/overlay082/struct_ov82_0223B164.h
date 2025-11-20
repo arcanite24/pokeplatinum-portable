@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV82_0223B164_H
 #define POKEPLATINUM_STRUCT_OV82_0223B164_H
 
+#include "platform/platform_types.h"
+
 #include "bag.h"
 #include "game_options.h"
 #include "journal.h"

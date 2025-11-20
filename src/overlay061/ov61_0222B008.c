@@ -155,7 +155,11 @@ static int ov61_0222B168(UnkStruct_ov62_022349A8 *param0, UnkStruct_ov61_0222B13
 
 static int ov61_0222B190(UnkStruct_ov62_022349A8 *param0, UnkStruct_ov61_0222B138 *param1)
 {
+    #ifdef PLATFORM_DS
     if ((gSystem.pressedKeys & PAD_BUTTON_A) || (gSystem.pressedKeys & PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov61_0222BB54(param0, NULL);
         return 1;
     }
@@ -788,20 +792,56 @@ static void *ov61_0222BBF0(int heapID)
     v0 = Heap_Alloc(heapID, v3);
     v2 = v0;
     v1 = (void *)((u32)v0 + v3);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_InitAlloc to PAL
+    #endif
     v0 = OS_InitAlloc(OS_ARENA_MAIN, v0, v1, 1);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetArenaLo to PAL
+    #endif
     OS_SetArenaLo(OS_ARENA_MAIN, v0);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
 
     v0 = (void *)(((u32)(v0) + 32 - 1) & ~(32 - 1));
     v1 = (void *)(((u32)(v1) + 32 - 1) & ~(32 - 1));
 
+    #ifdef PLATFORM_DS
     Unk_ov61_0222E760 = OS_CreateHeap(OS_ARENA_MAIN, v0, v1);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetCurrentHeap to PAL
+    #endif
     OS_SetCurrentHeap(OS_ARENA_MAIN, Unk_ov61_0222E760);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
 
     return v2;
 }
 
 static void ov61_0222BC40(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_ClearAlloc to PAL
+    #endif
     OS_ClearAlloc(OS_ARENA_MAIN);
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
 }

@@ -1,7 +1,13 @@
 #ifndef POKEPLATINUM_MYSTERY_GIFT_APP_H
 #define POKEPLATINUM_MYSTERY_GIFT_APP_H
 
+#include "platform/platform_types.h"
+
+#ifdef PLATFORM_DS
 #include <dwc.h>
+#else
+#include "platform/dwc_stubs.h"
+#endif
 
 #include "bg_window.h"
 #include "game_options.h"

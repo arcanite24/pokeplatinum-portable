@@ -116,7 +116,11 @@ static const SpriteTemplate sPokemonPreviewSpriteTemplate = {
     .animIdx = 0,
     .priority = 0,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         POKEMON_PREVIEW_RESOURCE_ID,
         POKEMON_PREVIEW_RESOURCE_ID,
@@ -463,7 +467,11 @@ void LoadSignpostContentGraphics(BgConfig *bgConfig, u8 bgLayer, u16 baseTile, u
     void *signpostNclr = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_GRAPHIC__FIELD_BOARD, signpost_NCLR, heapID);
 
     NNSG2dPaletteData *paletteData;
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedPaletteData(signpostNclr, &paletteData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+    #endif
     u16 *paletteBuf = paletteData->pRawData;
 
     Bg_LoadPalette(bgLayer,
@@ -822,7 +830,11 @@ static void LoadPokemonPreviewResources(PokemonPreview *preview)
         pokemon_preview_NCLR,
         FALSE,
         1,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         POKEMON_PREVIEW_RESOURCE_ID);
     ov5_021D3360(&preview->unk_00,
         NARC_INDEX_GRAPHIC__PL_WINFRAME,
@@ -838,7 +850,11 @@ static void LoadPokemonPreviewResources(PokemonPreview *preview)
         NARC_INDEX_GRAPHIC__PL_WINFRAME,
         pokemon_preview_NCGR,
         FALSE,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         POKEMON_PREVIEW_RESOURCE_ID);
 }
 
@@ -851,7 +867,11 @@ static void CreatePokemonPreviewSprite(PokemonPreview *preview, u8 x, u8 y)
     preview->managedSprite = ov5_021D3584(&preview->unk_00, &template);
 
     SpriteList_Update(preview->unk_00.unk_00);
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void LoadAndDrawPokemonPreviewSprite(UnkStruct_ov5_021D30A8 *param0, u16 species, u8 gender)
@@ -900,20 +920,44 @@ static void DrawPokemonPreviewSprite(UnkStruct_ov5_021D30A8 *param0, PokemonSpri
 
     charResource = SpriteResourceCollection_Find(param0->unk_194[SPRITE_RESOURCE_CHAR], POKEMON_PREVIEW_RESOURCE_ID);
     imageProxy = SpriteTransfer_GetImageProxy(charResource);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetImageLocation to PAL
+    #endif
     offset = NNS_G2dGetImageLocation(imageProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     DC_FlushRange(buf, POKEMON_SPRITE_WHOLE_SIZE_BYTES);
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(buf, offset, POKEMON_SPRITE_WHOLE_SIZE_BYTES);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
 
     Heap_Free(buf);
 
     buf = CharacterSprite_LoadPalette(spriteTemplate->narcID, spriteTemplate->palette, param0->heapID);
     plttResource = SpriteResourceCollection_Find(param0->unk_194[SPRITE_RESOURCE_PLTT], POKEMON_PREVIEW_RESOURCE_ID);
     paletteProxy = SpriteTransfer_GetPaletteProxy(plttResource, imageProxy);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetImagePaletteLocation to PAL
+    #endif
     offset = NNS_G2dGetImagePaletteLocation(paletteProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     DC_FlushRange(buf, 32);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(buf, offset, 32);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 
     Heap_Free(buf);
 }

@@ -142,37 +142,161 @@
 #include "constdata/const_020F410C.h"
 #include "constdata/const_020F6890.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(battle);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(pc_boxes);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay20);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(pokedex);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay22);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay58);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay59);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay61);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay64);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(trainer_card_screen);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay72);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(options_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(choose_starter);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(town_map);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(journal_display);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(bag);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay85);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(hall_of_fame);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(pc_hall_of_fame);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay88);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay90);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay92);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(cutscenes);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay94);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay95);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay96);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay99);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay101);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay110);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay111);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(dw_warp);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #include <nitro/code16.h>
 
@@ -244,7 +368,11 @@ const ApplicationManagerTemplate gBattleApplicationTemplate = {
     .init = ApplicationInit_Battle,
     .main = ApplicationMain_Battle,
     .exit = ApplicationExit_Battle,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID(battle)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void FieldSystem_StartBattleProcess(FieldSystem *fieldSystem, FieldBattleDTO *dto)
@@ -266,13 +394,21 @@ static const u8 Unk_020EA164[] = {
 
 void sub_0203D1E4(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(bag);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate Unk_ov84_02241130 = {
         BagApplication_Init,
         BagApplication_Main,
         BagApplication_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(bag)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &Unk_ov84_02241130, param1);
@@ -336,13 +472,21 @@ u16 BagContext_GetSelectedItem(void *bagContext)
 
 void sub_0203D2E4(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay85);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v0 = {
         ov85_02241440,
         ov85_0224154C,
         ov85_022415A0,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay85)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -350,13 +494,21 @@ void sub_0203D2E4(FieldSystem *fieldSystem, void *param1)
 
 void sub_0203D30C(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(journal_display);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate template = {
         JournalController_Init,
         JournalController_Main,
         JournalController_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(journal_display)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, fieldSystem->saveData);
@@ -618,13 +770,21 @@ int PokemonSummary_GetSelectedMoveSlot(void *summary)
 
 void FieldSystem_OpenPokemonStorage(FieldSystem *fieldSystem, PokemonStorageSession *pokemonStorageSession)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(pc_boxes);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate boxAppManTemplate = {
         BoxAppMan_Init,
         BoxAppMan_Main,
         BoxAppMan_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(pc_boxes)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &boxAppManTemplate, pokemonStorageSession);
@@ -695,13 +855,21 @@ void sub_0203D80C(FieldTask *taskMan, u16 *param1, u16 *param2, u16 *param3)
 
 void sub_0203D874(FieldSystem *fieldSystem, UnkStruct_0209747C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay20);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov20_021D0D80,
         ov20_021D0DF8,
         ov20_021D0EA8,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay20)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -709,13 +877,21 @@ void sub_0203D874(FieldSystem *fieldSystem, UnkStruct_0209747C *param1)
 
 void FieldSystem_OpenTownMap(FieldSystem *fieldSystem, TownMapContext *townMapCtx)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(town_map);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate townMapApp = {
         TownMap_Init,
         TownMap_Main,
         TownMap_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(town_map)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &townMapApp, townMapCtx);
@@ -736,13 +912,21 @@ void *FieldSystem_OpenTownMapItem(FieldSystem *fieldSystem)
 
 static void OpenOptionsMenu(FieldSystem *fieldSystem, Options *options)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(options_menu);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         OptionsMenu_Init,
         OptionsMenu_Main,
         OptionsMenu_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(options_menu)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, options);
@@ -810,13 +994,21 @@ UnkStruct_0203D9B8 *sub_0203D9B8(FieldSystem *fieldSystem, int heapID)
 
 void sub_0203D9D8(FieldSystem *fieldSystem, UnkStruct_ov90_021D0D80 *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay90);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v0 = {
         ov90_021D0D80,
         ov90_021D0E04,
         ov90_021D0DE8,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay90)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -894,13 +1086,21 @@ void sub_0203DAC0(FieldTask *param0, u16 *param1, SaveData *saveData, u16 param3
 
 BOOL sub_0203DB10(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay22);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static ApplicationManagerTemplate v0 = {
         ov22_02255D44,
         ov22_02255E50,
         ov22_02256098,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay22)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -910,13 +1110,21 @@ BOOL sub_0203DB10(FieldSystem *fieldSystem, void *param1)
 
 BOOL sub_0203DB24(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay22);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static ApplicationManagerTemplate v0 = {
         ov22_0225B660,
         ov22_0225B738,
         ov22_0225B7FC,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay22)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -928,14 +1136,22 @@ static ApplicationManagerTemplate Unk_02100AA4 = {
     ov88_0223B140,
     ov88_0223B57C,
     ov88_0223C03C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay88)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static const ApplicationManagerTemplate Unk_020EA268 = {
     TradeSequence_Init,
     TradeSequence_Main,
     TradeSequence_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay95)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static void sub_0203DB38(UnkStruct_ov88_0223C370 *param0, FieldSystem *fieldSystem)
@@ -1085,14 +1301,22 @@ const ApplicationManagerTemplate Unk_020EA258 = {
     ov58_021D0D80,
     ov58_021D0F08,
     ov58_021D1018,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay58)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020EA248 = {
     ov59_021D0D80,
     ov59_021D0F00,
     ov59_021D0FF4,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay59)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0203DDFC(FieldSystem *fieldSystem)
@@ -1125,7 +1349,11 @@ const ApplicationManagerTemplate Unk_020EA238 = {
     ov64_0222DCE0,
     ov64_0222DDAC,
     ov64_0222DEA4,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay64)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0203DE78(FieldSystem *fieldSystem, SaveData *saveData)
@@ -1265,13 +1493,21 @@ void sub_0203DFE8(
 
 void FieldSystem_OpenTrainerCardScreen(FieldSystem *fieldSystem, TrainerCard *trainerCard)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(trainer_card_screen);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         .init = TrainerCardScreen_Init,
         .main = TrainerCardScreen_Main,
         .exit = TrainerCardScreen_Exit,
+        #ifdef PLATFORM_DS
         .overlayID = FS_OVERLAY_ID(trainer_card_screen)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, trainerCard);
@@ -1279,13 +1515,21 @@ void FieldSystem_OpenTrainerCardScreen(FieldSystem *fieldSystem, TrainerCard *tr
 
 BOOL sub_0203E0AC(FieldSystem *fieldSystem, void *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(pokedex);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         PokedexMain_Init,
         PokedexMain_Main,
         PokedexMain_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(pokedex)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, param1);
@@ -1294,13 +1538,21 @@ BOOL sub_0203E0AC(FieldSystem *fieldSystem, void *param1)
 
 void FieldSystem_LaunchChooseStarterApp(FieldSystem *fieldSystem, ChooseStarterData *chooseStarterData)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(choose_starter);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         ChooseStarter_Init,
         ChooseStarter_Main,
         ChooseStarter_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(choose_starter)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, chooseStarterData);
@@ -1310,13 +1562,21 @@ void sub_0203E0D0(FieldSystem *fieldSystem)
 {
     TrainerCardSaveData *v0 = SaveData_GetTrainerCardSaveData(fieldSystem->saveData);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay72);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v1 = {
         ov72_0223D7A0,
         ov72_0223D920,
         ov72_0223D984,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay72)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v1, fieldSystem->saveData);
@@ -1324,13 +1584,21 @@ void sub_0203E0D0(FieldSystem *fieldSystem)
 
 void FieldSystem_LaunchGTSApp(FieldSystem *fieldSystem, BOOL connectToWiFi)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay94);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate gtsTemplate = {
         GTSApplication_Init,
         GTSApplication_Main,
         GTSApplication_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay94)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     GTSPlayerData *playerData = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(GTSPlayerData));
@@ -1360,13 +1628,21 @@ void *sub_0203E1AC(FieldSystem *fieldSystem, int param1, int param2)
 {
     UnkStruct_0206BC70 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay96);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v1 = {
         ov96_0223B6A0,
         ov96_0223B7F8,
         ov96_0223B8CC,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay96)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(UnkStruct_0206BC70));
@@ -1391,7 +1667,11 @@ static const ApplicationManagerTemplate Unk_020EA328 = {
     ov92_021D0D80,
     ov92_021D0EB8,
     ov92_021D1478,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay92)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0203E224(FieldSystem *fieldSystem)
@@ -1401,13 +1681,21 @@ void sub_0203E224(FieldSystem *fieldSystem)
 
 void FieldTask_StartHallOfFame(FieldSystem *fieldSystem, HallOfFameDisplayData *displayData)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(hall_of_fame);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         .init = HallOfFameManager_Init,
         .main = HallOfFameManager_Main,
         .exit = HallOfFameManager_Exit,
+        #ifdef PLATFORM_DS
         .overlayID = FS_OVERLAY_ID(hall_of_fame)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, displayData);
@@ -1419,7 +1707,11 @@ void *FieldTask_OpenPCHallOfFameScreen(FieldSystem *fieldSystem)
         .init = PCHallOfFameManager_Init,
         .main = PCHallOfFameManager_Main,
         .exit = PCHallOfFameManager_Exit,
+        #ifdef PLATFORM_DS
         .overlayID = FS_OVERLAY_ID(pc_hall_of_fame),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
     HallOfFame *hallOfFame;
     int resultCode;
@@ -1437,13 +1729,21 @@ void *FieldTask_OpenPCHallOfFameScreen(FieldSystem *fieldSystem)
 
 void sub_0203E274(FieldSystem *fieldSystem, UnkStruct_0203E274 *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay99);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov99_021D0D80,
         ov99_021D1028,
         ov99_021D11A8,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay99)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -1451,13 +1751,21 @@ void sub_0203E274(FieldSystem *fieldSystem, UnkStruct_0203E274 *param1)
 
 void FieldSystem_OpenMoveReminderMenu(FieldSystem *fieldSystem, MoveReminderData *moveReminderData)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(move_reminder);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate template = {
         MoveReminder_Init,
         MoveReminder_Main,
         MoveReminder_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(move_reminder)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &template, moveReminderData);
@@ -1465,13 +1773,21 @@ void FieldSystem_OpenMoveReminderMenu(FieldSystem *fieldSystem, MoveReminderData
 
 void FieldTask_PlayBoatCutscene_CanalaveShip(FieldSystem *fieldSystem, void *taskEnv)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(cutscenes);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate appTemplate = {
         .init = BoatCutscene_CanalaveShip_Init,
         .main = BoatCutscene_CanalaveShip_Main,
         .exit = BoatCutscene_CanalaveShip_Exit,
+        #ifdef PLATFORM_DS
         .overlayID = FS_OVERLAY_ID(cutscenes)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &appTemplate, taskEnv);
@@ -1479,13 +1795,21 @@ void FieldTask_PlayBoatCutscene_CanalaveShip(FieldSystem *fieldSystem, void *tas
 
 void FieldTask_PlayBoatCutscene_SnowpointShip(FieldSystem *fieldSystem, void *taskEnv)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(cutscenes);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate appTemplate = {
         .init = BoatCutscene_SnowpointShip_Init,
         .main = BoatCutscene_SnowpointShip_Main,
         .exit = BoatCutscene_SnowpointShip_Exit,
+        #ifdef PLATFORM_DS
         .overlayID = FS_OVERLAY_ID(cutscenes)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &appTemplate, taskEnv);
@@ -1510,13 +1834,21 @@ void sub_0203E2FC(FieldSystem *fieldSystem)
 
 BOOL sub_0203E348(FieldSystem *fieldSystem, UnkStruct_0203E348 *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay101);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov101_021D0D80,
         ov101_021D0E40,
         ov101_021D0EE4,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay101)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     FieldSystem_StartChildProcess(fieldSystem, &v0, param1);
@@ -1655,13 +1987,21 @@ void AccessoryShop_Init(FieldTask *task)
 
 void *FieldSystem_ShowDiploma(FieldSystem *fieldSystem, int heapID, BOOL isNatDex)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(diploma);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate template = {
         Diploma_Init,
         Diploma_Main,
         Diploma_Exit,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(diploma),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
     DiplomaData *diplomaData = Heap_Alloc(heapID, sizeof(DiplomaData));
 
@@ -1677,13 +2017,21 @@ void *sub_0203E564(FieldSystem *fieldSystem, u8 param1, u8 param2, u16 param3, i
 {
     UnkStruct_0203E564 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay110);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static ApplicationManagerTemplate v1 = {
         ov110_021D0D80,
         ov110_021D0E9C,
         ov110_021D0EF0,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay110)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = Heap_Alloc(heapID, sizeof(UnkStruct_0203E564));
@@ -1723,13 +2071,21 @@ void *sub_0203E608(FieldSystem *fieldSystem, int heapID)
 {
     UnkStruct_0203E608 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay111);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static ApplicationManagerTemplate v1 = {
         ov111_021D0D80,
         ov111_021D0E34,
         ov111_021D0F40,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay111)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = Heap_Alloc(heapID, sizeof(UnkStruct_0203E608));
@@ -1774,13 +2130,21 @@ void sub_0203E6C0(FieldSystem *fieldSystem, int param1, int param2)
 {
     UnkStruct_0203E6C0 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay61);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v1 = {
         sub_02017498,
         sub_02017524,
         sub_02017658,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay61)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(UnkStruct_0203E6C0));
@@ -1794,13 +2158,21 @@ void sub_0203E6C0(FieldSystem *fieldSystem, int param1, int param2)
     FieldSystem_StartChildProcess(fieldSystem, &v1, v0);
 }
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(library_tv);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static const ApplicationManagerTemplate LibraryTV_template = {
     LibraryTV_Init,
     LibraryTV_Main,
     LibraryTV_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(library_tv)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0203E704(FieldSystem *fieldSystem)
@@ -1812,7 +2184,11 @@ static const ApplicationManagerTemplate Unk_020EA368 = {
     DWWarp_Init,
     DWWarp_Main,
     DWWarp_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(dw_warp)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0203E714(FieldSystem *fieldSystem)

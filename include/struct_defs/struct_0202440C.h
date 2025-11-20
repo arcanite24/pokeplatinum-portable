@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0202440C_H
 #define POKEPLATINUM_STRUCT_0202440C_H
 
+#include "platform/platform_types.h"
+
 #include "constants/tv_broadcast.h"
 
 #include "struct_defs/struct_0202E768.h"

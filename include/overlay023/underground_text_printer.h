@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNDERGROUND_TEXT_PRINTER_H
 #define POKEPLATINUM_UNDERGROUND_TEXT_PRINTER_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "list_menu.h"
 #include "message.h"

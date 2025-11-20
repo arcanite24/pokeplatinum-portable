@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef struct MapLoadMode {
     u32 fieldBottomScreen : 4;
     u32 skipMapAttributes : 4;

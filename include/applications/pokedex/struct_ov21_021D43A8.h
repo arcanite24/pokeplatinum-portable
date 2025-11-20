@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV21_021D43A8_H
 #define POKEPLATINUM_STRUCT_OV21_021D43A8_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pokedex/pokedex_updater.h"
 
 typedef struct {

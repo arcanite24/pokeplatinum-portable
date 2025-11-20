@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_INLINES_H
 #define POKEPLATINUM_INLINES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/rtc.h>
 #else
@@ -113,8 +115,16 @@ static inline void inline_ov61_0222C3B0_sub(SysTask *param0, void *param1)
         return;
     }
 
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt((const void *)v0->unk_88[v0->unk_328], 0 * 0x20, 1 * 0x20);
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt((const void *)v0->unk_88[v0->unk_328], 0 * 0x20, 1 * 0x20);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
 
     if (v0->unk_32A == 0) {
         v0->unk_328++;

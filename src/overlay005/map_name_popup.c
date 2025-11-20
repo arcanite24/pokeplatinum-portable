@@ -57,7 +57,11 @@ static void MapNamePopUp_PrintMapName(MapNamePopUp *mapPopUp, const Strbuf *strb
 static void MapNamePopUp_LoadPalette(void *src, u16 size, u16 offset)
 {
     DC_FlushRange(src, PLTT_OFFSET(size));
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt(src, PLTT_OFFSET(offset), PLTT_OFFSET(size));
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
 }
 
 static void MapNamePopUp_CreateWindow(MapNamePopUp *mapPopUp)

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_H
 #define POKEPLATINUM_POKETCH_H
 
+#include "platform/platform_types.h"
+
 #include "generated/poketch_apps.h"
 
 #include "pokemon.h"

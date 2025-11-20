@@ -43,8 +43,16 @@
 #include "unk_0205F180.h"
 #include "unk_0209C370.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay5);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static BOOL InitFieldSystemContinue(ApplicationManager *appMan, int *state);
 static BOOL InitFieldSystemNewGame(ApplicationManager *appMan, int *state);
@@ -92,7 +100,11 @@ static BOOL ExecuteFieldProcesses(ApplicationManager *appMan, int *state)
 static BOOL ReturnToTitleScreen(ApplicationManager *appMan, int *state)
 {
     TeardownFieldSystem(appMan);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     return TRUE;
 }
 
@@ -100,21 +112,33 @@ const ApplicationManagerTemplate gFieldSystemNewGameTemplate = {
     .init = InitFieldSystemNewGame,
     .main = ExecuteFieldProcesses,
     .exit = ReturnToTitleScreen,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate gFieldSystemContinueTemplate = {
     .init = InitFieldSystemContinue,
     .main = ExecuteFieldProcesses,
     .exit = ReturnToTitleScreen,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 void FieldSystem_StartFieldMapInner(FieldSystem *fieldSystem)
 {
     GF_ASSERT(fieldSystem->processManager->child == NULL);
     GF_ASSERT(fieldSystem->processManager->parent == NULL);
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay5), OVERLAY_LOAD_ASYNC);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     fieldSystem->runningFieldMap = FALSE;
     fieldSystem->processManager->pause = FALSE;
@@ -217,7 +241,11 @@ static BOOL HandleInputsEventsAndProcesses(FieldSystem *fieldSystem)
         ExecuteAndCleanupIfDone(&fieldSystem->processManager->parent);
 
         if (fieldSystem->processManager->parent == NULL) {
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay5));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         }
     } else if (fieldSystem->processManager->child) {
         ExecuteAndCleanupIfDone(&fieldSystem->processManager->child);
@@ -291,7 +319,11 @@ static void HandleFieldInput(FieldSystem *fieldSystem)
                 ov5_021E0EEC(fieldSystem->playerAvatar);
                 FieldSystem_SendPoketchEvent(fieldSystem, POKETCH_EVENT_SLEEP, 1);
             } else {
+                #ifdef PLATFORM_DS
                 if (gSystem.pressedKeys & PAD_BUTTON_A) {
+                #else
+                // TODO: Port PAD_BUTTON_A to PAL
+                #endif
                     MapNamePopUp_Hide(fieldSystem->unk_04->unk_08);
                 }
 
@@ -315,7 +347,11 @@ static void HandleFieldInput(FieldSystem *fieldSystem)
                 ov5_021E0EEC(fieldSystem->playerAvatar);
                 FieldSystem_SendPoketchEvent(fieldSystem, POKETCH_EVENT_SLEEP, 1);
             } else {
+                #ifdef PLATFORM_DS
                 if (gSystem.pressedKeys & PAD_BUTTON_A) {
+                #else
+                // TODO: Port PAD_BUTTON_A to PAL
+                #endif
                     MapNamePopUp_Hide(fieldSystem->unk_04->unk_08);
                 }
 

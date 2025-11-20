@@ -1091,25 +1091,61 @@ static void CommSys_ApplyMovementModifiers(void)
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (!(sCommunicationSystem->sendHeldKeys & (PAD_KEY_LEFT | PAD_KEY_RIGHT | PAD_KEY_UP | PAD_KEY_DOWN))) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         return;
     }
 
     if (sCommunicationSystem->playerMovementState == MOVEMENT_STATE_REVERSE) {
+        #ifdef PLATFORM_DS
         if (sCommunicationSystem->sendHeldKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
+            #ifdef PLATFORM_DS
             newHeldKeys |= PAD_KEY_RIGHT;
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         if (sCommunicationSystem->sendHeldKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
+            #ifdef PLATFORM_DS
             newHeldKeys |= PAD_KEY_LEFT;
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         if (sCommunicationSystem->sendHeldKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
+            #ifdef PLATFORM_DS
             newHeldKeys |= PAD_KEY_DOWN;
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         if (sCommunicationSystem->sendHeldKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             newHeldKeys |= PAD_KEY_UP;
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
         }
     } else {
         if (sCommunicationSystem->randomPadKey) {
@@ -1122,16 +1158,32 @@ static void CommSys_ApplyMovementModifiers(void)
         } else {
             switch (MATH_Rand32(&sCommunicationSystem->rand, 4)) {
             case 0:
+                #ifdef PLATFORM_DS
                 newHeldKeys = PAD_KEY_LEFT;
+                #else
+                // TODO: Port PAD_KEY_LEFT to PAL
+                #endif
                 break;
             case 1:
+                #ifdef PLATFORM_DS
                 newHeldKeys = PAD_KEY_RIGHT;
+                #else
+                // TODO: Port PAD_KEY_RIGHT to PAL
+                #endif
                 break;
             case 2:
+                #ifdef PLATFORM_DS
                 newHeldKeys = PAD_KEY_UP;
+                #else
+                // TODO: Port PAD_KEY_UP to PAL
+                #endif
                 break;
             case 3:
+                #ifdef PLATFORM_DS
                 newHeldKeys = PAD_KEY_DOWN;
+                #else
+                // TODO: Port PAD_KEY_DOWN to PAL
+                #endif
                 break;
             }
 
@@ -1140,7 +1192,11 @@ static void CommSys_ApplyMovementModifiers(void)
         }
     }
 
+    #ifdef PLATFORM_DS
     sCommunicationSystem->sendHeldKeys &= ~(PAD_KEY_LEFT | PAD_KEY_RIGHT | PAD_KEY_UP | PAD_KEY_DOWN);
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
     sCommunicationSystem->sendHeldKeys += newHeldKeys;
 }
 
@@ -1169,13 +1225,29 @@ static BOOL sub_020356A0(u8 *param0, int param1)
         v1[0] = *param0 & 0xc;
 
         if (v1[0] == 0x0) {
+            #ifdef PLATFORM_DS
             sCommunicationSystem->unk_63C[param1] |= PAD_KEY_UP;
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
         } else if (v1[0] == 0x4) {
+            #ifdef PLATFORM_DS
             sCommunicationSystem->unk_63C[param1] |= PAD_KEY_DOWN;
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
         } else if (v1[0] == 0x8) {
+            #ifdef PLATFORM_DS
             sCommunicationSystem->unk_63C[param1] |= PAD_KEY_LEFT;
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
         } else if (v1[0] == 0xC) {
+            #ifdef PLATFORM_DS
             sCommunicationSystem->unk_63C[param1] |= PAD_KEY_RIGHT;
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
         }
 
         sCommunicationSystem->recvSpeed[param1] = (*param0 >> 5) & 0x7;
@@ -1203,16 +1275,32 @@ static BOOL sub_02035730(u8 *param0)
         sCommunicationSystem->unk_6A9--;
     }
 
+    #ifdef PLATFORM_DS
     if (sCommunicationSystem->sendHeldKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         param0[0] = param0[0] | 0x0 | 0x10;
         sCommunicationSystem->unk_6A9 = 8;
+    #ifdef PLATFORM_DS
     } else if (sCommunicationSystem->sendHeldKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0[0] = param0[0] | 0x4 | 0x10;
         sCommunicationSystem->unk_6A9 = 8;
+    #ifdef PLATFORM_DS
     } else if (sCommunicationSystem->sendHeldKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         param0[0] = param0[0] | 0x8 | 0x10;
         sCommunicationSystem->unk_6A9 = 8;
+    #ifdef PLATFORM_DS
     } else if (sCommunicationSystem->sendHeldKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         param0[0] = param0[0] | 0xC | 0x10;
         sCommunicationSystem->unk_6A9 = 8;
     }

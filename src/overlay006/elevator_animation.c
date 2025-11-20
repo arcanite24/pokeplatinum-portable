@@ -64,7 +64,15 @@ static BOOL FieldTask_PlayElevatorAnimation(FieldTask *fieldTask)
         BOOL mapPropLoaded;
 
         modelFile = AreaDataManager_GetMapPropModelFile(MAP_PROP_MODEL_ELEVATOR_LIGHTS, fieldSystem->areaDataManager);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
         model = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(*modelFile), 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
 
         mapPropLoaded = FieldSystem_FindLoadedMapPropByModelID(fieldSystem, MAP_PROP_MODEL_ELEVATOR_LIGHTS, &mapProp, NULL);
         GF_ASSERT(mapPropLoaded);

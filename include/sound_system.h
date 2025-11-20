@@ -1,6 +1,8 @@
 #ifndef SOUND_SYSTEM_H
 #define SOUND_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -223,7 +225,11 @@ int SoundSystem_SaveHeapState(int *state);
 void SoundSystem_LoadHeapState(int state);
 BOOL SoundSystem_LoadSoundGroup(u16 group);
 BOOL SoundSystem_LoadSequence(u16 id);
+#ifdef PLATFORM_DS
 BOOL SoundSystem_LoadSequenceEx(u16 id, u32 flags); // See NNS_SND_ARC_LOAD_* in nnsys/snd/sndarc.h for flags
+#else
+// TODO: Port NNS_SND_ARC_LOAD_ to PAL
+#endif
 BOOL SoundSystem_LoadWaveArc(u16 id);
 BOOL SoundSystem_LoadBank(u16 id);
 NNSSndHandle *SoundSystem_GetSoundHandle(enum SoundHandleType type);

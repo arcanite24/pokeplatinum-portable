@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV99_021D4134_H
 #define POKEPLATINUM_OV99_021D4134_H
 
+#include "platform/platform_types.h"
+
 #include "overlay099/struct_ov99_021D2CB0.h"
 
 #include "sprite_system.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ELEVATOR_ANIMATION_H
 #define POKEPLATINUM_ELEVATOR_ANIMATION_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void FieldSystem_PlayElevatorAnimation(FieldSystem *fieldSystem, const u8 elevatorDir, const u8 animationLoopCount);

@@ -177,10 +177,18 @@ static void Task_InitGraphics(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -198,8 +206,20 @@ static void Task_InitGraphics(SysTask *task, void *taskMan)
     SetupSprites(graphics, graphics->friendshipData);
     SetupIconMovement(graphics, graphics->friendshipData);
 
+    #ifdef PLATFORM_DS
     dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     EndTask(taskMan);
 }
 
@@ -229,15 +249,27 @@ static void SetupSprites(FriendshipCheckerGraphics *graphics, const FriendshipCh
         void *ncgrFile;
 
         animData.animIdx = 0;
+        #ifdef PLATFORM_DS
         animData.flip = NNS_G2D_RENDERERFLIP_NONE;
+        #else
+        // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+        #endif
         animData.oamPriority = 2;
         animData.hasAffineTransform = TRUE;
 
         for (int slot = 0; slot < friendshipData->monCount; slot++) {
             ncgrFile = NARC_AllocAndReadWholeMember(pokeIconNarc, friendshipData->party[slot].spriteIdx, HEAP_ID_POKETCH_APP);
+            #ifdef PLATFORM_DS
             NNS_G2dGetUnpackedCharacterData(ncgrFile, &charData);
+            #else
+            // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+            #endif
             DC_FlushRange(charData->pRawData, POKE_ICON_SIZE * TILE_SIZE_4BPP);
+            #ifdef PLATFORM_DS
             GXS_LoadOBJ(charData->pRawData, POKE_ICON_SIZE * TILE_SIZE_4BPP * slot, POKE_ICON_SIZE * TILE_SIZE_4BPP);
+            #else
+            // TODO: Port GXS_LoadOBJ to PAL
+            #endif
             Heap_Free(ncgrFile);
 
             animData.translation.x = (initialLocations[slot].x) << FX32_SHIFT;
@@ -474,7 +506,11 @@ static void TapStateDoubleTap(FriendshipCheckerGraphics *graphics, const Friends
 
 static void PrintDebugLog(const char *text, ...)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         va_list args;
         va_start(args, text);
         va_end(args);

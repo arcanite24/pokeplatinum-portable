@@ -52,7 +52,11 @@
 #include "unk_0208B284.h"
 #include "vram_transfer.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay22);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int unk_00;
@@ -207,7 +211,11 @@ static BOOL ov62_02237D24(UnkStruct_0208C06C *param0)
 
     memset(v0, 0, sizeof(UnkStruct_ov62_02237D24));
     param0->unk_860 = v0;
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay22), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         v0->unk_218.unk_00 = param0->unk_14.unk_10;
@@ -291,8 +299,16 @@ static BOOL ov62_02237F08(UnkStruct_0208C06C *param0)
         ov62_02239518();
         ov62_022343B8(param0, 35, 3);
         ov62_022343B8(param0, 37, 7);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         ov62_02234540(param0, 1);
 
         v0->unk_22C = sub_02029CA8(sub_0202A750(param0->saveData), 0);
@@ -303,8 +319,16 @@ static BOOL ov62_02237F08(UnkStruct_0208C06C *param0)
         }
 
         ov62_02234540(param0, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         SetVBlankCallback(ov62_022394D8, param0);
         param0->unk_08++;
         break;
@@ -316,8 +340,16 @@ static BOOL ov62_02237F08(UnkStruct_0208C06C *param0)
         ov62_02231664(&v0->unk_08, 0);
 
         if (ov62_022315E0(&v0->unk_00, &v0->unk_04, 0, 0)) {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
             ov62_02239724(param0);
             param0->unk_08++;
         }
@@ -331,7 +363,11 @@ static BOOL ov62_02237F08(UnkStruct_0208C06C *param0)
     if (v0->unk_228) {
         G3_ResetG3X();
         ov22_0225AFF8(v0->unk_228);
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 
     return 0;
@@ -354,7 +390,11 @@ static BOOL ov62_02238048(UnkStruct_0208C06C *param0)
     if (v0->unk_228) {
         G3_ResetG3X();
         ov22_0225AFF8(v0->unk_228);
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 
     return 0;
@@ -476,7 +516,11 @@ static BOOL ov62_022380B0(UnkStruct_0208C06C *param0)
             ov62_0222FB60(param0, 5);
 
             Heap_Free(v0);
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay22));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             SetVBlankCallback(ov62_0222F8E4, param0);
         } else {
             PaletteData_BlendMulti(param0->unk_14.unk_14, 1, 0x2, v0->unk_08, param0->unk_14.unk_44);
@@ -565,7 +609,11 @@ static BOOL ov62_022383E4(UnkStruct_0208C06C *param0)
             ov62_0222FB60(param0, 5);
 
             Heap_Free(v0);
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay22));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             SetVBlankCallback(ov62_0222F8E4, param0);
         } else {
             PaletteData_BlendMulti(param0->unk_14.unk_14, 1, 0x2, v0->unk_08, param0->unk_14.unk_44);
@@ -601,10 +649,26 @@ static BOOL ov62_02238610(UnkStruct_0208C06C *param0)
     switch (param0->unk_08) {
     case 0:
         ov62_022343B8(param0, 60, 7);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_1D0[0] = TouchScreenActions_RegisterHandler(Unk_ov62_022491F0, NELEMS(Unk_ov62_022491F0), ov62_02239BAC, param0, HEAP_ID_102);
         param0->unk_08++;
         break;
@@ -815,7 +879,11 @@ static BOOL ov62_0223896C(UnkStruct_0208C06C *param0)
             ov62_0222FB60(param0, 5);
 
             Heap_Free(v0);
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay22));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             SetVBlankCallback(ov62_0222F8E4, param0);
         } else {
             PaletteData_BlendMulti(param0->unk_14.unk_14, 1, 0x2, v0->unk_08, param0->unk_14.unk_44);
@@ -868,9 +936,21 @@ static BOOL ov62_02238B70(UnkStruct_0208C06C *param0)
         }
         break;
     case 3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         sub_0208B9E0(param0->unk_6F0, 0);
         sub_0208BA08(param0->unk_6F0, 0, 0);
         param0->unk_08++;
@@ -914,11 +994,31 @@ static BOOL ov62_02238D04(UnkStruct_0208C06C *param0)
         ov62_022343B8(param0, 35, 3);
         ov62_022343B8(param0, 36, 7);
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         SetVBlankCallback(ov62_022394D8, param0);
         param0->unk_08++;
         break;
@@ -931,8 +1031,16 @@ static BOOL ov62_02238D04(UnkStruct_0208C06C *param0)
 
         if (ov62_022315E0(&v0->unk_00, &v0->unk_04, 0, 0)) {
             ov22_0225B074(v0->unk_228, 1);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
             ov62_02239854(param0, v0->unk_230.unk_04);
             ov62_02239498(param0);
             param0->unk_08++;
@@ -948,7 +1056,11 @@ static BOOL ov62_02238D04(UnkStruct_0208C06C *param0)
     if (v0->unk_228) {
         G3_ResetG3X();
         ov22_0225AFF8(v0->unk_228);
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 
     return 0;
@@ -989,7 +1101,11 @@ static BOOL ov62_02238E54(UnkStruct_0208C06C *param0)
     if (v0->unk_228) {
         G3_ResetG3X();
         ov22_0225AFF8(v0->unk_228);
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 
     return 0;
@@ -1073,7 +1189,11 @@ static BOOL ov62_0223900C(UnkStruct_0208C06C *param0)
 
                 Bg_ClearTilemap(param0->unk_14.unk_10, 2);
                 Bg_ClearTilemap(param0->unk_14.unk_10, 3);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
 
             param0->unk_08++;
@@ -1093,10 +1213,26 @@ static BOOL ov62_0223900C(UnkStruct_0208C06C *param0)
             ov22_0225B074(v0->unk_228, 0);
             ov62_02239518();
             ov62_022343B8(param0, 35, 3);
+            #ifdef PLATFORM_DS
             GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
         }
 
         param0->unk_08++;
@@ -1114,12 +1250,24 @@ static BOOL ov62_0223900C(UnkStruct_0208C06C *param0)
         if (ov62_022315E0(&v0->unk_00, &v0->unk_04, 0, 1)) {
             if (v0->unk_0C == 0) {
                 ov62_022323B8(&v0->unk_250, 1);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             } else {
                 ov62_02239854(param0, v0->unk_230.unk_04);
                 ov22_0225B074(v0->unk_228, 1);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG0 to PAL
+                #endif
             }
 
             param0->unk_08++;
@@ -1165,7 +1313,11 @@ static BOOL ov62_0223921C(UnkStruct_0208C06C *param0)
 
                 Bg_ClearTilemap(param0->unk_14.unk_10, 2);
                 Bg_ClearTilemap(param0->unk_14.unk_10, 3);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
 
             param0->unk_08++;
@@ -1180,16 +1332,36 @@ static BOOL ov62_0223921C(UnkStruct_0208C06C *param0)
             ov22_0225B074(v0->unk_228, 0);
             ov62_02239518();
             ov62_022343B8(param0, 35, 3);
+            #ifdef PLATFORM_DS
             GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG0 to PAL
+            #endif
         } else {
             ov61_0222AFC0(&v0->unk_230.unk_0C[v0->unk_230.unk_04]->unk_00, v0->unk_250.unk_00);
             ov62_02232378(&v0->unk_250, param0);
             ov62_022323B8(&v0->unk_250, 0);
             ov62_022343B8(param0, 80, 3);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         }
 
         ov62_02234540(param0, 0);
@@ -1209,11 +1381,23 @@ static BOOL ov62_0223921C(UnkStruct_0208C06C *param0)
             if (v0->unk_0C == 0) {
                 ov62_02239854(param0, v0->unk_230.unk_04);
                 ov22_0225B074(v0->unk_228, 1);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG0 to PAL
+                #endif
             } else {
                 ov62_022323B8(&v0->unk_250, 1);
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
 
             param0->unk_08++;
@@ -1280,21 +1464,73 @@ static void ov62_022394D8(void *param0)
     PaletteData_CommitFadedBuffers(v0->unk_14.unk_14);
     Bg_RunScheduledUpdates(v0->unk_14.unk_10);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void ov62_02239518(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(9 * 8, 2 * 8, 9 * 8 + 14 * 8, 2 * 8 + 16 * 8);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 }
 
 static void ov62_0223956C(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 }
 
 static void ov62_0223958C(UnkStruct_0208C06C *param0, int param1)
@@ -1319,13 +1555,33 @@ static void ov62_02239608(UnkStruct_0208C06C *param0)
 {
     UnkStruct_ov62_02237D24 *v0 = param0->unk_860;
 
+    #ifdef PLATFORM_DS
     ov62_022312CC(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0->unk_198[0].unk_08 = ov62_022313E0(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0->unk_198[1].unk_08 = ov62_022313E0(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     ov62_0223118C(&v0->unk_198[0], &param0->unk_14, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov62_0223118C(&v0->unk_198[1], &param0->unk_14, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov62_0223124C(&v0->unk_198[0], &param0->unk_14, 3);
     ov62_0223124C(&v0->unk_198[1], &param0->unk_14, 53);
 

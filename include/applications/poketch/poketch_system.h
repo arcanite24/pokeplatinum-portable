@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_SYSTEM_H
 #define POKEPLATINUM_POKETCH_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

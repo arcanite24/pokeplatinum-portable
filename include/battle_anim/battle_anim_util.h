@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_ANIM_UTIL_H
 #define POKEPLATINUM_BATTLE_ANIM_UTIL_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

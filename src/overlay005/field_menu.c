@@ -459,7 +459,15 @@ static void ListMenuSysTaskCallback(SysTask *sysTask, void *param)
         Sound_PlayEffect(SEQ_SE_CONFIRM);
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
     if (JOY_REPEAT(PAD_KEY_UP) || JOY_REPEAT(PAD_KEY_DOWN) || JOY_REPEAT(PAD_KEY_LEFT) || JOY_REPEAT(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         FieldMenuManager_UpdateListMenuAltText(menuManager);
     }
 

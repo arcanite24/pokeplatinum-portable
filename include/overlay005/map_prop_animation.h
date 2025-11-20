@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_MAP_PROP_ANIMATION_H
 #define POKEPLATINUM_OV5_MAP_PROP_ANIMATION_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

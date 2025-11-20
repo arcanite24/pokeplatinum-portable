@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TYPE_ICON_H
 #define POKEPLATINUM_TYPE_ICON_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -21,7 +23,11 @@ u8 TypeIcon_GetPltt(enum PokemonType moveType);
 enum NarcID TypeIcon_GetNARC(void);
 void TypeIcon_LoadChar(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, enum PokemonType moveType, u32 resourceID);
 void TypeIcon_LoadPlttSrc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, u32 resourceID);
+#ifdef PLATFORM_DS
 void TypeIcon_LoadPltt(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, u32 resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 void TypeIcon_LoadAnim(SpriteSystem *spriteSys, SpriteManager *spriteMan, u32 cellResourceID, u32 animResourceID);
 void TypeIcon_UnloadChar(SpriteManager *spriteMan, u32 resourceID);
 void TypeIcon_UnloadPlttSrc(SpriteManager *spriteMan, u32 resourceID);
@@ -31,7 +37,11 @@ void TypeIcon_DeleteSprite(ManagedSprite *managedSprite);
 u32 CategoryIcon_GetChar(enum MoveClass moveCat);
 u8 CategoryIcon_GetPltt(enum MoveClass moveCat);
 enum NarcID CategoryIcon_GetNARC(void);
+#ifdef PLATFORM_DS
 void CategoryIcon_LoadChar(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, enum MoveClass moveCat, u32 resourceID);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 void CategoryIcon_UnloadChar(SpriteManager *spriteMan, u32 resourceID);
 void CategoryIcon_DeleteSprite(ManagedSprite *managedSprite);
 

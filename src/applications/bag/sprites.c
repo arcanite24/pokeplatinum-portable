@@ -37,7 +37,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49401, 49401, 49401, 49401, 0, 0 },
         .bgPriority = 1,
         .vramTransfer = FALSE,
@@ -49,7 +53,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49402, 49402, 49402, 49402, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -61,7 +69,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49405, 49402, 49405, 49405, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -73,7 +85,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49405, 49402, 49405, 49405, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -85,7 +101,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49403, 49402, 49403, 49403, 0, 0 },
         .bgPriority = 1,
         .vramTransfer = FALSE,
@@ -97,7 +117,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49404, 49402, 49404, 49404, 0, 0 },
         .bgPriority = 1,
         .vramTransfer = FALSE,
@@ -109,7 +133,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DSUB,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         .resources = { 49406, 49403, 49406, 49406, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -121,7 +149,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49407, 49404, 49407, 49407, 0, 0 },
         .bgPriority = 1,
         .vramTransfer = FALSE,
@@ -133,7 +165,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49408, 49405, 49408, 49408, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -145,7 +181,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49408, 49405, 49408, 49408, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -157,7 +197,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49409, 49406, 49409, 49409, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -169,7 +213,11 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 49410, 49406, 49409, 49409, 0, 0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -178,8 +226,16 @@ static const SpriteTemplate sBagUISpriteTemplates[] = {
 
 void BagUI_InitSprites(BagController *controller)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     VramTransfer_New(32, HEAP_ID_BAG);
     InitSpriteSystem(controller);
     LoadSpriteResources(controller);
@@ -208,8 +264,16 @@ static void InitSpriteSystem(BagController *controller)
         .maxTasks = 12,
         .sizeMain = 1024 * 128,
         .sizeSub = 1024 * 16,
+        #ifdef PLATFORM_DS
         .modeMain = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .modeSub = GX_OBJVRAMMODE_CHAR_1D_32K
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     };
 
     SpriteSystem_Init(controller->spriteSystem, &oamTemplate, &transferTemplate, 32);
@@ -230,22 +294,86 @@ static void LoadSpriteResources(BagController *controller)
         bagPaletteIdx = bag_sprite_female_NCLR;
     }
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, bagSpriteIdx, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49401);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, pocket_highlight_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49402);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, item_highlight_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49403);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, moving_item_pos_bar_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49404);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, pocket_selector_arrows_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49405);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, button_shockwave_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 49406);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(controller->spriteSystem, controller->spriteMan, NARC_INDEX_GRAPHIC__SHOP_GRA, scroll_arrow_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49408);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(controller->spriteSystem, controller->spriteMan, NARC_INDEX_ITEMTOOL__ITEMDATA__ITEM_ICON, Item_FileID(ITEM_NONE, ITEM_FILE_TYPE_ICON), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 49407);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     TypeIcon_LoadChar(controller->spriteSystem, controller->spriteMan, NNS_G2D_VRAM_TYPE_2DMAIN, TYPE_NORMAL, 49409);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     CategoryIcon_LoadChar(controller->spriteSystem, controller->spriteMan, NNS_G2D_VRAM_TYPE_2DMAIN, CLASS_PHYSICAL, 49410);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, bagPaletteIdx, FALSE, PLTT_1, NNS_G2D_VRAM_TYPE_2DMAIN, 49401);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, ui_elements_NCLR, FALSE, PLTT_2, NNS_G2D_VRAM_TYPE_2DMAIN, 49402);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObj(controller->spriteSystem, controller->spriteMan, NARC_INDEX_ITEMTOOL__ITEMDATA__ITEM_ICON, Item_FileID(ITEM_NONE, ITEM_FILE_TYPE_PALETTE), FALSE, PLTT_1, NNS_G2D_VRAM_TYPE_2DMAIN, 49404);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObj(controller->spriteSystem, controller->spriteMan, NARC_INDEX_GRAPHIC__SHOP_GRA, sprites_NCLR, FALSE, PLTT_2, NNS_G2D_VRAM_TYPE_2DMAIN, 49405);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     TypeIcon_LoadPlttSrc(controller->spriteSystem, controller->spriteMan, NNS_G2D_VRAM_TYPE_2DMAIN, 49406);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, button_shockwave_NCLR, FALSE, PLTT_1, NNS_G2D_VRAM_TYPE_2DSUB, 49403);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, bag_sprite_cell_NCER, FALSE, 49401);
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, pocket_highlight_cell_NCER, FALSE, 49402);
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteMan, controller->bagGraphicsNARC, item_highlight_cell_NCER, FALSE, 49403);

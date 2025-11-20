@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_CALCULATOR_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_CALCULATOR_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/poketch/calculator/value.h"
 #include "applications/poketch/poketch_task.h"
 

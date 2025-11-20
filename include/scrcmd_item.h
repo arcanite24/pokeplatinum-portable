@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_ITEM_H
 #define POKEPLATINUM_SCRCMD_ITEM_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_AddItem(ScriptContext *ctx);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_TEXT_MANAGER_H
 #define POKEPLATINUM_POKEDEX_TEXT_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -49,7 +51,11 @@ typedef struct PokedexDisplayBox {
     int y;
     int spriteResourcePriority;
     int spriteListPriority;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     enum HeapID heapID;
 } PokedexDisplayBox;
 

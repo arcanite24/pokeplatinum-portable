@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SAVE_PLAYER_H
 #define POKEPLATINUM_SAVE_PLAYER_H
 
+#include "platform/platform_types.h"
+
 #include "game_options.h"
 #include "play_time.h"
 #include "savedata.h"

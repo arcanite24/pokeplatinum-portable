@@ -146,7 +146,11 @@ static void sub_020833BC(PartyMenuApplication *param0, int *param1)
 
     Window_DrawStandardFrame(&param0->windows[35], 1, 1, 14);
 
+    #ifdef PLATFORM_DS
     param0->contextMenu = Menu_NewAndCopyToVRAM(&v0, 8, 0, 0, 12, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
     *param1 = 15;
 }
 
@@ -216,7 +220,11 @@ static void sub_020834B0(PartyMenuApplication *param0, int *param1)
 int sub_02083658(PartyMenuApplication *param0)
 {
     if (Text_IsPrinterActive(param0->textPrinterID) == 0) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseMessageBox(&param0->windows[34], 1);
             PartyMenu_PrintShortMessage(param0, pl_msg_00000453_00029, TRUE);
             Sprite_SetExplicitPalette2(param0->sprites[PARTY_MENU_SPRITE_CURSOR_NORMAL], 0);
@@ -230,7 +238,11 @@ int sub_02083658(PartyMenuApplication *param0)
 int sub_020836A8(PartyMenuApplication *param0)
 {
     if (Text_IsPrinterActive(param0->textPrinterID) == 0) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseMessageBox(&param0->windows[34], 1);
             LoadOverlay118(param0);
             return 19;
@@ -274,7 +286,11 @@ static void sub_02083700(PartyMenuApplication *param0, int *param1)
 
     Window_DrawStandardFrame(&param0->windows[35], 1, 1, 14);
 
+    #ifdef PLATFORM_DS
     param0->contextMenu = Menu_NewAndCopyToVRAM(&v0, 8, 0, 0, 12, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
     *param1 = 15;
 }
 
@@ -375,7 +391,11 @@ static int sub_02083990(void *param0)
 
 int sub_020839BC(PartyMenuApplication *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseMessageBox(&param0->windows[34], 1);
         PartyMenu_PrintShortMessage(param0, pl_msg_00000453_00029, TRUE);
         Sprite_SetExplicitPalette2(param0->sprites[PARTY_MENU_SPRITE_CURSOR_NORMAL], 0);
@@ -756,7 +776,11 @@ static void sub_020844B0(PartyMenuApplication *param0, int *param1)
 
 int sub_020845A8(PartyMenuApplication *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseMessageBox(&param0->windows[34], 1);
         PartyMenu_PrintShortMessage(param0, pl_msg_00000453_00034, TRUE);
         Sprite_SetExplicitPalette2(param0->sprites[PARTY_MENU_SPRITE_CURSOR_NORMAL], 0);
@@ -1026,7 +1050,11 @@ static int sub_02084A18(PartyMenuApplication *param0)
 
 int sub_02084B34(PartyMenuApplication *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Window_EraseMessageBox(&param0->windows[34], 1);
         PartyMenu_PrintShortMessage(param0, pl_msg_00000453_00029, TRUE);
         Sprite_SetExplicitPalette2(param0->sprites[PARTY_MENU_SPRITE_CURSOR_NORMAL], 0);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_MENU_H
 #define POKEPLATINUM_FIELD_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "bg_window.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_MATRIX_H
 #define POKEPLATINUM_MAP_MATRIX_H
 
+#include "platform/platform_types.h"
+
 #include "constants/field/map_matrix.h"
 
 typedef struct MapMatrixData {

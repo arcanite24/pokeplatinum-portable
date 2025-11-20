@@ -27,7 +27,11 @@ static const SpriteTemplate Unk_ov17_02254D9C = {
     0x0,
     0x0,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x0, 0x0, 0x0, 0x0, 0xFFFFFFFF, 0xFFFFFFFF },
     0x0,
     0x0
@@ -35,8 +39,16 @@ static const SpriteTemplate Unk_ov17_02254D9C = {
 
 void ov17_02252AB0(SpriteSystem *param0, SpriteManager *param1, PaletteData *param2, u32 param3, u32 param4, u32 param5, u32 param6)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(param2, PLTTBUF_SUB_OBJ, param0, param1, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 80, FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, param4);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(param0, param1, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 250, TRUE, NNS_G2D_VRAM_TYPE_2DSUB, param3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObj(param0, param1, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 251, TRUE, param5);
     SpriteSystem_LoadAnimResObj(param0, param1, NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 252, TRUE, param6);
 }

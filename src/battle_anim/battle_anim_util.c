@@ -641,9 +641,21 @@ void BattleAnimUtil_SetSpriteBgBlending(BattleAnimSystem *system, int spriteAlph
         bgAlpha = BATTLE_ANIM_DEFAULT_BG_ALPHA;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetBlendAlpha(
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+        #ifdef PLATFORM_DS
         GX_BLEND_PLANEMASK_NONE,
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_EFFECT)) | GX_BLEND_PLANEMASK_BG0,
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         spriteAlpha,
         bgAlpha);
 }
@@ -658,7 +670,15 @@ void BattleAnimUtil_SetSpriteBlending(BattleAnimSystem *system, int planes, int 
         otherAlpha = BATTLE_ANIM_DEFAULT_BG_ALPHA;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, planes, spriteAlpha, otherAlpha);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
 }
 
 void BattleAnimUtil_SetEffectBaseBgBlending(BattleAnimSystem *system, int alphaBase, int alphaEffect)
@@ -671,9 +691,17 @@ void BattleAnimUtil_SetEffectBaseBgBlending(BattleAnimSystem *system, int alphaB
         alphaEffect = 5;
     }
 
+    #ifdef PLATFORM_DS
     G2_SetBlendAlpha(
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
         1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_BASE),
+        #ifdef PLATFORM_DS
         (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_EFFECT)) | GX_WND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ,
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         alphaBase,
         alphaEffect);
 }
@@ -682,28 +710,64 @@ void BattleAnimUtil_SetEffectBaseBgBlending(BattleAnimSystem *system, int alphaB
 void BattleAnimUtil_SetBackgroundWindowMask(BattleAnimSystem *system, enum BattleAnimWindow window, BOOL applyEffects)
 {
     if (window == BATTLE_ANIM_WINDOW_0) {
+        #ifdef PLATFORM_DS
         G2_SetWnd0InsidePlane(
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_EFFECT)) |
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_WINDOW)) |
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_BASE)) |
+            #ifdef PLATFORM_DS
             GX_WND_PLANEMASK_BG0 |
+            #else
+            // TODO: Port GX_WND_PLANEMASK_BG0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_WND_PLANEMASK_OBJ,
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
             applyEffects);
     } else {
+        #ifdef PLATFORM_DS
         G2_SetWnd1InsidePlane(
+        #else
+        // TODO: Port G2_SetWnd1InsidePlane to PAL
+        #endif
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_EFFECT)) |
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_WINDOW)) |
             (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_BASE)) |
+            #ifdef PLATFORM_DS
             GX_WND_PLANEMASK_BG0 |
+            #else
+            // TODO: Port GX_WND_PLANEMASK_BG0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_WND_PLANEMASK_OBJ,
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
             applyEffects);
     }
 
+    #ifdef PLATFORM_DS
     G2_SetWndOutsidePlane(
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
         (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_WINDOW)) |
         (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_BASE)) |
+        #ifdef PLATFORM_DS
         GX_WND_PLANEMASK_BG0 |
+        #else
+        // TODO: Port GX_WND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_WND_PLANEMASK_OBJ,
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
         TRUE);
 }
 // clang-format on

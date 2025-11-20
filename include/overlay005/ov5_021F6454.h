@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021F6454_H
 #define POKEPLATINUM_OV5_021F6454_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_2DE(ScriptContext *param0);

@@ -242,10 +242,42 @@ static void ov17_02247B00(UnkStruct_ov17_0224F30C *param0, void *param1, const U
     }
 
     {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendBrightness to PAL
+        #endif
         G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0, -16);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W0);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
 
         v0->unk_F58 = 0;
         v0->unk_F59 = 0;
@@ -267,7 +299,15 @@ static void ov17_02247C5C(SysTask *param0, void *param1)
         v0->unk_10++;
         break;
     case 1:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
         v1 = Pokemon_DPSpriteYOffset(v0->unk_00->unk_0C.unk_00->unk_00[v0->unk_11], 2);
         ov22_0225B158(v0->unk_00->unk_F18[v0->unk_11].unk_00, v0->unk_00->unk_F18[v0->unk_11].unk_04, v0->unk_00->unk_F18[v0->unk_11].unk_08, v1);
         ov22_0225B074(v0->unk_00->unk_F18[v0->unk_11].unk_00, 1);
@@ -277,7 +317,15 @@ static void ov17_02247C5C(SysTask *param0, void *param1)
         v0->unk_10++;
         break;
     case 3:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
         PaletteData_BlendMulti(v0->unk_00->unk_0C.unk_44, 0, 0x1fff, 0, 0x0);
         PaletteData_BlendMulti(v0->unk_00->unk_0C.unk_44, 2, 0x3fff, 0, 0x0);
         Sound_PlayEffect(SEQ_SE_DP_CON_019);
@@ -1212,9 +1260,33 @@ static void ov17_02248EC4(SysTask *param0, void *param1)
     switch (v0->unk_10) {
     case 0:
         if (v0->unk_00->unk_00->unk_155 == 1) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWnd1InsidePlane to PAL
+            #endif
             G2_SetWnd1InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 0);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_W1);
+            #else
+            // TODO: Port GX_WNDMASK_W1 to PAL
+            #endif
 
             v0->unk_00->unk_F5C = 256 - 16;
             v0->unk_00->unk_F5D = 0;
@@ -1222,7 +1294,11 @@ static void ov17_02248EC4(SysTask *param0, void *param1)
             v0->unk_00->unk_F5F = 16;
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(v0->unk_13, v0->unk_12, v0->unk_11, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD) ^ GX_BLEND_PLANEMASK_BG1, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
 
         v0->unk_10++;
         break;
@@ -1274,7 +1350,11 @@ static void ov17_02249014(SysTask *param0, void *param1)
         v0->unk_15 = 1;
     }
 
+    #ifdef PLATFORM_DS
     if ((v0->unk_00->unk_00->unk_155 == 0) && (v0->unk_18 < 30) && ((gSystem.pressedKeys & PAD_BUTTON_A) || (gSystem.touchPressed))) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         v0->unk_18 = 30;
         v1 = 0;
         v0->unk_13 = 0;
@@ -1346,8 +1426,20 @@ static void ov17_02249014(SysTask *param0, void *param1)
             v0->unk_00->unk_F5B = (Unk_ov17_02254468[v0->unk_11] + 4) * 8 - (v0->unk_12 * (4 * 8) / NELEMS(Unk_ov17_02254470));
 
             if (v0->unk_00->unk_F5B == 0) {
+                #ifdef PLATFORM_DS
                 G2_BlendNone();
+                #else
+                // TODO: Port G2_BlendNone to PAL
+                #endif
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port GX_SetVisibleWnd to PAL
+                #endif
                 GX_SetVisibleWnd(GX_WNDMASK_NONE);
+                #else
+                // TODO: Port GX_WNDMASK_NONE to PAL
+                #endif
             }
         }
 
@@ -1364,8 +1456,20 @@ static void ov17_02249014(SysTask *param0, void *param1)
         }
         break;
     default:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
 
         ov17_0224F26C(v0->unk_0C, &v0->unk_04, NULL, 0);
         Heap_Free(v0);

@@ -236,18 +236,46 @@ static void MapPropManager_InitRenderObj(const int modelID, AreaDataManager *con
 {
     NNSG3dResFileHeader **modelFile = AreaDataManager_GetMapPropModelFile(modelID, areaDataManager);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
     *model = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(*modelFile), 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(renderObj, *model);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 }
 
 static void MapPropManager_RenderUsing1Mat1Shp(const NNSG3dResMdl *model, VecFx32 *position, MtxFx33 *rotation, VecFx32 *scale, const MapPropMaterialShape *propMatShp, const int modelID)
 {
     u8 i;
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseTrans(position);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseTrans to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseRot(rotation);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseRot to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbSetBaseScale(scale);
+    #else
+    // TODO: Port NNS_G3dGlbSetBaseScale to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGlbFlush();
+    #else
+    // TODO: Port NNS_G3dGlbFlush to PAL
+    #endif
 
     u16 propMatShpIDsCount;
     u16 propMatShpIDsIndex;
@@ -265,7 +293,11 @@ static void MapPropManager_RenderUsing1Mat1Shp(const NNSG3dResMdl *model, VecFx3
             sendMaterial = FALSE;
         }
 
+        #ifdef PLATFORM_DS
         NNS_G3dDraw1Mat1Shp(model, materialID, propMatShpIDs[i].shapeID, sendMaterial);
+        #else
+        // TODO: Port NNS_G3dDraw1Mat1Shp to PAL
+        #endif
     }
 }
 

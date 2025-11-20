@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ROAMING_POKEMON_H
 #define POKEPLATINUM_ROAMING_POKEMON_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/special_encounter.h"
 
 #include "savedata.h"

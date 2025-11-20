@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020553DC_H
 #define POKEPLATINUM_UNK_020553DC_H
 
+#include "platform/platform_types.h"
+
 #include "generated/map_headers.h"
 #include "generated/sdat.h"
 #include "generated/trainers.h"

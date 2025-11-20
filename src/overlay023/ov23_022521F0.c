@@ -711,7 +711,11 @@ static void ov23_02252E70(SysTask *param0, void *param1)
         break;
     case 6:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v0->state = 7;
             }
         }
@@ -779,7 +783,11 @@ static void ov23_02252E70(SysTask *param0, void *param1)
         break;
     case 9:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 if (v0->unk_2AC == 1) {
                     ov23_02252CF4(2, v0->unk_2A8);
                 } else if (v0->unk_2AC == 0) {
@@ -795,7 +803,11 @@ static void ov23_02252E70(SysTask *param0, void *param1)
         break;
     case 10:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 ov23_02252C9C(8);
                 v0->state = 2;
             }
@@ -876,7 +888,11 @@ static void ov23_02252E70(SysTask *param0, void *param1)
         break;
     case 16:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 UndergroundTextPrinter_SetTwoDigitNumber(CommManUnderground_GetMiscTextPrinter(), v0->unk_27E[0]);
                 ov23_02252CE0(2, v0->unk_279[0]);
                 ov23_02252C9C(7);
@@ -893,7 +909,11 @@ static void ov23_02252E70(SysTask *param0, void *param1)
         break;
     case 18:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetMiscTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_02252CD4();
                 ov23_02252C78(v0);
                 ov23_02243204();

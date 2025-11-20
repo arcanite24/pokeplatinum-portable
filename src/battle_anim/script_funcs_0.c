@@ -684,7 +684,11 @@ static void ov12_0222AC70(SysTask *param0, void *param1)
             v1->unk_00++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_05, v1->unk_06);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         break;
     default:
         for (v0 = 0; v0 < BattleAnimSystem_GetScriptVar(v1->unk_08, 0); v0++) {
@@ -725,7 +729,11 @@ void ov12_0222AE68(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v1->unk_05 = 15;
     v1->unk_06 = 0;
 
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(v1->unk_05, v1->unk_06);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     v1->unk_14[0] = param3;
 
@@ -751,7 +759,11 @@ void ov12_0222AE68(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
         v1->unk_01[v0] = 0;
         ManagedSprite_SetAffineOverwriteMode(v1->unk_14[v0], AFFINE_OVERWRITE_MODE_DOUBLE);
         ManagedSprite_OffsetPositionXY(v1->unk_14[v0], 0, 32 - (v0 * 4));
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v1->unk_14[v0], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
     BattleAnimSystem_StartAnimTaskEx(param0, ov12_0222AC70, v1, 0x1000);
@@ -1065,7 +1077,11 @@ static void BattleAnimTask_DoubleTeam(SysTask *task, void *param)
             ctx->state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->blendA, ctx->blendB);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         break;
     default:
         BattleAnimSystem_EndAnimTask(ctx->battleAnimSys, task);
@@ -1092,7 +1108,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
     ctx->blendB = DOUBLE_TEAM_BLEND_B;
 
     BattleAnimUtil_SetSpriteBgBlending(ctx->battleAnimSys, -1, -1);
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(ctx->blendA, ctx->blendB);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     int monPlttIndex = BattleAnimSystem_GetBattlerSpritePaletteIndex(ctx->battleAnimSys, BattleAnimSystem_GetAttacker(ctx->battleAnimSys));
     int monSpritePriority = BattleAnimSystem_GetPokemonSpritePriority(ctx->battleAnimSys);
@@ -1100,7 +1120,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
 
     for (int i = 0; i < DOUBLE_TEAM_SPRITE_COUNT; i++) {
         ctx->monSprites[i] = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, i);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(ctx->monSprites[i], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
     if (BattleAnimUtil_GetBattlerSide(ctx->battleAnimSys, BattleAnimSystem_GetAttacker(ctx->battleAnimSys)) == BTLSCR_PLAYER) {
@@ -1116,7 +1140,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
 
         u16 offset = PlttTransfer_GetPlttOffset(
             Sprite_GetPaletteProxy(ctx->monSprites[DOUBLE_TEAM_SPRITE_R1]->sprite),
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
         PaletteData_LoadBufferFromFileStartWithTint(
             BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
@@ -1132,7 +1160,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
 
         offset = PlttTransfer_GetPlttOffset(
             Sprite_GetPaletteProxy(ctx->monSprites[DOUBLE_TEAM_SPRITE_R2]->sprite),
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
         PaletteData_LoadBufferFromFileStartWithTint(
             BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
@@ -1162,7 +1194,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
 
         u16 offset = PlttTransfer_GetPlttOffset(
             Sprite_GetPaletteProxy(ctx->monSprites[DOUBLE_TEAM_SPRITE_R1]->sprite),
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
         PaletteData_LoadBufferFromFileStartWithTint(
             BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
@@ -1178,7 +1214,11 @@ void BattleAnimScriptFunc_DoubleTeam(BattleAnimSystem *system)
 
         offset = PlttTransfer_GetPlttOffset(
             Sprite_GetPaletteProxy(ctx->monSprites[DOUBLE_TEAM_SPRITE_R2]->sprite),
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
         PaletteData_LoadBufferFromFileStartWithTint(
             BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
@@ -1642,13 +1682,33 @@ static void BattleAnimTask_Harden(SysTask *task, void *param)
     case HARDEN_STATE_ENABLE_SPRITES:
         ManagedSprite_SetDrawFlag(ctx->attackerSprite1, TRUE);
         ManagedSprite_SetDrawFlag(ctx->attackerSprite2, TRUE);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(ctx->attackerSprite2, GX_OAM_MODE_OBJWND);
+        #else
+        // TODO: Port GX_OAM_MODE_OBJWND to PAL
+        #endif
         ctx->state++;
         break;
     case HARDEN_STATE_WAIT_DRAW:
         if (++ctx->timer >= HARDEN_START_DELAY) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, FALSE);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOBJInsidePlane to PAL
+            #endif
             G2_SetWndOBJInsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, FALSE);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
             ManagedSprite_SetDrawFlag(ctx->attackerSprite1, FALSE);
             ManagedSprite_SetDrawFlag(ctx->attackerSprite2, FALSE);
             ctx->timer = 0;
@@ -1656,7 +1716,15 @@ static void BattleAnimTask_Harden(SysTask *task, void *param)
         }
         break;
     default:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
         BattleAnimSystem_EndAnimTask(ctx->battleAnimSys, task);
         Heap_Free(ctx);
         return;
@@ -1676,14 +1744,42 @@ void BattleAnimScriptFunc_Harden(BattleAnimSystem *system)
     ctx->attackerSprite1 = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, BATTLE_ANIM_MON_SPRITE_0);
     ctx->attackerSprite2 = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, BATTLE_ANIM_MON_SPRITE_1);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_OW);
+    #else
+    // TODO: Port GX_WNDMASK_OW to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_ALL | GX_WND_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOBJInsidePlane to PAL
+    #endif
     G2_SetWndOBJInsidePlane(BATTLE_BG_WNDMASK_WINDOW | GX_WND_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
 
     int paletteIndex = BattleAnimSystem_GetBattlerSpritePaletteIndex(ctx->battleAnimSys, BattleAnimSystem_GetAttacker(ctx->battleAnimSys));
     int narcID = BattleAnimSystem_GetBattlerSpriteNarcID(ctx->battleAnimSys, BattleAnimSystem_GetAttacker(ctx->battleAnimSys));
 
+    #ifdef PLATFORM_DS
     int palOffset = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(ctx->attackerSprite1->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     PaletteData_LoadBufferFromFileStartWithTint(
         BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
         narcID,
@@ -1781,7 +1877,11 @@ static void BattleAnimTask_Minimize(SysTask *task, void *param)
         break;
     case MINIMIZE_STATE_SETUP_GROW:
         for (i = 0; i < MINIMIZE_SPRITE_COUNT; i++) {
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(ctx->sprites[i].sprite, GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
             ScaleLerpContext_InitXY(
                 &ctx->sprites[i].scale,
                 MINIMIZE_SHRINK_SCALE_X,
@@ -1842,7 +1942,11 @@ void BattleAnimScriptFunc_Minimize(BattleAnimSystem *system)
     ctx->attackerSpriteHeight = BattleAnimSystem_GetBattlerSpriteOffset(ctx->battleAnimSys, BattleAnimSystem_GetAttacker(ctx->battleAnimSys));
 
     BattleAnimUtil_SetSpriteBgBlending(ctx->battleAnimSys, BATTLE_ANIM_DEFAULT_ALPHA, BATTLE_ANIM_DEFAULT_ALPHA);
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(MINIMIZE_SPRITE_ALPHA, MINIMIZE_BG_ALPHA);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     for (int i = 0; i < MINIMIZE_SPRITE_COUNT; i++) {
         ctx->sprites[i].state = MINIMIZE_SPRITE_STATE_INIT;
@@ -1850,7 +1954,11 @@ void BattleAnimScriptFunc_Minimize(BattleAnimSystem *system)
         ctx->sprites[i].sprite = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, i);
 
         ManagedSprite_SetAffineOverwriteMode(ctx->sprites[i].sprite, AFFINE_OVERWRITE_MODE_DOUBLE);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(ctx->sprites[i].sprite, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetPriority(ctx->sprites[i].sprite, i + 1);
     }
 
@@ -2043,7 +2151,11 @@ void BattleAnimScriptFunc_Nightmare(BattleAnimSystem *system)
 
     BattleAnimUtil_SetSpriteBlending(
         ctx->system,
+        #ifdef PLATFORM_DS
         (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_EFFECT)) | GX_BLEND_PLANEMASK_BD | (1 << BattleAnimSystem_GetBgID(system, BATTLE_ANIM_BG_BASE)) | GX_WND_PLANEMASK_BG0,
+        #else
+        // TODO: Port GX_WND_PLANEMASK_BG0 to PAL
+        #endif
         BATTLE_ANIM_DEFAULT_ALPHA,
         BATTLE_ANIM_DEFAULT_ALPHA);
 
@@ -2055,7 +2167,11 @@ void BattleAnimScriptFunc_Nightmare(BattleAnimSystem *system)
         NIGHTMARE_BG_END_ALPHA,
         NIGHTMARE_SPRITE_ALPHA_FRAMES);
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->xluSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     BattleAnimSystem_StartAnimTask(ctx->system, BattleAnimTask_Nightmare, ctx);
 }
 
@@ -2429,7 +2545,11 @@ static void BattleAnimTask_Surf(SysTask *task, void *param)
                 ctx->alphaBg--;
             }
 
+            #ifdef PLATFORM_DS
             G2_ChangeBlendAlpha(ctx->alphaStart, ctx->alphaBg);
+            #else
+            // TODO: Port G2_ChangeBlendAlpha to PAL
+            #endif
         }
         break;
     case SURF_STATE_HOLD:
@@ -2455,7 +2575,11 @@ static void BattleAnimTask_Surf(SysTask *task, void *param)
                 ctx->alphaBg++;
             }
 
+            #ifdef PLATFORM_DS
             G2_ChangeBlendAlpha(ctx->alphaStart, ctx->alphaBg);
+            #else
+            // TODO: Port G2_ChangeBlendAlpha to PAL
+            #endif
         }
         break;
     default:
@@ -2532,7 +2656,11 @@ void BattleAnimScriptFunc_Surf(BattleAnimSystem *system)
 
     ManagedSprite_SetPositionXY(ctx->currentSprite, ctx->spritePos.x, ctx->spritePos.y);
     ManagedSprite_SetAffineOverwriteMode(ctx->currentSprite, AFFINE_OVERWRITE_MODE_DOUBLE);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->currentSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     ScaleLerpContext_InitXY(
         &ctx->scale,
@@ -2618,7 +2746,11 @@ static void ov12_0222D128(SysTask *param0, void *param1)
             ManagedSprite_OffsetPositionXY(v1->unk_30[0].unk_00, 0, 2);
             ManagedSprite_OffsetPositionXY(v1->unk_30[1].unk_00, 0, 2);
         } else {
+            #ifdef PLATFORM_DS
             G2_ChangeBlendAlpha(16, 0);
+            #else
+            // TODO: Port G2_ChangeBlendAlpha to PAL
+            #endif
             v1->unk_00++;
         }
     }
@@ -2627,7 +2759,11 @@ static void ov12_0222D128(SysTask *param0, void *param1)
         ov12_022267A8(&v1->unk_04, 16, +16);
         ov12_022267A8(&v1->unk_08, 0, -16);
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_04, v1->unk_08);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v1->unk_01 == 10) {
             ManagedSprite_OffsetPositionXY(v1->unk_30[0].unk_00, 0, 16);
@@ -2708,7 +2844,11 @@ static void ov12_0222D128(SysTask *param0, void *param1)
             v17++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v1->unk_04, v1->unk_08);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v17 == 2) {
             v1->unk_00++;
@@ -2772,8 +2912,16 @@ void ov12_0222D56C(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v1->unk_20 = PokemonSprite_GetAttribute(v1->unk_1C, MON_SPRITE_Y_CENTER);
     v1->unk_24 = BattleAnimSystem_GetBattlerSpriteOffset(v1->unk_10, BattleAnimSystem_GetAttacker(v1->unk_10));
 
+    #ifdef PLATFORM_DS
     BattleAnimUtil_SetSpriteBlending(v1->unk_10, (1 << BattleAnimSystem_GetBgID(param0, 2)) | (1 << BattleAnimSystem_GetBgID(param0, 1)) | GX_WND_PLANEMASK_BG0, 0xffffffff, 0xffffffff);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(v1->unk_04, v1->unk_08);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     v2 = BattleAnimSystem_GetLastSpriteTemplate(param0);
     v1->unk_30[0].unk_00 = param3;
@@ -2785,7 +2933,11 @@ void ov12_0222D56C(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     }
 
     for (v0 = 0; v0 < BattleAnimSystem_GetScriptVar(v1->unk_10, 0); v0++) {
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v1->unk_30[v0].unk_00, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetExplicitPriority(v1->unk_30[v0].unk_00, BattleAnimSystem_GetPokemonSpritePriority(v1->unk_10) + 1);
     }
 

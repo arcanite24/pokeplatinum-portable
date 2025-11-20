@@ -70,7 +70,11 @@
 
 #include "res/text/bank/migrate_from_gba.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 enum GBAMigratorState {
     GBA_MIGRATOR_STATE_0 = 0,
@@ -326,7 +330,11 @@ static int ov97_02233B8C(GBAMigrator *migrator)
         v4->unk_00++;
         break;
     case 1:
+        #ifdef PLATFORM_DS
         v4->unk_04 = 1 + OS_GetTick() % 120;
+        #else
+        // TODO: Port OS_GetTick to PAL
+        #endif
         v4->unk_00++;
         break;
     case 2:
@@ -565,7 +573,11 @@ static void ov97_02233FA4(GBAMigrator *migrator)
 {
     int i;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     RenderOam_Init(0, 126, 0, 32, 0, 126, 0, 32, HEAP_ID_MIGRATE_FROM_GBA);
     migrator->unk_28 = SpriteList_InitRendering(80, &migrator->unk_2C, HEAP_ID_MIGRATE_FROM_GBA);
@@ -575,8 +587,16 @@ static void ov97_02233FA4(GBAMigrator *migrator)
         migrator->unk_1B8[i] = SpriteResourceCollection_New(3, i, HEAP_ID_MIGRATE_FROM_GBA);
     }
 
+    #ifdef PLATFORM_DS
     migrator->unk_1D0[0] = SpriteResourceCollection_AddTiles(migrator->unk_1B8[0], NARC_INDEX_GRAPHIC__MYSTERY, 26, 1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_MIGRATE_FROM_GBA);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     migrator->unk_1D0[1] = SpriteResourceCollection_AddPalette(migrator->unk_1B8[1], NARC_INDEX_GRAPHIC__MYSTERY, 23, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 4, HEAP_ID_MIGRATE_FROM_GBA);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     migrator->unk_1D0[2] = SpriteResourceCollection_Add(migrator->unk_1B8[2], NARC_INDEX_GRAPHIC__MYSTERY, 25, 1, 0, 2, HEAP_ID_MIGRATE_FROM_GBA);
     migrator->unk_1D0[3] = SpriteResourceCollection_Add(migrator->unk_1B8[3], NARC_INDEX_GRAPHIC__MYSTERY, 24, 1, 0, 3, HEAP_ID_MIGRATE_FROM_GBA);
 
@@ -588,7 +608,11 @@ static void ov97_02233FA4(GBAMigrator *migrator)
 static void ov97_022340B0(GBAMigrator *migrator)
 {
     SpriteResourcesHeader_Init(&migrator->unk_1E8, 0, 0, 0, 0, -1, -1, 0, 0, migrator->unk_1B8[0], migrator->unk_1B8[1], migrator->unk_1B8[2], migrator->unk_1B8[3], NULL, NULL);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov97_022340FC(AffineSpriteListTemplate *param0, GBAMigrator *migrator, SpriteResourcesHeader *param2, int param3)
@@ -635,7 +659,11 @@ static void *ov97_022341B4(u32 narcID, u32 memberIndex, NNSG2dCharacterData **pa
     if (v0 != NULL) {
         NARC_ReadWholeMemberByIndexPair(v0, narcID, memberIndex);
 
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(v0, param2) == 0) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
             Heap_Free(v0);
             return NULL;
         }
@@ -647,7 +675,11 @@ static void *ov97_022341B4(u32 narcID, u32 memberIndex, NNSG2dCharacterData **pa
 static void ov97_022341EC(u32 memberIndex, NNSG2dCharacterData **param1, void *param2, NARC *param3)
 {
     NARC_ReadWholeMember(param3, memberIndex, param2);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedBGCharacterData(param2, param1);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+    #endif
 }
 
 #define NUM_UNOWN_FORMS 28
@@ -703,7 +735,11 @@ static void ov97_02234278(int species, int isEgg, u32 personality, int gbaVersio
     v0 = ov97_022341B4(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconSpriteIndex(species, isEgg, form), &v2, HEAP_ID_MIGRATE_FROM_GBA);
 
     DC_FlushRange(v2->pRawData, (4 * 4) * 0x20);
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(v2->pRawData, (0x64 + param4 * (4 * 4)) * 0x20, (4 * 4) * 0x20);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
 
     Sprite_SetExplicitPalette(iconSprite, PokeIconPaletteIndex(species, form, isEgg) + 8);
     Heap_Free(v0);
@@ -744,7 +780,11 @@ static void ov97_02234364(void)
     for (i = 0; i < GBA_MAX_MONS_PER_BOX; i++, v1++) {
         if (v1->iconSprite) {
             DC_FlushRange(v1->unk_0C, (4 * 4) * 0x20);
+            #ifdef PLATFORM_DS
             GX_LoadOBJ(v1->unk_0C, v1->unk_00, (4 * 4) * 0x20);
+            #else
+            // TODO: Port GX_LoadOBJ to PAL
+            #endif
             Sprite_SetExplicitPalette(v1->iconSprite, v1->unk_04);
         }
     }
@@ -795,7 +835,11 @@ static void InitBoxPokemonSprites(GBAMigrator *migrator)
     int count, col, row;
     AffineSpriteListTemplate v3;
 
+    #ifdef PLATFORM_DS
     ov97_022340FC(&v3, migrator, &migrator->unk_1E8, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     count = 0;
 
@@ -843,7 +887,11 @@ static Sprite *ov97_02234638(GBAMigrator *migrator, int param1, int param2, int 
     AffineSpriteListTemplate v0;
     Sprite *v1;
 
+    #ifdef PLATFORM_DS
     ov97_022340FC(&v0, migrator, &migrator->unk_1E8, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v0.position.x = FX32_ONE * param1;
     v0.position.y = FX32_ONE * param2;
@@ -1343,10 +1391,26 @@ static void ov97_02234D28(BgConfig *bgConfig)
 {
     {
         GraphicsModes v0 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v0);
@@ -1359,10 +1423,18 @@ static void ov97_02234D28(BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = 0,
@@ -1379,10 +1451,22 @@ static void ov97_02234D28(BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe800,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = 0,
@@ -1399,10 +1483,22 @@ static void ov97_02234D28(BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = 0,
@@ -1419,10 +1515,22 @@ static void ov97_02234D28(BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = 0,
@@ -1436,16 +1544,56 @@ static void ov97_02234D28(BgConfig *bgConfig)
 static void ov97_02234DFC(GBAMigrator *migrator)
 {
     UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v0);
@@ -1510,7 +1658,11 @@ static void ov97_02234F88(GBAMigrator *migrator)
     Sprite_SetDrawFlag(migrator->unk_41C[0], FALSE);
     Sprite_SetDrawFlag(migrator->unk_40C[0], FALSE);
 
+    #ifdef PLATFORM_DS
     ov97_022340FC(&v5, migrator, &migrator->unk_1E8, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (i = 0; i < CATCHING_SHOW_MONS; i++) {
         v5.position.x = FX32_ONE * (i * 40 + 28);
@@ -1534,7 +1686,11 @@ static void ov97_02234F88(GBAMigrator *migrator)
     Graphics_LoadTilemapToBgLayer(NARC_INDEX_GRAPHIC__MYSTERY, 21, migrator->bgConfig, 2, 0, 32 * 24 * 2, 1, HEAP_ID_MIGRATE_FROM_GBA);
     Bg_ChangeTilemapRectPalette(migrator->bgConfig, BG_LAYER_MAIN_2, 0, 0, 32, 24, sGBAGameRectPalettes[migrator->gbaVersion]);
     Bg_CopyTilemapBufferToVRAM(migrator->bgConfig, BG_LAYER_MAIN_2);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
     Font_LoadTextPalette(0, 14 * 32, HEAP_ID_MIGRATE_FROM_GBA);
     LoadStandardWindowGraphics(migrator->bgConfig, BG_LAYER_MAIN_0, 0x3F0, 14, 0, HEAP_ID_MIGRATE_FROM_GBA);
     LoadMessageBoxGraphics(migrator->bgConfig, BG_LAYER_MAIN_0, 0x3F0 - (18 + 12), 13, migrator->messageBoxFrame, HEAP_ID_MIGRATE_FROM_GBA);
@@ -1561,7 +1717,11 @@ static void ResetChosenPokemonData(GBAMigrator *migrator)
         Sprite_Delete(migrator->selectedMonIcons[i]);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
     ov97_02235158(&migrator->unk_4FC);
 
     Sprite_SetDrawFlag(migrator->unk_3FC[0], TRUE);
@@ -1694,7 +1854,15 @@ static void ov97_022353CC(void *param0)
     RenderOam_Transfer();
     Bg_RunScheduledUpdates(migrator->bgConfig);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static int GetCanMigrateStatus(GBAMigrator *migrator)
@@ -1841,8 +2009,16 @@ static int GBAMigrator_Init(ApplicationManager *appMan, int *state)
 
     Sound_SetSceneAndPlayBGM(SOUND_SCENE_9, SEQ_PRESENT, 1);
 
+    #ifdef PLATFORM_DS
     if (OS_IsTickAvailable() == 0) {
+    #else
+    // TODO: Port OS_IsTickAvailable to PAL
+    #endif
+        #ifdef PLATFORM_DS
         OS_InitTick();
+        #else
+        // TODO: Port OS_InitTick to PAL
+        #endif
     }
 
     MainMenuUtil_UnsetGBACartIRQFunc();
@@ -1902,7 +2078,11 @@ static int GBAMigrator_Main(ApplicationManager *appMan, int *state)
         ov97_0223468C(migrator);
 
         SetVBlankCallback(ov97_022353CC, migrator);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         if (migrator->canMigrateStatus == CANNOT_MIGRATE_GBA_PAK_READ_ERROR) {
             ov97_02234CC4(migrator, FADE_TYPE_BRIGHTNESS_IN, 11, state);
@@ -2013,7 +2193,11 @@ static int GBAMigrator_Main(ApplicationManager *appMan, int *state)
         ov97_022343A8(migrator);
 
         SetVBlankCallback(ov97_022353CC, migrator);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
 
         PrintGBABoxMonInfo(migrator, NULL);
         ov97_02234CC4(migrator, FADE_TYPE_BRIGHTNESS_IN, 13, state);
@@ -2185,14 +2369,22 @@ static int GBAMigrator_Main(ApplicationManager *appMan, int *state)
 
 static int GBAMigrator_Exit(ApplicationManager *appMan, int *state)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(game_opening);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     GBAMigrator *migrator = ApplicationManager_Data(appMan);
 
     Strbuf_Free(migrator->unk_12668);
     Strbuf_Free(migrator->unk_1266C);
     Heap_Free(migrator->bgConfig);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(HEAP_ID_MIGRATE_FROM_GBA);
 
@@ -2205,5 +2397,9 @@ const ApplicationManagerTemplate gGBAMigratorAppTemplate = {
     GBAMigrator_Init,
     GBAMigrator_Main,
     GBAMigrator_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };

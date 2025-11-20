@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0207A6DC_H
 #define POKEPLATINUM_UNK_0207A6DC_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 #include "struct_defs/struct_0207A778.h"
 

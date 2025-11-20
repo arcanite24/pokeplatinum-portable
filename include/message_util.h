@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MESSAGE_UTIL_H
 #define POKEPLATINUM_MESSAGE_UTIL_H
 
+#include "platform/platform_types.h"
+
 #include "message.h"
 #include "strbuf.h"
 #include "string_template.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_BERRY_SEARCHER_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_BERRY_SEARCHER_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/hidden_locations.h"
 
 #include "applications/poketch/poketch_animation.h"

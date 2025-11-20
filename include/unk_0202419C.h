@@ -6,10 +6,6 @@
 #else
 #include "nns_types.h"
 // Additional GX types not in nns_types.h
-typedef enum {
-    GX_SORTMODE_AUTO,
-    GX_SORTMODE_MANUAL
-} GXSortMode;
 #endif
 
 void sub_0202419C(void);

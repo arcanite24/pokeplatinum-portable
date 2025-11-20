@@ -52,9 +52,21 @@ void sub_02073848(UnkStruct_02073838 *param0, NNSG3dResFileHeader *param1, u32 p
 
     param0->unk_04 = param1;
     param0->unk_00 = 0;
+    #ifdef PLATFORM_DS
     param0->unk_08 = NNS_G3dGetMdlSet(param1);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_0C = NNS_G3dGetMdlByIdx(param0->unk_08, param2);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_10 = NNS_G3dGetTex(param1);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 }
 
 void sub_0207389C(UnkStruct_02073838 *param0, u32 param1, NARC *narc, u32 narcMemberIdx, u32 heapID, BOOL allocAtEnd)
@@ -66,7 +78,11 @@ void sub_0207389C(UnkStruct_02073838 *param0, u32 param1, NARC *narc, u32 narcMe
 void sub_020738C0(UnkStruct_02073838 *param0)
 {
     Easy3D_UploadTextureToVRAM(param0->unk_10);
+    #ifdef PLATFORM_DS
     NNS_G3dBindMdlSet(param0->unk_08, param0->unk_10);
+    #else
+    // TODO: Port NNS_G3dBindMdlSet to PAL
+    #endif
     param0->unk_00 = 1;
 }
 
@@ -100,12 +116,32 @@ void sub_0207391C(UnkStruct_02073838 *param0)
         NNSG3dTexKey v1;
         NNSG3dPlttKey v2;
 
+        #ifdef PLATFORM_DS
         NNS_G3dTexReleaseTexKey(param0->unk_10, &v0, &v1);
+        #else
+        // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(v0);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(v1);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         v2 = NNS_G3dPlttReleasePlttKey(param0->unk_10);
+        #else
+        // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreePlttVram(v2);
+        #else
+        // TODO: Port NNS_GfdFreePlttVram to PAL
+        #endif
 
         param0->unk_10 = NULL;
     }
@@ -152,7 +188,11 @@ static void sub_020739D8(UnkStruct_02073974 *param0, void *param1, u32 param2)
     sub_02073974(param0);
 
     param0->unk_08 = param1;
+    #ifdef PLATFORM_DS
     param0->unk_0C = NNS_G3dGetAnmByIdx(param0->unk_08, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
 }
 
 void sub_020739F0(UnkStruct_02073974 *param0)
@@ -169,7 +209,11 @@ void sub_020739F0(UnkStruct_02073974 *param0)
 void sub_02073A14(UnkStruct_02073974 *param0, const NNSG3dResMdl *param1, u32 heapID)
 {
     HeapExp_FndInitAllocator(&param0->unk_14, heapID, 4);
+    #ifdef PLATFORM_DS
     param0->unk_10 = NNS_G3dAllocAnmObj(&param0->unk_14, param0->unk_0C, param1);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
 
     GF_ASSERT(param0->unk_10 != NULL);
 }
@@ -181,7 +225,11 @@ void sub_02073A3C(UnkStruct_02073974 *param0, const UnkStruct_02073838 *param1, 
 
 void sub_02073A48(UnkStruct_02073974 *param0, const NNSG3dResMdl *param1, const NNSG3dResTex *param2)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(param0->unk_10, param0->unk_0C, param1, param2);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
 }
 
 void sub_02073A5C(UnkStruct_02073974 *param0, const UnkStruct_02073838 *param1)
@@ -199,7 +247,11 @@ void sub_02073A6C(UnkStruct_02073974 *param0, const UnkStruct_02073838 *param1, 
 void sub_02073A90(UnkStruct_02073974 *param0)
 {
     if (param0->unk_10) {
+        #ifdef PLATFORM_DS
         NNS_G3dFreeAnmObj(&param0->unk_14, param0->unk_10);
+        #else
+        // TODO: Port NNS_G3dFreeAnmObj to PAL
+        #endif
         param0->unk_10 = NULL;
     }
 }
@@ -214,7 +266,11 @@ void sub_02073AA8(UnkStruct_02073974 *param0)
 BOOL sub_02073AC0(UnkStruct_02073974 *param0, fx32 param1, int param2)
 {
     u32 v0 = 0;
+    #ifdef PLATFORM_DS
     fx32 v1 = NNS_G3dAnmObjGetNumFrame(param0->unk_10);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
 
     param0->unk_04 += param1;
 
@@ -240,7 +296,11 @@ BOOL sub_02073AC0(UnkStruct_02073974 *param0, fx32 param1, int param2)
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(param0->unk_10, param0->unk_04);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 
     if (v0 == 1) {
         param0->unk_00 |= (1 << 1);
@@ -265,7 +325,11 @@ fx32 sub_02073B28(const UnkStruct_02073974 *param0)
 {
     GF_ASSERT(param0->unk_10 != NULL);
     {
+        #ifdef PLATFORM_DS
         fx32 v0 = NNS_G3dAnmObjGetNumFrame(param0->unk_10);
+        #else
+        // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+        #endif
 
         return v0;
     }
@@ -288,7 +352,11 @@ void sub_02073B50(UnkStruct_02073B50 *param0)
 void sub_02073B5C(UnkStruct_02073B50 *param0, NNSG3dResMdl *param1)
 {
     sub_02073B50(param0);
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(&param0->unk_00, param1);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 }
 
 void sub_02073B70(UnkStruct_02073B50 *param0, UnkStruct_02073838 *param1)
@@ -298,7 +366,11 @@ void sub_02073B70(UnkStruct_02073B50 *param0, UnkStruct_02073838 *param1)
 
 void sub_02073B7C(UnkStruct_02073B50 *param0, NNSG3dAnmObj *param1)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(&param0->unk_00, param1);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
 }
 
 void sub_02073B84(UnkStruct_02073B50 *param0, UnkStruct_02073974 *param1)

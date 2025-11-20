@@ -18,7 +18,11 @@
 #include "poketch.h"
 #include "trainer_info.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay95);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static TrainerInfo *GTSPokemonListing_GetTrainerInfo(GTSPokemonListing *listing);
 static Pokemon *GTSApplication_Trade_GetTradedPokemon(GTSApplicationState *appState, enum ScreenArgument screenArgument);
@@ -28,7 +32,11 @@ static const ApplicationManagerTemplate sTradeSequenceConfig = {
     TradeSequence_Init,
     TradeSequence_Main,
     TradeSequence_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay95)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 int GTSApplication_Trade_Init(GTSApplicationState *appState, int unused1)
@@ -138,7 +146,15 @@ int GTSApplication_Trade_Main(GTSApplicationState *appState, int unused1)
         if (Evolution_IsDone(appState->evolutionData)) {
             sub_0207B0E0(appState->evolutionData);
             GTSApplication_Trade_StoreTradedPokemon(appState);
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_NONE);
+            #else
+            // TODO: Port GX_WNDMASK_NONE to PAL
+            #endif
             GTSApplication_SetNextScreenWithArgument(appState, GTS_SCREEN_NETWORK_HANDLER, SCREEN_ARGUMENT_SAVE_AFTER_EVOLVE);
             loopState = GTS_LOOP_STATE_FINISH;
         }

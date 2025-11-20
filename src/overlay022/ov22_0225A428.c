@@ -287,7 +287,11 @@ static void ov22_0225A914(UnkStruct_ov22_0225A914 *param0, SpriteList *param1, S
 
     v1.list = param1;
     v1.resourceData = &v0;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v1.priority = 0;
     v1.heapID = HEAP_ID_14;
 
@@ -340,12 +344,20 @@ static void ov22_0225AA10(UnkStruct_ov22_0225A914 *param0, SpriteResourceCollect
 
 static void ov22_0225AA34(SpriteResource **param0, SpriteResourceCollection **param1, int param2, NARC *param3, int param4, int param5, int param6, int param7, int param8, int param9)
 {
+    #ifdef PLATFORM_DS
     param0[0] = SpriteResourceCollection_AddTilesFrom(param1[0], param3, param4, 0, param9 + param4, NNS_G2D_VRAM_TYPE_2DSUB, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0[0]);
     SpriteResource_ReleaseData(param0[0]);
 
+    #ifdef PLATFORM_DS
     param0[1] = SpriteResourceCollection_AddPaletteFrom(param1[1], param3, param5, 0, param9 + param5, NNS_G2D_VRAM_TYPE_2DSUB, param8, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0[1]);
     SpriteResource_ReleaseData(param0[1]);
@@ -380,7 +392,11 @@ static void ov22_0225AB54(UnkStruct_ov22_0225AB54 *param0, SpriteList *param1, S
 
     v1.list = param1;
     v1.resourceData = &v0;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v1.priority = 0;
     v1.heapID = HEAP_ID_14;
     v1.position.y = 58 * FX32_ONE;

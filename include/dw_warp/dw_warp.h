@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DW_WARP_H
 #define POKEPLATINUM_DW_WARP_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL DWWarp_Init(ApplicationManager *appMan, int *seq);

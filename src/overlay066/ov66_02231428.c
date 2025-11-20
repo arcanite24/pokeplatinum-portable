@@ -161,13 +161,37 @@ BOOL ov66_0223164C(const UnkStruct_ov66_02231560 *param0, u8 param1)
 
 void ov66_02231668(void *param0)
 {
+    #ifdef PLATFORM_DS
     NNSG3dResMdlSet *v0 = NNS_G3dGetMdlSet(param0);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNSG3dResMdl *v1 = NNS_G3dGetMdlByIdx(v0, 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(v1);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(v1);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(v1);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(v1);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 }
 
 BOOL ov66_022316C4(u16 param0, u16 param1)

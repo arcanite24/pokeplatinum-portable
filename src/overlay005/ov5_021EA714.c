@@ -13,8 +13,16 @@
 #include "system_flags.h"
 #include "vars_flags.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_unavailable);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay25);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 void FieldSystem_SendPoketchEvent(FieldSystem *fieldSystem, enum PoketchEventID eventID, u32 dummy)
 {
@@ -30,10 +38,18 @@ void ov5_021EA728(FieldSystem *fieldSystem)
 
     if (Poketch_IsEnabled(poketch)
         && (SystemFlag_CheckPoketchHidden(varsFlags) == 0)) {
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay25), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         PoketchSystem_Create(fieldSystem, &fieldSystem->unk_04->poketchSys, fieldSystem->saveData, fieldSystem->bgConfig, RenderOam_GetScreenOam(1));
     } else {
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(poketch_unavailable), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         PoketchUnavailableScreen_Init(fieldSystem->bgConfig);
     }
 }
@@ -60,12 +76,20 @@ u8 ov5_021EA7CC(FieldSystem *fieldSystem)
         && (SystemFlag_CheckPoketchHidden(varsFlags) == 0)) {
         if (PoketchSystem_IsSystemShutdown(fieldSystem->unk_04->poketchSys)) {
             fieldSystem->unk_04->poketchSys = NULL;
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(overlay25));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             return 1;
         }
     } else {
         if (PoketchUnavailableScreen_IsDone(fieldSystem->bgConfig)) {
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(poketch_unavailable));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             return 1;
         }
     }
@@ -75,7 +99,11 @@ u8 ov5_021EA7CC(FieldSystem *fieldSystem)
 
 void ov5_021EA830(FieldSystem *fieldSystem)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(poketch_unavailable), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     PoketchUnavailableScreen_Init(fieldSystem->bgConfig);
 }
 
@@ -87,7 +115,11 @@ void ov5_021EA848(FieldSystem *fieldSystem)
 BOOL ov5_021EA854(FieldSystem *fieldSystem)
 {
     if (PoketchUnavailableScreen_IsDone(fieldSystem->bgConfig)) {
+        #ifdef PLATFORM_DS
         Overlay_UnloadByID(FS_OVERLAY_ID(poketch_unavailable));
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         return 1;
     }
 

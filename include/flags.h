@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FLAGS_H
 #define POKEPLATINUM_FLAGS_H
 
+#include "platform/platform_types.h"
+
 /**
  * @brief Gets a bitmask with a single bit set at the specified index.
  *

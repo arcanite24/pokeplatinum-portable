@@ -94,8 +94,16 @@ static void ov4_021D2808(void)
 
     VCT_EnableVAD(1);
 
+    #ifdef PLATFORM_DS
     NNS_SndInit();
+    #else
+    // TODO: Port NNS_SndInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_SndStrmInit(&Unk_ov4_0221A408->unk_19F8);
+    #else
+    // TODO: Port NNS_SndStrmInit to PAL
+    #endif
     MI_CpuClearFast(Unk_ov4_0221A408->unk_110C, sizeof(Unk_ov4_0221A408->unk_110C));
 
     Unk_ov4_0221A404 = 0;
@@ -121,7 +129,11 @@ static void ov4_021D28B4(NNSSndStrmCallbackStatus param0, int param1, void *para
 
     v3 = (u8 *)param5;
 
+    #ifdef PLATFORM_DS
     if (param0 == NNS_SND_STRM_CALLBACK_SETUP) {
+    #else
+    // TODO: Port NNS_SND_STRM_CALLBACK_SETUP to PAL
+    #endif
         for (v4 = 0; v4 < param1; ++v4) {
             MI_CpuClear8(param2[v4], param3);
         }
@@ -141,7 +153,11 @@ static void ov4_021D28B4(NNSSndStrmCallbackStatus param0, int param1, void *para
         v3 = v3 + param3;
     }
 
+    #ifdef PLATFORM_DS
     if (PAD_DetectFold()) {
+    #else
+    // TODO: Port PAD_DetectFold to PAL
+    #endif
         v3 = Unk_ov4_0221A408->unk_110C;
     }
 
@@ -307,9 +323,17 @@ void ov4_021D2B28(void)
 {
     OSTick v0;
 
+    #ifdef PLATFORM_DS
     v0 = OS_GetTick();
+    #else
+    // TODO: Port OS_GetTick to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Unk_ov4_0221A404 += OS_TicksToMicroSeconds32(v0 - Unk_ov4_0221A40C) - 1000 * 1000 / 60;
+    #else
+    // TODO: Port OS_TicksToMicroSeconds32 to PAL
+    #endif
 
     if (Unk_ov4_0221A404 < -10000) {
         Unk_ov4_0221A404 = 0;
@@ -416,17 +440,37 @@ void ov4_021D2CC0(int heapID, int param1, int param2)
         Unk_ov4_0221A408->unk_1A5C.type = MIC_SAMPLING_TYPE_SIGNED_12BIT;
         Unk_ov4_0221A408->unk_1A5C.buffer = Unk_ov4_0221A408->unk_00;
         Unk_ov4_0221A408->unk_1A5C.size = v1 * 2;
+        #ifdef PLATFORM_DS
         Unk_ov4_0221A408->unk_1A5C.rate = (u32)((NNS_SND_STRM_TIMER_CLOCK / 8000) * 64);
+        #else
+        // TODO: Port NNS_SND_STRM_TIMER_CLOCK to PAL
+        #endif
         Unk_ov4_0221A408->unk_1A5C.loop_enable = 1;
         Unk_ov4_0221A408->unk_1A5C.full_callback = NULL;
         Unk_ov4_0221A408->unk_1A5C.full_arg = NULL;
         Unk_ov4_0221A408->unk_1A59 = 1;
     }
 
+    #ifdef PLATFORM_DS
     NNS_SndStrmAllocChannel(&Unk_ov4_0221A408->unk_19F8, 1, v0);
+    #else
+    // TODO: Port NNS_SndStrmAllocChannel to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_SndStrmSetVolume(&Unk_ov4_0221A408->unk_19F8, 0);
+    #else
+    // TODO: Port NNS_SndStrmSetVolume to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_SndStrmSetup to PAL
+    #endif
     v2 = NNS_SndStrmSetup(&Unk_ov4_0221A408->unk_19F8, NNS_SND_STRM_FORMAT_PCM16, Unk_ov4_0221A408->unk_88C, v1 * 2 * 1, NNS_SND_STRM_TIMER_CLOCK / 8000, 2, ov4_021D28B4, Unk_ov4_0221A408->unk_00);
+    #else
+    // TODO: Port NNS_SND_STRM_TIMER_CLOCK to PAL
+    #endif
 
     Unk_ov4_0221A408->unk_19EC = 0;
     Unk_ov4_0221A408->unk_1A54 = NULL;
@@ -474,7 +518,11 @@ void ov4_021D2CC0(int heapID, int param1, int param2)
 
 static void ov4_021D2E8C(void)
 {
+    #ifdef PLATFORM_DS
     NNS_SndStrmStart(&Unk_ov4_0221A408->unk_19F8);
+    #else
+    // TODO: Port NNS_SndStrmStart to PAL
+    #endif
 }
 
 void ov4_021D2EA4(void)
@@ -518,8 +566,16 @@ void ov4_021D2F08(void)
         v0 = Unk_ov4_0221A408->unk_198C;
 
         (void)MIC_StopAutoSampling();
+        #ifdef PLATFORM_DS
         NNS_SndStrmStop(&Unk_ov4_0221A408->unk_19F8);
+        #else
+        // TODO: Port NNS_SndStrmStop to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_SndStrmFreeChannel(&Unk_ov4_0221A408->unk_19F8);
+        #else
+        // TODO: Port NNS_SndStrmFreeChannel to PAL
+        #endif
 
         VCT_Cleanup();
 

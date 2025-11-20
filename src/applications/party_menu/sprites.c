@@ -27,8 +27,16 @@
 
 void PartyMenu_InitSpriteResources(PartyMenuApplication *application)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     VramTransfer_New(32, HEAP_ID_PARTY_MENU);
 
     application->spriteSystem = SpriteSystem_Alloc(12);
@@ -45,7 +53,11 @@ void PartyMenu_InitSpriteResources(PartyMenuApplication *application)
         32,
     };
     CharTransferTemplateWithModes transferTemplate = {
+        #ifdef PLATFORM_DS
         NUM_PARTY_MENU_SPRITES + MAX_PARTY_SIZE, 1024, 1024, GX_OBJVRAMMODE_CHAR_1D_32K, GX_OBJVRAMMODE_CHAR_1D_32K
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     };
 
     SpriteSystem_Init(application->spriteSystem, &oamTemplate, &transferTemplate, 32);
@@ -94,7 +106,11 @@ void PartyMenu_DrawMemberSpeciesIcon(PartyMenuApplication *application, u8 slot,
     template.animIdx = 0;
     template.priority = 0;
     template.plttIdx = PokeIconPaletteIndex(partyMenuMember.species, partyMenuMember.form, isEgg) + SPECIES_ICON_PLTT_SLOT;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.dummy18 = 0;
     template.dummy1C = 0;
     template.dummy20 = 0;
@@ -111,13 +127,29 @@ void PartyMenu_LoadMemberSpeciesIcon(PartyMenuApplication *application, u8 slot)
     int species = Pokemon_GetValue(mon, MON_DATA_SPECIES, NULL);
     int form = Pokemon_GetValue(mon, MON_DATA_FORM, NULL);
     NARC *iconNarc = NARC_ctor(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, HEAP_ID_PARTY_MENU);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetImageLocation to PAL
+    #endif
     u32 offset = NNS_G2dGetImageLocation(Sprite_GetImageProxy(application->partyMembers[slot].sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     void *ncgr = LoadMemberFromOpenNARC(iconNarc, Pokemon_IconSpriteIndex(mon), FALSE, HEAP_ID_PARTY_MENU, TRUE);
 
     NNSG2dCharacterData *charData;
+    #ifdef PLATFORM_DS
     if (NNS_G2dGetUnpackedCharacterData(ncgr, &charData)) {
+    #else
+    // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+    #endif
         DC_FlushRange(charData->pRawData, charData->szByte);
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(charData->pRawData, offset, charData->szByte);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
     }
 
     Heap_Free(ncgr);
@@ -160,7 +192,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 1,
         .priority = 3,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_CURSOR_SWITCH] = {
         .resourceHeaderID = 1,
@@ -170,7 +206,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 2,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_CONFIRM_BUTTON] = {
         .resourceHeaderID = 2,
@@ -180,7 +220,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 1,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_CANCEL_BUTTON] = {
         .resourceHeaderID = 2,
@@ -190,7 +234,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 1,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB0] = {
         .resourceHeaderID = 3,
@@ -200,7 +248,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB1] = {
         .resourceHeaderID = 3,
@@ -210,7 +262,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB2] = {
         .resourceHeaderID = 3,
@@ -220,7 +276,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB3] = {
         .resourceHeaderID = 3,
@@ -230,7 +290,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB4] = {
         .resourceHeaderID = 3,
@@ -240,7 +304,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_STATUS_ICON_MEMB5] = {
         .resourceHeaderID = 3,
@@ -250,7 +318,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB0] = {
         .resourceHeaderID = 10,
@@ -260,7 +332,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB1] = {
         .resourceHeaderID = 10,
@@ -270,7 +346,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB2] = {
         .resourceHeaderID = 10,
@@ -280,7 +360,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB3] = {
         .resourceHeaderID = 10,
@@ -290,7 +374,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB4] = {
         .resourceHeaderID = 10,
@@ -300,7 +388,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_HELD_ITEM_MEMB5] = {
         .resourceHeaderID = 10,
@@ -310,7 +402,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB0] = {
         .resourceHeaderID = 10,
@@ -320,7 +416,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB1] = {
         .resourceHeaderID = 10,
@@ -330,7 +430,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB2] = {
         .resourceHeaderID = 10,
@@ -340,7 +444,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB3] = {
         .resourceHeaderID = 10,
@@ -350,7 +458,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB4] = {
         .resourceHeaderID = 10,
@@ -360,7 +472,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_BALL_SEAL_MEMB5] = {
         .resourceHeaderID = 10,
@@ -370,7 +486,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SPRITE_TEMPLATE_UNK_22] = {
         .resourceHeaderID = 11,
@@ -380,7 +500,11 @@ static const SpriteTemplateFromResourceHeader sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DSUB,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 };
 
@@ -427,7 +551,11 @@ void PartyMenu_DrawMemberPokeBall(PartyMenuApplication *application, u8 slot, u1
     template.animIdx = 0;
     template.priority = 1;
     template.plttIdx = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.dummy18 = 0;
     template.dummy1C = 0;
     template.dummy20 = 0;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PERSISTED_MAP_FEATURES_H
 #define POKEPLATINUM_PERSISTED_MAP_FEATURES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/types.h>
 #else

@@ -781,7 +781,11 @@ static void SaveDataState_Cancel(SaveData *saveData, SaveDataState *state)
 
     if (state->locked) {
         CARD_UnlockBackup(state->lockID);
+        #ifdef PLATFORM_DS
         OS_ReleaseLockID(state->lockID);
+        #else
+        // TODO: Port OS_ReleaseLockID to PAL
+        #endif
         state->locked = FALSE;
     }
 
@@ -1210,8 +1214,16 @@ static void SaveDataExtra_SetSaveKey(SaveData *saveData, int extraSaveID, u32 ne
 
 BOOL SaveData_CardBackupType(void)
 {
+    #ifdef PLATFORM_DS
     s32 lockID = OS_GetLockID();
+    #else
+    // TODO: Port OS_GetLockID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(lockID != OS_LOCK_ID_ERROR);
+    #else
+    // TODO: Port OS_LOCK_ID_ERROR to PAL
+    #endif
 
     CARD_LockBackup(lockID);
 
@@ -1226,7 +1238,11 @@ BOOL SaveData_CardBackupType(void)
     }
 
     CARD_UnlockBackup(lockID);
+    #ifdef PLATFORM_DS
     OS_ReleaseLockID(lockID);
+    #else
+    // TODO: Port OS_ReleaseLockID to PAL
+    #endif
 
     return result != CARD_BACKUP_TYPE_NOT_USE;
 }
@@ -1245,8 +1261,16 @@ BOOL SaveData_CardSave(u32 address, void *data, u32 size)
 
 BOOL SaveData_CardLoad(u32 address, void *data, u32 size)
 {
+    #ifdef PLATFORM_DS
     s32 lockID = OS_GetLockID();
+    #else
+    // TODO: Port OS_GetLockID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(lockID != OS_LOCK_ID_ERROR);
+    #else
+    // TODO: Port OS_LOCK_ID_ERROR to PAL
+    #endif
 
     CARD_LockBackup(lockID);
     CARD_ReadFlashAsync(address, data, size, NULL, NULL);
@@ -1254,7 +1278,11 @@ BOOL SaveData_CardLoad(u32 address, void *data, u32 size)
     BOOL result = CARD_WaitBackupAsync();
 
     CARD_UnlockBackup(lockID);
+    #ifdef PLATFORM_DS
     OS_ReleaseLockID(lockID);
+    #else
+    // TODO: Port OS_ReleaseLockID to PAL
+    #endif
 
     if (!result) {
         Heap_Free(sSaveDataPtr);
@@ -1271,8 +1299,16 @@ static void CB_SaveComplete(void *unused)
 
 static s32 SaveData_CardSave_Init(u32 address, void *data, u32 size)
 {
+    #ifdef PLATFORM_DS
     s32 lockID = OS_GetLockID();
+    #else
+    // TODO: Port OS_GetLockID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(lockID != OS_LOCK_ID_ERROR);
+    #else
+    // TODO: Port OS_LOCK_ID_ERROR to PAL
+    #endif
 
     CARD_LockBackup(lockID);
 
@@ -1297,7 +1333,11 @@ static BOOL SaveData_CardSave_Main(s32 lockID, BOOL lockFlag, BOOL *result)
         }
 
         CARD_UnlockBackup(lockID);
+        #ifdef PLATFORM_DS
         OS_ReleaseLockID(lockID);
+        #else
+        // TODO: Port OS_ReleaseLockID to PAL
+        #endif
 
         switch (CARD_GetResultCode()) {
         case CARD_RESULT_SUCCESS:
@@ -1323,7 +1363,11 @@ static BOOL SaveData_CardSave_Main(s32 lockID, BOOL lockFlag, BOOL *result)
 static void SaveData_CardSave_Error(s32 lockID, int errorID)
 {
     CARD_UnlockBackup(lockID);
+    #ifdef PLATFORM_DS
     OS_ReleaseLockID(lockID);
+    #else
+    // TODO: Port OS_ReleaseLockID to PAL
+    #endif
 
     Heap_Free(sSaveDataPtr);
     sub_0209AA74(HEAP_ID_SAVE, errorID);

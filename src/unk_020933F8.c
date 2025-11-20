@@ -68,8 +68,16 @@
 #include "constdata/const_020F560C.h"
 #include "constdata/const_020F561C.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay17);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay22);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     UnkStruct_02095C48 *unk_00;
@@ -104,35 +112,55 @@ const ApplicationManagerTemplate Unk_020F560C = {
     ov17_0223B140,
     ov17_0223B444,
     ov17_0223B580,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay17)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020F561C = {
     ov17_0223DAD0,
     ov17_0223DDD4,
     ov17_0223DF0C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay17)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020F55EC = {
     ov17_0223CB1C,
     ov17_0223CDDC,
     ov17_0223CF8C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay17)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020F55DC = {
     ov17_0224F4D4,
     ov17_0224F754,
     ov17_0224F86C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay17)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020F55FC = {
     ov22_02256174,
     ov22_022562EC,
     ov22_02256600,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay22)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 __attribute__((aligned(4))) static const u8 Unk_020F55B4[][3] = {
@@ -1510,7 +1538,11 @@ static void sub_02094B30(SysTask *param0, void *param1)
         v1->unk_08++;
 
         if (v1->unk_08 > v1->unk_04[v1->unk_0A]) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(6, 0, 4, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             Sound_PlayEffect(SEQ_SE_DP_CON_014);
             v1->unk_0A++;
             v1->unk_08 = 0;

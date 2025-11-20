@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0202E858_H
 #define POKEPLATINUM_STRUCT_0202E858_H
 
+#include "platform/platform_types.h"
+
 typedef struct UnkStruct_0202E858_t {
     u32 unk_00;
     u32 unk_04;

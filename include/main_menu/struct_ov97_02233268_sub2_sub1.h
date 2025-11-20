@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIN_MENU_02233268_SUB2_SUB1_H
 #define POKEPLATINUM_STRUCT_MAIN_MENU_02233268_SUB2_SUB1_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u16 unk_00[12];
 } UnkStruct_ov97_02233268_sub2_sub1;

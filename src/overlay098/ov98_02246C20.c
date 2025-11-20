@@ -34,10 +34,26 @@
 
 #include "constdata/const_020F2DBC.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay65);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay94);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay98);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef void *(*UnkFuncPtr_ov98_02249B4C)(UnkStruct_ov98_02246E88 *);
 typedef void (*UnkFuncPtr_ov98_02249B4C_1)(UnkStruct_ov98_02246E88 *);
@@ -77,7 +93,11 @@ static const ApplicationManagerTemplate Unk_ov98_02249B2C = {
     ov65_0222E2A8,
     ov65_0222E3FC,
     ov65_0222E548,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay65)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static const struct {
@@ -180,7 +200,11 @@ int ov98_02246DC0(ApplicationManager *appMan, int *param1)
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(HEAP_ID_108);
     Heap_Destroy(HEAP_ID_91);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     return 1;
 }
@@ -188,10 +212,18 @@ int ov98_02246DC0(ApplicationManager *appMan, int *param1)
 static void ov98_02246E08(UnkStruct_ov98_02246E88 *param0)
 {
     if (param0->unk_80 == 0) {
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay94), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
 
         param0->unk_0C = Heap_Alloc(HEAP_ID_108, 0x20000 + 32);
+        #ifdef PLATFORM_DS
         param0->unk_10 = NNS_FndCreateExpHeap((void *)(((u32)param0->unk_0C + 31) / 32 * 32), 0x20000);
+        #else
+        // TODO: Port NNS_FndCreateExpHeap to PAL
+        #endif
 
         sub_02099550();
         Overlay_LoadHttpOverlay();
@@ -203,13 +235,21 @@ static void ov98_02246E08(UnkStruct_ov98_02246E88 *param0)
 static void ov98_02246E54(UnkStruct_ov98_02246E88 *param0)
 {
     if (param0->unk_80 == 1) {
+        #ifdef PLATFORM_DS
         NNS_FndDestroyExpHeap(param0->unk_10);
+        #else
+        // TODO: Port NNS_FndDestroyExpHeap to PAL
+        #endif
 
         Heap_Free(param0->unk_0C);
         Overlay_UnloadHttpOverlay();
         sub_02099560();
         WirelessDriver_Shutdown();
+        #ifdef PLATFORM_DS
         Overlay_UnloadByID(FS_OVERLAY_ID(overlay94));
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
 
         param0->unk_80 = 0;
     }
@@ -241,10 +281,22 @@ static void *ov98_02246EAC(DWCAllocType param0, u32 param1, int param2)
 #pragma unused(param0)
     void *v0;
     OSIntrMode v1;
+    #ifdef PLATFORM_DS
     v1 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_FndAllocFromExpHeapEx(Unk_ov98_02249E20, param1, param2);
+    #else
+    // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v1);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     if (v0 == NULL) {
         (void)0;
@@ -262,10 +314,22 @@ static void ov98_02246ED4(DWCAllocType param0, void *param1, u32 param2)
         return;
     }
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_FndFreeToExpHeap(Unk_ov98_02249E20, param1);
+    #else
+    // TODO: Port NNS_FndFreeToExpHeap to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }
 
 void ov98_02246EF8(UnkStruct_ov98_02246E88 *param0)

@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 static const u16 sWeightToPower[][2] = {
     { 100, 20 },
     { 250, 40 },

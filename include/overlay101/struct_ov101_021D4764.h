@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV101_021D4764_H
 #define POKEPLATINUM_STRUCT_OV101_021D4764_H
 
+#include "platform/platform_types.h"
+
 #include "overlay101/struct_ov101_021D13C8_decl.h"
 
 #include "enums.h"

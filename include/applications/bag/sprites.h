@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_BAG_SPRITES_H
 #define POKEPLATINUM_APPLICATIONS_BAG_SPRITES_H
 
+#include "platform/platform_types.h"
+
 #include "applications/bag/defs.h"
 
 void BagUI_InitSprites(BagController *controller);

@@ -9,6 +9,8 @@
 #define PREVIEW_MON_HELD      6
 #define PREVIEW_MON_SELECTION 12
 
+#include "platform/platform_types.h"
+
 enum CursorLocation {
     CURSOR_IN_BOX = 0,
     CURSOR_IN_PARTY,

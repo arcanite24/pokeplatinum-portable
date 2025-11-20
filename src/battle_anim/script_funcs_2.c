@@ -784,7 +784,11 @@ enum FakeOutCurtainState {
 #define FAKE_OUT_CURTAIN_END_X       0
 #define FAKE_OUT_CURTAIN_MOVE_FRAMES 8
 #define FAKE_OUT_CURTAIN_DELAY       7
+#ifdef PLATFORM_DS
 #define FAKE_OUT_CURTAIN_COLOR       GX_RGBA(31, 31, 31, 1)
+#else
+// TODO: Port GX_RGBA to PAL
+#endif
 #define FAKE_OUT_CURTAIN_COLOR_ALPHA 16
 
 typedef struct {
@@ -967,7 +971,11 @@ void BattleAnimScriptFunc_QuickAttack(BattleAnimSystem *system)
         ctx->afterimageSprites[i] = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, i);
         ManagedSprite_SetPriority(ctx->afterimageSprites[i], QUICK_ATTACK_SPRITE_PRIORITY);
         ManagedSprite_SetExplicitPriority(ctx->afterimageSprites[i], QUICK_ATTACK_SPRITE_EXP_PRIORITY);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(ctx->afterimageSprites[i], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
     Afterimage_Init(
@@ -1156,16 +1164,28 @@ static void ov12_0222FC44(SysTask *param0, void *param1)
         break;
     case 1:
         v0->unk_F8 += 10;
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v0->unk_F8 / 10, 31 - (v0->unk_F8 / 10));
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v0->unk_F8 >= 310) {
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(v0->unk_0C.unk_00, GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
 
             v0->unk_EC++;
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(0xffffffff, 0xffffffff);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         v0->unk_EC++;
         break;
     case 3:
@@ -1200,13 +1220,21 @@ static void ov12_0222FC44(SysTask *param0, void *param1)
         ManagedSprite_TickFrame(v0->unk_0C.unk_00);
 
         if (Sprite_IsAnimated(v0->unk_0C.unk_00->sprite) == 0) {
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(v0->unk_0C.unk_00, GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
             v0->unk_EC++;
         }
         break;
     case 5:
         v0->unk_F8 -= 10;
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v0->unk_F8 / 10, 31 - (v0->unk_F8 / 10));
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v0->unk_F8 <= 0) {
             v0->unk_EC++;
@@ -1274,10 +1302,18 @@ void ov12_0222FE30(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v0->unk_F8 = 0;
 
     BattleAnimUtil_SetSpriteBgBlending(v0->unk_00, 0, 31);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_0C.unk_00, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     for (v2 = 0; v2 < 2; v2++) {
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v0->unk_58[v2].unk_00, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
     BattleAnimSystem_StartAnimTask(v0->unk_00, ov12_0222FC44, v0);
@@ -1363,7 +1399,11 @@ void BattleAnimScriptFunc_Confusion(BattleAnimSystem *system)
         CONFUSION_SHAKE_CYCLES);
     ctx->monSprite = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, BATTLE_ANIM_MON_SPRITE_0);
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->monSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetAffineOverwriteMode(ctx->monSprite, AFFINE_OVERWRITE_MODE_DOUBLE);
     ManagedSprite_SetPriority(ctx->monSprite, CONFUSION_SPRITE_PRIORITY);
     ManagedSprite_SetExplicitPriority(ctx->monSprite, CONFUSION_SPRITE_EXP_PRIORITY);
@@ -1558,7 +1598,11 @@ static void BattleAnimTask_NightShadeAttacker(SysTask *task, void *param)
     switch (ctx->state) {
     case NIGHT_SHADE_ATTACKER_STATE_FADE_IN:
         active = ValueLerpContext_UpdateFX32(&ctx->alpha);
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->alpha.value, NIGHT_SHADE_ATTACKER_SPRITE_MAX_ALPHA - ctx->alpha.value);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (active == FALSE) {
             ctx->state++;
@@ -1692,7 +1736,11 @@ void BattleAnimScriptFunc_NightShadeAttacker(BattleAnimSystem *system)
         NIGHT_SHADE_ATTACKER_END_ALPHA,
         NIGHT_SHADE_ATTACKER_ALPHA_FRAMES);
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->xluSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     BattleAnimUtil_SetSpriteBgBlending(ctx->battleAnimSys, 0, NIGHT_SHADE_ATTACKER_SPRITE_MAX_ALPHA);
     ManagedSprite_SetAffineOverwriteMode(ctx->xluSprite, AFFINE_OVERWRITE_MODE_DOUBLE);
 
@@ -2340,7 +2388,11 @@ void BattleAnimScriptFunc_FaintAttack(BattleAnimSystem *system)
     ctx->attackerY -= REVOLUTION_CONTEXT_OVAL_RADIUS_Y_INT;
     ctx->sprite = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, BATTLE_ANIM_MON_SPRITE_0);
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->sprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     PokemonSprite_SetAttribute(ctx->attackerSprite, MON_SPRITE_HIDE, TRUE);
 
     RevolutionContext_InitOvalRevolutions(&ctx->revs, FAINT_ATTACK_REVOLUTION_COUNT, FAINT_ATTACK_REVOLUTION_FRAMES);
@@ -2470,7 +2522,11 @@ void ov12_02231650(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
 
     ManagedSprite_SetAnimateFlag(v0->unk_3C, 1);
     ManagedSprite_SetAffineOverwriteMode(v0->unk_3C, AFFINE_OVERWRITE_MODE_DOUBLE);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_3C, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetPriority(v0->unk_3C, 100);
     ManagedSprite_SetExplicitPriority(v0->unk_3C, 1);
 
@@ -2486,7 +2542,19 @@ void ov12_02231650(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     PosLerpContext_Init(&v0->unk_68, 0, 0 * v1, 0, v5 * v2, 32);
     ScaleLerpContext_Init(&v0->unk_44, 5, 10, 12, 32);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_ALL, 31, 26);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
     BattleAnimSystem_StartAnimTask(v0->unk_00, ov12_02231608, v0);
 }
 
@@ -2544,11 +2612,19 @@ static void ov12_0223181C(SysTask *param0, void *param1)
             } else {
                 v0->unk_0C++;
 
+                #ifdef PLATFORM_DS
                 ManagedSprite_SetExplicitOamMode(v0->unk_14, GX_OAM_MODE_XLU);
+                #else
+                // TODO: Port GX_OAM_MODE_XLU to PAL
+                #endif
                 AlphaFadeContext_Init(
                     &v0->unk_3C, 16, 0, 0, 16, 16);
 
+                #ifdef PLATFORM_DS
                 PokemonSprite_StartFade(v0->unk_10, 0, 10, 0, GX_RGB(31, 31, 31));
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
             }
         }
         break;
@@ -2559,7 +2635,11 @@ static void ov12_0223181C(SysTask *param0, void *param1)
 
         if (PokemonSprite_IsFadeActive(v0->unk_10) == 0) {
             v0->unk_0C++;
+            #ifdef PLATFORM_DS
             PokemonSprite_StartFade(v0->unk_10, 10, 0, 0, GX_RGB(31, 31, 31));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         }
         break;
     case 3:
@@ -2735,11 +2815,27 @@ void ov12_02231C1C(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v0->unk_4E -= 80 / 2;
 
     ManagedSprite_SetPositionXY(v0->unk_24, v0->unk_4C, v0->unk_4E);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_24, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     v0->unk_54 = -16;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_ALL, 31, 26);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
     BattleAnimSystem_StartAnimTask(v0->unk_00, ov12_02231A38, v0);
 }
 
@@ -3077,7 +3173,11 @@ static void ov12_0223223C(SysTask *param0, void *param1)
         break;
     case 1:
         if (v0->unk_10 == 0) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(8, 16, 0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             v0->unk_10 = -1;
         } else {
             if (v0->unk_10 > 0) {
@@ -3087,7 +3187,11 @@ static void ov12_0223223C(SysTask *param0, void *param1)
 
         if (v0->unk_10 == -1) {
             if (BrightnessController_IsTransitionComplete(BRIGHTNESS_MAIN_SCREEN)) {
+                #ifdef PLATFORM_DS
                 BrightnessController_StartTransition(8, 0, 16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                #endif
                 v0->unk_10 = -2;
             }
         }
@@ -3134,7 +3238,11 @@ void ov12_02232378(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     ManagedSprite_SetPriority(v0->unk_14, 100);
     ManagedSprite_SetExplicitPriority(v0->unk_14, 1);
     ManagedSprite_SetAffineOverwriteMode(v0->unk_14, AFFINE_OVERWRITE_MODE_DOUBLE);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_14, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetAnimationFrame(v0->unk_14, 4);
 
     v0->unk_6C = 3;
@@ -3892,7 +4000,11 @@ void BattleAnimScriptFunc_Memento(BattleAnimSystem *system)
     ManagedSprite_SetExplicitPriority(ctx->attackerSprite, MEMENTO_SPRITE_EXP_PRIORITY);
     ManagedSprite_SetPositionXY(ctx->attackerSprite, attackerX, attackerY);
     ManagedSprite_SetDrawFlag(ctx->attackerSprite, FALSE);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->attackerSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetAffineOverwriteMode(ctx->attackerSprite, AFFINE_OVERWRITE_MODE_DOUBLE);
 
     ctx->defenderSprite = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, BATTLE_ANIM_MON_SPRITE_1);
@@ -3901,7 +4013,11 @@ void BattleAnimScriptFunc_Memento(BattleAnimSystem *system)
     ManagedSprite_SetExplicitPriority(ctx->defenderSprite, MEMENTO_SPRITE_EXP_PRIORITY);
     ManagedSprite_SetPositionXY(ctx->defenderSprite, defenderX, defenderY);
     ManagedSprite_SetDrawFlag(ctx->defenderSprite, FALSE);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->defenderSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetAffineOverwriteMode(ctx->defenderSprite, AFFINE_OVERWRITE_MODE_DOUBLE);
     ManagedSprite_SetAffineTranslation(ctx->defenderSprite, 0, MON_SPRITE_FRAME_HEIGHT / 2);
 
@@ -3994,7 +4110,11 @@ void ov12_02233454(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
             ManagedSprite_SetAnim(v0->unk_3C[v1], 1);
         } else {
             v0->unk_3C[v1] = SpriteSystem_NewSprite(v0->unk_04, v0->unk_08, &v2);
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(v0->unk_3C[v1], GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
         }
 
         ManagedSprite_SetPriority(v0->unk_3C[v1], 100);
@@ -4119,7 +4239,11 @@ void ov12_02233734(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
         }
 
         ManagedSprite_SetPriority(v0->unk_18[v1], 100);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v0->unk_18[v1], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetAnimateFlag(v0->unk_18[v1], 1);
     }
 
@@ -4417,9 +4541,21 @@ static void BattleAnimTask_FakeOutCurtain(SysTask *task, void *param)
             0,
             0,
             FAKE_OUT_CURTAIN_MOVE_FRAMES);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W0);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
         BattleAnimUtil_SetBackgroundWindowMask(ctx->battleAnimSys, BATTLE_ANIM_WINDOW_0, FALSE);
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, HW_LCD_WIDTH - 1, HW_LCD_HEIGHT - 1);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
         ctx->delay = FAKE_OUT_CURTAIN_DELAY;
         ctx->state++;
         break;
@@ -4440,7 +4576,11 @@ static void BattleAnimTask_FakeOutCurtain(SysTask *task, void *param)
         break;
     case FAKE_OUT_CURTAIN_STATE_MOVE_CURTAIN:
         if (PosLerpContext_Update(&ctx->curtainPos)) {
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
                 (HW_LCD_WIDTH / 2 - 1) - ctx->curtainPos.x,
                 0,
                 (HW_LCD_WIDTH / 2) + ctx->curtainPos.x,
@@ -4452,7 +4592,15 @@ static void BattleAnimTask_FakeOutCurtain(SysTask *task, void *param)
     case FAKE_OUT_CURTAIN_STATE_HIDE_CURTAIN:
         if (PaletteData_GetSelectedBuffersMask(BattleAnimSystem_GetPaletteData(ctx->battleAnimSys)) == 0) {
             ctx->state++;
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_NONE);
+            #else
+            // TODO: Port GX_WNDMASK_NONE to PAL
+            #endif
             PaletteData_StartFade(
                 BattleAnimSystem_GetPaletteData(ctx->battleAnimSys),
                 PLTTBUF_MAIN_BG_F,
@@ -4530,7 +4678,11 @@ void ov12_02234008(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v0->unk_10 = param3;
 
     ManagedSprite_SetAnimateFlag(v0->unk_10, 1);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_10, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     BattleAnimSystem_StartAnimTask(v0->unk_00, ov12_02233F4C, v0);
 }

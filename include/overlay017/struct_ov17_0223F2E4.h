@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_0223F2E4_H
 #define POKEPLATINUM_STRUCT_OV17_0223F2E4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/font_oam.h"
 
 #include "char_transfer.h"

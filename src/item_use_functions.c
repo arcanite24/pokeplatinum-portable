@@ -894,7 +894,11 @@ static BOOL PrintRegisteredKeyItemUseMessage(FieldTask *task)
         break;
     case 1:
         if (FieldMessage_FinishedPrinting(v1->unk_14) == TRUE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_KEY | PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Window_EraseMessageBox(&v1->unk_00, 0);
                 v1->unk_16++;
             }

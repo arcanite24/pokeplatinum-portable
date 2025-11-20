@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PRE_POKETCH_SUBSCREEN_H
 #define POKEPLATINUM_PRE_POKETCH_SUBSCREEN_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 
 void PoketchUnavailableScreen_Init(BgConfig *bgConfig);

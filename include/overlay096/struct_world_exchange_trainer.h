@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_WORLD_EXCHANGE_TRAINER_H
 #define POKEPLATINUM_STRUCT_WORLD_EXCHANGE_TRAINER_H
 
+#include "platform/platform_types.h"
+
 typedef struct WorldExchangeTrainer {
     u8 gameCode;
     u8 languageCode;

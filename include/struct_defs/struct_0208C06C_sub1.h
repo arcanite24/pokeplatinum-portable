@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0208C06C_SUB1_H
 #define POKEPLATINUM_STRUCT_0208C06C_SUB1_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     BOOL unk_00;
     int unk_04;

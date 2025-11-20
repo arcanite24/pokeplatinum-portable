@@ -62,7 +62,11 @@ void TrainerCard_InitSpriteData(TrainerCardSpriteData *spriteData, NARC *narc)
     int resourceType;
 
     TrainerCard_InitCharPlttTransferBuffers();
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, HEAP_ID_TRAINER_CARD_SCREEN);
 
     spriteData->spriteList = SpriteList_InitRendering((MAX_BADGES * 3 + 1), &spriteData->g2dRenderer, HEAP_ID_TRAINER_CARD_SCREEN);
@@ -71,8 +75,16 @@ void TrainerCard_InitSpriteData(TrainerCardSpriteData *spriteData, NARC *narc)
         spriteData->spriteResourceCollection[resourceType] = SpriteResourceCollection_New(sSpriteResourceCapacities[resourceType], resourceType, HEAP_ID_TRAINER_CARD_SCREEN);
     }
 
+    #ifdef PLATFORM_DS
     spriteData->spriteResources[0][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(spriteData->spriteResourceCollection[SPRITE_RESOURCE_CHAR], narc, 33, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_TRAINER_CARD_SCREEN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     spriteData->spriteResources[0][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(spriteData->spriteResourceCollection[SPRITE_RESOURCE_PLTT], narc, 14, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 9, HEAP_ID_TRAINER_CARD_SCREEN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteData->spriteResources[0][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_AddFrom(spriteData->spriteResourceCollection[SPRITE_RESOURCE_CELL], narc, 44, FALSE, 1, SPRITE_RESOURCE_CELL, HEAP_ID_TRAINER_CARD_SCREEN);
     spriteData->spriteResources[0][SPRITE_RESOURCE_ANIM] = SpriteResourceCollection_AddFrom(spriteData->spriteResourceCollection[SPRITE_RESOURCE_ANIM], narc, 46, FALSE, 1, SPRITE_RESOURCE_ANIM, HEAP_ID_TRAINER_CARD_SCREEN);
 
@@ -95,7 +107,11 @@ void TrainerCard_InitSpriteData(TrainerCardSpriteData *spriteData, NARC *narc)
         spriteData->badgePaletteBuffers[badgeID] = NARC_AllocAndReadWholeMember(narc, badgePaletteNarcIndices[badgeID], HEAP_ID_TRAINER_CARD_SCREEN);
 
         if (spriteData->badgePaletteBuffers[badgeID] != NULL) {
+            #ifdef PLATFORM_DS
             if (NNS_G2dGetUnpackedPaletteData(spriteData->badgePaletteBuffers[badgeID], &spriteData->badgePalettes[badgeID]) == FALSE) {
+            #else
+            // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+            #endif
                 Heap_Free(spriteData->badgePalettes[badgeID]);
                 GF_ASSERT(FALSE);
             }
@@ -104,7 +120,11 @@ void TrainerCard_InitSpriteData(TrainerCardSpriteData *spriteData, NARC *narc)
         }
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 void TrainerCard_DrawBadgeCaseSprites(TrainerCardSpriteData *spriteData, u8 *badgesObtained)
@@ -127,7 +147,11 @@ void TrainerCard_DrawBadgeCaseSprites(TrainerCardSpriteData *spriteData, u8 *bad
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 2;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_TRAINER_CARD_SCREEN;
 
     for (badgeID = 0; badgeID < MAX_BADGES; badgeID++) {
@@ -205,12 +229,20 @@ void TrainerCard_DrawBadgeDirt(TrainerCardSpriteData *spriteData, u8 badgeID, u8
     GF_ASSERT(dirtLevel <= 3);
 
     NNSG2dImagePaletteProxy *paletteProxy = Sprite_GetPaletteProxy(spriteData->sprites[badgeID]);
+    #ifdef PLATFORM_DS
     u32 vramLocation = NNS_G2dGetImagePaletteLocation(paletteProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     vramLocation += badgeID * PALETTE_SIZE_BYTES;
     u8 *rawData = spriteData->badgePalettes[badgeID]->pRawData;
 
     DC_FlushRange(&rawData[dirtLevel * PALETTE_SIZE_BYTES], PALETTE_SIZE_BYTES);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(&rawData[dirtLevel * PALETTE_SIZE_BYTES], vramLocation, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 }
 
 static void TrainerCard_InitCharPlttTransferBuffers(void)

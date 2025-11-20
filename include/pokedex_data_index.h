@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_DATA_INDEX_H
 #define POKEPLATINUM_POKEDEX_DATA_INDEX_H
 
+#include "platform/platform_types.h"
+
 #include "constants/narc.h"
 
 void Pokedex_SetupGiratina(u32 param0);

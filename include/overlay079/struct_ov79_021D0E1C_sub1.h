@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV79_021D0E1C_SUB1_H
 #define POKEPLATINUM_STRUCT_OV79_021D0E1C_SUB1_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 #include "string_template.h"
 

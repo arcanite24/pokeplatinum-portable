@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_UNDERGROUND_RECORD_H
 #define POKEPLATINUM_STRUCT_UNDERGROUND_RECORD_H
 
+#include "platform/platform_types.h"
+
 typedef struct UndergroundRecord {
     u32 trainerScore : 20;
     u32 peopleMet : 20;

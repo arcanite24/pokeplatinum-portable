@@ -218,7 +218,11 @@ static const SpriteTemplate Unk_020EA0A4[] = {
         0x0,
         0x1,
         0x1,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x34D8, 0x34D8, 0x34D8, 0x34D8, 0x0, 0x0 },
         0x0,
         0x0,
@@ -230,7 +234,11 @@ static const SpriteTemplate Unk_020EA0A4[] = {
         0x0,
         0x0,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x34D9, 0x34D8, 0x34D9, 0x34D9, 0x0, 0x0 },
         0x0,
         0x0,
@@ -594,7 +602,11 @@ static void sub_0203ADFC(FieldTask *taskMan)
         v3.loopAround = FALSE;
     }
 
+    #ifdef PLATFORM_DS
     menu->unk_20 = Menu_New(&v3, 28, 4, menu->unk_28, HEAP_ID_FIELD2, PAD_BUTTON_B | PAD_BUTTON_X);
+    #else
+    // TODO: Port PAD_BUTTON_X to PAL
+    #endif
 
     Window_ScheduleCopyToVRAM(&menu->unk_00);
     sub_0203B318(menu, menu->options, optionCount, TrainerInfo_Gender(SaveData_GetTrainerInfo(fieldSystem->saveData)));
@@ -798,10 +810,18 @@ static void sub_0203B318(StartMenu *menu, u8 *options, u32 optionCount, u8 gende
 
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__MENU_GRA, HEAP_ID_FIELD2);
 
+    #ifdef PLATFORM_DS
     ov5_021D32E8(&menu->unk_38, narc, menu_NCLR, 0, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov5_021D3374(&menu->unk_38, narc, cursor_cell_NCER, 0, 13528);
     ov5_021D339C(&menu->unk_38, narc, cursor_anim_NANR, 0, 13528);
+    #ifdef PLATFORM_DS
     ov5_021D3414(&menu->unk_38, narc, cursor_NCGR, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     menu->unk_200[0] = ov5_021D3584(&menu->unk_38, &Unk_020EA0A4[0]);
 
@@ -809,7 +829,11 @@ static void sub_0203B318(StartMenu *menu, u8 *options, u32 optionCount, u8 gende
 
     ov5_021D3374(&menu->unk_38, narc, icons_cell_NCER, 0, 13529);
     ov5_021D339C(&menu->unk_38, narc, icons_anim_NANR, 0, 13529);
+    #ifdef PLATFORM_DS
     ov5_021D3414(&menu->unk_38, narc, icons_NCGR, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 13529);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (i = 0; i < optionCount; i++) {
         SpriteTemplate v3;
@@ -835,7 +859,11 @@ static void sub_0203B318(StartMenu *menu, u8 *options, u32 optionCount, u8 gende
 
     menu->unk_220 = optionCount + 1;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     NARC_dtor(narc);
 }
 

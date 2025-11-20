@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV4_021D0D80_H
 #define POKEPLATINUM_OV4_021D0D80_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <dwc.h>
 #endif

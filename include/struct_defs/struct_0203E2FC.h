@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0203E2FC_H
 #define POKEPLATINUM_STRUCT_0203E2FC_H
 
+#include "platform/platform_types.h"
+
 #include "game_options.h"
 #include "pokemon.h"
 #include "trainer_info.h"

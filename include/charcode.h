@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef u16 charcode_t;
 
 charcode_t *CharCode_SkipFormatArg(const charcode_t *cstr);

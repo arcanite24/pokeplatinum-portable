@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_02231428_H
 #define POKEPLATINUM_STRUCT_OV66_02231428_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     union {
         u32 unk_00_val1;

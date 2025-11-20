@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HARDWARE_WINDOW_H
 #define POKEPLATINUM_HARDWARE_WINDOW_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx/gx.h>
 #else

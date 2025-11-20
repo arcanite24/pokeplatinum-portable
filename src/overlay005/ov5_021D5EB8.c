@@ -381,7 +381,11 @@ UnkStruct_ov5_021D5EF8 *ov5_021D5EB8(FieldSystem *fieldSystem)
     v0->unk_14 = NULL;
     v0->unk_10 = 31;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     return v0;
 }
@@ -775,7 +779,11 @@ static void ov5_021D61D0(UnkStruct_ov5_021D61D0 *param0)
     v0.sizeView.x = (255 << FX32_SHIFT);
     v0.sizeView.y = (192 << FX32_SHIFT);
 
+    #ifdef PLATFORM_DS
     RenderOam_InitSurface(&param0->unk_C0, &v0, NNS_G2D_SURFACETYPE_MAIN2D, &param0->unk_14);
+    #else
+    // TODO: Port NNS_G2D_SURFACETYPE_MAIN2D to PAL
+    #endif
 
     for (v1 = 0; v1 < 4; v1++) {
         param0->unk_00[v1] = SpriteResourceCollection_New(31, v1, HEAP_ID_FIELD1);
@@ -884,8 +892,16 @@ void ov5_021D63A4(UnkStruct_ov5_021D6594 **param0)
 
         ov5_021D57FC((*param0)->fieldSystem->unk_48, 1, 0, 0, 0, 0);
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(1);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         ov5_021D62BC(&(*param0)->unk_08);
 
@@ -958,7 +974,19 @@ int ov5_021D64D0(UnkStruct_ov5_021D6594 *param0, int param1)
 
 static void ov5_021D64E4(int param0, int param1)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BD, param0, param1);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 static void ov5_021D64FC(UnkStruct_ov5_021D64FC *param0, int param1, int param2, int param3)
@@ -1161,7 +1189,11 @@ static BOOL ov5_021D676C(UnkStruct_ov5_021D6594 *param0, int param1, int param2,
     v0->unk_08->unk_0C.unk_38 = &v0->unk_08->unk_0C;
     v0->unk_08->unk_BA4 = param3;
     v0->unk_08->unk_B9C = 0;
+    #ifdef PLATFORM_DS
     v0->unk_08->unk_B8C = *(NNS_G3dGlbGetCameraTarget());
+    #else
+    // TODO: Port NNS_G3dGlbGetCameraTarget to PAL
+    #endif
 
     if (v0->unk_04 > 0) {
         v0->unk_08->unk_B98 = Heap_Alloc(HEAP_ID_FIELD1, v0->unk_04);
@@ -1171,10 +1203,22 @@ static BOOL ov5_021D676C(UnkStruct_ov5_021D6594 *param0, int param1, int param2,
     }
 
     if (v0->unk_02 != 0xffff) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(1);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(2);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
     }
 
     return 1;
@@ -1205,11 +1249,27 @@ static void ov5_021D68B8(UnkStruct_ov5_021D6594 *param0, int param1)
     UnkStruct_ov5_021D69B8 *v0 = param0->unk_00 + param1;
 
     if (v0->unk_02 != 0xffff) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(1);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
     }
 
     if (v0->unk_0C != NULL) {
@@ -1259,11 +1319,27 @@ static void ov5_021D68B8(UnkStruct_ov5_021D6594 *param0, int param1)
 static void ov5_021D69B8(UnkStruct_ov5_021D69B8 *param0)
 {
     if (param0->unk_02 != 0xffff) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(1);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
     }
 
     if (param0->unk_08 != NULL) {
@@ -1485,7 +1561,11 @@ static void ov5_021D6D84(UnkStruct_ov5_021D6594 *param0, int param1)
     if (param1 != 0xffff) {
         v0.unk_00 = NARC_AllocAndReadWholeMember(param0->unk_144, param0->unk_04[param1].unk_00, 4);
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedPaletteData(v0.unk_00, &v0.unk_14);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
 
         Bg_LoadPalette(2, v0.unk_14->pRawData, 32, 32 * 6);
         Heap_Free(v0.unk_00);
@@ -1501,7 +1581,11 @@ static void ov5_021D6DCC(UnkStruct_ov5_021D6594 *param0, int param1)
     if (param1 != 0xffff) {
         v0.unk_04 = NARC_AllocAndReadWholeMember(param0->unk_144, param0->unk_04[param1].unk_04, 4);
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(v0.unk_04, &v0.unk_10);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
 
         Bg_LoadTiles(param0->fieldSystem->bgConfig, 2, v0.unk_10->pRawData, v0.unk_10->szByte, 0);
         Heap_Free(v0.unk_04);
@@ -1515,12 +1599,20 @@ static void ov5_021D6E20(UnkStruct_ov5_021D6594 *param0, int param1)
     UnkStruct_ov5_021D6D84 v0;
 
     if (param1 != 0xffff) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0.unk_08 = NARC_AllocAndReadWholeMember(param0->unk_144, param0->unk_04[param1].unk_08, 4);
         GF_ASSERT(v0.unk_08);
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedScreenData(v0.unk_08, &v0.unk_0C);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
 
         Bg_CopyTilemapBufferRangeToVRAM(param0->fieldSystem->bgConfig, 2, (void *)v0.unk_0C->rawData, v0.unk_0C->szByte, 0);
         Bg_LoadTilemapBuffer(param0->fieldSystem->bgConfig, 2, (void *)v0.unk_0C->rawData, v0.unk_0C->szByte);
@@ -1652,7 +1744,11 @@ static void ov5_021D7028(fx32 *param0, fx32 *param1, UnkStruct_ov5_021DB4B8 *par
     int v7;
     fx32 v8;
 
+    #ifdef PLATFORM_DS
     v0 = *(NNS_G3dGlbGetCameraTarget());
+    #else
+    // TODO: Port NNS_G3dGlbGetCameraTarget to PAL
+    #endif
     v5 = (v0.x - param2->unk_B8C.x);
     v6 = (v0.z - param2->unk_B8C.z);
     v8 = FX_Div(FX32_CONST(4), FX32_CONST(3));
@@ -1871,7 +1967,11 @@ static int ov5_021D735C(UnkStruct_ov5_021D7308 *param0, UnkStruct_ov5_021D7480 *
 
 static void ov5_021D7384(UnkStruct_ov5_021D57D8 *param0, int param1, int param2, GXRgb param3)
 {
+    #ifdef PLATFORM_DS
     ov5_021D57FC(param0, 0xffffffff, 1, GX_FOGBLEND_COLOR_ALPHA, param1, param2);
+    #else
+    // TODO: Port GX_FOGBLEND_COLOR_ALPHA to PAL
+    #endif
     ov5_021D5834(param0, 0xffffffff, param3, 31);
 }
 
@@ -1888,9 +1988,21 @@ static void ov5_021D73B0(UnkStruct_ov5_021D7308 *param0, UnkStruct_ov5_021D57D8 
     param0->unk_00 = param1;
 
     ov5_021D64FC(&param0->unk_04, v1, param3, param5);
+    #ifdef PLATFORM_DS
     ov5_021D64FC(&param0->unk_18, (((v2) >> GX_RGB_R_SHIFT) & 0x1f), (((param4) >> GX_RGB_R_SHIFT) & 0x1f), param5);
+    #else
+    // TODO: Port GX_RGB_R_SHIFT to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov5_021D64FC(&param0->unk_2C, (((v2) >> GX_RGB_G_SHIFT) & 0x1f), (((param4) >> GX_RGB_G_SHIFT) & 0x1f), param5);
+    #else
+    // TODO: Port GX_RGB_G_SHIFT to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov5_021D64FC(&param0->unk_40, (((v2) >> GX_RGB_B_SHIFT) & 0x1f), (((param4) >> GX_RGB_B_SHIFT) & 0x1f), param5);
+    #else
+    // TODO: Port GX_RGB_B_SHIFT to PAL
+    #endif
     ov5_021D64FC(&param0->unk_54, v0, param2, param5);
 }
 
@@ -1902,7 +2014,11 @@ static BOOL ov5_021D7434(UnkStruct_ov5_021D7308 *param0)
     ov5_021D650C(&param0->unk_2C);
     ov5_021D650C(&param0->unk_40);
     ov5_021D650C(&param0->unk_54);
+    #ifdef PLATFORM_DS
     ov5_021D7384(param0->unk_00, param0->unk_54.unk_00, param0->unk_04.unk_00, GX_RGB(param0->unk_18.unk_00, param0->unk_2C.unk_00, param0->unk_40.unk_00));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     return v0;
 }
@@ -2100,7 +2216,11 @@ static void ov5_021D7658(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v2->unk_00, v0, 1, 8, 4, 0, -1, 1, 1, ov5_021D78A4);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_4C, &v2->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + 0x300, GX_RGB(26, 26, 26), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v2->unk_B4[0] = 0;
 
@@ -2125,7 +2245,11 @@ static void ov5_021D7658(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v2->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_1C.unk_00, 3, 0x6F6F + 0x300, GX_RGB(26, 26, 26));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
 
             ov5_021D74D4(&v2->unk_1C);
         }
@@ -2296,7 +2420,11 @@ static void ov5_021D79F0(SysTask *param0, void *param1)
         ov5_021D7210(&v3->unk_00, v0, 1, 24, 1, 14, -5, 1, 0, ov5_021D7C40);
         v3->unk_B4[1] = 0;
 
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v3->unk_4C, &v3->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + 0x300, GX_RGB(26, 26, 26), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v3->unk_B4[0] = 16;
 
         v0->unk_BA2 = 1;
@@ -2322,7 +2450,11 @@ static void ov5_021D79F0(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v3->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v3->unk_1C.unk_00, 3, 0x6F6F + 0x300, GX_RGB(26, 26, 26));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v3->unk_1C);
         }
 
@@ -2533,7 +2665,11 @@ static void ov5_021D7E54(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v2->unk_00, v0, 1, 30, 6, 3, -5, 2, 1, ov5_021D8098);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_4C, &v2->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + -0x200, GX_RGB(24, 24, 24), 2, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v2->unk_B4[0] = 8;
         v2->unk_B4[1] = 0;
@@ -2557,7 +2693,11 @@ static void ov5_021D7E54(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v2->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_1C.unk_00, 3, 0x6F6F + -0x200, GX_RGB(24, 24, 24));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v2->unk_1C);
         }
 
@@ -2721,7 +2861,11 @@ static void ov5_021D823C(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v2->unk_00, v0, 1, 30, 6, 3, -5, 2, 1, ov5_021D8098);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_4C, &v2->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F, GX_RGB(24, 24, 24), 2, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v2->unk_B4[0] = 8;
         v2->unk_B4[1] = 0;
@@ -2750,7 +2894,11 @@ static void ov5_021D823C(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v2->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_1C.unk_00, 3, 0x6F6F, GX_RGB(24, 24, 24));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
 
             ov5_021D74D4(&v2->unk_1C);
         }
@@ -2822,7 +2970,11 @@ static void ov5_021D823C(SysTask *param0, void *param1)
         ov5_021D700C(v0);
 
         v2->unk_B4[2] = (v2->unk_B4[2] + 6) % 256;
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(v2->unk_B4[2], -v2->unk_B4[2]);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
     }
 }
 
@@ -2837,7 +2989,11 @@ static void ov5_021D84D4(SysTask *param0, void *param1)
 
     switch (v0->unk_BA2) {
     case 0:
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_30, &v2->unk_00, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + 0x200, GX_RGB(26, 26, 26), 2, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v2->unk_98[0] = 16;
 
         v0->unk_BA2 = 1;
@@ -2856,7 +3012,11 @@ static void ov5_021D84D4(SysTask *param0, void *param1)
     case 2:
         if (v0->unk_BA4 != 0) {
             v2->unk_00.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_00.unk_00, 3, 0x6F6F + 0x200, GX_RGB(26, 26, 26));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v2->unk_00);
         }
 
@@ -2913,7 +3073,11 @@ static void ov5_021D8638(SysTask *param0, void *param1)
 
     switch (v0->unk_BA2) {
     case 0:
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_30, &v2->unk_00, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + -0x9E0, GX_RGB(26, 26, 26), 2, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v2->unk_98[0] = 16;
         v0->unk_BA2 = 1;
         break;
@@ -2931,7 +3095,11 @@ static void ov5_021D8638(SysTask *param0, void *param1)
     case 2:
         if (v0->unk_BA4 != 0) {
             v2->unk_00.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_00.unk_00, 3, 0x6F6F + -0x9E0, GX_RGB(26, 26, 26));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v2->unk_00);
         }
 
@@ -2988,11 +3156,23 @@ static void ov5_021D879C(SysTask *param0, void *param1)
 
     switch (v0->unk_BA2) {
     case 0:
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v1->unk_44, &v1->unk_14, v0->unk_00->fieldSystem->unk_48, 5, 0x6F6F + 0xAA0, GX_RGB(31, 31, 31), 2, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         ov5_021D64FC(&v1->unk_00, 0, 16, 30);
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 1;
         break;
     case 1:
@@ -3008,13 +3188,25 @@ static void ov5_021D879C(SysTask *param0, void *param1)
     case 2:
         if (v0->unk_BA4 != 0) {
             v1->unk_14.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v1->unk_14.unk_00, 5, 0x6F6F + 0xAA0, GX_RGB(31, 31, 31));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v1->unk_14);
         }
 
         ov5_021D64E4(16, 16 - 16);
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_BA2 = 3;
         break;
@@ -3071,7 +3263,11 @@ static void ov5_021D8948(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v2->unk_00, v0, 1, 15, 8, 1, -2, 4, 2, ov5_021D8B88);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_4C, &v2->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 28399, GX_RGB(26, 20, 5), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v2->unk_B4[0] = 0;
         v2->unk_B4[1] = 0;
         v0->unk_BA2 = 1;
@@ -3094,7 +3290,11 @@ static void ov5_021D8948(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v2->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_1C.unk_00, 3, 28399, GX_RGB(26, 20, 5));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v2->unk_1C);
         }
 
@@ -3261,7 +3461,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v5->unk_00, v0, 1, 15, 8, 1, -2, 4, 2, ov5_021D8B88);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v5->unk_4C, &v5->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 28399, GX_RGB(26, 20, 5), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v5->unk_B4[0] = 0;
         v5->unk_B4[1] = 0;
         v5->unk_B4[2] = 0;
@@ -3278,7 +3482,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
 
             if ((v7 == 1) && (v6 == 3)) {
                 v0->unk_BA2 = 3;
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
         }
         break;
@@ -3287,7 +3495,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v5->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v5->unk_1C.unk_00, 3, 28399, GX_RGB(26, 20, 5));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v5->unk_1C);
         }
 
@@ -3297,7 +3509,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
 
         ov5_021D7568(v0, ov5_021D8B88, 24, 2, 2, ov5_021D8C90);
         v0->unk_BA2 = 3;
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
     case 3:
         if (v5->unk_00.unk_06-- <= 0) {
@@ -3323,7 +3539,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
             v5->unk_B4[0] = 31;
             v0->unk_BA2 = 4;
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         }
         break;
     case 4:
@@ -3365,7 +3585,11 @@ static void ov5_021D8D08(SysTask *param0, void *param1)
         ov5_021D700C(v0);
 
         v5->unk_B4[2] = (v5->unk_B4[2] + 6) % 256;
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(v5->unk_B4[2] * 2 - v3, -v5->unk_B4[2] + v4);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
     }
 }
 
@@ -3384,7 +3608,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v5->unk_00, v0, 1, 30, 10, 1, -4, 2, 3, ov5_021D92C4);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v5->unk_4C, &v5->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + -0x400, GX_RGB(24, 24, 24), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v5->unk_B4[0] = 16;
         v5->unk_B4[1] = 0;
         v5->unk_B4[2] = 0;
@@ -3400,7 +3628,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
 
             if ((v7 == 1) && (v6 == 3)) {
                 v0->unk_BA2 = 3;
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
         }
         break;
@@ -3409,7 +3641,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v5->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v5->unk_1C.unk_00, 3, 0x6F6F + -0x400, GX_RGB(24, 24, 24));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v5->unk_1C);
         }
 
@@ -3418,7 +3654,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
 
         ov5_021D7568(v0, ov5_021D92C4, 20, 2, 2, ov5_021D93DC);
         v0->unk_BA2 = 3;
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
     case 3:
         if (v5->unk_00.unk_06-- <= 0) {
@@ -3444,7 +3684,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
             v5->unk_B4[0] = 20;
             v0->unk_BA2 = 4;
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         }
         break;
     case 4:
@@ -3484,7 +3728,11 @@ static void ov5_021D8FF8(SysTask *param0, void *param1)
         ov5_021D6FF0(&v0->unk_0C, ov5_021D93DC);
         ov5_021D700C(v0);
         v5->unk_B4[2] = (v5->unk_B4[2] + 12) % 256;
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(v5->unk_B4[2] * 2, -v5->unk_B4[2]);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
     }
 }
 
@@ -3590,7 +3838,11 @@ static void ov5_021D9464(SysTask *param0, void *param1)
     switch (v0->unk_BA2) {
     case 0:
         ov5_021D7210(&v2->unk_00, v0, 2, 16, 20, 2, -2, 4, 2, ov5_021D9690);
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v2->unk_4C, &v2->unk_1C, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + 0x200, GX_RGB(26, 26, 26), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         v2->unk_B4[0] = 0;
         v0->unk_BA2 = 1;
         break;
@@ -3612,7 +3864,11 @@ static void ov5_021D9464(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v2->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v2->unk_1C.unk_00, 3, 0x6F6F + 0x200, GX_RGB(26, 26, 26));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v2->unk_1C);
         }
 
@@ -3778,8 +4034,16 @@ static void ov5_021D97E8(SysTask *param0, void *param1)
         v2[1] = 0;
 
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(0, 32);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_BA2 = 1;
         break;
@@ -3804,7 +4068,11 @@ static void ov5_021D97E8(SysTask *param0, void *param1)
         v2[0] = 0;
         v2[1] = 10;
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(0, 32);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
         ov5_021D64E4(v2[1], 16);
 
         v2[2] = 10 + (MTRNG_Next() % 20);
@@ -3870,7 +4138,11 @@ static void ov5_021D97E8(SysTask *param0, void *param1)
 static void ov5_021D9984(UnkStruct_ov5_021DB4B8 *param0, UnkStruct_ov5_021D9984 *param1)
 {
     ov5_021D7210(&param1->unk_00, param0, 1, 15, 10, 0, -3, 2, 1, ov5_021DA0A8);
+    #ifdef PLATFORM_DS
     ov5_021D7308(&param1->unk_4C, &param1->unk_1C, param0->unk_00->fieldSystem->unk_48, 3, 0x6F6F, GX_RGB(26, 26, 26), 1, param0->unk_BA4);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     param1->unk_B4[0] = 0;
     param1->unk_B4[1] = 0;
@@ -3905,7 +4177,11 @@ static void ov5_021D9A58(UnkStruct_ov5_021DB4B8 *param0, UnkStruct_ov5_021D9984 
 
     if (param0->unk_BA4 != 0) {
         param1->unk_1C.unk_00 = param0->unk_00->fieldSystem->unk_48;
+        #ifdef PLATFORM_DS
         ov5_021D7384(param1->unk_1C.unk_00, 3, 0x6F6F, GX_RGB(26, 26, 26));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         ov5_021D74D4(&param1->unk_1C);
     }
 
@@ -3997,11 +4273,19 @@ static void ov5_021D9C20(SysTask *param0, void *param1, u32 param2, u32 param3, 
     switch (v0->unk_BA2) {
     case 0:
         if (v0->unk_BA4 != 0) {
+            #ifdef PLATFORM_DS
             ov5_021D7384(v0->unk_00->fieldSystem->unk_48, 5, 28591, (GX_RGB(0, 0, 0)));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D585C(v0->unk_00->fieldSystem->unk_48, Unk_ov5_021F8E14);
             ov5_021D64E4(param2, 16 - param2);
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
 
             v2->unk_98[0] = param4;
             v2->unk_98[1] = 0;
@@ -4014,10 +4298,18 @@ static void ov5_021D9C20(SysTask *param0, void *param1, u32 param2, u32 param3, 
         break;
     case 2:
         if (v0->unk_BA4 != 0) {
+            #ifdef PLATFORM_DS
             ov5_021D7384(v0->unk_00->fieldSystem->unk_48, 5, 28591, (GX_RGB(0, 0, 0)));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D585C(v0->unk_00->fieldSystem->unk_48, Unk_ov5_021F8E14);
             ov5_021D64E4(param2, 16 - param2);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
             v2->unk_98[0] = param4;
             v2->unk_98[1] = 0;
         }
@@ -4053,7 +4345,11 @@ static void ov5_021D9C20(SysTask *param0, void *param1, u32 param2, u32 param3, 
         break;
     case 4:
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 5;
         break;
     case 5:
@@ -4333,7 +4629,11 @@ static void ov5_021DA244(SysTask *param0, void *param1)
         v7->unk_B4[4] = 0;
         v7->unk_B4[5] = 0;
 
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v7->unk_4C, &v7->unk_1C, v0->unk_00->fieldSystem->unk_48, 3 + 0, 0x6F6F + -0x40, GX_RGB(20, 20, 14), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v7->unk_B4[0] = 0;
         v0->unk_BA2 = 1;
@@ -4348,7 +4648,11 @@ static void ov5_021DA244(SysTask *param0, void *param1)
 
             if ((v9 == 1) && (v8 == 3)) {
                 v0->unk_BA2 = 3;
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
             }
         }
 
@@ -4363,13 +4667,21 @@ static void ov5_021DA244(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v7->unk_1C.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v7->unk_1C.unk_00, 3, 0x6F6F + -0x40, GX_RGB(20, 20, 14));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v7->unk_1C);
         }
 
         ov5_021D7568(v0, ov5_021DA5A0, 20, 2, 16, ov5_021DA6BC);
         v0->unk_BA2 = 3;
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
     case 3:
         if (v7->unk_00.unk_06-- <= 0) {
@@ -4388,7 +4700,11 @@ static void ov5_021DA244(SysTask *param0, void *param1)
             v0->unk_BA2 = 4;
             v7->unk_B4[5] = 1;
 
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
         }
         break;
     case 4:
@@ -4455,7 +4771,11 @@ static void ov5_021DA244(SysTask *param0, void *param1)
         }
 
         v6 = (v6 + 2) % 2048;
+        #ifdef PLATFORM_DS
         G2_SetBG2Offset(v5, -v6 / 5);
+        #else
+        // TODO: Port G2_SetBG2Offset to PAL
+        #endif
 
         v7->unk_B4[2] = v5 << 16;
         v7->unk_B4[2] |= v6 & 0xffff;
@@ -4579,7 +4899,11 @@ static void ov5_021DA748(SysTask *param0, void *param1)
         v1[1] = 0;
 
         ov5_021D64E4(0, 31);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_BA2 = 3;
         break;
@@ -4815,9 +5139,17 @@ static void ov5_021DAB78(SysTask *param0, void *param1)
         ov5_021D64FC(&v1->unk_00, 0, 16, 8);
         ov5_021D64E4(0, 16);
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 1;
         break;
     case 1:
@@ -4832,8 +5164,16 @@ static void ov5_021DAB78(SysTask *param0, void *param1)
         break;
     case 2:
         ov5_021D64E4(16, 16 - 16);
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_BA2 = 3;
         break;
@@ -4873,7 +5213,11 @@ static void ov5_021DAC68(SysTask *param0, void *param1)
     case 0:
         ov5_021D64FC(&v1->unk_00, 0, 4, 8);
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 1;
         break;
     case 1:
@@ -4886,7 +5230,11 @@ static void ov5_021DAC68(SysTask *param0, void *param1)
         break;
     case 2:
         ov5_021D64E4(4, 16 - 4);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 3;
         break;
     case 3:
@@ -4923,10 +5271,18 @@ static void ov5_021DAD38(SysTask *param0, void *param1)
 
     switch (v0->unk_BA2) {
     case 0:
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v1->unk_44, &v1->unk_14, v0->unk_00->fieldSystem->unk_48, 7, 30287, (GX_RGB(0, 0, 0)), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         ov5_021D64FC(&v1->unk_00, 0, 9, 30);
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 1;
         break;
     case 1:
@@ -4942,12 +5298,20 @@ static void ov5_021DAD38(SysTask *param0, void *param1)
     case 2:
         if (v0->unk_BA4 != 0) {
             v1->unk_14.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v1->unk_14.unk_00, 7, 30287, (GX_RGB(0, 0, 0)));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v1->unk_14);
         }
 
         ov5_021D64E4(9, 16 - 9);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_BA2 = 3;
         break;
@@ -5001,10 +5365,18 @@ static void ov5_021DAEC0(SysTask *param0, void *param1)
 
     switch (v0->unk_BA2) {
     case 0:
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v1->unk_44, &v1->unk_14, v0->unk_00->fieldSystem->unk_48, 6, 30037, (GX_RGB(31, 31, 31)), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         ov5_021D64FC(&v1->unk_00, 0, 9, 30);
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 1;
         break;
     case 1:
@@ -5020,12 +5392,20 @@ static void ov5_021DAEC0(SysTask *param0, void *param1)
     case 2:
         if (v0->unk_BA4 != 0) {
             v1->unk_14.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v1->unk_14.unk_00, 6, 30037, (GX_RGB(31, 31, 31)));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v1->unk_14);
         }
 
         ov5_021D64E4(9, 16 - 9);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 3;
         break;
     case 3:
@@ -5084,13 +5464,21 @@ static void ov5_021DB04C(SysTask *param0, void *param1)
         break;
     case 1:
         if (ov5_021DB700(&v1->unk_00) == 1) {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
             ov5_021DB7A4(&v1->unk_00);
             v0->unk_BA2 = 3;
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         v0->unk_BA2 = 3;
         break;
     case 3:
@@ -5101,7 +5489,11 @@ static void ov5_021DB04C(SysTask *param0, void *param1)
         }
         break;
     case 4:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         if (ov5_021DB700(&v1->unk_00) == 1) {
             v0->unk_BA2 = 5;
@@ -5132,8 +5524,16 @@ static void ov5_021DB144(SysTask *param0, void *param1)
     case 0:
         ov5_021D64FC(&v1->unk_00, 0, 7, 8);
         ov5_021D64E4(0, 16);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         ov5_021D7308(&v1->unk_44, &v1->unk_14, v0->unk_00->fieldSystem->unk_48, 3, 0x6F6F + -1600, (GX_RGB(31, 31, 31)), 1, v0->unk_BA4);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
 
         v1->unk_AC = 0;
         v1->unk_B0 = 0;
@@ -5155,11 +5555,19 @@ static void ov5_021DB144(SysTask *param0, void *param1)
 
         if (v0->unk_BA4 != 0) {
             v1->unk_14.unk_00 = v0->unk_00->fieldSystem->unk_48;
+            #ifdef PLATFORM_DS
             ov5_021D7384(v1->unk_14.unk_00, 3, 0x6F6F + -1600, (GX_RGB(31, 31, 31)));
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
             ov5_021D74D4(&v1->unk_14);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v1->unk_AC = 0;
         v1->unk_B0 = 0;
@@ -5243,7 +5651,11 @@ static void ov5_021DB3E0(SysTask *param0, void *param1)
     UnkStruct_ov5_021DB4B8 *v0 = (UnkStruct_ov5_021DB4B8 *)param1;
     UnkStruct_ov5_021D84D4 *v1 = (UnkStruct_ov5_021D84D4 *)v0->unk_B98;
 
+    #ifdef PLATFORM_DS
     ov5_021D9DFC(v0, v1, 3, 26095, (GX_RGB(2, 2, 6)), 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov5_021DB40C(SysTask *param0, void *param1)
@@ -5251,7 +5663,11 @@ static void ov5_021DB40C(SysTask *param0, void *param1)
     UnkStruct_ov5_021DB4B8 *v0 = (UnkStruct_ov5_021DB4B8 *)param1;
     UnkStruct_ov5_021D84D4 *v1 = (UnkStruct_ov5_021D84D4 *)v0->unk_B98;
 
+    #ifdef PLATFORM_DS
     ov5_021D9DFC(v0, v1, 2, 26415, (GX_RGB(13, 25, 30)), 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov5_021DB438(SysTask *param0, void *param1)
@@ -5259,7 +5675,11 @@ static void ov5_021DB438(SysTask *param0, void *param1)
     UnkStruct_ov5_021DB4B8 *v0 = (UnkStruct_ov5_021DB4B8 *)param1;
     UnkStruct_ov5_021D84D4 *v1 = (UnkStruct_ov5_021D84D4 *)v0->unk_B98;
 
+    #ifdef PLATFORM_DS
     ov5_021D9DFC(v0, v1, 2, 26415, (GX_RGB(20, 0, 0)), 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov5_021DB460(SysTask *param0, void *param1)
@@ -5267,7 +5687,11 @@ static void ov5_021DB460(SysTask *param0, void *param1)
     UnkStruct_ov5_021DB4B8 *v0 = (UnkStruct_ov5_021DB4B8 *)param1;
     UnkStruct_ov5_021D84D4 *v1 = (UnkStruct_ov5_021D84D4 *)v0->unk_B98;
 
+    #ifdef PLATFORM_DS
     ov5_021D9DFC(v0, v1, 2, 26415, (GX_RGB(0, 0, 20)), 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov5_021DB48C(SysTask *param0, void *param1)
@@ -5275,7 +5699,11 @@ static void ov5_021DB48C(SysTask *param0, void *param1)
     UnkStruct_ov5_021DB4B8 *v0 = (UnkStruct_ov5_021DB4B8 *)param1;
     UnkStruct_ov5_021D84D4 *v1 = (UnkStruct_ov5_021D84D4 *)v0->unk_B98;
 
+    #ifdef PLATFORM_DS
     ov5_021D9DFC(v0, v1, 1, 19311, (GX_RGB(1, 1, 1)), 0, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov5_021DB4B8(UnkStruct_ov5_021DB4B8 *param0, int param1)
@@ -5375,9 +5803,21 @@ static void ov5_021DB614(UnkStruct_ov5_021DB614 *param0, HBlankSystem *param1)
 
 static void ov5_021DB690(UnkStruct_ov5_021DB614 *param0)
 {
+    #ifdef PLATFORM_DS
     int v0 = GX_GetVisibleWnd();
+    #else
+    // TODO: Port GX_GetVisibleWnd to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(v0 & (~GX_WNDMASK_W1));
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
     HBlankTask_Delete(param0->unk_18);
 
     SysTask_Done(param0->unk_24);
@@ -5425,7 +5865,11 @@ static void ov5_021DB72C(HBlankTask *param0, void *param1)
     int v2;
     int v3;
 
+    #ifdef PLATFORM_DS
     v2 = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     for (v3 = 0; v3 < 2; v3++) {
         v1[v3] = BufferManager_GetReadBuffer(v0->bufferManagers[v3]);
@@ -5438,8 +5882,16 @@ static void ov5_021DB72C(HBlankTask *param0, void *param1)
             v2 -= 192;
         }
 
+        #ifdef PLATFORM_DS
         if (GX_IsHBlank()) {
+        #else
+        // TODO: Port GX_IsHBlank to PAL
+        #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd1Position(v1[0][v2], 0, v1[1][v2], 192);
+            #else
+            // TODO: Port G2_SetWnd1Position to PAL
+            #endif
         }
     }
 }
@@ -5482,13 +5934,49 @@ static void ov5_021DB7CC(UnkStruct_ov5_021DB614 *param0)
 static void ov5_021DB7F8(SysTask *param0, void *param1)
 {
     UnkStruct_ov5_021DB614 *v0 = param1;
+    #ifdef PLATFORM_DS
     GXWndPlane v1 = G2_GetWndOutsidePlane();
+    #else
+    // TODO: Port G2_GetWndOutsidePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     int v2 = GX_GetVisibleWnd();
+    #else
+    // TODO: Port GX_GetVisibleWnd to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd1InsidePlane to PAL
+    #endif
     G2_SetWnd1InsidePlane((GX_BLEND_ALL), 1);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane((GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), v1.effect);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd1Position(0, 0, 255, 192);
+    #else
+    // TODO: Port G2_SetWnd1Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(v2 | GX_WNDMASK_W1);
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
 
     v0->unk_18 = HBlankSystem_StartTask(v0->unk_14, ov5_021DB72C, v0);
 

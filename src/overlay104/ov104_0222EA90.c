@@ -52,7 +52,11 @@ static void ov104_0222ECE4(UnkStruct_ov104_0223C4CC *param0, void **param1);
 
 static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
         ov104_0222EBBC,
         ov104_0222EBCC,
         0x4,
@@ -70,7 +74,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
         NULL,
         NULL,
         0x0,
@@ -88,7 +96,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
         NULL,
         NULL,
         0x5,
@@ -106,7 +118,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EC5C,
         ov104_0222EC70,
         0x1,
@@ -124,7 +140,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x0,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EC74,
         ov104_0222EC8C,
         0x1,
@@ -142,7 +162,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x6,
@@ -160,7 +184,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x7,
@@ -178,7 +206,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x8,
@@ -196,7 +228,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x9,
@@ -214,7 +250,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x3,
@@ -232,7 +272,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EBD8,
         ov104_0222EC0C,
         0x3,
@@ -250,7 +294,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x0,
@@ -268,7 +316,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222ECAC,
         ov104_0222ECE4,
         0x0,
@@ -286,7 +338,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         NULL,
         NULL,
         0x0,
@@ -304,7 +360,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EC90,
         ov104_0222ECA0,
         0xA,
@@ -322,7 +382,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EC18,
         ov104_0222EC1C,
         0x2,
@@ -340,7 +404,11 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
     },
     {
+        #ifdef PLATFORM_DS
         GX_BGMODE_5,
+        #else
+        // TODO: Port GX_BGMODE_5 to PAL
+        #endif
         ov104_0222EC20,
         ov104_0222EC58,
         0x2,
@@ -427,7 +495,11 @@ static void ov104_0222EBD8(UnkStruct_ov104_0223C4CC *param0, void **param1)
     Bg_SetPriority(BG_LAYER_MAIN_0, 1);
     Bg_SetPriority(BG_LAYER_MAIN_2, 2);
     Bg_SetPriority(BG_LAYER_MAIN_3, 3);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     return;
 }
@@ -454,8 +526,24 @@ static void ov104_0222EC20(UnkStruct_ov104_0223C4CC *param0, void **param1)
     Bg_SetPriority(BG_LAYER_MAIN_2, 2);
     Bg_SetPriority(BG_LAYER_MAIN_3, 3);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 20, 20);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     return;
 }
@@ -479,7 +567,19 @@ static void ov104_0222EC70(UnkStruct_ov104_0223C4CC *param0, void **param1)
 
 static void ov104_0222EC74(UnkStruct_ov104_0223C4CC *param0, void **param1)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 20, 20);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
     return;
 }
 
@@ -507,7 +607,19 @@ static void ov104_0222ECAC(UnkStruct_ov104_0223C4CC *param0, void **param1)
     Bg_SetPriority(BG_LAYER_MAIN_2, 2);
     Bg_SetPriority(BG_LAYER_MAIN_3, 3);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 20, 20);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
     return;
 }
 

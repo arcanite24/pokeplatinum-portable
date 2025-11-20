@@ -268,7 +268,11 @@ int ov22_02255E50(ApplicationManager *appMan, int *param1)
         }
         break;
     case 5:
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) | (gSystem.touchPressed)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ov22_0225A628(&v0->unk_5C4, 26, 385, 48);
             RenderControlFlags_SetSpeedUpOnTouch(FALSE);
             (*param1)++;
@@ -438,8 +442,16 @@ int ov22_02256174(ApplicationManager *appMan, int *param1)
 
     SpriteList_SetActive(v0->unk_00.unk_44, 0);
     sub_02039734();
+    #ifdef PLATFORM_DS
     ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE_2DMAIN, GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ReserveSlotsForWirelessIconPalette(NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     ov22_02259484(&v0->unk_3C0, (700 + 1 + 18), HEAP_ID_13);
 
@@ -616,7 +628,15 @@ int ov22_022562EC(ApplicationManager *appMan, int *param1)
             v0->unk_70C = 10;
             v1 = 1;
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_NONE);
+            #else
+            // TODO: Port GX_WNDMASK_NONE to PAL
+            #endif
             ov22_02257AB0(&v0->unk_458, -(8 * 8), (5 * 8));
         }
         break;
@@ -791,10 +811,26 @@ static void ov22_022568B8(UnkStruct_ov22_02255D44 *param0)
 
 static void ov22_022568DC(UnkStruct_ov22_02255D44 *param0)
 {
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(0);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(2);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(3);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 
     Bg_SetOffset(param0->unk_00.unk_40, 3, 3, -16);
 
@@ -990,7 +1026,11 @@ static void ov22_02256C70(SysTask *param0, void *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(8, -16, 0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         v0->unk_0C++;
         break;
     case 3:
@@ -1022,7 +1062,11 @@ static void ov22_02256C70(SysTask *param0, void *param1)
         v0->unk_0C++;
         break;
     case 7:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(8, 0, -16, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         v0->unk_0C++;
         break;
     case 8:
@@ -1059,7 +1103,11 @@ static void ov22_02256DE0(SysTask *param0, void *param1)
 
     switch (v0->unk_0C) {
     case 0:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(8, -16, 0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         v0->unk_0C++;
         break;
     case 1:
@@ -1093,7 +1141,11 @@ static void ov22_02256DE0(SysTask *param0, void *param1)
         }
         break;
     case 5:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(8, 0, -16, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         v0->unk_0C++;
         break;
     case 6:
@@ -1239,16 +1291,52 @@ static void ov22_02257104(UnkStruct_ov22_02255D44 *param0)
 
     ov22_022574F4(param0, 0);
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(1);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(3);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(0);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     ResetScreenMasterBrightness(DS_SCREEN_MAIN);
 }
 
@@ -1262,10 +1350,26 @@ static void ov22_0225718C(UnkStruct_ov22_02255D44 *param0)
 
     SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);
     SpriteList_SetActive(param0->unk_00.unk_44, 1);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov22_022571D4(UnkStruct_ov22_02255D44 *param0)
@@ -1286,10 +1390,26 @@ static void ov22_022571D4(UnkStruct_ov22_02255D44 *param0)
     sub_02015958(param0->unk_714, &v0);
     ov22_022574CC(param0, 1);
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(1);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(3);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(0);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 }
 
 static void ov22_02257258(UnkStruct_ov22_02255D44 *param0)
@@ -1494,10 +1614,26 @@ static void ov22_022575B4(UnkStruct_ov22_02255D44 *param0)
 
     ov22_022574E4(param0, 2);
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(1);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(3);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(0);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 }
 
 static u32 ov22_02257624(UnkStruct_ov22_02255D44 *param0)

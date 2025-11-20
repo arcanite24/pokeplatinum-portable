@@ -219,5 +219,13 @@ static u32 ov70_0226C87C(PPW_LOBBY_TIME_EVENT param0)
 
 static void ov70_0226C8A8(UnkStruct_ov70_0226C6F8 *param0)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(2, GX_RGB(0, 0, 0));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }

@@ -243,7 +243,11 @@ static BOOL sub_0209AE14(FieldTask *param0)
         break;
     case 12:
         if (sub_0209B100(v0)) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_PLUS_KEY_MASK)) {
+            #else
+            // TODO: Port PAD_PLUS_KEY_MASK to PAL
+            #endif
                 sub_0209B110(v0);
                 v0->unk_54 = 13;
             }
@@ -360,7 +364,11 @@ static void sub_0209B27C(UnkStruct_0209AD84 *param0)
 static int sub_0209B288(UnkStruct_0209AD84 *param0)
 {
     do {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             param0->unk_5C--;
 
             if (param0->unk_5C < 0) {
@@ -373,7 +381,11 @@ static int sub_0209B288(UnkStruct_0209AD84 *param0)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             param0->unk_5C++;
 
             if (param0->unk_5C >= param0->unk_60) {
@@ -386,12 +398,20 @@ static int sub_0209B288(UnkStruct_0209AD84 *param0)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             return param0->unk_5C;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             return param0->unk_60 - 1;
         }

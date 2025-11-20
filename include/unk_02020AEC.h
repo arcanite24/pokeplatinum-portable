@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02020AEC_H
 #define POKEPLATINUM_UNK_02020AEC_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

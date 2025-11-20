@@ -202,7 +202,11 @@ static int ov101_021D5A0C(OverworldAnimManager *param0, void *param1)
     v1->unk_00 = *v2;
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v1->unk_00.unk_00->unk_450, &v1->unk_0C, &v0, (NNS_G2D_VRAM_TYPE_2DMAIN), 0, 0, 0, 0, 0, 3, 2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     Sprite_SetAnimateFlag(v1->unk_0C.unk_04, 1);
 
     return 1;
@@ -272,7 +276,11 @@ static int ov101_021D5B44(OverworldAnimManager *param0, void *param1)
     v1->unk_00 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v1->unk_00->unk_450, &v1->unk_0C, &v0, (NNS_G2D_VRAM_TYPE_2DMAIN), 0, 1, 1, 1, 1, 1, 1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     Sprite_SetAnimateFlag(v1->unk_0C.unk_04, 1);
 
     return 1;
@@ -345,7 +353,11 @@ static int ov101_021D5C7C(OverworldAnimManager *param0, void *param1)
     v1->unk_00 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v1->unk_00->unk_450, &v1->unk_0C, &v0, (NNS_G2D_VRAM_TYPE_2DMAIN), 0, 1, 1, 1, 1, 1, 1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     Sprite_SetAnimateFlag(v1->unk_0C.unk_04, 1);
 
     return 1;
@@ -793,8 +805,16 @@ static void ov101_021D630C(UnkStruct_ov101_021D630C *param0, UnkEnum_ov101_021D5
     GF_ASSERT(param1 < UnkEnum_ov101_021D5814_05);
     v2 = &Unk_ov101_021D93D4[param1];
 
+    #ifdef PLATFORM_DS
     ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, v2->unk_00, 2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov101_021D81B4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, v2->unk_04, 2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov101_021D8288(v1->unk_450, v1->unk_438, v2->unk_08, 2);
     ov101_021D82F0(v1->unk_450, v1->unk_438, v2->unk_0C, 2);
 
@@ -840,7 +860,11 @@ static void ov101_021D6410(UnkStruct_ov101_021D13C8 *param0, UnkStruct_ov101_021
     VecFx32 v0 = { 0, 0, 0 };
     VecFx32 v1 = { 0x1000, 0x1000, 0 };
 
+    #ifdef PLATFORM_DS
     ov101_021D84A4(param0->unk_450, param1, param2, (NNS_G2D_VRAM_TYPE_2DSUB), 1, 2, 2, 2, 2, 2, 7);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Sprite_SetAffineOverwriteMode(param1->unk_04, 2);
     Sprite_SetAffineTranslation(param1->unk_04, &v0);
@@ -894,7 +918,11 @@ static void ov101_021D64FC(OverworldAnimManager *param0, void *param1)
             VecFx32 v1;
 
             OverworldAnimManager_GetPosition(param0, &v1);
+            #ifdef PLATFORM_DS
             ov101_021D84A4(v0->unk_10->unk_450, &v0->unk_14, &v1, (NNS_G2D_VRAM_TYPE_2DSUB), 1, 3, 3, 3, 3, 2, 5);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
             Sprite_SetAnimateFlag(v0->unk_14.unk_04, 1);
 
             v0->unk_00++;
@@ -961,8 +989,16 @@ static void ov101_021D65F4(UnkStruct_ov101_021D65F4 *param0)
     SysTask *v0;
     UnkStruct_ov101_021D13C8 *v1 = param0->unk_10;
 
+    #ifdef PLATFORM_DS
     ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, 44, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov101_021D81B4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, 47, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov101_021D8288(v1->unk_450, v1->unk_438, 45, 3);
     ov101_021D82F0(v1->unk_450, v1->unk_438, 46, 3);
 
@@ -1007,8 +1043,16 @@ static void ov101_021D66D0(UnkStruct_ov101_021D66D0 *param0)
     UnkStruct_ov101_021D13C8 *v1 = param0->unk_20;
     const UnkStruct_ov101_021D93D4 *v2 = &Unk_ov101_021D93A4[param0->unk_18];
 
+    #ifdef PLATFORM_DS
     ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, v2->unk_00, 4);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov101_021D81B4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, v2->unk_04, 4);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov101_021D8288(v1->unk_450, v1->unk_438, v2->unk_08, 4);
     ov101_021D82F0(v1->unk_450, v1->unk_438, v2->unk_0C, 4);
 
@@ -1102,7 +1146,11 @@ static int ov101_021D682C(UnkStruct_ov101_021D66D0 *param0)
         VecFx32 v1 = { 0, 0, 0 };
         VecFx32 v2 = { 0x1000, 0x1000, 0 };
 
+        #ifdef PLATFORM_DS
         ov101_021D84A4(param0->unk_20->unk_450, &param0->unk_24, &v0, (NNS_G2D_VRAM_TYPE_2DSUB), 1, 4, 4, 4, 4, 2, 6);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         Sprite_SetAffineOverwriteMode(param0->unk_24.unk_04, 2);
         Sprite_SetAffineTranslation(param0->unk_24.unk_04, &v1);
         Sprite_SetAffineZRotation(param0->unk_24.unk_04, CalcAngleRotationIdx_Wraparound(0));
@@ -1420,8 +1468,16 @@ static void ov101_021D6D68(UnkStruct_ov101_021D6D10 *param0)
     SysTask *v0;
     UnkStruct_ov101_021D13C8 *v1 = param0->unk_2C;
 
+    #ifdef PLATFORM_DS
     ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, 56, 5);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov101_021D81B4(v1->unk_450, (NNS_G2D_VRAM_TYPE_2DSUB), v1->unk_438, 59, 5);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov101_021D8288(v1->unk_450, v1->unk_438, 57, 5);
     ov101_021D82F0(v1->unk_450, v1->unk_438, 58, 5);
 
@@ -1502,8 +1558,16 @@ static void ov101_021D6EC8(OverworldAnimManager *param0, void *param1)
         {
             VecFx32 v1 = { 0, ((FX32_ONE * 192) + (FX32_ONE * 256)), 0 };
 
+            #ifdef PLATFORM_DS
             ov101_021D84A4(v0->unk_2C->unk_450, &v0->unk_30, &v1, (NNS_G2D_VRAM_TYPE_2DSUB), 1, 5, 5, 5, 5, 2, 4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             ov101_021D84A4(v0->unk_2C->unk_450, &v0->unk_3C, &v1, (NNS_G2D_VRAM_TYPE_2DSUB), 1, 5, 5, 5, 5, 2, 4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
             Sprite_SetFlipMode(v0->unk_3C.unk_04, 1);
             v0->unk_00++;
         }
@@ -1687,7 +1751,11 @@ static int ov101_021D7260(OverworldAnimManager *param0, void *param1)
     v1->unk_00 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v1->unk_00->unk_450, &v1->unk_04, &v0, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 6, 6, 6, 6, 2, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     Sprite_SetAnimateFlag(v1->unk_04.unk_04, 1);
 
     return 1;
@@ -1744,7 +1812,11 @@ static int ov101_021D7304(OverworldAnimManager *param0, void *param1)
     v3->unk_04 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v3->unk_04->unk_450, &v3->unk_08, &v0, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 6, 6, 6, 6, 2, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Sprite_SetAffineOverwriteMode(v3->unk_08.unk_04, 2);
     Sprite_SetAffineTranslation(v3->unk_08.unk_04, &v1);
@@ -1800,7 +1872,11 @@ static int ov101_021D73EC(OverworldAnimManager *param0, void *param1)
     v1->unk_00 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v1->unk_00->unk_450, &v1->unk_04, &v0, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 7, 6, 7, 7, 2, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     Sprite_SetAnimateFlag(v1->unk_04.unk_04, 1);
 
     return 1;
@@ -1857,7 +1933,11 @@ static int ov101_021D74A0(OverworldAnimManager *param0, void *param1)
     v3->unk_04 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     OverworldAnimManager_GetPosition(param0, &v0);
+    #ifdef PLATFORM_DS
     ov101_021D84A4(v3->unk_04->unk_450, &v3->unk_08, &v0, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 7, 6, 7, 7, 2, 3);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Sprite_SetAffineOverwriteMode(v3->unk_08.unk_04, 2);
     Sprite_SetAffineTranslation(v3->unk_08.unk_04, &v1);
@@ -1915,7 +1995,11 @@ static int ov101_021D7588(OverworldAnimManager *param0, void *param1)
     OverworldAnimManager_GetPosition(param0, &v1);
 
     for (v0 = 0; v0 < 2; v0++) {
+        #ifdef PLATFORM_DS
         ov101_021D84A4(v2->unk_00->unk_450, &v2->unk_04[v0], &v1, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 8, 6, 8, 8, 2, 3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         Sprite_SetDrawFlag(v2->unk_04[v0].unk_04, FALSE);
         Sprite_SetAnimateFlag(v2->unk_04[v0].unk_04, 1);
     }
@@ -2001,7 +2085,11 @@ static int ov101_021D76EC(OverworldAnimManager *param0, void *param1)
     v2->unk_00 = (UnkStruct_ov101_021D13C8 *)OverworldAnimManager_GetUserData(param0);
 
     for (v0 = 0; v0 < 5; v0++, v1.x += (FX32_ONE * 8)) {
+        #ifdef PLATFORM_DS
         ov101_021D84A4(v2->unk_00->unk_450, &v2->unk_04[v0], &v1, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 8, 6, 8, 8, 2, 3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     return 1;
@@ -2131,7 +2219,11 @@ static int ov101_021D7810(OverworldAnimManager *param0, void *param1)
     }
 
     for (v0 = 0, v1 = 1; v0 < v6->unk_08; v0++, v1 *= 10, v3.x -= (FX32_ONE * 16)) {
+        #ifdef PLATFORM_DS
         ov101_021D84A4(v6->unk_14->unk_450, &v6->unk_18[v0], &v3, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 8, 6, 8, 8, 2, 3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         Sprite_SetAffineOverwriteMode(v6->unk_18[v0].unk_04, 2);
         Sprite_SetAffineTranslation(v6->unk_18[v0].unk_04, &v4);
@@ -2219,7 +2311,11 @@ static int ov101_021D7A00(OverworldAnimManager *param0, void *param1)
     }
 
     for (v0 = 0; v0 < v5->unk_04; v0++, v4.x += (FX32_ONE * 16), v2 /= 10) {
+        #ifdef PLATFORM_DS
         ov101_021D84A4(v5->unk_08->unk_450, &v5->unk_0C[v0], &v4, (NNS_G2D_VRAM_TYPE_2DSUB), 0, 9, 7, 9, 9, 2, 3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         v3 = (v1 % (v2 * 10)) / v2;
         Sprite_SetAnim(v5->unk_0C[v0].unk_04, v3);
@@ -2351,7 +2447,11 @@ static void ov101_021D7BB4(OverworldAnimManager *param0, void *param1)
 
         for (v0 = 0; v0 < 3; v0++) {
             v2 = Unk_ov101_021D9424[v3->unk_1C][v0];
+            #ifdef PLATFORM_DS
             ov101_021D84A4(v3->unk_44->unk_450, &v3->unk_20[v0], &v2, (NNS_G2D_VRAM_TYPE_MAX), 0, 10, 0, 10, 10, 1, 0);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+            #endif
             Sprite_SetAnimateFlag(v3->unk_20[v0].unk_04, 1);
         }
 
@@ -2463,11 +2563,19 @@ static void ov101_021D7D94(UnkStruct_ov101_021D7D94 *param0)
     UnkStruct_ov101_021D13C8 *v1 = param0->unk_44;
 
     if (param0->unk_18 == 0) {
+        #ifdef PLATFORM_DS
         ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_MAX), v1->unk_438, 14, 10);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+        #endif
         ov101_021D8288(v1->unk_450, v1->unk_438, 15, 10);
         ov101_021D82F0(v1->unk_450, v1->unk_438, 16, 10);
     } else {
+        #ifdef PLATFORM_DS
         ov101_021D80E4(v1->unk_450, (NNS_G2D_VRAM_TYPE_MAX), v1->unk_438, 17, 10);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+        #endif
         ov101_021D8288(v1->unk_450, v1->unk_438, 18, 10);
         ov101_021D82F0(v1->unk_450, v1->unk_438, 19, 10);
     }

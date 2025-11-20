@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 #include "constants/battle/terrain.h"
 #include "constants/moves.h"
 

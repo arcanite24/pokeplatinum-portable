@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_COMMUNICATION_INFORMATION_H
 #define POKEPLATINUM_COMMUNICATION_INFORMATION_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <dwc.h>
 #endif

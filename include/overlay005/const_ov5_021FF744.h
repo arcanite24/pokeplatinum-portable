@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CONST_OV5_021FF744_H
 #define POKEPLATINUM_CONST_OV5_021FF744_H
 
+#include "platform/platform_types.h"
+
 extern const u32 Unk_ov5_021FF744[34 + 1];
 
 #endif // POKEPLATINUM_CONST_OV5_021FF744_H

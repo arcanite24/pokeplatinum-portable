@@ -99,18 +99,34 @@ static void ov62_02236D48(UnkStruct_0208C06C *param0)
 {
     UnkStruct_ov62_02236CBC *v0 = param0->unk_860;
 
+    #ifdef PLATFORM_DS
     ov62_02236CF8(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0->unk_9C[1].unk_08 = ov62_022313E0(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     ov62_0223118C(&v0->unk_9C[1], &param0->unk_14, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov62_0223124C(&v0->unk_9C[1], &param0->unk_14, 3);
 
     ManagedSprite_SetPositionXY(v0->unk_9C[1].unk_08, 128, 232);
     FontOAM_SetXY(v0->unk_9C[1].unk_0C, 36, -8);
     sub_020129D0(v0->unk_9C[1].unk_0C, 1);
 
+    #ifdef PLATFORM_DS
     v0->unk_94[1] = ov62_022313E0(param0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     ManagedSprite_SetPositionXY(v0->unk_94[1], 220, 160 + 64);
     ManagedSprite_SetAnim(v0->unk_94[1], 2);
@@ -140,12 +156,28 @@ static void ov62_02236E14(UnkStruct_0208C06C *param0)
 
     Graphics_LoadTilesToBgLayerFromOpenNARC(param0->unk_14.unk_00, 62, param0->unk_14.unk_10, 6, 0, 0, 0, HEAP_ID_102);
     Graphics_LoadTilemapToBgLayerFromOpenNARC(v1, 68, v2, 6, 0, 0, 0, HEAP_ID_102);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v5, PLTTBUF_SUB_OBJ, v3, v4, v1, ov62_02231710(param0, 0), FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, 29292);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v3, v4, v1, 66, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 29292);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v3, v4, v1, 71, FALSE, 29292);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v3, v4, v1, 72, FALSE, 29292);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v5, PLTTBUF_MAIN_OBJ, v3, v4, v1, ov62_02231710(param0, 1), FALSE, 6, NNS_G2D_VRAM_TYPE_2DMAIN, 28282);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v3, v4, v1, 64, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 28282);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v3, v4, v1, 38, FALSE, 28282);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v3, v4, v1, 39, FALSE, 28282);
 
@@ -158,11 +190,27 @@ static void ov62_02236E14(UnkStruct_0208C06C *param0)
 
         for (v6 = 0; v6 < 5; v6++) {
             if (v6 == 3) {
+                #ifdef PLATFORM_DS
                 SpriteSystem_LoadPaletteBufferFromOpenNarc(v5, PLTTBUF_MAIN_OBJ, v3, v4, v1, 92, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 18181 + v6);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 SpriteSystem_LoadCharResObjFromOpenNarc(v3, v4, v1, 91, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 18181 + v6);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 SpriteSystem_LoadPaletteBuffer(v5, PLTTBUF_MAIN_OBJ, v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v7[v6], FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 18181 + v6);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v8[v6], FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 18181 + v6);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             }
         }
 
@@ -188,10 +236,18 @@ static void ov62_02236E14(UnkStruct_0208C06C *param0)
             v12 = 16;
         }
 
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBuffer(v5, 2, v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v11, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 165535);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObj(v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v13, FALSE, 165535);
         SpriteSystem_LoadAnimResObj(v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v14, FALSE, 165535);
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(v3, v4, NARC_INDEX_GRAPHIC__WIFI2DCHAR, v12, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 165535);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -272,7 +328,11 @@ static void ov62_022371CC(UnkStruct_0208C06C *param0)
     v9.animIdx = 0;
     v9.priority = 10;
     v9.plttIdx = 0;
+    #ifdef PLATFORM_DS
     v9.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v9.bgPriority = 0;
     v9.vramTransfer = FALSE;
     v9.resources[4] = SPRITE_RESOURCE_NONE;
@@ -357,7 +417,11 @@ static void ov62_022371CC(UnkStruct_0208C06C *param0)
     v9.resources[3] = 29292;
     v9.resources[4] = SPRITE_RESOURCE_NONE;
     v9.resources[5] = SPRITE_RESOURCE_NONE;
+    #ifdef PLATFORM_DS
     v9.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v9.priority = 0;
 
     {
@@ -596,7 +660,11 @@ static BOOL ov62_02237884(UnkStruct_0208C06C *param0)
         Bg_ClearTilemap(param0->unk_14.unk_10, 7);
         Bg_ClearTilemap(param0->unk_14.unk_10, 6);
         ov62_022315C8(&v0->unk_D4, &v0->unk_D8, 0);
+        #ifdef PLATFORM_DS
         ov62_02231560(&v0->unk_D4, &v0->unk_D8, 0, 0, GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         Sound_PlayEffect(SEQ_SE_PL_BREC20);
         param0->unk_08++;
     } else {
@@ -639,8 +707,16 @@ static BOOL ov62_02237884(UnkStruct_0208C06C *param0)
         ov62_022371CC(param0);
         ov62_0223712C(param0);
         ov62_02234540(param0, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         param0->unk_08++;
         break;
     case 4: {
@@ -714,10 +790,26 @@ static BOOL ov62_02237B00(UnkStruct_0208C06C *param0)
         ov62_02236DE8(param0);
         ov62_02234540(param0, 0);
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         v0->unk_00 = 16;
         v0->unk_00 = 0;
@@ -748,8 +840,24 @@ static BOOL ov62_02237B00(UnkStruct_0208C06C *param0)
         break;
     default:
         if (ov62_02231664(&v0->unk_00, 0)) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendAlpha to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+            #endif
             G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ, 7, 8);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ, 7, 8);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+            #endif
             Heap_Free(v0);
             ov62_022318E8(param0);
             ov62_02231688(&v0->unk_00);

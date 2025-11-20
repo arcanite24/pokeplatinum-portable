@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV61_0222C3B0_H
 #define POKEPLATINUM_STRUCT_OV61_0222C3B0_H
 
+#include "platform/platform_types.h"
+
 #include "sys_task_manager.h"
 
 typedef struct {

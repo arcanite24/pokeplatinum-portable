@@ -302,7 +302,11 @@ static int ov21_021D78C0(void *graphics, PokedexGraphicsManager *graphicsMan, co
         graphicsMan->state++;
         break;
     case 2:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(4, 0, -16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_SUB_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         graphicsMan->state++;
         break;
     case 3:
@@ -355,7 +359,11 @@ static int ov21_021D79E4(void *graphics, PokedexGraphicsManager *graphicsMan, co
 
     switch (graphicsMan->state) {
     case 0:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(4, -16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_SUB_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         graphicsMan->state++;
         break;
     case 1:
@@ -558,12 +566,20 @@ static void ov21_021D7D8C(UnkStruct_ov21_021D7C64 *param0, PokedexGraphicData **
     PokedexGraphicData *v0 = *param1;
     NARC *v1 = PokedexGraphics_GetNARC(*param1);
 
+    #ifdef PLATFORM_DS
     param0->unk_2C[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v1, scroll_buttons_NCGR_lz, TRUE, scroll_buttons_NCGR_lz + 1000, NNS_G2D_VRAM_TYPE_2DSUB, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0->unk_2C[0]);
     SpriteResource_ReleaseData(param0->unk_2C[0]);
 
+    #ifdef PLATFORM_DS
     param0->unk_2C[1] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[1], v1, buttons_NCLR, FALSE, buttons_NCLR + 1000, NNS_G2D_VRAM_TYPE_2DSUB, 12, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0->unk_2C[1]);
     SpriteResource_ReleaseData(param0->unk_2C[1]);
@@ -595,7 +611,11 @@ static void ov21_021D7E80(UnkStruct_ov21_021D7C64 *param0, PokedexGraphicData **
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 8;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v1.heapID = param3;
 
     v1.position.x = 48 << FX32_SHIFT;
@@ -683,10 +703,18 @@ static void ov21_021D8018(UnkStruct_ov21_021D7C64 *param0, PokedexGraphicData **
     displayBox.y = -14;
     displayBox.spriteResourcePriority = 0;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     displayBox.heapID = param3;
 
+    #ifdef PLATFORM_DS
     v4 = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v0 = PokedexTextManager_NewWindow(v3->textMan, 10, 4);
 
     PokedexTextManager_DisplayMessage(v3->textMan, v0, TEXT_BANK_POKEDEX, pl_msg_pokedex_search, 0, 0);

@@ -2,6 +2,8 @@
 #define POKEPLATINUM_CHARACTER_SPRITE_H
 
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #include "constants/heap.h"
 #include "constants/narc.h"
 #include "constants/species.h"

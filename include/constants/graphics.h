@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CONSTANTS_GRAPHICS_H
 #define POKEPLATINUM_CONSTANTS_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/colors.h"
 
 enum DSScreen {
@@ -61,8 +63,16 @@ enum DSScreen {
 
 #define G3X_DEPTH_MAX 0x7FFF
 
+#ifdef PLATFORM_DS
 #define RGBA_BLACK GX_RGBA(0, 0, 0, 0)
+#else
+// TODO: Port GX_RGBA to PAL
+#endif
+#ifdef PLATFORM_DS
 #define RGBA_WHITE GX_RGBA(31, 31, 31, 1)
+#else
+// TODO: Port GX_RGBA to PAL
+#endif
 
 #define RGB_TO_GRAYSCALE(r, g, b) (((r) * 76 + (g) * 151 + (b) * 29) >> 8)
 

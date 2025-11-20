@@ -252,13 +252,21 @@ static void sub_02072390(SysTask *param0, void *param1)
         ScrollPrompts_UpdateAnim(v0->unk_1A4);
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         sub_02072EA4(v0, sub_02072518, sub_02072364);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
 
         switch (v1) {
@@ -306,13 +314,21 @@ static void sub_02072470(SysTask *param0, void *param1)
     UnkStruct_02072334 *v0 = (UnkStruct_02072334 *)param1;
     s32 v1 = ListMenu_ProcessInput(v0->unk_160);
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         sub_02072EA4(v0, sub_02072534, sub_02072370);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
 
         switch (v1) {
@@ -484,7 +500,11 @@ static void sub_020726B4(SysTask *param0, void *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (!(gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             return;
         }
 
@@ -564,7 +584,11 @@ static void sub_020727F8(SysTask *param0, void *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (!(gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             return;
         }
 

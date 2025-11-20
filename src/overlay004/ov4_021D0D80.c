@@ -124,7 +124,11 @@ int ov4_021D0D80(SaveData *saveData, int heapID, int param2, int param3)
     Unk_ov4_0221A400->unk_1080 = param2;
     Unk_ov4_0221A400->unk_F84 = Heap_Alloc(heapID, param2 + ((4 * 1024) * 3) + 32);
     Unk_ov4_0221A400->unk_F8C = NULL;
+    #ifdef PLATFORM_DS
     Unk_ov4_0221A400->unk_F88 = NNS_FndCreateExpHeap((void *)(((u32)Unk_ov4_0221A400->unk_F84 + 31) / 32 * 32), param2);
+    #else
+    // TODO: Port NNS_FndCreateExpHeap to PAL
+    #endif
     Unk_ov4_0221A400->unk_F90 = NULL;
     Unk_ov4_0221A400->unk_1098 = 0;
     Unk_ov4_0221A400->unk_1088 = -1;
@@ -177,12 +181,20 @@ void ov4_021D0F68()
         ov4_021D27CC();
 
         if (Unk_ov4_0221A400->unk_F8C != NULL) {
+            #ifdef PLATFORM_DS
             NNS_FndDestroyExpHeap(Unk_ov4_0221A400->unk_F90);
+            #else
+            // TODO: Port NNS_FndDestroyExpHeap to PAL
+            #endif
             Heap_Free(Unk_ov4_0221A400->unk_F8C);
             Unk_ov4_0221A400->unk_F8C = NULL;
         }
 
+        #ifdef PLATFORM_DS
         NNS_FndDestroyExpHeap(Unk_ov4_0221A400->unk_F88);
+        #else
+        // TODO: Port NNS_FndDestroyExpHeap to PAL
+        #endif
 
         Heap_FreeExplicit(Unk_ov4_0221A400->unk_1078, Unk_ov4_0221A400->unk_F84);
         Heap_FreeExplicit(Unk_ov4_0221A400->unk_1078, Unk_ov4_0221A400->unk_F70);
@@ -229,7 +241,11 @@ int ov4_021D0FEC()
 
         {
             OSOwnerInfo v1;
+            #ifdef PLATFORM_DS
             OS_GetOwnerInfo(&v1);
+            #else
+            // TODO: Port OS_GetOwnerInfo to PAL
+            #endif
             DWC_LoginAsync(&(v1.nickName[0]), NULL, ov4_021D1650, NULL);
         }
 
@@ -740,23 +756,43 @@ void *ov4_021D1AA0(DWCAllocType param0, u32 param1, int param2)
     void *v0;
     OSIntrMode v1;
 
+    #ifdef PLATFORM_DS
     v1 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_FndAllocFromExpHeapEx(Unk_ov4_0221A400->unk_F88, param1, param2);
+    #else
+    // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+    #endif
 
     if (v0 == NULL) {
         if (Unk_ov4_0221A400->unk_F8C != NULL) {
+            #ifdef PLATFORM_DS
             v0 = NNS_FndAllocFromExpHeapEx(Unk_ov4_0221A400->unk_F90, param1, param2);
+            #else
+            // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+            #endif
         }
     }
 
     if (v0 == NULL) {
         Link_SetErrorState(1);
+        #ifdef PLATFORM_DS
         OS_RestoreInterrupts(v1);
+        #else
+        // TODO: Port OS_RestoreInterrupts to PAL
+        #endif
 
         return NULL;
     }
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v1);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     return v0;
 }
@@ -771,8 +807,16 @@ void ov4_021D1B04(DWCAllocType param0, void *param1, u32 param2)
         return;
     }
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v1 = NNS_FndGetGroupIDForMBlockExpHeap(param1);
+    #else
+    // TODO: Port NNS_FndGetGroupIDForMBlockExpHeap to PAL
+    #endif
 
     if (v1 == 16) {
         if (Unk_ov4_0221A400->unk_F8C == NULL) {
@@ -780,12 +824,24 @@ void ov4_021D1B04(DWCAllocType param0, void *param1, u32 param2)
             return;
         }
 
+        #ifdef PLATFORM_DS
         NNS_FndFreeToExpHeap(Unk_ov4_0221A400->unk_F90, param1);
+        #else
+        // TODO: Port NNS_FndFreeToExpHeap to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         NNS_FndFreeToExpHeap(Unk_ov4_0221A400->unk_F88, param1);
+        #else
+        // TODO: Port NNS_FndFreeToExpHeap to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }
 
 int ov4_021D1B5C(void)
@@ -1538,20 +1594,40 @@ void ov4_021D2618(BOOL param0, int heapID)
 
         if (Unk_ov4_0221A400->unk_F8C == NULL) {
             Unk_ov4_0221A400->unk_F8C = Heap_Alloc(heapID, 0xf000 + 32);
+            #ifdef PLATFORM_DS
             Unk_ov4_0221A400->unk_F90 = NNS_FndCreateExpHeap((void *)(((u32)Unk_ov4_0221A400->unk_F8C + 31) / 32 * 32), 0xf000);
+            #else
+            // TODO: Port NNS_FndCreateExpHeap to PAL
+            #endif
+            #ifdef PLATFORM_DS
             NNS_FndSetGroupIDForExpHeap(Unk_ov4_0221A400->unk_F90, 16);
+            #else
+            // TODO: Port NNS_FndSetGroupIDForExpHeap to PAL
+            #endif
+            #ifdef PLATFORM_DS
             Unk_ov4_0221A400->unk_F94 = NNS_FndGetTotalFreeSizeForExpHeap(Unk_ov4_0221A400->unk_F90);
+            #else
+            // TODO: Port NNS_FndGetTotalFreeSizeForExpHeap to PAL
+            #endif
         }
     } else {
         Unk_ov4_0221A400->unk_107C = Unk_ov4_0221A400->unk_1078;
 
         if (Unk_ov4_0221A400->unk_F8C != NULL) {
+            #ifdef PLATFORM_DS
             if (NNS_FndGetTotalFreeSizeForExpHeap(Unk_ov4_0221A400->unk_F90) != Unk_ov4_0221A400->unk_F94) {
+            #else
+            // TODO: Port NNS_FndGetTotalFreeSizeForExpHeap to PAL
+            #endif
                 Link_SetErrorState(1);
                 return;
             }
 
+            #ifdef PLATFORM_DS
             NNS_FndDestroyExpHeap(Unk_ov4_0221A400->unk_F90);
+            #else
+            // TODO: Port NNS_FndDestroyExpHeap to PAL
+            #endif
             Heap_Free(Unk_ov4_0221A400->unk_F8C);
 
             Unk_ov4_0221A400->unk_F8C = NULL;

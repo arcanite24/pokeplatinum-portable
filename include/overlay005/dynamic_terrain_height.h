@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_DYNAMIC_TERRAIN_HEIGHT_H
 #define POKEPLATINUM_OV5_DYNAMIC_TERRAIN_HEIGHT_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/types.h>

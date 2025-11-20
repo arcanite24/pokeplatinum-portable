@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GBA_SAVE_H
 #define POKEPLATINUM_GBA_SAVE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/types.h>
 #else

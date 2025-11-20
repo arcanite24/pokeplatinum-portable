@@ -80,10 +80,18 @@ static void ov100_021D1C98(UnkStruct_ov100_021D1C98 *param0)
     PaletteData_LoadBufferFromFileStart(v4, 172, 19, 111, 1, 0x20 * 2, 0);
     PaletteData_LoadBufferFromFileStart(v4, 172, 19, 111, 0, 0x20 * 2, 0);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_SUB_OBJ, v2, v3, v0, 50, FALSE, 3, NNS_G2D_VRAM_TYPE_2DSUB, v5);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, 48, FALSE, v5);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v2, v3, v0, 47, FALSE, v5);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, 49, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, v5);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     ov100_021D4AC8(&param0->unk_1A0.unk_04, 46, param0->unk_1EBC->unk_00);
 
@@ -205,7 +213,11 @@ static void ov100_021D2250(UnkStruct_ov100_021D1C98 *param0)
     v6.animIdx = 0;
     v6.priority = 0;
     v6.plttIdx = 0;
+    #ifdef PLATFORM_DS
     v6.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v6.bgPriority = 0;
     v6.vramTransfer = FALSE;
 
@@ -268,19 +280,67 @@ void *ov100_021D2340(UnkStruct_ov100_021D4DD8 *param0)
     }
 
     {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 7, 8);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ, 7, 10);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
 
         {
             static const GXRgb v1[8] = {
+                #ifdef PLATFORM_DS
                 GX_RGB(2, 2, 2),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_RGB(10, 10, 10),
+                #else
+                // TODO: Port GX_RGB to PAL
+                #endif
             };
 
             G3X_EdgeMarking(1);
@@ -305,8 +365,20 @@ BOOL ov100_021D2428(void *param0)
     case 0:
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_IN, FADE_TYPE_BRIGHTNESS_IN, COLOR_WHITE, 6, 1, HEAP_ID_111);
         v0->unk_1EBC->unk_50.unk_03 = 0;
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendBrightness to PAL
+        #endif
         G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2S_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v0->unk_00++;
     case 1:
         if (IsScreenFadeDone() == FALSE) {
@@ -412,8 +484,20 @@ BOOL ov100_021D2428(void *param0)
                 v0->unk_1EBC->unk_50.unk_03--;
             }
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendBrightness to PAL
+            #endif
             G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2S_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
             ov100_021D46C8(v0->unk_1EBC, v0->unk_1EC0, 23);
 
@@ -626,8 +710,20 @@ BOOL ov100_021D2428(void *param0)
 
             v0->unk_1EBC->unk_50.unk_03 = -16;
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetBlendBrightness to PAL
+            #endif
             G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2S_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
 
             {
                 u16 currentBGM = Sound_GetCurrentBGM();
@@ -650,8 +746,20 @@ BOOL ov100_021D2428(void *param0)
         }
 
         v0->unk_1EBC->unk_50.unk_03 = 0;
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendBrightness to PAL
+        #endif
         G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2S_SetBlendBrightness(GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, v0->unk_1EBC->unk_50.unk_03);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v0->unk_00++;
         break;
     default:
@@ -763,5 +871,9 @@ static void ov100_021D2E0C(UnkStruct_ov100_021D1C98 *param0)
     ov100_021D49B4(&param0->unk_1A0.unk_16FC[2]);
     ov100_021D49B4(&param0->unk_1A0.unk_16FC[3]);
 
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
 }

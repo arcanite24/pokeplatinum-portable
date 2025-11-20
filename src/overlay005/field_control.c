@@ -126,27 +126,51 @@ void FieldInput_Update(FieldInput *input, FieldSystem *fieldSystem, u16 pressedK
     input->heldKeys = heldKeys;
 
     if (moveState == PLAYER_MOVE_STATE_END || moveState == PLAYER_MOVE_STATE_NONE) {
+        #ifdef PLATFORM_DS
         if (pressedKeys & PAD_BUTTON_X) {
+        #else
+        // TODO: Port PAD_BUTTON_X to PAL
+        #endif
             input->menu = TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (pressedKeys & PAD_BUTTON_Y) {
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
             input->registeredItem = TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             input->interact = TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             input->dummy1 = TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY) {
+        #else
+        // TODO: Port PAD_KEY to PAL
+        #endif
             input->sign = TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY) {
+        #else
+        // TODO: Port PAD_KEY to PAL
+        #endif
             input->mapTransition = TRUE;
         }
     }
@@ -159,10 +183,26 @@ void FieldInput_Update(FieldInput *input, FieldSystem *fieldSystem, u16 pressedK
         input->endMovement = TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (playerDir == DIR_NORTH && heldKeys & PAD_KEY_UP
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
+        #ifdef PLATFORM_DS
         || playerDir == DIR_SOUTH && heldKeys & PAD_KEY_DOWN
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         || playerDir == DIR_WEST && heldKeys & PAD_KEY_LEFT
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
+        #ifdef PLATFORM_DS
         || playerDir == DIR_EAST && heldKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
 
         input->transitionDir = playerDir;
     } else {

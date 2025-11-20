@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PARTY_MON_MOVES_H
 #define POKEPLATINUM_PARTY_MON_MOVES_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_SelectPartyMonMove(ScriptContext *ctx);

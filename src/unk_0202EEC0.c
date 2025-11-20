@@ -88,9 +88,17 @@ void PalParkTransfer_SaveTransferHistory(MigratedPokemon *transferData, u32 gbaT
 
     transferData->gbaTrainerIds[slot] = gbaTrainerId;
     transferData->timeStamps[slot] = GetTimestamp();
+    #ifdef PLATFORM_DS
     transferData->rtcOffset = OS_GetOwnerRtcOffset();
+    #else
+    // TODO: Port OS_GetOwnerRtcOffset to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(transferData->macAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 }
 
 void MigratedPokemon_ConvertToPokemon(const MigratedPokemon *transferData, int slot, Pokemon *mon)
@@ -129,7 +137,11 @@ BOOL MacAddressMatchesLastPalParkTransfer(const MigratedPokemon *transferData)
 {
     u8 currMacAddress[6];
 
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(currMacAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     for (int i = 0; i < 6; i++) {
         if (currMacAddress[i] != transferData->macAddress[i]) {
@@ -142,7 +154,11 @@ BOOL MacAddressMatchesLastPalParkTransfer(const MigratedPokemon *transferData)
 
 BOOL RtcOffsetMatchesLastPalParkTransfer(const MigratedPokemon *transferData)
 {
+    #ifdef PLATFORM_DS
     return transferData->rtcOffset == OS_GetOwnerRtcOffset();
+    #else
+    // TODO: Port OS_GetOwnerRtcOffset to PAL
+    #endif
 }
 
 BOOL IsPalParkTransferMacAddressUnset(const MigratedPokemon *transferData)

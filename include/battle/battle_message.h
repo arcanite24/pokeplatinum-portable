@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_MESSAGE_H
 #define POKEPLATINUM_BATTLE_MESSAGE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/types.h>
 #else

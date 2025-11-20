@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINER_INFO_H
 #define POKEPLATINUM_TRAINER_INFO_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "heap.h"

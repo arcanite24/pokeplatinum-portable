@@ -888,9 +888,25 @@ static void BattleAnimTask_ScrollCustomBg(SysTask *task, void *param)
 
     switch (ctx->common.state) {
     case SCROLL_CUSTOM_BG_STATE_INIT:
+        #ifdef PLATFORM_DS
         G2_SetBlendAlpha(
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BG2,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG3,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             ctx->bgAlpha,
             ctx->otherAlpha);
         Bg_ToggleLayer(BATTLE_BG_BASE, TRUE);
@@ -916,7 +932,11 @@ static void BattleAnimTask_ScrollCustomBg(SysTask *task, void *param)
             ctx->common.state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->bgAlpha, ctx->otherAlpha);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     } break;
     case SCROLL_CUSTOM_BG_STATE_WAIT:
         if (ctx->scrollFinished) {
@@ -944,7 +964,11 @@ static void BattleAnimTask_ScrollCustomBg(SysTask *task, void *param)
             ctx->common.state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->bgAlpha, ctx->otherAlpha);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     } break;
     default:
         Bg_ToggleLayer(BATTLE_BG_BASE, FALSE);
@@ -1068,7 +1092,19 @@ static void BattleAnimTask_MuddyWater(SysTask *task, void *param)
 
     switch (ctx->common.state) {
     case MUDDY_WATER_STATE_INIT:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BD | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG3, ctx->bgAlpha, ctx->otherAlpha);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         Bg_ToggleLayer(BATTLE_BG_BASE, TRUE);
         ctx->common.state++;
     case MUDDY_WATER_STATE_FADE_IN: {
@@ -1092,7 +1128,11 @@ static void BattleAnimTask_MuddyWater(SysTask *task, void *param)
             ctx->common.state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->bgAlpha, ctx->otherAlpha);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     } break;
     case MUDDY_WATER_STATE_WAIT:
         if (ctx->scrollFinished) {
@@ -1120,7 +1160,11 @@ static void BattleAnimTask_MuddyWater(SysTask *task, void *param)
             ctx->common.state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(ctx->bgAlpha, ctx->otherAlpha);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
     } break;
     default:
         Bg_ToggleLayer(BATTLE_BG_BASE, FALSE);
@@ -1779,7 +1823,11 @@ void BattleAnimScriptFunc_ScalePokemonSprite(BattleAnimSystem *system)
 
     ManagedSprite_SetPriority(ctx->sprite, BATTLE_ANIM_HW_SPRITE_PRIORITY);
     ManagedSprite_SetExplicitPriority(ctx->sprite, BATTLE_ANIM_HW_SPRITE_EXP_PRIORITY);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->sprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetAffineOverwriteMode(ctx->sprite, AFFINE_OVERWRITE_MODE_DOUBLE);
 
     BattleAnimUtil_SetSpriteBgBlending(ctx->battleAnimSys, ctx->spriteAlpha, SCALE_POKEMON_SPRITE_BG_ALPHA - ctx->spriteAlpha);
@@ -2025,7 +2073,11 @@ void BattleAnimScriptFunc_AlphaFadePokemonSprite(BattleAnimSystem *system)
     for (int i = 0; i < MAX_BATTLERS; i++) {
         if (targets & BATTLE_ANIM_MON_SPRITE_F(i)) {
             ManagedSprite *sprite = BattleAnimSystem_GetPokemonSprite(ctx->battleAnimSys, i);
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(sprite, GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
         }
     }
 
@@ -2474,7 +2526,15 @@ static void BattleAnimTask_Superpower(SysTask *task, void *param)
 {
     SuperpowerContext *ctx = param;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
     BattleAnimSystem_UnloadBaseBg(ctx->common.battleAnimSys, BATTLE_BG_BASE);
     BattleAnimSystem_EndAnimTask(ctx->common.battleAnimSys, task);
     Heap_Free(ctx);
@@ -2490,13 +2550,37 @@ void BattleAnimScriptFunc_Superpower(BattleAnimSystem *system)
 
     ctx->sprite = BattleAnimSystem_GetPokemonSprite(ctx->common.battleAnimSys, BATTLE_ANIM_MON_SPRITE_0);
 
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(ctx->sprite, GX_OAM_MODE_OBJWND);
+    #else
+    // TODO: Port GX_OAM_MODE_OBJWND to PAL
+    #endif
     ManagedSprite_SetAffineOverwriteMode(ctx->sprite, AFFINE_OVERWRITE_MODE_DOUBLE);
     ManagedSprite_SetAffineScale(ctx->sprite, 1.2f, 1.2f);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_OW);
+    #else
+    // TODO: Port GX_WNDMASK_OW to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_EFFECT | GX_WND_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWndOBJInsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_BASE, FALSE);
+    #else
+    // TODO: Port G2_SetWndOBJInsidePlane to PAL
+    #endif
 
     BattleAnimSystem_StartAnimTask(ctx->common.battleAnimSys, BattleAnimTask_Superpower, ctx);
 }
@@ -2810,7 +2894,11 @@ void BattleAnimScriptFunc_FadePokemonSprite(BattleAnimSystem *system)
     int count;
     BattleAnimUtil_GetPokemonSprites(system, target, &ctx->spriteInfo, &count);
 
+    #ifdef PLATFORM_DS
     int palDest = PlttTransfer_GetPlttOffset(Sprite_GetPaletteProxy(ctx->spriteInfo.hwSprite->sprite), NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ctx->paletteFade = PaletteFadeContext_New(
         ctx->common.paletteData,
         BattleAnimSystem_GetHeapID(system),
@@ -3188,7 +3276,11 @@ static void BattleAnimTask_PixelatePokemonSprite(SysTask *task, void *param)
     }
 
     ManagedSprite_TickFrame(ctx->sprite);
+    #ifdef PLATFORM_DS
     G2_SetOBJMosaicSize(ctx->scaleX, ctx->scaleY);
+    #else
+    // TODO: Port G2_SetOBJMosaicSize to PAL
+    #endif
     SpriteSystem_DrawSprites(ctx->common.pokemonSpriteManager);
 }
 
@@ -3819,7 +3911,11 @@ static void ov12_0222A4A0(SysTask *param0, void *param1)
         BOOL v2 = ManagedSprite_IsAnimated(v0->unk_1C);
 
         if (v2 == 0) {
+            #ifdef PLATFORM_DS
             ManagedSprite_SetExplicitOamMode(v0->unk_1C, GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
             v0->unk_20 = 16;
             v0->unk_21 = 0;
             BattleAnimUtil_SetSpriteBgBlending(v0->unk_00.battleAnimSys, v0->unk_20, v0->unk_21);
@@ -3835,7 +3931,11 @@ static void ov12_0222A4A0(SysTask *param0, void *param1)
             v0->unk_21++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(v0->unk_20, v0->unk_21);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
 
         if (v0->unk_20 == 0) {
             v0->unk_00.state++;
@@ -3879,16 +3979,64 @@ static void SetPokemonSpritePriorityContext_DoDarkVoidEffects(SetPokemonSpritePr
     switch (ctx->common.state) {
     case 0:
         if (ctx->windowType == 0) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_W0);
+            #else
+            // TODO: Port GX_WNDMASK_W0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd0InsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_BASE | BATTLE_BG_WNDMASK_EFFECT, TRUE);
+            #else
+            // TODO: Port G2_SetWnd0InsidePlane to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_BASE | BATTLE_BG_WNDMASK_EFFECT | GX_WND_PLANEMASK_OBJ, TRUE);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(0, 160, HW_LCD_WIDTH / 2, HW_LCD_HEIGHT);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
             ctx->sinkFullyStartFrame = DARK_VOID_SINK_FULLY_MIN_FRAME + (LCRNG_Next() % DARK_VOID_SINK_FULLY_RNG_FRAME);
         } else {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_W0);
+            #else
+            // TODO: Port GX_WNDMASK_W0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd0InsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_BASE | BATTLE_BG_WNDMASK_EFFECT, TRUE);
+            #else
+            // TODO: Port G2_SetWnd0InsidePlane to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(BATTLE_BG_WNDMASK_3D | BATTLE_BG_WNDMASK_WINDOW | BATTLE_BG_WNDMASK_BASE | BATTLE_BG_WNDMASK_EFFECT | GX_WND_PLANEMASK_OBJ, TRUE);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(HW_LCD_WIDTH / 2, (HW_LCD_HEIGHT / 2) - 10, HW_LCD_WIDTH, HW_LCD_HEIGHT);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
             ctx->sinkFullyStartFrame = DARK_VOID_SINK_FULLY_MIN_FRAME + (LCRNG_Next() % DARK_VOID_SINK_FULLY_RNG_FRAME);
         }
         break;
@@ -3985,10 +4133,38 @@ static void BattleAnimTask_SetPokemonSpritePriority(SysTask *task, void *param)
     ctx->common.state++;
 
     if (ctx->common.state >= ctx->maxFrames) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(0, 0, 0, 0);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
 
         ManagedSprite_SetDrawFlag(ctx->sprite, FALSE);
         SpriteSystem_DrawSprites(ctx->common.pokemonSpriteManager);

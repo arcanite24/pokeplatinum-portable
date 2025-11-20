@@ -226,10 +226,22 @@ const NNSG2dImagePaletteProxy *SpriteTransfer_GetPaletteProxy(const SpriteResour
     return PlttTransfer_GetPaletteProxy(resourceID);
 }
 
+#ifdef PLATFORM_DS
 u32 SpriteTransfer_GetPlttOffset(const SpriteResource *resource, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
+    #ifdef PLATFORM_DS
     int offset = NNS_G2dGetImagePaletteLocation(SpriteTransfer_GetPaletteProxy(resource, NULL), vramType);
+    #else
+    // TODO: Port NNS_G2dGetImagePaletteLocation to PAL
+    #endif
+    #ifdef PLATFORM_DS
     if (offset != NNS_G2D_VRAM_ADDR_NOT_INITIALIZED) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_ADDR_NOT_INITIALIZED to PAL
+    #endif
         offset /= 32; // Does not match with PALETTE_SIZE_BYTES, for some reason.
     }
 

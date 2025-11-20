@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DAYCARE_SAVE_H
 #define POKEPLATINUM_DAYCARE_SAVE_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/daycare.h"
 
 #include "pokemon.h"

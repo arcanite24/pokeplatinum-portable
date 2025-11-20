@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0202D778_H
 #define POKEPLATINUM_UNK_0202D778_H
 
+#include "platform/platform_types.h"
+
 #include "savedata.h"
 
 int Ribbons_SaveSize(void);

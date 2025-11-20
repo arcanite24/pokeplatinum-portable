@@ -891,9 +891,17 @@ BOOL sub_0203195C(void)
     u16 v0;
     u8 v1[6];
 
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(v1);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Unk_021C07AC->unk_13AC = (u32)(OS_GetVBlankCount() + *(u16 *)&v1[0] + *(u16 *)&v1[2] + *(u16 *)&v1[4]);
+    #else
+    // TODO: Port OS_GetVBlankCount to PAL
+    #endif
     Unk_021C07AC->unk_13AC = Unk_021C07AC->unk_13AC * 69069UL + 12345;
     Unk_021C07AC->unk_13B0 = 0;
     Unk_021C07AC->unk_13B2 = 100 + 1;

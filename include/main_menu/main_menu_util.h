@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_MAIN_MENU_UTIL_H
 #define POKEPLATINUM_MAIN_MENU_MAIN_MENU_UTIL_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/mystery_gift_app.h"
 
 #include "bg_window.h"

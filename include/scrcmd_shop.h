@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_SHOP_H
 #define POKEPLATINUM_SCRCMD_SHOP_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_PokeMartCommon(ScriptContext *ctx);

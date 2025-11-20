@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GTS_APPLICATION_H
 #define POKEPLATINUM_GTS_APPLICATION_H
 
+#include "platform/platform_types.h"
+
 #include "overlay094/gts_application_state.h"
 
 #include "bg_window.h"
@@ -24,7 +26,11 @@ enum ScreenArgument {
 BOOL GTSApplication_Init(ApplicationManager *appMan, int *loopState);
 BOOL GTSApplication_Main(ApplicationManager *appMan, int *loopState);
 BOOL GTSApplication_Exit(ApplicationManager *appMan, int *unused1);
+#ifdef PLATFORM_DS
 void GTSApplication_InitAffineTemplate(AffineSpriteListTemplate *template, GTSApplicationState *appState, SpriteResourcesHeader *spriteResourceHeader, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 Menu *GTSApplication_CreateYesNoMenu(BgConfig *bgConfig, int tilemapTop, int baseTile);
 void GTSApplication_SetCurrentAndNextScreenInstruction(GTSApplicationState *appState, int currentInstruction, int nextInstruction);
 void GTSApplication_SetSpritePosition(Sprite *sprite, int x, int y);

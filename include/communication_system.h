@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/math.h>
 #endif

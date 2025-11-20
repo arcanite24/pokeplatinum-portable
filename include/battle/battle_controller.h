@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_CONTROLLER_H
 #define POKEPLATINUM_BATTLE_CONTROLLER_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 
 #include "battle/battle_context.h"

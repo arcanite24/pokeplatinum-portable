@@ -34,16 +34,56 @@
 #include "savedata.h"
 #include "trainer_info.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay67);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay68);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay69);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay70);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay112);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay113);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay114);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay115);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay116);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay117);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     void *unk_00;
@@ -338,10 +378,18 @@ static void ov66_02230E68(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 {
     UnkStruct_ov66_02230E68 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay70);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v1 = {
+        #ifdef PLATFORM_DS
         ov70_0225D9A4, ov70_0225DB90, ov70_0225DDF8, FS_OVERLAY_ID(overlay70)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = param1->unk_00;
@@ -419,10 +467,18 @@ static void ov66_02230F50(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 {
     UnkStruct_ov66_02230F50 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay69);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v1 = {
+        #ifdef PLATFORM_DS
         ov69_0225C700, ov69_0225C820, ov69_0225C8FC, FS_OVERLAY_ID(overlay69)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = param1->unk_00;
@@ -465,10 +521,18 @@ static void ov66_02230FE4(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_02230FF0(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay112);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
+        #ifdef PLATFORM_DS
         ov112_0225C700, ov112_0225C7C4, ov112_0225C8FC, FS_OVERLAY_ID(overlay112)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     ov66_02230CEC(param0, param1, &v0);
@@ -508,10 +572,18 @@ static void ov66_02231058(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_02231064(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay67);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
+        #ifdef PLATFORM_DS
         ov67_0225C700, ov67_0225C820, ov67_0225CB1C, FS_OVERLAY_ID(overlay67)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     ov66_02230CEC(param0, param1, &v0);
@@ -555,17 +627,33 @@ static void ov66_022310C4(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_022310D8(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay115);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov115_02260440,
         ov115_0226048C,
         ov115_022608E4,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay115),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov115_02260440 *v1;
@@ -579,8 +667,16 @@ static void ov66_022310D8(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 
 static int ov66_02231104(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov115_02260440 *v0;
@@ -622,17 +718,33 @@ static void ov66_02231164(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_02231178(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay116);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov116_022609B4,
         ov116_02260CF4,
         ov116_0226126C,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay116),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov66_02231134 *v1;
@@ -646,8 +758,16 @@ static void ov66_02231178(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 
 static int ov66_022311A4(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov66_02231134 *v0;
@@ -688,17 +808,33 @@ static void ov66_0223120C(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_02231220(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay117);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
         ov117_02260440,
         ov117_02260474,
         ov117_022605C0,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay117),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov117_02260440 *v1;
@@ -712,8 +848,16 @@ static void ov66_02231220(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 
 static int ov66_0223124C(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     {
         UnkStruct_ov117_02260440 *v0;
@@ -760,13 +904,21 @@ static void ov66_022312D8(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 {
     UnkStruct_ov66_0223127C *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay113);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v1 = {
         ov113_0225C700,
         ov113_0225CA04,
         ov113_0225CDFC,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay113),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = param1->unk_00;
@@ -779,13 +931,21 @@ static void ov66_022312EC(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 {
     UnkStruct_ov66_0223127C *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay113);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v1 = {
         ov113_0225C700,
         ov113_0225CA04,
         ov113_0225CDFC,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay113),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v0 = param1->unk_00;
@@ -823,10 +983,18 @@ static void ov66_02231350(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E
 
 static void ov66_0223135C(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1, BOOL param2)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay67);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
+        #ifdef PLATFORM_DS
         ov67_0225CB8C, ov67_0225CC6C, ov67_0225CDC0, FS_OVERLAY_ID(overlay67)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     {
@@ -877,10 +1045,18 @@ static void ov66_022313E8(UnkStruct_ov66_02230E4C *param0)
 
 static void ov66_022313F4(UnkStruct_ov66_02230C90 *param0, UnkStruct_ov66_02230E4C *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay68);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v0 = {
+        #ifdef PLATFORM_DS
         ov68_0225C700, ov68_0225C798, ov68_0225C8A8, FS_OVERLAY_ID(overlay68)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     ov66_02230CEC(param0, param1, &v0);

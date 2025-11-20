@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GREAT_MARSH_BINOCULARS_H
 #define POKEPLATINUM_GREAT_MARSH_BINOCULARS_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "great_marsh_lookout.h"

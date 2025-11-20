@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0207AD40_H
 #define POKEPLATINUM_STRUCT_0207AD40_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/battle_system.h"
 
 typedef struct {

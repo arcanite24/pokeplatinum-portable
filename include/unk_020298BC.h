@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020298BC_H
 #define POKEPLATINUM_UNK_020298BC_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02029C68_decl.h"
 #include "struct_decls/struct_02029C88_decl.h"
 #include "struct_decls/struct_02029D04_decl.h"

@@ -107,7 +107,11 @@ static BOOL ov6_02247A34(FieldTask *param0)
         v1->unk_04++;
         break;
     case 1:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ov6_02247CC8(v1->unk_00);
             v1->unk_04++;
         }

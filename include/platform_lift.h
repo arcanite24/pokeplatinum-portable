@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PLATFORM_LIFT_H
 #define POKEPLATINUM_PLATFORM_LIFT_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void PlatformLift_DynamicMapFeaturesInit(FieldSystem *fieldSystem);

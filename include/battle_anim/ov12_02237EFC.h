@@ -3,6 +3,8 @@
 
 #ifndef PLATFORM_DS
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #endif
 
 #include "battle_anim/struct_ov12_02237EFC.h"

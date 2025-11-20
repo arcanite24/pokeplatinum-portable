@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV117_02263DAC_H
 #define POKEPLATINUM_STRUCT_OV117_02263DAC_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     int unk_00;
     int unk_04;

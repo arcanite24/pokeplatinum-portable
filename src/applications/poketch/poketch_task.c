@@ -187,9 +187,21 @@ void PoketchTask_MapToActivePaletteFromLuminance(u16 *rawData, u32 numPaletteEnt
         PoketchGraphics_CopyActivePalette(activePalette);
 
         for (activePaletteEntrie = 0; activePaletteEntrie < numPaletteEntries; activePaletteEntrie++) {
+            #ifdef PLATFORM_DS
             redData = (rawData[activePaletteEntrie] & GX_RGB_R_MASK) >> GX_RGB_R_SHIFT;
+            #else
+            // TODO: Port GX_RGB_R_SHIFT to PAL
+            #endif
+            #ifdef PLATFORM_DS
             blueData = (rawData[activePaletteEntrie] & GX_RGB_G_MASK) >> GX_RGB_G_SHIFT;
+            #else
+            // TODO: Port GX_RGB_G_SHIFT to PAL
+            #endif
+            #ifdef PLATFORM_DS
             greenData = (rawData[activePaletteEntrie] & GX_RGB_B_MASK) >> GX_RGB_B_SHIFT;
+            #else
+            // TODO: Port GX_RGB_B_SHIFT to PAL
+            #endif
             luminance = RGB_TO_GREYSCALE(redData, blueData, greenData);
             luminance >>= 3;
 
@@ -221,7 +233,11 @@ void PoketchTask_FillPaletteFromActivePaletteSlot(u32 slot, u32 offset)
             }
 
             DC_FlushRange(newPalette, PALETTE_SIZE_BYTES);
+            #ifdef PLATFORM_DS
             GXS_LoadOBJPltt(newPalette, PLTT_OFFSET(offset), PALETTE_SIZE_BYTES);
+            #else
+            // TODO: Port GXS_LoadOBJPltt to PAL
+            #endif
             Heap_Free(newPalette);
         }
 
@@ -239,7 +255,11 @@ void PoketchTask_LoadPokemonIconLuminancePalette(u32 offset)
     if (nclrBuffer) {
         PoketchTask_MapToActivePaletteFromLuminance(palette->pRawData, 4 * SLOTS_PER_PALETTE);
         DC_FlushRange(palette->pRawData, 4 * PALETTE_SIZE_BYTES);
+        #ifdef PLATFORM_DS
         GXS_LoadOBJPltt(palette->pRawData, PLTT_OFFSET(offset), 4 * PALETTE_SIZE_BYTES);
+        #else
+        // TODO: Port GXS_LoadOBJPltt to PAL
+        #endif
         Heap_Free(nclrBuffer);
     }
 }
@@ -258,9 +278,17 @@ void PoketchTask_LoadPokemonIcons(u32 offset, const u32 *iconIdxList, u32 numIco
 
             for (u32 activeIcon = 0; activeIcon < numIcons; activeIcon++) {
                 NARC_ReadFromMember(iconNARC, iconIdxList[activeIcon], 0, readSize[isLarge], ncgrFile);
+                #ifdef PLATFORM_DS
                 NNS_G2dGetUnpackedCharacterData(ncgrFile, &charData);
+                #else
+                // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+                #endif
                 DC_FlushRange(charData->pRawData, iconSize[isLarge]);
+                #ifdef PLATFORM_DS
                 GXS_LoadOBJ(charData->pRawData, (offset * 0x20) + (iconSize[isLarge] * activeIcon), iconSize[isLarge]);
+                #else
+                // TODO: Port GXS_LoadOBJ to PAL
+                #endif
             }
 
             NARC_dtor(iconNARC);

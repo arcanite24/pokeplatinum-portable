@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_LOADED_MAP_BUFFERS_H
 #define POKEPLATINUM_OV5_LOADED_MAP_BUFFERS_H
 
+#include "platform/platform_types.h"
+
 #include <nitro/types.h>
 
 #define LOADED_MAP_BUFFERS_FILE_COUNT 4

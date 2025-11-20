@@ -959,8 +959,16 @@ static void UndergroundTraps_InitRadarSpriteResources(void)
 
     NARC *narc = NARC_ctor(NARC_INDEX_DATA__UG_TRAP, HEAP_ID_FIELD1);
 
+    #ifdef PLATFORM_DS
     trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(trapsEnv->spriteResourceCollection[RADAR_RESOURCES][SPRITE_RESOURCE_CHAR], narc, radar_NCGR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(trapsEnv->spriteResourceCollection[RADAR_RESOURCES][SPRITE_RESOURCE_PLTT], narc, radar_NCLR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 7, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_AddFrom(trapsEnv->spriteResourceCollection[RADAR_RESOURCES][SPRITE_RESOURCE_CELL], narc, radar_cell_NCER, FALSE, 0, SPRITE_RESOURCE_CELL, HEAP_ID_FIELD1);
     trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_ANIM] = SpriteResourceCollection_AddFrom(trapsEnv->spriteResourceCollection[RADAR_RESOURCES][SPRITE_RESOURCE_ANIM], narc, radar_anim_NANR, FALSE, 0, SPRITE_RESOURCE_ANIM, HEAP_ID_FIELD1);
 
@@ -2138,14 +2146,22 @@ static void UndergroundTraps_MoveTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case MOVE_TRAP_STATE_BRIGHTEN_SCREEN:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case MOVE_TRAP_STATE_FRAME_DELAY:
         ctx->state++;
         break;
     case MOVE_TRAP_STATE_REVERT_BRIGHTNESS:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case MOVE_TRAP_STATE_START_SLIDE:
@@ -2159,7 +2175,11 @@ static void UndergroundTraps_MoveTrapClientTask(SysTask *sysTask, void *data)
 
         if (ctx->timer > 30) {
             CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, -4, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
             CommPlayer_StartSlideAnimation(ctx->netID, ctx->dir, ctx->isHurlTrap);
             Sound_PlayEffect(SEQ_SE_DP_F007);
@@ -2172,7 +2192,11 @@ static void UndergroundTraps_MoveTrapClientTask(SysTask *sysTask, void *data)
     case MOVE_TRAP_STATE_WAIT_FOR_END:
         break;
     case MOVE_TRAP_STATE_END:
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         Heap_Free(ctx);
         SysTask_Done(sysTask);
 
@@ -2222,7 +2246,11 @@ static void UndergroundTraps_ForceEndMoveTrapEffectClient(int netID, BOOL unused
     if (trapsEnv->currentTrapContext) {
         MoveTrapContext *ctx = trapsEnv->currentTrapContext;
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         Heap_Free(ctx);
         SysTask_Done(trapsEnv->trapEffectTask);
 
@@ -2323,8 +2351,16 @@ static void UndergroundTraps_EndSmokeTrapEffectClient(int netID, BOOL allowToolS
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         u8 *tilemap = Bg_GetTilemapBuffer(trapsEnv->fieldSystem->bgConfig, BG_LAYER_MAIN_2);
 
@@ -2333,7 +2369,11 @@ static void UndergroundTraps_EndSmokeTrapEffectClient(int netID, BOOL allowToolS
         }
 
         Bg_SetPriority(BG_LAYER_MAIN_2, 3);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
         SysTask_Done(trapsEnv->trapEffectTask);
@@ -2440,12 +2480,20 @@ static void UndergroundTraps_SmokeTrapClientTask(SysTask *sysTask, void *data)
 
     switch (ctx->state) {
     case SMOKE_TRAP_STATE_START:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         ctx->printerID = UndergroundTraps_NotifyTrapTriggered();
         ctx->state++;
         break;
     case SMOKE_TRAP_STATE_LOAD_TILES:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         Graphics_LoadTilesToBgLayer(NARC_INDEX_DATA__UG_TRAP, smoke_tiles_NCGR, ctx->bgConfig, BG_LAYER_MAIN_2, 0, 8 * 6 * 6, FALSE, HEAP_ID_FIELD1);
         ctx->state++;
         break;
@@ -2454,7 +2502,11 @@ static void UndergroundTraps_SmokeTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case SMOKE_TRAP_STATE_LOAD_TILEMAP:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (trapsEnv->triggeredTrapIDClient == TRAP_BIG_SMOKE) {
             Graphics_LoadTilemapToBgLayer(NARC_INDEX_DATA__UG_TRAP, big_smoke_pattern_NSCR, ctx->bgConfig, BG_LAYER_MAIN_2, 0, 32 * 24 * 2, FALSE, HEAP_ID_FIELD1);
@@ -2477,8 +2529,16 @@ static void UndergroundTraps_SmokeTrapClientTask(SysTask *sysTask, void *data)
         ctx->timer++;
 
         if (ctx->timer > 30) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, -4, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, TRUE);
+            #else
+            // TODO: Port GX_PLANEMASK_BG2 to PAL
+            #endif
             ctx->state = SMOKE_TRAP_STATE_MAIN;
             UndergroundTextPrinter_PrintTextInstant(CommManUnderground_GetCommonTextPrinter(), UndergroundCommon_Text_RemoveTrapByTouch, FALSE, NULL);
             ctx->messageTimer = 0;
@@ -2740,9 +2800,21 @@ void TrapRadar_Start(void)
 void TrapRadar_Exit(void)
 {
     if (trapsEnv->baseRadarTask) {
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
         SysTask_Done(trapsEnv->baseRadarTask);
         Heap_Free(trapsEnv->trapRadarContext);
         trapsEnv->baseRadarTask = NULL;
@@ -2832,10 +2904,22 @@ static void UndergroundTraps_EndAlterMovementTrapEffectClient(int netID, BOOL un
 static void UndergroundTraps_ForceEndAlterMovementTrapEffectClient(int netID, BOOL unused)
 {
     if (trapsEnv->currentTrapContext) {
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
 
         CommSys_RevertPlayerMovementToNormal();
         SysTask_Done(trapsEnv->trapEffectTask);
@@ -2857,9 +2941,17 @@ static void UndergroundTraps_AlterMovementTrapClientTask(SysTask *sysTask, void 
         if (ctx->timer == 1) {
             ctx->printerID = UndergroundTraps_NotifyTrapTriggered();
         } else if (ctx->timer == 2) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
         } else if (ctx->timer == 4) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
         }
 
         if (ctx->timer > 30) {
@@ -2878,10 +2970,22 @@ static void UndergroundTraps_AlterMovementTrapClientTask(SysTask *sysTask, void 
     case ALTER_MOVEMENT_TRAP_STATE_WAIT_FOR_END:
         break;
     case ALTER_MOVEMENT_TRAP_STATE_END:
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
 
         CommSys_RevertPlayerMovementToNormal();
         Heap_Free(data);
@@ -2938,10 +3042,22 @@ static void UndergroundTraps_ForceEndHoleTrapEffectClient(int netID, BOOL allowT
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
 
         Player_SetYPos(trapsEnv->fieldSystem->playerAvatar, 0);
         SysTask_Done(trapsEnv->trapEffectTask);
@@ -2992,14 +3108,22 @@ static void UndergroundTraps_HoleTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case HOLE_TRAP_STATE_BRIGHTEN_SCREEN:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case HOLE_TRAP_STATE_FRAME_DELAY:
         ctx->state++;
         break;
     case HOLE_TRAP_STATE_REVERT_BRIGHTNESS:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case HOLE_TRAP_STATE_WAIT:
@@ -3174,7 +3298,11 @@ static void UndergroundTraps_LeafTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case LEAF_TRAP_STATE_LOAD_CHAR:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (trapsEnv->triggeredTrapIDClient == TRAP_FLOWER) {
             narcMemberIdx = petal_NCGR;
@@ -3182,7 +3310,11 @@ static void UndergroundTraps_LeafTrapClientTask(SysTask *sysTask, void *data)
             narcMemberIdx = leaf_NCGR;
         }
 
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR], NARC_INDEX_DATA__UG_TRAP, narcMemberIdx, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case LEAF_TRAP_STATE_LOAD_PLTT:
@@ -3192,11 +3324,19 @@ static void UndergroundTraps_LeafTrapClientTask(SysTask *sysTask, void *data)
             narcMemberIdx = leaf_NCLR;
         }
 
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPalette(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT], NARC_INDEX_DATA__UG_TRAP, narcMemberIdx, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 7, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case LEAF_TRAP_STATE_LOAD_CELL:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (trapsEnv->triggeredTrapIDClient == TRAP_FLOWER) {
             narcMemberIdx = petal_cell_NCER;
@@ -3229,7 +3369,11 @@ static void UndergroundTraps_LeafTrapClientTask(SysTask *sysTask, void *data)
         ctx->timer++;
 
         if (ctx->timer > 30) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, -4, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             UndergroundTextPrinter_PrintTextInstant(CommManUnderground_GetCommonTextPrinter(), UndergroundCommon_Text_BlowTrapAway, FALSE, NULL);
 
             ctx->state = LEAF_TRAP_STATE_MAIN;
@@ -3288,8 +3432,16 @@ static void UndergroundTraps_EndLeafTrapEffectClient(int netID, BOOL allowToolSt
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, -4, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         UndergroundTraps_DeleteSpritesAndResources(ctx->leafCount);
 
@@ -3390,7 +3542,11 @@ static void UndergroundTraps_InitLeafSprites(int leafCount)
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_FIELD1;
 
     for (int i = 0; i < leafCount; i++) {
@@ -3405,8 +3561,16 @@ static void UndergroundTraps_InitLeafSprites(int leafCount)
         Sprite_SetExplicitPriority(trapsEnv->sprites[i], 1);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void UndergroundTraps_DeleteSprite(int index)
@@ -3608,16 +3772,32 @@ static void UndergroundTraps_BubbleTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case BUBBLE_TRAP_STATE_LOAD_CHAR:
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR], NARC_INDEX_DATA__UG_TRAP, bubble_NCGR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case BUBBLE_TRAP_STATE_LOAD_PLTT:
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPalette(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT], NARC_INDEX_DATA__UG_TRAP, bubble_NCLR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 7, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case BUBBLE_TRAP_STATE_LOAD_CELL:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_Add(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CELL], NARC_INDEX_DATA__UG_TRAP, bubble_cell_NCER, FALSE, 0, SPRITE_RESOURCE_CELL, HEAP_ID_FIELD1);
         ctx->state++;
         break;
@@ -3634,7 +3814,11 @@ static void UndergroundTraps_BubbleTrapClientTask(SysTask *sysTask, void *data)
         ctx->timer++;
 
         if (ctx->timer > 30) {
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(-4);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             ctx->state = BUBBLE_TRAP_STATE_MAIN;
             UndergroundTextPrinter_PrintTextInstant(CommManUnderground_GetCommonTextPrinter(), UndergroundCommon_Text_RemoveTrapByTouch, FALSE, NULL);
             ctx->messageTimer = 0;
@@ -3642,7 +3826,19 @@ static void UndergroundTraps_BubbleTrapClientTask(SysTask *sysTask, void *data)
         }
         break;
     case BUBBLE_TRAP_STATE_MAIN:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_OBJ, GX_BLEND_PLANEMASK_BG0, 14, 7);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (UndergroundTraps_ProcessBubbles(trapsEnv->fieldSystem->bgConfig, ctx)) {
             Sound_StopEffect(SEQ_SE_DP_FAWA, 0);
@@ -3721,7 +3917,11 @@ static void UndergroundTraps_InitBubbleSprites(BubbleTrapContext *ctx)
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_FIELD1;
 
     for (int i = 0; i < UndergroundTraps_GetBubbleCount(); i++) {
@@ -3734,12 +3934,24 @@ static void UndergroundTraps_InitBubbleSprites(BubbleTrapContext *ctx)
         Sprite_SetAnim(trapsEnv->sprites[i], ctx->bubbleSizes[i] * 2);
         Sprite_SetAnimateFlag(trapsEnv->sprites[i], TRUE);
         Sprite_SetAnimFrame(trapsEnv->sprites[i], i * 4);
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(trapsEnv->sprites[i], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         Sprite_SetExplicitPriority(trapsEnv->sprites[i], 1);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void UndergroundTraps_UpdateBubbleSprite(int index, BubbleTrapContext *ctx)
@@ -3855,10 +4067,22 @@ static void UndergroundTraps_EndBubbleTrapEffectClient(int netID, BOOL allowTool
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
         UndergroundTraps_DeleteSpritesAndResources(UndergroundTraps_GetBubbleCount());
 
         CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
@@ -3888,7 +4112,11 @@ static void UndergroundTraps_InitBoulderSprites(RockTrapContext *unused)
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_FIELD1;
 
     for (int i = 0; i < ROCK_TRAP_SPRITE_COUNT; i++) {
@@ -3905,8 +4133,16 @@ static void UndergroundTraps_InitBoulderSprites(RockTrapContext *unused)
         Sprite_SetExplicitPriority(trapsEnv->sprites[i], 1);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void UndergroundTraps_InitSingleBoulderDebris(RockTrapContext *ctx, int index, int x, int y, int xSpeed, int ySpeed)
@@ -4159,7 +4395,11 @@ static void UndergroundTraps_LoadDamagedBoulderTiles(RockTrapContext *ctx)
     NARC *narc = NARC_ctor(NARC_INDEX_DATA__UG_TRAP, HEAP_ID_FIELD1);
 
     if (index < (int)NELEMS(narcMemberIndices)) {
+        #ifdef PLATFORM_DS
         ctx->boulderSpriteResources[index + 1] = SpriteResourceCollection_AddTilesFrom(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR], narc, narcMemberIndices[index], FALSE, index + 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     NARC_dtor(narc);
@@ -4192,17 +4432,33 @@ static void UndergroundTraps_RockTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case ROCK_TRAP_STATE_LOAD_CHAR:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR], NARC_INDEX_DATA__UG_TRAP, boulder_NCGR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->boulderSpriteResources[0] = trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR];
         ctx->state++;
         break;
     case ROCK_TRAP_STATE_LOAD_PLTT:
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPalette(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT], NARC_INDEX_DATA__UG_TRAP, boulder_NCLR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 7, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case ROCK_TRAP_STATE_LOAD_CELL:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_Add(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CELL], NARC_INDEX_DATA__UG_TRAP, boulder_cell_NCER, FALSE, 0, SPRITE_RESOURCE_CELL, HEAP_ID_FIELD1);
         ctx->state++;
         break;
@@ -4314,7 +4570,11 @@ static void UndergroundTraps_EndRockTrapEffectClient(int netID, BOOL allowToolSt
         UndergroundTraps_DeleteDamagedBoulderTiles(ctx);
         UndergroundTraps_DeleteSpritesAndResources(ROCK_TRAP_SPRITE_COUNT);
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
         SysTask_Done(trapsEnv->trapEffectTask);
         Heap_Free(ctx);
@@ -4342,7 +4602,11 @@ static void UndergroundTraps_InitFireSprite(FireTrapContext *unused)
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_FIELD1;
 
     template.position.x = FX32_ONE * 128;
@@ -4356,8 +4620,16 @@ static void UndergroundTraps_InitFireSprite(FireTrapContext *unused)
     Sprite_SetAnimFrame(trapsEnv->sprites[0], 0);
     Sprite_SetExplicitPriority(trapsEnv->sprites[0], 1);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 // returns true when flame is extinguished
@@ -4463,7 +4735,11 @@ static void UndergroundTraps_FireTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case FIRE_TRAP_STATE_LOAD_CHAR:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (trapsEnv->triggeredTrapIDClient == TRAP_FIRE) {
             narcMemberIdx = fire_NCGR;
@@ -4471,15 +4747,27 @@ static void UndergroundTraps_FireTrapClientTask(SysTask *sysTask, void *data)
             narcMemberIdx = ember_NCGR;
         }
 
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_CHAR], NARC_INDEX_DATA__UG_TRAP, narcMemberIdx, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case FIRE_TRAP_STATE_LOAD_PLTT:
+        #ifdef PLATFORM_DS
         trapsEnv->spriteResources[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPalette(trapsEnv->spriteResourceCollection[TRAP_RESOURCES][SPRITE_RESOURCE_PLTT], NARC_INDEX_DATA__UG_TRAP, ember_fire_NCLR, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 7, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ctx->state++;
         break;
     case FIRE_TRAP_STATE_LOAD_CELL:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (trapsEnv->triggeredTrapIDClient == TRAP_FIRE) {
             narcMemberIdx = fire_cell_NCER;
@@ -4509,14 +4797,30 @@ static void UndergroundTraps_FireTrapClientTask(SysTask *sysTask, void *data)
 
         if (ctx->timer > 30) {
             UndergroundTextPrinter_PrintTextInstant(CommManUnderground_GetCommonTextPrinter(), UndergroundCommon_Text_BlowTrapAway, FALSE, NULL);
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(-4);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
 
             ctx->state = FIRE_TRAP_STATE_MAIN;
             ctx->messageTimer = 0;
         }
         break;
     case FIRE_TRAP_STATE_MAIN:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_OBJ, GX_BLEND_PLANEMASK_BG0, 14, 7);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
 
         if (UndergroundTraps_ProcessFlame(trapsEnv->fieldSystem->bgConfig, ctx)) {
             if (ctx->isTool) {
@@ -4594,9 +4898,21 @@ static void UndergroundTraps_EndFireTrapEffectClient(int netID, BOOL allowToolSt
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
         UndergroundTraps_DeleteSpritesAndResources(1);
 
         CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
@@ -4619,14 +4935,22 @@ static void UndergroundTraps_AlertTrapClientTask(SysTask *sysTask, void *data)
         ctx->state++;
         break;
     case ALERT_TRAP_STATE_BRIGHTEN_SCREEN:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 10, 0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case ALERT_TRAP_STATE_FRAME_DELAY:
         ctx->state++;
         break;
     case ALERT_TRAP_STATE_REVERT_BRIGHTNESS:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, 0, 10, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         ctx->state++;
         break;
     case ALERT_TRAP_STATE_FRAME_DELAY_2:
@@ -4640,7 +4964,11 @@ static void UndergroundTraps_AlertTrapClientTask(SysTask *sysTask, void *data)
 
         if (ctx->timer > 30) {
             UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(-4);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             ctx->state = ALERT_TRAP_STATE_TRANSITION_TO_END;
         }
         break;
@@ -4712,9 +5040,21 @@ static void UndergroundTraps_EndAlertTrapEffectClient(int netID, BOOL allowToolS
             UndergroundTraps_StepBackFromTool(ctx->toolInitialDir);
         }
 
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(0, GX_BLEND_PLANEMASK_BG0, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
 
         CommPlayerMan_ResumeFieldSystemWithContextBit(PAUSE_BIT_TRAPS);
         SysTask_Done(trapsEnv->trapEffectTask);
@@ -4740,9 +5080,25 @@ static BOOL ov23_02248614(BgConfig *unused, TouchRadarContext *ctx)
     v2.y = v2.z = v2.x;
 
     Sprite_SetAffineScale(trapsEnv->sprites[0], &v2);
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(trapsEnv->sprites[0], GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_OBJ, GX_BLEND_PLANEMASK_BG0, 16 - (ctx->unk_30 / 2), 16);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+    #endif
 
     for (v1 = 0; v1 < 3; v1++) {
         for (v0 = 0; v0 < ctx->unk_14[v1]; v0++) {
@@ -4753,7 +5109,11 @@ static BOOL ov23_02248614(BgConfig *unused, TouchRadarContext *ctx)
             v2.y = 0;
             v2.z = (ctx->unk_24 - 6 + v6) * FX32_ONE * 16 + (FX32_ONE * 16 / 2);
 
+            #ifdef PLATFORM_DS
             NNS_G3dWorldPosToScrPos(&v2, &v3, &v4);
+            #else
+            // TODO: Port NNS_G3dWorldPosToScrPos to PAL
+            #endif
 
             v2.x = v3 * FX32_ONE;
             v2.y = v4 * FX32_ONE;
@@ -4790,7 +5150,11 @@ static void UndergroundTraps_InitRadarSprites(TouchRadarContext *unused)
     template.affineScale.z = FX32_ONE;
     template.affineZRotation = 0;
     template.priority = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     template.heapID = HEAP_ID_FIELD1;
 
     for (int i = 0; i < 25; i++) {
@@ -4812,8 +5176,16 @@ static void UndergroundTraps_InitRadarSprites(TouchRadarContext *unused)
         Sprite_SetAnimFrame(trapsEnv->sprites[i], 0);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void UndergroundTraps_TouchRadarTask(SysTask *sysTask, void *data)
@@ -4822,11 +5194,51 @@ static void UndergroundTraps_TouchRadarTask(SysTask *sysTask, void *data)
 
     switch (ctx->state) {
     case 0:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_OBJ, GX_BLEND_PLANEMASK_BG0, 14, 7);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetWnd0Position(255 - 16, 0, 256, 16);
+        #else
+        // TODO: Port G2_SetWnd0Position to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWnd0InsidePlane to PAL
+        #endif
         G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_W0);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
 
         CommPlayerMan_PauseFieldSystem();
         Sound_PlayEffect(SEQ_SE_PL_UG_006);
@@ -4845,9 +5257,25 @@ static void UndergroundTraps_TouchRadarTask(SysTask *sysTask, void *data)
         }
         break;
     case 9:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
         GX_SetVisibleWnd(GX_WNDMASK_NONE);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(0);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
 
         SpriteTransfer_ResetCharTransfer(trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_CHAR]);
         SpriteTransfer_ResetPlttTransfer(trapsEnv->spriteResources[RADAR_RESOURCES][SPRITE_RESOURCE_PLTT]);

@@ -15,9 +15,21 @@
 #include "overlay_manager.h"
 #include "unk_020972FC.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay83);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(bag);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay85);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static int ov82_0223B380(UnkStruct_ov83_0223C344 *param0);
 static int ov82_0223B3DC(UnkStruct_ov83_0223C344 *param0);
@@ -53,13 +65,21 @@ int ov82_0223B2E0(UnkStruct_ov83_0223C344 *param0, int *param1)
 
 int ov82_0223B330(UnkStruct_ov83_0223C344 *param0, int *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay83);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v0 = {
         ov83_0223B5B0,
         ov83_0223B65C,
         ov83_0223B710,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay83)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     param0->appMan = ApplicationManager_New(&v0, param0, param0->heapID);
@@ -89,10 +109,18 @@ static int ov82_0223B380(UnkStruct_ov83_0223C344 *param0)
     void *v0;
     u32 v1;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(bag);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate Unk_ov84_02241130 = {
+        #ifdef PLATFORM_DS
         BagApplication_Init, BagApplication_Main, BagApplication_Exit, FS_OVERLAY_ID(bag)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
     static const u8 v3[] = {
         4, 0xff
@@ -160,10 +188,18 @@ static int ov82_0223B470(UnkStruct_ov83_0223C344 *param0)
     u8 v1, v2, v3, item;
     Bag *bag = param0->unk_10->bag;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay85);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     const ApplicationManagerTemplate v6 = {
+        #ifdef PLATFORM_DS
         ov85_02241440, ov85_0224154C, ov85_022415A0, FS_OVERLAY_ID(overlay85)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     param0->unk_18 = sub_020972FC(param0->heapID);

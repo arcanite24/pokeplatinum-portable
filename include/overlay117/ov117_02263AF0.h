@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV117_02263AF0_H
 #define POKEPLATINUM_OV117_02263AF0_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02012744_decl.h"
 
 #include "overlay117/struct_ov117_02261280_decl.h"

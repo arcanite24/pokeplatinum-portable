@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV8_02249960_H
 #define POKEPLATINUM_OV8_02249960_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "bg_window.h"

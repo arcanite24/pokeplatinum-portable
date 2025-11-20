@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02095EAC_T_H
 #define POKEPLATINUM_STRUCT_02095EAC_T_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02015920_decl.h"
 #include "struct_defs/struct_0203DDFC.h"
 #include "struct_defs/struct_02095EAC_sub1.h"

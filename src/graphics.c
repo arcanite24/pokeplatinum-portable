@@ -299,7 +299,11 @@ u32 Graphics_LoadObjectTiles(enum NarcID narcID, u32 narcMemberIdx, enum DSScree
     return 0; // Return 0 tiles loaded
 }
 
+#ifdef PLATFORM_DS
 void Graphics_LoadPartialPalette(enum NarcID narcID, u32 narcMemberIdx, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImagePaletteProxy *paletteProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narcID; (void)narcMemberIdx; (void)vramType; (void)baseAddr;
     (void)heapID; (void)paletteProxy;
@@ -307,7 +311,11 @@ void Graphics_LoadPartialPalette(enum NarcID narcID, u32 narcMemberIdx, NNS_G2D_
     printf("[Graphics] TODO: Port Graphics_LoadPartialPalette (NARC %d, member %d)\n", narcID, narcMemberIdx);
 }
 
+#ifdef PLATFORM_DS
 u32 Graphics_LoadImageMapping(enum NarcID narcID, u32 narcMemberIdx, BOOL compressed, enum ImageMappingLayout layout, u32 size, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImageProxy *imageProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narcID; (void)narcMemberIdx; (void)compressed; (void)layout;
     (void)size; (void)vramType; (void)baseAddr; (void)heapID; (void)imageProxy;
@@ -316,7 +324,11 @@ u32 Graphics_LoadImageMapping(enum NarcID narcID, u32 narcMemberIdx, BOOL compre
     return 0;
 }
 
+#ifdef PLATFORM_DS
 void Graphics_LoadPaletteBuffer(enum NarcID narcID, u32 narcMemberIdx, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImagePaletteProxy *paletteProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narcID; (void)narcMemberIdx; (void)vramType; (void)baseAddr;
     (void)heapID; (void)paletteProxy;
@@ -332,7 +344,11 @@ void Graphics_LoadMultiCellAnimation(enum NarcID narcID, u32 narcMemberIdx, BOOL
     printf("[Graphics] TODO: Port Graphics_LoadMultiCellAnimation (NARC %d, member %d)\n", narcID, narcMemberIdx);
 }
 
+#ifdef PLATFORM_DS
 void Graphics_LoadPartialPaletteFromOpenNARC(NARC *narc, u32 narcMemberIdx, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImagePaletteProxy *paletteProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narc; (void)narcMemberIdx; (void)vramType; (void)baseAddr;
     (void)heapID; (void)paletteProxy;
@@ -348,7 +364,11 @@ void Graphics_LoadPaletteFromOpenNARC(NARC *narc, u32 narcMemberIdx, enum Palett
     printf("[Graphics] TODO: Port Graphics_LoadPaletteFromOpenNARC (member %d)\n", narcMemberIdx);
 }
 
+#ifdef PLATFORM_DS
 u32 Graphics_LoadImageMappingFromOpenNARC(NARC *narc, u32 narcMemberIdx, BOOL compressed, enum ImageMappingLayout layout, u32 size, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImageProxy *imageProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narc; (void)narcMemberIdx; (void)compressed; (void)layout;
     (void)size; (void)vramType; (void)baseAddr; (void)heapID; (void)imageProxy;
@@ -357,7 +377,11 @@ u32 Graphics_LoadImageMappingFromOpenNARC(NARC *narc, u32 narcMemberIdx, BOOL co
     return 0;
 }
 
+#ifdef PLATFORM_DS
 void Graphics_LoadImageMappingAndSetVramMode(enum NarcID narcID, u32 narcMemberIdx, BOOL compressed, enum ImageMappingLayout layout, u32 size, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, u32 heapID, NNSG2dImageProxy *imageProxy)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     (void)narcID; (void)narcMemberIdx; (void)compressed; (void)layout;
     (void)size; (void)vramType; (void)baseAddr; (void)heapID; (void)imageProxy;

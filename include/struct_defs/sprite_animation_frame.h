@@ -3,6 +3,8 @@
 
 #define MAX_ANIMATION_FRAMES 10
 
+#include "platform/platform_types.h"
+
 /**
  * @brief By-frame data definition for animating a sprite.
  */

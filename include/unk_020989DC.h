@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020989DC_H
 #define POKEPLATINUM_UNK_020989DC_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0203D9B8.h"
 
 #include "enums.h"

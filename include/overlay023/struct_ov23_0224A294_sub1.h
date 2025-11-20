@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u8 unk_00_0 : 4;
     u8 unk_00_4 : 4;

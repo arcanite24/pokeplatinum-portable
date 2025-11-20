@@ -10,7 +10,11 @@
 #include "field_comm_manager.h"
 #include "game_overlay.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay56);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct BottomScreenHandlers {
     // clang-format off
@@ -90,7 +94,11 @@ static void ov5_021D5C54(FieldSystem *fieldSystem)
 
 static void ov5_021D5C5C(FieldSystem *fieldSystem)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay56), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     fieldSystem->unk_84 = ov56_02256410(fieldSystem);
 }
 
@@ -107,7 +115,11 @@ static void ov5_021D5C80(FieldSystem *fieldSystem)
 static void ov5_021D5C88(FieldSystem *fieldSystem)
 {
     ov56_02256468(fieldSystem->unk_84);
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay56));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static BOOL ov5_021D5CA0(FieldSystem *fieldSystem)

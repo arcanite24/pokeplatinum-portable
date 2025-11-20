@@ -111,10 +111,18 @@ void MainMenuUtil_InitBGLayer(BgConfig *bgConfig, enum BgLayer bgLayer, u8 scree
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x0000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -312,7 +320,11 @@ void MainMenuUtil_InitCharPlttTransferBuffers(void)
 
     charTransTemplte.heapID = utilMan->heapID;
 
+    #ifdef PLATFORM_DS
     CharTransfer_InitWithVramModes(&charTransTemplte, GX_OBJVRAMMODE_CHAR_1D_32K, GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
     PlttTransfer_Init(30, utilMan->heapID);
 
     CharTransfer_ClearBuffers();
@@ -330,7 +342,11 @@ void MainMenuUtil_InitSpriteLoader(void)
 {
     MainMenuUtilManager *utilMan = &sMainMenuUtilManager;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     RenderOam_Init(0, 126, 0, 32, 0, 126, 0, 32, utilMan->heapID);
     utilMan->spriteManager.spriteList = SpriteList_InitRendering(128, &utilMan->spriteManager.renderer, utilMan->heapID);
@@ -356,7 +372,11 @@ MainMenuSpriteManager *MainMenuUtil_GetSpriteManager(void)
 void MainMenuUtil_LoadSprite(enum NarcID narcID, int tilesID, int plttID, int cellID, int animID, enum DSScreen screen)
 {
     MainMenuUtilManager *utilMan = &sMainMenuUtilManager;
+    #ifdef PLATFORM_DS
     int vramType = screen == DS_SCREEN_MAIN ? NNS_G2D_VRAM_TYPE_2DMAIN : NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     int compressed = TRUE;
 
     if (narcID == NARC_INDEX_ITEMTOOL__ITEMDATA__ITEM_ICON) {
@@ -384,9 +404,17 @@ void MainMenuUtil_LoadSprite(enum NarcID narcID, int tilesID, int plttID, int ce
     SpriteResourcesHeader_Init(&utilMan->spriteManager.resourceHeaders[screen], screen, screen, screen, screen, -1, -1, FALSE, 0, utilMan->spriteManager.resourceCollections[SPRITE_RESOURCE_CHAR], utilMan->spriteManager.resourceCollections[SPRITE_RESOURCE_PLTT], utilMan->spriteManager.resourceCollections[SPRITE_RESOURCE_CELL], utilMan->spriteManager.resourceCollections[SPRITE_RESOURCE_ANIM], NULL, NULL);
 
     if (screen == DS_SCREEN_MAIN) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
     }
 
     SetVBlankCallback(TransferGraphicsOnVBlank, NULL);
@@ -449,10 +477,18 @@ Sprite *MainMenuUtil_InitSprite(enum DSScreen screen, Sprite *sprite, int x, int
         template.position.x = FX32_ONE * x;
         template.position.y = FX32_ONE * y;
         template.priority = 10;
+        #ifdef PLATFORM_DS
         template.vramType = screen == DS_SCREEN_MAIN ? NNS_G2D_VRAM_TYPE_2DMAIN : NNS_G2D_VRAM_TYPE_2DSUB;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         template.heapID = utilMan->heapID;
 
+        #ifdef PLATFORM_DS
         if (template.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
             template.position.y += utilMan->bottomScreenTopY;
         }
 
@@ -535,7 +571,15 @@ static void TransferGraphicsOnVBlank(void *unused)
         Bg_RunScheduledUpdates(utilMan->bgConfig);
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static int CalcPlttOffsetForGiftType(enum MysteryGiftType giftType)
@@ -585,11 +629,23 @@ static void LoadPokemonSprite(Sprite *sprite, Pokemon *mon, enum Species species
     DC_FlushRange(buffer, MON_SPRITE_FRAME_MAX_SIZE_BYTES);
 
     NNSG2dImageProxy *imageProxy = Sprite_GetImageProxy(sprite);
+    #ifdef PLATFORM_DS
     u32 imageLocation = NNS_G2dGetImageLocation(imageProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GXS_LoadOBJ(buffer, imageLocation + MON_SPRITE_FRAME_MAX_SIZE_BYTES, MON_SPRITE_FRAME_MAX_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadOBJ to PAL
+    #endif
     NNSG2dImagePaletteProxy *plttProxy = Sprite_GetPaletteProxy(sprite);
+    #ifdef PLATFORM_DS
     u32 plttLocation = NNS_G2dGetImagePaletteLocation(plttProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     Graphics_LoadPalette(monSpriteTemplate->narcID, monSpriteTemplate->palette, PAL_LOAD_SUB_OBJ, PLTT_OFFSET(3) + plttLocation, PALETTE_SIZE_BYTES, utilMan->heapID);
 }
@@ -675,7 +731,11 @@ void MainMenuUtil_LoadGiftSprite(BgConfig *bgConfig, WonderCard *wonderCard)
     NNSG2dScreenData *screenData;
     void *nscr = LoadMemberFromNARC(NARC_INDEX_GRAPHIC__MYSTERY, 31, TRUE, utilMan->heapID, TRUE);
 
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(nscr, &screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     Bg_LoadTilemapBuffer(bgConfig, BG_LAYER_SUB_1, screenData->rawData, (HW_LCD_WIDTH / TILE_WIDTH_PIXELS) * (HW_LCD_HEIGHT / TILE_HEIGHT_PIXELS) * 2);
     Heap_Free(nscr);
@@ -725,7 +785,11 @@ void MainMenuUtil_EncryptWonderCard(MysteryGiftEventData *eventData, WonderCard 
     Heap_Free(crcTable);
 
     u16 key[4];
+    #ifdef PLATFORM_DS
     OS_GetMacAddress((u8 *)key);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     key[3] = key[1];
     key[1] = headerCRC;
@@ -786,7 +850,11 @@ void MainMenuUtil_ListMenuCursorCB(ListMenu *listMenu, u32 index, u8 onInit)
 
 static void TerminateOnGBACartRemoved(void)
 {
+    #ifdef PLATFORM_DS
     if (PAD_DetectFold() == FALSE && CTRDG_IsAgbCartridge() == FALSE) {
+    #else
+    // TODO: Port PAD_DetectFold to PAL
+    #endif
         CTRDG_TerminateForPulledOut();
     }
 }
@@ -794,12 +862,44 @@ static void TerminateOnGBACartRemoved(void)
 void MainMenuUtil_ToggleTerminateOnGBACartRemoved(BOOL enable)
 {
     if (enable == TRUE) {
+        #ifdef PLATFORM_DS
         OS_DisableIrq();
+        #else
+        // TODO: Port OS_DisableIrq to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_SetIrqFunction to PAL
+        #endif
         OS_SetIrqFunction(OS_IE_CARTRIDGE, TerminateOnGBACartRemoved);
+        #else
+        // TODO: Port OS_IE_CARTRIDGE to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_EnableIrqMask to PAL
+        #endif
         OS_EnableIrqMask(OS_IE_CARTRIDGE);
+        #else
+        // TODO: Port OS_IE_CARTRIDGE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         OS_EnableIrq();
+        #else
+        // TODO: Port OS_EnableIrq to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_DisableIrqMask to PAL
+        #endif
         OS_DisableIrqMask(OS_IE_CARTRIDGE);
+        #else
+        // TODO: Port OS_IE_CARTRIDGE to PAL
+        #endif
     }
 }
 
@@ -810,10 +910,34 @@ static void GBACartRemovedIrqStub(void)
 
 void MainMenuUtil_UnsetGBACartIRQFunc(void)
 {
+    #ifdef PLATFORM_DS
     OS_DisableIrq();
+    #else
+    // TODO: Port OS_DisableIrq to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqFunction to PAL
+    #endif
     OS_SetIrqFunction(OS_IE_CARTRIDGE, GBACartRemovedIrqStub);
+    #else
+    // TODO: Port OS_IE_CARTRIDGE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_EnableIrqMask to PAL
+    #endif
     OS_EnableIrqMask(OS_IE_CARTRIDGE);
+    #else
+    // TODO: Port OS_IE_CARTRIDGE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_EnableIrq();
+    #else
+    // TODO: Port OS_EnableIrq to PAL
+    #endif
 }
 
 void MainMenuUtil_InitSaving(SaveData *saveData)

@@ -61,7 +61,11 @@
 #define HEALTHBAR_NAME_TEXT_COLOR       TEXT_COLOR(14, 2, HEALTHBAR_NAME_BACKGROUND_COLOR)
 
 #define VRAM_TRANSFER_DST(vram, transferTable, index_0, index_1, imgProxy) ( \
+    #ifdef PLATFORM_DS
     (void *)((u32)vram + transferTable[index_0][index_1].pos + imgProxy->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]))
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
 #define S32_MIN -2147483648
 
@@ -449,7 +453,11 @@ static const SpriteTemplate sHealthbarTemplate_SoloPlayer = {
     .animIdx = 0,
     .priority = 23,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_SOLO_PLAYER_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -469,7 +477,11 @@ static const SpriteTemplate sHealthbarTemplate_SoloEnemy = {
     .animIdx = 0,
     .priority = 24,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_SOLO_ENEMY_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -489,7 +501,11 @@ static const SpriteTemplate sHealthbarTemplate_PlayerSlot1 = {
     .animIdx = 0,
     .priority = 28,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_PLAYER_SLOT_1_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -509,7 +525,11 @@ static const SpriteTemplate sHealthbarTemplate_EnemySlot1 = {
     .animIdx = 0,
     .priority = 25,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_ENEMY_SLOT_1_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -529,7 +549,11 @@ static const SpriteTemplate sHealthbarTemplate_PlayerSlot2 = {
     .animIdx = 0,
     .priority = 26,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_PLAYER_SLOT_2_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -549,7 +573,11 @@ static const SpriteTemplate sHealthbarTemplate_EnemySlot2 = {
     .animIdx = 0,
     .priority = 27,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_ENEMY_SLOT_2_NCGR,
         HEALTHBAR_MAIN_PALETTE_RESID,
@@ -569,7 +597,11 @@ static const SpriteTemplate Unk_ov16_0226F514 = {
     0x0,
     17,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0xB9, 0x4E26, 0xB8, 0xB7, 0xFFFFFFFF, 0xFFFFFFFF },
     0x0,
     0x0
@@ -582,7 +614,11 @@ static const SpriteTemplate sHealthbarTemplate_NoPlayerMon = {
     .animIdx = 0,
     .priority = 23,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         HEALTHBAR_SAFARI_NCGR,
         HEALTHBAR_SAFARI_PALETTE_RESID,
@@ -601,14 +637,30 @@ void Healthbar_LoadResources(SpriteSystem *spriteSys, SpriteManager *spriteMan, 
 {
     const SpriteTemplate *template = Healthbar_SpriteTemplate(healthbarType);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(spriteSys, spriteMan, narc, template->resources[SPRITE_RESOURCE_CHAR], TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, template->resources[SPRITE_RESOURCE_CHAR]);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, spriteMan, narc, 71, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEALTHBAR_MAIN_PALETTE_RESID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(spriteSys, spriteMan, narc, template->resources[SPRITE_RESOURCE_CELL], TRUE, template->resources[SPRITE_RESOURCE_CELL]);
     SpriteSystem_LoadAnimResObjFromOpenNarc(spriteSys, spriteMan, narc, template->resources[SPRITE_RESOURCE_ANIM], TRUE, template->resources[SPRITE_RESOURCE_ANIM]);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, spriteMan, narc, 71, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEALTHBAR_EFFECTS_PALETTE_RESID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     if (healthbarType == HEALTHBAR_TYPE_SAFARI_ZONE || healthbarType == HEALTHBAR_TYPE_PAL_PARK) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, spriteMan, narc, 81, 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEALTHBAR_SAFARI_PALETTE_RESID);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -617,8 +669,16 @@ static void Healthbar_LoadMainPalette(SpriteSystem *spriteSys, SpriteManager *ha
     const SpriteTemplate *template = ov16_02268314(type);
 
     if (template != NULL) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(spriteSys, handler, narc, template->resources[SPRITE_RESOURCE_CHAR], TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, template->resources[SPRITE_RESOURCE_CHAR]);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, handler, narc, 71, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEALTHBAR_MAIN_PALETTE_RESID);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObjFromOpenNarc(spriteSys, handler, narc, template->resources[SPRITE_RESOURCE_CELL], TRUE, template->resources[SPRITE_RESOURCE_CELL]);
         SpriteSystem_LoadAnimResObjFromOpenNarc(spriteSys, handler, narc, template->resources[SPRITE_RESOURCE_ANIM], TRUE, template->resources[SPRITE_RESOURCE_ANIM]);
     }
@@ -857,28 +917,56 @@ void ov16_0226737C(Healthbar *param0)
 
     param0->numberMode ^= 1;
 
+    #ifdef PLATFORM_DS
     v2 = G2_GetOBJCharPtr();
+    #else
+    // TODO: Port G2_GetOBJCharPtr to PAL
+    #endif
     v1 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
     if (param0->numberMode == 1) {
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_NUMBERS_LEFT);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F374[param0->type].pos + 0x20 + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_NUMBERS_RIGHT);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F3A4[param0->type].pos + 0x20 + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_SLASH);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F3D4[param0->type].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F3D4[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         Healthbar_DrawInfo(param0, param0->curHP, HEALTHBAR_INFO_CURRENT_HP | HEALTHBAR_INFO_MAX_HP);
     } else {
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_HP_H_2);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F374[param0->type].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F374[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_BAR_END);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F3A4[param0->type].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F3A4[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v0 = GetHealthbarPartsTile(HEALTHBAR_PART_STATUS_HEALTHY_0);
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v0, (void *)((u32)v2 + Unk_ov16_0226F3A4[param0->type].pos + 0x20 + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         Healthbar_DrawInfo(param0, param0->curHP, HEALTHBAR_INFO_HP_GAUGE);
     }
@@ -1176,7 +1264,11 @@ static void Healthbar_DrawBattlerName(Healthbar *healthbar)
 
     // copy the window's data into VRAM over the painted healthbar
     {
+        #ifdef PLATFORM_DS
         void *vram = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         imgProxy = Sprite_GetImageProxy(healthbar->mainSprite->sprite);
         u8 *hiHalf = buf;
         u8 *loHalf = &buf[HEALTHBAR_NAME_BLOCK_COUNT_X * HEALTHBAR_WINDOW_BLOCK_SIZE];
@@ -1224,11 +1316,23 @@ static void Healthbar_DrawLevelText(Healthbar *param0)
     {
         void *v5;
 
+        #ifdef PLATFORM_DS
         v5 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v0 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v2, (void *)((u32)v5 + Unk_ov16_0226F47C[param0->type][0].pos + v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F47C[param0->type][0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v1, (void *)((u32)v5 + Unk_ov16_0226F47C[param0->type][1].pos + v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F47C[param0->type][1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -1249,11 +1353,23 @@ static void Healthbar_DrawLevelNumber(Healthbar *param0)
         void *v7;
         u8 *v8, *v9;
 
+        #ifdef PLATFORM_DS
         v7 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v2 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16((void *)((u32)v7 + Unk_ov16_0226F3EC[param0->type][0].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), v1, Unk_ov16_0226F3EC[param0->type][0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16((void *)((u32)v7 + Unk_ov16_0226F3EC[param0->type][1].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), &v1[v3], Unk_ov16_0226F3EC[param0->type][1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v6 = 0;
 
@@ -1270,8 +1386,16 @@ static void Healthbar_DrawLevelNumber(Healthbar *param0)
         v8 = v1;
         v9 = &v1[v3];
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v8, (void *)((u32)v7 + Unk_ov16_0226F3EC[param0->type][0].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F3EC[param0->type][0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v9, (void *)((u32)v7 + Unk_ov16_0226F3EC[param0->type][1].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F3EC[param0->type][1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Heap_Free(v0);
@@ -1292,12 +1416,24 @@ static void Healthbar_DrawCurrentHP(Healthbar *param0, u32 param1)
         void *v2;
         u8 *v3;
 
+        #ifdef PLATFORM_DS
         v2 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v1 = Sprite_GetImageProxy(param0->mainSprite->sprite);
         v3 = v0;
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v3, (void *)((u32)v2 + Unk_ov16_0226F41C[param0->type][0].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F41C[param0->type][0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(&v3[Unk_ov16_0226F41C[param0->type][0].size], (void *)((u32)v2 + Unk_ov16_0226F41C[param0->type][1].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F41C[param0->type][1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Heap_Free(v0);
@@ -1317,11 +1453,19 @@ static void Healthbar_DrawMaxHP(Healthbar *param0)
         void *v2;
         u8 *v3;
 
+        #ifdef PLATFORM_DS
         v2 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v1 = Sprite_GetImageProxy(param0->mainSprite->sprite);
         v3 = v0;
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v3, (void *)((u32)v2 + Unk_ov16_0226F3BC[param0->type].pos + v1->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F3BC[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Heap_Free(v0);
@@ -1341,10 +1485,18 @@ static void Healthbar_DrawCaughtIcon(Healthbar *param0)
     {
         void *v2;
 
+        #ifdef PLATFORM_DS
         v2 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v0 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v1, (void *)((u32)v2 + Unk_ov16_0226F38C[param0->type].pos + v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F38C[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -1356,10 +1508,18 @@ static void Healthbar_DrawStatusIcon(Healthbar *param0, enum HealthbarPart param
     {
         void *v2;
 
+        #ifdef PLATFORM_DS
         v2 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v0 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v1, (void *)((u32)v2 + Unk_ov16_0226F35C[param0->type].pos + v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F35C[param0->type].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 }
 
@@ -1390,16 +1550,36 @@ static void Healthbar_DrawBallCount(Healthbar *param0, u32 param1)
         void *v6;
         u8 *v7, *v8;
 
+        #ifdef PLATFORM_DS
         v6 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v2 = Sprite_GetImageProxy(param0->mainSprite->sprite);
         v7 = v1;
         v8 = &v1[13 * 0x20];
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v7, (void *)((u32)v6 + Unk_ov16_0226F33C[0].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F33C[0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v8, (void *)((u32)v6 + Unk_ov16_0226F33C[1].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F33C[1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(&v7[Unk_ov16_0226F33C[0].size], (void *)((u32)v6 + Unk_ov16_0226F33C[2].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F33C[2].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(&v8[Unk_ov16_0226F33C[1].size], (void *)((u32)v6 + Unk_ov16_0226F33C[3].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F33C[3].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Window_Remove(&v3);
@@ -1438,15 +1618,35 @@ static void Healthbar_DrawBallsLeftMessage(Healthbar *param0, u32 param1)
         void *v8;
         u8 *v9, *v10;
 
+        #ifdef PLATFORM_DS
         v8 = G2_GetOBJCharPtr();
+        #else
+        // TODO: Port G2_GetOBJCharPtr to PAL
+        #endif
         v2 = Sprite_GetImageProxy(param0->mainSprite->sprite);
         v9 = v1;
         v10 = &v1[13 * 0x20];
 
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v9, (void *)((u32)v8 + Unk_ov16_0226F34C[0].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F34C[0].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(v10, (void *)((u32)v8 + Unk_ov16_0226F34C[1].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F34C[1].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(&v9[Unk_ov16_0226F34C[0].size], (void *)((u32)v8 + Unk_ov16_0226F34C[2].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F34C[2].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         MI_CpuCopy16(&v10[Unk_ov16_0226F34C[1].size], (void *)((u32)v8 + Unk_ov16_0226F34C[3].pos + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), Unk_ov16_0226F34C[3].size);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Window_Remove(&v3);
@@ -1499,7 +1699,11 @@ static void DrawGauge(Healthbar *param0, u8 param1)
     NNSG2dImageProxy *v8;
     int v9;
 
+    #ifdef PLATFORM_DS
     v7 = G2_GetOBJCharPtr();
+    #else
+    // TODO: Port G2_GetOBJCharPtr to PAL
+    #endif
     v8 = Sprite_GetImageProxy(param0->mainSprite->sprite);
 
     switch (param1) {
@@ -1530,9 +1734,17 @@ static void DrawGauge(Healthbar *param0, u8 param1)
 
         for (v0 = 0; v0 < 6; v0++) {
             if (v0 < v9) {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy16(v6 + (v1[v0] << 5), (void *)((u32)v7 + Unk_ov16_0226F44C[param0->type][0].pos + (v0 * 0x20) + v8->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy16(v6 + (v1[v0] << 5), (void *)((u32)v7 + Unk_ov16_0226F44C[param0->type][1].pos + ((v0 - v9) * 0x20) + v8->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             }
         }
         break;
@@ -1550,9 +1762,17 @@ static void DrawGauge(Healthbar *param0, u8 param1)
 
         for (v0 = 0; v0 < 12; v0++) {
             if (v0 < 5) {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy16(v6 + (v1[v0] << 5), (void *)((u32)v7 + 1632 + (v0 * 0x20) + v8->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy16(v6 + (v1[v0] << 5), (void *)((u32)v7 + 3584 + ((v0 - 5) * 0x20) + v8->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             }
         }
         break;
@@ -1847,7 +2067,11 @@ static void ov16_02268380(SysTask *param0, void *param1)
 
     switch (v0->unk_08) {
     case 0:
+        #ifdef PLATFORM_DS
         v2 = SpriteManager_FindPlttResourceOffset(v1, 20007, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ManagedSprite_SetExplicitPalette(v0->unk_00->mainSprite, v2);
         v0->unk_09 = v2;
         v0->unk_08++;
@@ -1872,7 +2096,11 @@ static void ov16_02268380(SysTask *param0, void *param1)
         PaletteData_Blend(v3, 2, v0->unk_09 * 16 + 0, 16, v0->unk_0A, 0x73a5);
         break;
     default:
+        #ifdef PLATFORM_DS
         v2 = SpriteManager_FindPlttResourceOffset(v1, 20006, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ManagedSprite_SetExplicitPalette(v0->unk_00->mainSprite, v2);
 
         (*(v0->unk_04)) = 1;

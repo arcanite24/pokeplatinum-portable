@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0202C858_H
 #define POKEPLATINUM_UNK_0202C858_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/wi_fi_history.h"
 
 #include "savedata.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV90_021D1750_H
 #define POKEPLATINUM_STRUCT_OV90_021D1750_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u16 unk_00[8];
     u8 padding_10[2];

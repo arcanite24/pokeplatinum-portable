@@ -80,7 +80,15 @@ static u8 IsCursorVisible(BattleSubMenuCursor *cursor)
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_KEY to PAL
+    #endif
     if (JOY_NEW(PAD_KEY | PAD_BUTTON_B | PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         cursor->isVisible = TRUE;
 
         ov16_0226DD7C(cursor->sprites, cursor->positions[cursor->currentPositionIndex].xCoord1, cursor->positions[cursor->currentPositionIndex].xCoord2, cursor->positions[cursor->currentPositionIndex].yCoord1, cursor->positions[cursor->currentPositionIndex].yCoord2);
@@ -127,16 +135,32 @@ u32 BattleSubMenuCursorTick(BattleSubMenuCursor *cursor)
         return BATTLE_SUB_MENU_CURSOR_NO_MOVEMENT_INDEX;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         nextPositionIndex = GridMenuCursor_CheckNavigation(cursor->positions, NULL, NULL, NULL, NULL, cursor->currentPositionIndex, GRID_MENU_CURSOR_POSITION_DIRECTION_UP);
         pressedDirection = GRID_MENU_CURSOR_POSITION_DIRECTION_UP;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         nextPositionIndex = GridMenuCursor_CheckNavigation(cursor->positions, NULL, NULL, NULL, NULL, cursor->currentPositionIndex, GRID_MENU_CURSOR_POSITION_DIRECTION_DOWN);
         pressedDirection = GRID_MENU_CURSOR_POSITION_DIRECTION_DOWN;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         nextPositionIndex = GridMenuCursor_CheckNavigation(cursor->positions, NULL, NULL, NULL, NULL, cursor->currentPositionIndex, GRID_MENU_CURSOR_POSITION_DIRECTION_LEFT);
         pressedDirection = GRID_MENU_CURSOR_POSITION_DIRECTION_LEFT;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         nextPositionIndex = GridMenuCursor_CheckNavigation(cursor->positions, NULL, NULL, NULL, NULL, cursor->currentPositionIndex, GRID_MENU_CURSOR_POSITION_DIRECTION_RIGHT);
         pressedDirection = GRID_MENU_CURSOR_POSITION_DIRECTION_RIGHT;
     } else {
@@ -193,11 +217,19 @@ u32 BattleSubMenuCursorTick(BattleSubMenuCursor *cursor)
         return BATTLE_SUB_MENU_CURSOR_NO_MOVEMENT_INDEX;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return cursor->currentPositionIndex;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         return BATTLE_SUB_MENU_CURSOR_BACK_INDEX;
     }

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0208B878_H
 #define POKEPLATINUM_STRUCT_0208B878_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0208B284.h"
 #include "struct_defs/struct_0208B878_sub1.h"
 #include "struct_defs/struct_0208B878_sub2.h"

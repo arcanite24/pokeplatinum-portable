@@ -94,7 +94,11 @@ static void ov20_021D3980(UnkStruct_ov20_021D3980 *param0)
     SpriteResourcesHeader v0;
 
     ov20_021D2E0C(param0->unk_00, &v0, 0, 3);
+    #ifdef PLATFORM_DS
     param0->unk_0C = ov20_021D2E50(param0->unk_00, &v0, 64, 56, 5, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     Sprite_SetAnim(param0->unk_0C, 2);
     Sprite_SetDrawFlag(param0->unk_0C, FALSE);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0207A778_H
 #define POKEPLATINUM_STRUCT_0207A778_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "field_battle_data_transfer.h"
 #include "pal_pad.h"

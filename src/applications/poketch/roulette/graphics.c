@@ -71,7 +71,11 @@ static void SetupSprites(RouletteGraphics *graphics, const RouletteData *roulett
         {
             .translation = { FX32_CONST(96), FX32_CONST(96) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = TRUE,
@@ -79,7 +83,11 @@ static void SetupSprites(RouletteGraphics *graphics, const RouletteData *roulett
         {
             .translation = { FX32_CONST(187), FX32_CONST(50) },
             .animIdx = 1,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -87,7 +95,11 @@ static void SetupSprites(RouletteGraphics *graphics, const RouletteData *roulett
         {
             .translation = { FX32_CONST(187), FX32_CONST(96) },
             .animIdx = 4,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -95,7 +107,11 @@ static void SetupSprites(RouletteGraphics *graphics, const RouletteData *roulett
         {
             .translation = { FX32_CONST(187), FX32_CONST(142) },
             .animIdx = 5,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -162,10 +178,18 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -176,10 +200,18 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -204,8 +236,20 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
     SetupWindow(graphics, bgTileCount);
     Bg_CopyTilemapBufferToVRAM(graphics->bgConfig, BG_LAYER_SUB_3);
 
+    #ifdef PLATFORM_DS
     GXSDispCnt dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     EndTask(taskMan);
     GF_ASSERT(GF_heap_c_dummy_return_true(HEAP_ID_POKETCH_APP));
@@ -270,7 +314,11 @@ static void Task_UpdateDrawing(SysTask *task, void *taskMan)
     s32 tileIdx = ((y >> 3) * WINDOW_WIDTH_TILES) + (x >> 3);
 
     Window_FillRectWithColor(&graphics->window, 1, x, y, 2, 2);
+    #ifdef PLATFORM_DS
     GXS_LoadBG3Char(graphics->window.pixels + (tileIdx * TILE_SIZE_4BPP), (graphics->windowBaseTile + tileIdx) * TILE_SIZE_4BPP, TILE_SIZE_4BPP);
+    #else
+    // TODO: Port GXS_LoadBG3Char to PAL
+    #endif
     EndTask(taskMan);
 }
 

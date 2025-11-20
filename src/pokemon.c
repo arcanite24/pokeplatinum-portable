@@ -3397,7 +3397,11 @@ static const SpriteTemplate Unk_020F05E4 = {
     0x0,
     0x0,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x4E2F, 0x4E2A, 0x4E27, 0x4E27, 0xffffffff, 0xffffffff },
     0x2,
     0x1
@@ -3429,8 +3433,16 @@ ManagedSprite *sub_02076994(SpriteSystem *param0, SpriteManager *param1, Palette
 
     narc = NARC_ctor(v3.narcID, heapID);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0, param1, narc, v3.unk_04, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 20015 + param7);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param2, PLTTBUF_MAIN_OBJ, param0, param1, narc, v3.unk_08, FALSE, v4, NNS_G2D_VRAM_TYPE_2DMAIN, 20010 + param7);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0, param1, narc, v3.unk_0C, FALSE, 20007 + param7);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0, param1, narc, v3.unk_10, FALSE, 20007 + param7);
     NARC_dtor(narc);
@@ -3790,11 +3802,35 @@ u16 sub_02076F84(const u16 monSpecies)
     GF_ASSERT(NATIONAL_DEX_COUNT + 1 > monSpecies);
 
     FSFile file;
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_OpenFile(&file, "poketool/personal/pms.narc");
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, monSpecies * 2, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &result, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_CloseFile(&file);
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
 
     return result;
 }

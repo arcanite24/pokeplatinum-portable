@@ -433,7 +433,11 @@ static void FlyLanding_LoadCharResources(FlyResources *flyResources, NARC *narc,
         if (flyResources->charSourceWrapper[i].resourceId == flyResources->resource1ID) {
             flyResources->charSourceWrapper[i].resourceId = resourceId;
             flyResources->charSourceWrapper[i].memberIdx = 0;
+            #ifdef PLATFORM_DS
             flyResources->charSourceWrapper[i].spriteResource = SpriteResourceCollection_AddTilesFrom(flyResources->charLocation, narc, memberIdx, FALSE, resourceId, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             return;
         }
     }
@@ -471,7 +475,11 @@ static void FlyLanding_LoadPaletteResources(FlyResources *flyResources, NARC *na
         if (flyResources->paletteSourceWrapper[i].resourceId == flyResources->resource2ID) {
             flyResources->paletteSourceWrapper[i].resourceId = resourceId;
             flyResources->paletteSourceWrapper[i].memberIdx = 0;
+            #ifdef PLATFORM_DS
             flyResources->paletteSourceWrapper[i].spriteResource = SpriteResourceCollection_AddPaletteFrom(flyResources->paletteLocation, narc, memberIdx, FALSE, resourceId, NNS_G2D_VRAM_TYPE_2DMAIN, 1, 4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             return;
         }
     }
@@ -562,7 +570,11 @@ static Sprite *FlyLanding_CreateSprite(FlyResources *flyResources, const VecFx32
     spriteListTemplate.resourceData = &resourceHeader;
     spriteListTemplate.position = *position;
     spriteListTemplate.priority = listPriority;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteListTemplate.heapID = HEAP_ID_FIELD1;
 
     sprite = SpriteList_Add(&spriteListTemplate);
@@ -1687,10 +1699,22 @@ static void CutIn_InitSpriteResources(HMCutIn *cutIn)
     cutIn->bg0Priority = Bg_GetPriority(cutIn->fieldSystem->bgConfig, BG_LAYER_MAIN_0);
     cutIn->bg3Priority = Bg_GetPriority(cutIn->fieldSystem->bgConfig, BG_LAYER_MAIN_3);
 
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(1);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(0);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 
     CutIn_LoadBgPalette(narc, 2, &cutIn->g2dPaletteData);
     CutIn_LoadBgPatternChar(cutIn->fieldSystem->bgConfig, narc, 0, &cutIn->g2dCharData);
@@ -1699,22 +1723,42 @@ static void CutIn_InitSpriteResources(HMCutIn *cutIn)
 
     NARC_dtor(narc);
     cutIn->unk_244 = OverworldAnimManagerList_New(HEAP_ID_FIELD1, 32);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static void CutIn_DeleteSprites(HMCutIn *cutIn)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
     OverworldAnimManagerList_FinishAndFree(cutIn->unk_244);
 
     CutIn_ClearTileMapBG3(cutIn->fieldSystem->bgConfig);
     CutIn_DeleteSpriteResources(cutIn);
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(cutIn->bg0Priority);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(cutIn->bg3Priority);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 
     FieldMessage_LoadTextPalettes(0, TRUE);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static NARC *CutIn_GetCutInNarc(void)
@@ -1737,14 +1781,26 @@ static void CutIn_LoadSpriteResources(HMCutIn *cutIn, NARC *narc)
 
     // Char Index 0: White Clouds
     for (i = 0; i < 1; i++) {
+        #ifdef PLATFORM_DS
         cutIn->charSource[i] = SpriteResourceCollection_AddTilesFrom(cutIn->charLocation, narc, sCutInWindParticleChar[i].memberIdx, FALSE, sCutInWindParticleChar[i].resourceId, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     // Char Index 1: Player
     if (cutIn->playerGender == 0) {
+        #ifdef PLATFORM_DS
         cutIn->charSource[i] = SpriteResourceCollection_AddTilesFrom(cutIn->charLocation, narc, 13, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         cutIn->charSource[i] = SpriteResourceCollection_AddTilesFrom(cutIn->charLocation, narc, 16, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     i++;
@@ -1753,13 +1809,21 @@ static void CutIn_LoadSpriteResources(HMCutIn *cutIn, NARC *narc)
 
     // Palette Index 0: White Clouds
     for (i = 0; i < 1; i++) {
+        #ifdef PLATFORM_DS
         cutIn->paletteSource[i] = SpriteResourceCollection_AddPaletteFrom(cutIn->paletteLocation, narc, sCutInWindParticlePalette[i].memberIdx, FALSE, sCutInWindParticlePalette[i].resourceId, NNS_G2D_VRAM_TYPE_2DMAIN, PLTT_1, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     // Palette Index 1: Player Female
     if (cutIn->playerGender == 0) {
     } else {
+        #ifdef PLATFORM_DS
         cutIn->paletteSource[i] = SpriteResourceCollection_AddPaletteFrom(cutIn->paletteLocation, narc, 4, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, PLTT_1, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         i++;
     }
 
@@ -1887,7 +1951,11 @@ static Sprite *CreateSprite(HMCutIn *cutIn, const VecFx32 *position, u32 charRes
     spriteListTemplate.resourceData = &resourceHeader;
     spriteListTemplate.position = *position;
     spriteListTemplate.priority = listPriority;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteListTemplate.heapID = HEAP_ID_FIELD1;
 
     sprite = SpriteList_Add(&spriteListTemplate);
@@ -1950,7 +2018,11 @@ static void CutIn_LoadBirdSpriteResources(HMCutIn *cutIn)
 
     for (i = 0; i < 4; i++) {
         if (cutIn->charSource[i] == NULL) {
+            #ifdef PLATFORM_DS
             cutIn->charSource[i] = SpriteResourceCollection_AddTilesFrom(cutIn->charLocation, narc, 7, FALSE, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             break;
         }
     }
@@ -1972,7 +2044,11 @@ static void CutIn_LoadBgPalette(NARC *narc, u32 memberIndex, NNSG2dPaletteData *
 {
     void *nclrFile = NARC_AllocAndReadWholeMember(narc, memberIndex, HEAP_ID_FIELD1);
 
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedPaletteData(nclrFile, paletteData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+    #endif
 
     Bg_LoadPalette(BG_LAYER_MAIN_3, (*paletteData)->pRawData, 32 * 1, 32 * 12);
     Heap_Free(nclrFile);
@@ -1981,7 +2057,11 @@ static void CutIn_LoadBgPalette(NARC *narc, u32 memberIndex, NNSG2dPaletteData *
 static void CutIn_LoadBgPatternChar(BgConfig *bgConfig, NARC *narc, u32 memberIndex, NNSG2dCharacterData **charData)
 {
     void *ncgrFile = NARC_AllocAndReadWholeMember(narc, memberIndex, HEAP_ID_FIELD1);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedCharacterData(ncgrFile, charData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+    #endif
 
     Bg_LoadTiles(bgConfig, BG_LAYER_MAIN_3, (*charData)->pRawData, (*charData)->szByte, 0);
     Heap_Free(ncgrFile);
@@ -1995,7 +2075,11 @@ static void CutIn_LoadBgPatternPalette(BgConfig *bgConfig, NARC *narc, u32 membe
     Bg_SetOffset(bgConfig, BG_LAYER_MAIN_3, 3, 0);
 
     nscrFile = NARC_AllocAndReadWholeMember(narc, memberIndex, HEAP_ID_FIELD1);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(nscrFile, screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     Bg_LoadTilemapBuffer(bgConfig, BG_LAYER_MAIN_3, (void *)(*screenData)->rawData, (*screenData)->szByte);
     Bg_ChangeTilemapRectPalette(bgConfig, BG_LAYER_MAIN_3, 0, 0, 32, 32, 12);
@@ -2022,25 +2106,45 @@ static void CutIn_InitWindow(HMCutIn *cutIn)
 
 static void CutIn_SetWindowMask(HMCutIn *cutIn)
 {
+    #ifdef PLATFORM_DS
     cutIn->window = (GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 }
 
 static void CutIn_ClearWindowMask(HMCutIn *cutIn)
 {
+    #ifdef PLATFORM_DS
     cutIn->window = GX_WNDMASK_NONE;
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 }
 
 static void CutIn_InitPlaneMasks(HMCutIn *cutIn)
 {
+    #ifdef PLATFORM_DS
     cutIn->planeMaskInside = (GX_WND_PLANEMASK_BG3) | GX_WND_PLANEMASK_OBJ;
+    #else
+    // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+    #endif
     cutIn->effectInside = 0;
+    #ifdef PLATFORM_DS
     cutIn->planeMaskOutside = (GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ) & (~(GX_WND_PLANEMASK_BG3));
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG3 to PAL
+    #endif
     cutIn->effectOutside = 1;
 }
 
 static void CutIn_InitPlaneMasksForFly(HMCutIn *cutIn)
 {
+    #ifdef PLATFORM_DS
     cutIn->planeMaskOutside = (GX_WND_PLANEMASK_OBJ | GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3) & (~(GX_WND_PLANEMASK_BG3));
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG3 to PAL
+    #endif
     cutIn->effectOutside = 1;
 }
 
@@ -2063,7 +2167,15 @@ static void CutIn_DeleteWindowTask(HMCutIn *cutIn)
     GF_ASSERT(cutIn->windowTask != NULL);
 
     SysTask_Done(cutIn->windowTask);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 }
 
 static void SysTask_CutIn_ShowWindow(SysTask *task, void *hmCutInPtr)
@@ -2074,10 +2186,26 @@ static void SysTask_CutIn_ShowWindow(SysTask *task, void *hmCutInPtr)
         return;
     }
 
+    #ifdef PLATFORM_DS
     GX_SetVisibleWnd(cutIn->window);
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0InsidePlane(cutIn->planeMaskInside, cutIn->effectInside);
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWndOutsidePlane(cutIn->planeMaskOutside, cutIn->effectOutside);
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(cutIn->windowX1 / FX32_ONE, cutIn->windowY1 / FX32_ONE, cutIn->windowX2 / FX32_ONE, cutIn->windowY2 / FX32_ONE);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
 }
 
 static void CutIn_BuildPokemonSpriteTemplate(HMCutIn *cutIn, PokemonSpriteTemplate *spriteTemplate)
@@ -2105,7 +2233,11 @@ static void *CutIn_GetPokemonPaletteSource(PokemonSpriteTemplate *spriteTemplate
 
 static SpriteResource *CutIn_GetParticleCharResource(HMCutIn *cutIn, NARC *narc)
 {
+    #ifdef PLATFORM_DS
     SpriteResource *spriteResource = SpriteResourceCollection_AddTilesFrom(cutIn->charLocation, narc, 5, FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     return spriteResource;
 }
 
@@ -2117,15 +2249,27 @@ static void CutIn_LoadPokemonChar(HMCutIn *cutIn, void *pokemonSpriteSource)
 
     charResource = SpriteResourceCollection_Find(cutIn->charLocation, 3);
     imageProxy = SpriteTransfer_GetImageProxy(charResource);
+    #ifdef PLATFORM_DS
     imageLocationInSource = NNS_G2dGetImageLocation(imageProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     DC_FlushRange((void *)pokemonSpriteSource, (32 * 10) * 10);
+    #ifdef PLATFORM_DS
     GX_LoadOBJ(pokemonSpriteSource, imageLocationInSource, (32 * 10) * 10);
+    #else
+    // TODO: Port GX_LoadOBJ to PAL
+    #endif
 }
 
 static SpriteResource *CutIn_GetPlayerMalePlttResource(HMCutIn *cutIn, NARC *narc)
 {
+    #ifdef PLATFORM_DS
     SpriteResource *spriteResource = SpriteResourceCollection_AddPaletteFrom(cutIn->paletteLocation, narc, 3, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 1, HEAP_ID_FIELD1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     return spriteResource;
 }
 
@@ -2141,10 +2285,18 @@ static void CutIn_LoadPokemonSpritePalette(HMCutIn *cutIn, void *paletteSource)
     imageProxy = SpriteTransfer_GetImageProxy(charResource);
     plttResource = SpriteResourceCollection_Find(cutIn->paletteLocation, 2);
     plttProxy = SpriteTransfer_GetPaletteProxy(plttResource, imageProxy);
+    #ifdef PLATFORM_DS
     plttLocationInSource = NNS_G2dGetImagePaletteLocation(plttProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     DC_FlushRange((void *)paletteSource, 32);
+    #ifdef PLATFORM_DS
     GX_LoadOBJPltt(paletteSource, plttLocationInSource, 32);
+    #else
+    // TODO: Port GX_LoadOBJPltt to PAL
+    #endif
 }
 
 static void CutIn_UnloadPokemonSpriteResources(HMCutIn *cutIn)

@@ -139,10 +139,18 @@ static void Task_DrawAppBackground(SysTask *task, void *taskMan)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -153,10 +161,18 @@ static void Task_DrawAppBackground(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -190,8 +206,20 @@ static void Task_DrawAppBackground(SysTask *task, void *taskMan)
 
     Bg_CopyTilemapBufferToVRAM(graphics->bgConfig, BG_LAYER_SUB_3);
 
+    #ifdef PLATFORM_DS
     dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     EndTask(taskMan);
 
     GF_ASSERT(GF_heap_c_dummy_return_true(HEAP_ID_POKETCH_APP));
@@ -237,7 +265,11 @@ static void RedrawWindowRegion(u8 *pixelsAddr, int x, int y, int width, int heig
 
     while (tileHeight--) {
         DC_FlushRange(pixelsAddr + (startTile * TILE_SIZE_4BPP), tileWidth * TILE_SIZE_4BPP);
+        #ifdef PLATFORM_DS
         GXS_LoadBG3Char(pixelsAddr + (startTile * TILE_SIZE_4BPP), (12 + startTile) * TILE_SIZE_4BPP, tileWidth * TILE_SIZE_4BPP);
+        #else
+        // TODO: Port GXS_LoadBG3Char to PAL
+        #endif
         startTile += WINDOW_WIDTH_TILES;
     }
 }
@@ -300,7 +332,11 @@ static void SetupSprites(MemoPadGraphics *graphics)
         {
             .translation = { FX32_CONST(192), FX32_CONST(56) },
             .animIdx = ERASER_UNPRESSED,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -308,7 +344,11 @@ static void SetupSprites(MemoPadGraphics *graphics)
         {
             .translation = { FX32_CONST(192), FX32_CONST(136) },
             .animIdx = PENCIL_PRESSED,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,

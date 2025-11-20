@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_MATCHUP_CHECKER_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_MATCHUP_CHECKER_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/pokemon.h"
 
 #include "applications/poketch/poketch_animation.h"

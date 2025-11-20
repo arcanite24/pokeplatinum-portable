@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0203266C_H
 #define POKEPLATINUM_UNK_0203266C_H
 
+#include "platform/platform_types.h"
+
 u16 CommLocal_MaxMachines(u16 param0);
 u16 sub_02032698(u16 param0);
 BOOL sub_020326C4(int param0);

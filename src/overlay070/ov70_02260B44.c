@@ -531,7 +531,11 @@ void ov70_0226138C(UnkStruct_ov70_022610B8 *param0, BOOL param1)
 void ov70_02261398(UnkStruct_ov70_02260BB8 *param0, UnkStruct_ov70_022610B8 *param1, u32 param2)
 {
     GF_ASSERT(param1->unk_02 < 18);
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlLightEnableFlagAll(param0->unk_29C.unk_00[param1->unk_02].model, param2);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlLightEnableFlagAll to PAL
+    #endif
 }
 
 void ov70_022613C0(UnkStruct_ov70_022610B8 *param0, fx32 param1)
@@ -576,9 +580,21 @@ static void ov70_02261420(Easy3DModel *param0, NARC *param1, u32 param2, u32 hea
     ov70_0225C730(&param0->data, param1, param2, heapID);
 
     {
+        #ifdef PLATFORM_DS
         param0->set = NNS_G3dGetMdlSet(param0->data);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param0->model = NNS_G3dGetMdlByIdx(param0->set, 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param0->texture = NNS_G3dGetTex(param0->data);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
     }
 
     {
@@ -785,9 +801,21 @@ static void ov70_0226174C(UnkStruct_ov70_022618C8 *param0, NARC *param1, NNSFndA
     {
         for (v0 = 0; v0 < 2; v0++) {
             param0->unk_00[v0].data = LoadMemberFromOpenNARC(param1, param3->unk_120[v0], 0, heapID, 0);
+            #ifdef PLATFORM_DS
             param0->unk_00[v0].set = NNS_G3dGetMdlSet(param0->unk_00[v0].data);
+            #else
+            // TODO: Port NNS_G3dGetMdlSet to PAL
+            #endif
+            #ifdef PLATFORM_DS
             param0->unk_00[v0].model = NNS_G3dGetMdlByIdx(param0->unk_00[v0].set, 0);
+            #else
+            // TODO: Port NNS_G3dGetMdlByIdx to PAL
+            #endif
+            #ifdef PLATFORM_DS
             param0->unk_00[v0].texture = NNS_G3dGetTex(param0->unk_20[v0][0]);
+            #else
+            // TODO: Port NNS_G3dGetTex to PAL
+            #endif
         }
     }
 
@@ -800,7 +828,11 @@ static void ov70_0226174C(UnkStruct_ov70_022618C8 *param0, NARC *param1, NNSFndA
                     if (v1 >= 1) {
                         for (v2 = 0; v2 < param3->unk_160[v0]; v2++) {
                             if (param3->unk_168[v0][v1 - 1] != v2) {
+                                #ifdef PLATFORM_DS
                                 NNS_G3dAnmObjDisableID(param0->unk_38[v0][v1].animObj, v2);
+                                #else
+                                // TODO: Port NNS_G3dAnmObjDisableID to PAL
+                                #endif
                             }
                         }
                     }
@@ -836,14 +868,38 @@ static void ov70_022618C8(UnkStruct_ov70_022618C8 *param0, NNSFndAllocator *para
 
         for (v0 = 0; v0 < 2; v0++) {
             for (v1 = 0; v1 < 3; v1++) {
+                #ifdef PLATFORM_DS
                 v5 = NNS_G3dGetTex(param0->unk_20[v0][v1]);
+                #else
+                // TODO: Port NNS_G3dGetTex to PAL
+                #endif
 
+                #ifdef PLATFORM_DS
                 NNS_G3dTexReleaseTexKey(v5, &v2, &v3);
+                #else
+                // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 NNS_GfdFreeTexVram(v2);
+                #else
+                // TODO: Port NNS_GfdFreeTexVram to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 NNS_GfdFreeTexVram(v3);
+                #else
+                // TODO: Port NNS_GfdFreeTexVram to PAL
+                #endif
 
+                #ifdef PLATFORM_DS
                 v4 = NNS_G3dPlttReleasePlttKey(v5);
+                #else
+                // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 NNS_GfdFreePlttVram(v4);
+                #else
+                // TODO: Port NNS_GfdFreePlttVram to PAL
+                #endif
 
                 Heap_Free(param0->unk_20[v0][v1]);
             }
@@ -901,8 +957,16 @@ static void ov70_022619F4(UnkStruct_ov70_02260E8C *param0, UnkStruct_ov70_022618
     GF_ASSERT(param0->unk_01 < 3);
     GF_ASSERT(param0->unk_02 < 2);
 
+    #ifdef PLATFORM_DS
     param1->unk_00[param0->unk_02].texture = NNS_G3dGetTex(param1->unk_20[param0->unk_02][param0->unk_01]);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dBindMdlSet(param1->unk_00[param0->unk_02].set, param1->unk_00[param0->unk_02].texture);
+    #else
+    // TODO: Port NNS_G3dBindMdlSet to PAL
+    #endif
 
     GF_ASSERT(v0);
 
@@ -921,7 +985,11 @@ static void ov70_022619F4(UnkStruct_ov70_02260E8C *param0, UnkStruct_ov70_022618
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dReleaseMdlSet(param1->unk_00[param0->unk_02].set);
+    #else
+    // TODO: Port NNS_G3dReleaseMdlSet to PAL
+    #endif
 }
 
 static UnkStruct_ov70_022610B8 *ov70_02261AF0(UnkStruct_ov70_02260BB8 *param0)
@@ -988,13 +1056,21 @@ static void ov70_02261C04(UnkStruct_ov70_02261BB4 *param0, UnkStruct_ov70_022610
     }
 
     if (param1->unk_E0 == 1) {
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlAlphaAll(param0->unk_00[param1->unk_02].model, param1->unk_E1);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+        #endif
     }
 
     Easy3DObject_Draw(&param1->unk_04);
 
     if (param1->unk_E0 == 1) {
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlAlphaAll(param0->unk_00[param1->unk_02].model, param1->unk_E2);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+        #endif
     }
 }
 

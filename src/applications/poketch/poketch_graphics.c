@@ -115,7 +115,11 @@ BOOL PoketchGraphics_Main(PoketchGraphics_TaskData **taskDataPtr, const PoketchG
         PoketchGraphics_TaskData *newTaskData = *taskDataPtr;
 
         newTaskData->oamMan = oamMan;
+        #ifdef PLATFORM_DS
         NNS_G2dResetOamManagerBuffer(newTaskData->oamMan);
+        #else
+        // TODO: Port NNS_G2dResetOamManagerBuffer to PAL
+        #endif
         newTaskData->animMan = PoketchAnimation_SetupAnimationManager(newTaskData->oamMan, HEAP_ID_POKETCH_MAIN);
 
         if (newTaskData->animMan == NULL) {
@@ -185,8 +189,16 @@ void PoketchGraphics_LoadActivePalette(u32 bgOffset, u32 objOffset)
     Poketch *poketch = PoketchSystem_GetPoketchData(taskData->poketchSys);
     u32 screenColour = Poketch_CurrentScreenColor(poketch);
 
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(&taskData->poketchPalettes[screenColour * SLOTS_PER_POKETCH_THEME], PLTT_OFFSET(bgOffset), PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadOBJPltt(&taskData->poketchPalettes[screenColour * SLOTS_PER_POKETCH_THEME], objOffset, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadOBJPltt to PAL
+    #endif
 }
 
 void PoketchGraphics_LoadActiveBacklightPalette(u32, u32)
@@ -195,8 +207,16 @@ void PoketchGraphics_LoadActiveBacklightPalette(u32, u32)
     Poketch *poketch = PoketchSystem_GetPoketchData(taskData->poketchSys);
     u32 screenColour = Poketch_CurrentScreenColor(poketch);
 
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(&taskData->poketchPalettes[screenColour * SLOTS_PER_POKETCH_THEME + BACKLIGHT_PALETTE_SLOT_OFFSET], 0, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadOBJPltt(&taskData->poketchPalettes[screenColour * SLOTS_PER_POKETCH_THEME + BACKLIGHT_PALETTE_SLOT_OFFSET], 0, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadOBJPltt to PAL
+    #endif
 }
 
 void PoketchGraphics_CopyActivePalette(u16 *dest)
@@ -304,10 +324,18 @@ static void PoketchGraphics_SetupBackgroundTask(SysTask *task, void *taskMan)
         .bufferSize = 0x824,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0x6000),
         .charBase = (GX_BG_CHARBASE_0x04000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE
@@ -319,10 +347,18 @@ static void PoketchGraphics_SetupBackgroundTask(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0x6800),
         .charBase = (GX_BG_CHARBASE_0x04000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE
@@ -330,13 +366,49 @@ static void PoketchGraphics_SetupBackgroundTask(SysTask *task, void *taskMan)
 
     PoketchGraphics_TaskData *taskData = PoketchTask_GetTaskData(taskMan);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetGraphicsMode to PAL
+    #endif
     GXS_SetGraphicsMode(GX_BGMODE_0);
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetBankForSubBG to PAL
+    #endif
     GX_SetBankForSubBG(GX_VRAM_SUB_BG_32_H);
+    #else
+    // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetBankForSubOBJ to PAL
+    #endif
     GX_SetBankForSubOBJ(GX_VRAM_SUB_OBJ_16_I);
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetOBJVRamModeChar to PAL
+    #endif
     GXS_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
 
     GXLayers_DisableEngineBLayers();
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_InitFromTemplate(taskData->bgConfig, BG_LAYER_SUB_0, &bgTemplateLayer4, BG_TYPE_STATIC);
     Bg_InitFromTemplate(taskData->bgConfig, BG_LAYER_SUB_1, &bgTemplateLayer5, BG_TYPE_STATIC);
 
@@ -347,8 +419,24 @@ static void PoketchGraphics_SetupBackgroundTask(SysTask *task, void *taskMan)
     Bg_FillTilemapRect(taskData->bgConfig, BG_LAYER_SUB_1, 64 + 164, 0, 0, 32, 24, PLTT_15);
     Bg_CopyTilemapBufferToVRAM(taskData->bgConfig, BG_LAYER_SUB_1);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     PoketchGraphics_EndTask(taskMan);
 }
@@ -578,7 +666,11 @@ static void PoketchGraphics_LoadAppCounter(PoketchGraphics_TaskData *taskData, P
         static const PoketchAnimation_AnimationData animData = {
             .translation = { (176 << FX32_SHIFT), (40 << FX32_SHIFT) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 0,
             .priority = 0,
             .hasAffineTransform = FALSE
@@ -630,7 +722,11 @@ static void PoketchGraphics_LoadAppCounterPalette(PoketchGraphics_TaskData *task
     }
 
     DC_FlushRange(taskData->palette, sizeof(taskData->palette));
+    #ifdef PLATFORM_DS
     GXS_LoadOBJPltt(taskData->palette, PLTT_OFFSET(offset), sizeof(taskData->palette));
+    #else
+    // TODO: Port GXS_LoadOBJPltt to PAL
+    #endif
 }
 
 static void PoketchGraphics_SetAppCounterDigits(PoketchGraphics_AppCounterAnimationData *appCounterAnim, const PoketchGraphics_ConstTaskData *constTaskData)
@@ -668,7 +764,11 @@ static void PoketchGraphics_UnusedTask_3(SysTask *task, void *taskMan)
 
     switch (state) {
     case 0:
+        #ifdef PLATFORM_DS
         G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ, 0x1a, 0x6);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         Bg_CopyTilemapBufferToVRAM(taskData->bgConfig, BG_LAYER_SUB_0);
     case 1:
     case 2:
@@ -693,7 +793,11 @@ static void PoketchGraphics_UnusedTask_4(SysTask *task, void *taskMan)
     Bg_CopyTilemapBufferToVRAM(taskData->bgConfig, BG_LAYER_SUB_0);
     Bg_CopyTilemapBufferToVRAM(taskData->bgConfig, BG_LAYER_SUB_1);
 
+    #ifdef PLATFORM_DS
     G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_NONE, 0x1f, 0x0);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     PoketchGraphics_EndTask(taskMan);
 }
 

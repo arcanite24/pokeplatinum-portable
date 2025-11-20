@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RADAR_CHAIN_RECORDS_H
 #define POKEPLATINUM_RADAR_CHAIN_RECORDS_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/radar_chain_records.h"
 
 #include "field/field_system_decl.h"

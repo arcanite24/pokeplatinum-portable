@@ -2981,7 +2981,11 @@ static void ov16_022604C8(SysTask *param0, void *param1)
         v0->unk_0A = 5;
         break;
     case 5:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_START) {
+        #else
+        // TODO: Port PAD_BUTTON_START to PAL
+        #endif
             BattlerData *v14;
             int i;
 
@@ -6236,12 +6240,20 @@ static void ov16_022646C8(SysTask *param0, void *param1)
 
     switch (v0->unk_00) {
     case 0:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(4, 16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD) & (GX_BLEND_PLANEMASK_BG1 ^ 0xffff), BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         v0->unk_00++;
         break;
     case 1:
         if (BrightnessController_IsTransitionComplete(BRIGHTNESS_MAIN_SCREEN) == TRUE) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(4, 0, 16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD) & (GX_BLEND_PLANEMASK_BG1 ^ 0xffff), BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+            #endif
             v0->unk_00++;
         }
         break;

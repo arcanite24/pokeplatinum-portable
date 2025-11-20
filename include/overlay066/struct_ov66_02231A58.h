@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_02231A58_H
 #define POKEPLATINUM_STRUCT_OV66_02231A58_H
 
+#include "platform/platform_types.h"
+
 #include "trainer_info.h"
 
 typedef struct {

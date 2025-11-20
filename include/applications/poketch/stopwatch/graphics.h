@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_STOPWATCH_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_STOPWATCH_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "applications/poketch/poketch_animation.h"
 #include "applications/poketch/poketch_task.h"
 

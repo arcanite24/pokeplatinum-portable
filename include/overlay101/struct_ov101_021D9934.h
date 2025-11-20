@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV101_021D9934_H
 #define POKEPLATINUM_STRUCT_OV101_021D9934_H
 
+#include "platform/platform_types.h"
+
 #include "enums.h"
 
 typedef struct {

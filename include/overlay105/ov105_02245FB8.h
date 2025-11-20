@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV105_02245FB8_H
 #define POKEPLATINUM_OV105_02245FB8_H
 
+#include "platform/platform_types.h"
+
 #include "overlay105/struct_ov105_02245AAC.h"
 #include "overlay105/struct_ov105_02246060_decl.h"
 #include "overlay105/struct_ov105_02246394.h"

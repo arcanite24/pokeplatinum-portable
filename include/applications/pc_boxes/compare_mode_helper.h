@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_COMPARE_MODE_HELPER_H
 #define POKEPLATINUM_STRUCT_COMPARE_MODE_HELPER_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pc_boxes/pc_compare_mon.h"
 
 enum CompareMode {

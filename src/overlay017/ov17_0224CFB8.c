@@ -396,7 +396,11 @@ static void ov17_0224D41C(SysTask *param0, void *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         ov17_0224C84C();
         ov17_0224ABDC(&v0->unk_00->unk_14, 1);
         Sound_PlayEffect(SEQ_SE_DP_CON_019);

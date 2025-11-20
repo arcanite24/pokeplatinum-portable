@@ -96,14 +96,30 @@ void ov19_021D8C1C(UnkStruct_ov19_021D8E00 *param0, NARC *param1)
     SpriteResourcesHeader v0;
     u32 cursorLocation, pcMode;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&(param0->unk_24));
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMappingFromOpenNARC(param1, 12, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 0 * 0x20, 10, &(param0->unk_24));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov19_021D783C(&v0, &(param0->unk_24), ov19_021D77D0(param0->unk_794), param0->unk_1C, param0->unk_20, ((param0->unk_785 == 1) ? 1 : 2));
     ov19_021D9D48(&param0->unk_764, &param0->unk_768, &param0->unk_785, param0);
 
+    #ifdef PLATFORM_DS
     param0->unk_04 = ov19_021D785C(param0->unk_00, &v0, param0->unk_764, param0->unk_768, 1, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_08 = ov19_021D785C(param0->unk_00, &v0, param0->unk_764, param0->unk_768 + 24, 42, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     cursorLocation = BoxApp_GetCursorLocation(param0->unk_790);
     pcMode = BoxApp_GetBoxMode(param0->unk_790);
@@ -120,8 +136,16 @@ void ov19_021D8C1C(UnkStruct_ov19_021D8E00 *param0, NARC *param1)
         }
 
         v0.priority = 2;
+        #ifdef PLATFORM_DS
         param0->unk_0C = ov19_021D785C(param0->unk_00, &v0, v3, 20, 43, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param0->unk_10 = ov19_021D785C(param0->unk_00, &v0, v4, 20, 43, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
     Sprite_SetAnim(param0->unk_08, 5);
@@ -1107,7 +1131,11 @@ static void ov19_021DA110(UnkStruct_ov19_021D8E00 *param0)
             ov19_021DA754(param0->unk_48, param0->unk_4C, 1520);
             ov19_021DA754(param0->unk_48, v1, 1520 + 16);
 
+            #ifdef PLATFORM_DS
             OS_WaitVBlankIntr();
+            #else
+            // TODO: Port OS_WaitVBlankIntr to PAL
+            #endif
         }
 
         ov19_021D8408(param0->unk_758, posInBox, 1240, &param0->unk_4C[1]);
@@ -1122,7 +1150,11 @@ static void ov19_021DA110(UnkStruct_ov19_021D8E00 *param0)
             ov19_021DA754(param0->unk_48, param0->unk_4C, 1520);
             ov19_021DA754(param0->unk_48, v3, 1520 + 16);
 
+            #ifdef PLATFORM_DS
             OS_WaitVBlankIntr();
+            #else
+            // TODO: Port OS_WaitVBlankIntr to PAL
+            #endif
         }
 
         ov19_021DCC44(param0->unk_75C, v2, 1240, &param0->unk_4C[1]);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIN_MENU_02233268_SUB1_SUB2_H
 #define POKEPLATINUM_STRUCT_MAIN_MENU_02233268_SUB1_SUB2_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u32 unk_00_0 : 8;
     u32 unk_00_8 : 4;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GTS_NETWORKING_H
 #define POKEPLATINUM_GTS_NETWORKING_H
 
+#include "platform/platform_types.h"
+
 #include "overlay094/gts_application_state.h"
 #include "overlay094/struct_ov94_0223BA24.h"
 #include "overlay096/struct_world_exchange_trainer.h"

@@ -19,9 +19,17 @@ static void Task_SetHardwareWindowDimensions(SysTask *task, void *data);
 void SetVisibleHardwareWindows(GXWndMask windowMask, enum DSScreen screen)
 {
     if (screen == DS_SCREEN_MAIN) {
+        #ifdef PLATFORM_DS
         GX_SetVisibleWnd(windowMask);
+        #else
+        // TODO: Port GX_SetVisibleWnd to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_SetVisibleWnd(windowMask);
+        #else
+        // TODO: Port GXS_SetVisibleWnd to PAL
+        #endif
     }
 }
 
@@ -29,13 +37,21 @@ void SetHardwareWindowMaskInsidePlane(int wnd, BOOL applyColorEffect, enum Hardw
 {
     if (windowID == HW_WINDOW_WND0) {
         if (screen == DS_SCREEN_MAIN) {
+            #ifdef PLATFORM_DS
             G2_SetWnd0InsidePlane(wnd, applyColorEffect);
+            #else
+            // TODO: Port G2_SetWnd0InsidePlane to PAL
+            #endif
         } else {
             G2S_SetWnd0InsidePlane(wnd, applyColorEffect);
         }
     } else {
         if (screen == DS_SCREEN_MAIN) {
+            #ifdef PLATFORM_DS
             G2_SetWnd1InsidePlane(wnd, applyColorEffect);
+            #else
+            // TODO: Port G2_SetWnd1InsidePlane to PAL
+            #endif
         } else {
             G2S_SetWnd1InsidePlane(wnd, applyColorEffect);
         }
@@ -45,7 +61,11 @@ void SetHardwareWindowMaskInsidePlane(int wnd, BOOL applyColorEffect, enum Hardw
 void SetHardwareWindowMaskOutsidePlane(int wnd, BOOL applyColorEffect, enum DSScreen screen)
 {
     if (screen == DS_SCREEN_MAIN) {
+        #ifdef PLATFORM_DS
         G2_SetWndOutsidePlane(wnd, applyColorEffect);
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
     } else {
         G2S_SetWndOutsidePlane(wnd, applyColorEffect);
     }
@@ -55,13 +75,21 @@ void SetHardwareWindowDimensions(int left, int top, int right, int bottom, enum 
 {
     if (windowID == HW_WINDOW_WND0) {
         if (screen == DS_SCREEN_MAIN) {
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(left, top, right, bottom);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
         } else {
             G2S_SetWnd0Position(left, top, right, bottom);
         }
     } else {
         if (screen == DS_SCREEN_MAIN) {
+            #ifdef PLATFORM_DS
             G2_SetWnd1Position(left, top, right, bottom);
+            #else
+            // TODO: Port G2_SetWnd1Position to PAL
+            #endif
         } else {
             G2S_SetWnd1Position(left, top, right, bottom);
         }

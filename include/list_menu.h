@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_LIST_MENU_H
 #define POKEPLATINUM_LIST_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "colored_arrow.h"
 #include "string_list.h"

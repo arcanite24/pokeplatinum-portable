@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021EA714_H
 #define POKEPLATINUM_OV5_021EA714_H
 
+#include "platform/platform_types.h"
+
 #include "applications/poketch/poketch_system.h"
 #include "field/field_system_decl.h"
 

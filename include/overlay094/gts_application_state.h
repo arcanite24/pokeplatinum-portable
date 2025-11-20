@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_GTS_APPLICATION_STATE_H
 #define POKEPLATINUM_STRUCT_GTS_APPLICATION_STATE_H
 
+#include "platform/platform_types.h"
+
 #include <dwc.h>
 #ifdef PLATFORM_DS
 #include <nnsys.h>

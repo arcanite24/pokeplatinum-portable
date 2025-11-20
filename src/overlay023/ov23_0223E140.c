@@ -1126,26 +1126,82 @@ static void ov23_0223EC34(BgConfig *bgConfig)
 {
     {
         UnkStruct_02099F80 v0 = {
+            #ifdef PLATFORM_DS
             GX_VRAM_BG_128_A,
+            #else
+            // TODO: Port GX_VRAM_BG_128_A to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BG_32_H,
+            #else
+            // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJ_64_E,
+            #else
+            // TODO: Port GX_VRAM_OBJ_64_E to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJ_16_I,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_SUB_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEX_01_BC,
+            #else
+            // TODO: Port GX_VRAM_TEX_01_BC to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_VRAM_TEXPLTT_01_FG
+            #else
+            // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+            #endif
         };
 
         GXLayers_SetBanks(&v0);
     }
     {
         GraphicsModes v1 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v1);
@@ -1158,10 +1214,18 @@ static void ov23_0223EC34(BgConfig *bgConfig)
             .bufferSize = 0x1000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xc000,
             .charBase = GX_BG_CHARBASE_0x04000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -1179,10 +1243,18 @@ static void ov23_0223EC34(BgConfig *bgConfig)
             .bufferSize = 0x1000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xd000,
             .charBase = GX_BG_CHARBASE_0x04000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -1199,10 +1271,18 @@ static void ov23_0223EC34(BgConfig *bgConfig)
             .bufferSize = 0x1000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -1219,10 +1299,18 @@ static void ov23_0223EC34(BgConfig *bgConfig)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -1282,10 +1370,26 @@ static void Mining_InitGame(UnkStruct_ov23_0223EE80 *param0)
     Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_58, SEQ_NONE, 0);
     Mining_InitGameState();
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
     Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_MINING, HEAP_SIZE_MINING);
 
     bgConfig = BgConfig_New(HEAP_ID_MINING);
@@ -1419,10 +1523,26 @@ static void ov23_0223F118(SysTask *param0, void *param1)
     case 6:
         sub_02039734();
         StartScreenFade(FADE_MAIN_ONLY, FADE_TYPE_UNK_17, FADE_TYPE_UNK_17, COLOR_BLACK, 6, 1, HEAP_ID_MINING);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         (v0->state)++;
         break;
     case 7:
@@ -1467,7 +1587,11 @@ static void ov23_0223F118(SysTask *param0, void *param1)
         break;
     case 12:
         if (Text_IsPrinterActive(Unk_ov23_02257740->unk_A24) == 0) {
+            #ifdef PLATFORM_DS
             if (gSystem.touchPressed || (gSystem.pressedKeys & PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 v0->state++;
             }
@@ -1498,7 +1622,11 @@ static void ov23_0223F118(SysTask *param0, void *param1)
         if (Text_IsPrinterActive(Unk_ov23_02257740->unk_A24) == 0) {
             v0->textTimer--;
 
+            #ifdef PLATFORM_DS
             if (gSystem.touchPressed || (gSystem.pressedKeys & PAD_BUTTON_A) || (v0->textTimer == 0)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 v0->state = 16;
             }
@@ -1520,7 +1648,11 @@ static void ov23_0223F118(SysTask *param0, void *param1)
         if (Text_IsPrinterActive(Unk_ov23_02257740->unk_A24) == 0) {
             v0->textTimer--;
 
+            #ifdef PLATFORM_DS
             if (gSystem.touchPressed || (gSystem.pressedKeys & PAD_BUTTON_A) || (v0->textTimer == 0)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 if (Mining_ProcessNextDugUpItem(v0)) {
                     v0->textTimer = 60;
                     v0->state = 15;
@@ -1615,7 +1747,11 @@ static void ov23_0223F118(SysTask *param0, void *param1)
 
         break;
     case 25:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(1, -16, -16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2, BRIGHTNESS_MAIN_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         v0->state = 26;
         break;
     case 26:
@@ -1629,7 +1765,11 @@ static void ov23_0223F118(SysTask *param0, void *param1)
         if (Text_IsPrinterActive(Unk_ov23_02257740->unk_A24) == 0) {
             v0->textTimer--;
 
+            #ifdef PLATFORM_DS
             if (gSystem.touchPressed || (gSystem.pressedKeys & PAD_BUTTON_A) || (v0->textTimer == 0)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 v0->state = 19;
             }
@@ -1915,7 +2055,11 @@ static int ov23_0223FC9C(int index, BgConfig *bgConfig, int param2, UnkStruct_ov
     } else {
         param3->unk_18[index] = Graphics_GetPlttDataFromOpenNARC(v12, buriedObject->miningObject->paletteNARCIndex, &param3->buriedItemPalettes[index], HEAP_ID_MINING);
         DC_FlushRange(param3->buriedItemPalettes[index]->pRawData, 32);
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(param3->buriedItemPalettes[index]->pRawData, (v11 + 3) * 32, 32);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     }
 
     v10 = Graphics_LoadTilesToBgLayerFromOpenNARC(v12, buriedObject->miningObject->spriteNARCIndex, bgConfig, BG_LAYER_MAIN_1, param2, 0, 0, HEAP_ID_MINING);
@@ -1997,7 +2141,11 @@ static void ov23_0223FDE0(UnkStruct_ov23_0223EE80 *param0)
                 continue;
             }
 
+            #ifdef PLATFORM_DS
             GX_LoadBGPltt(&v5[v6], (v0 + 3) * 32, 32);
+            #else
+            // TODO: Port GX_LoadBGPltt to PAL
+            #endif
         }
     }
 }
@@ -2741,7 +2889,11 @@ static void ov23_02240E88(void)
 
     Unk_ov23_02257740->unk_A2F = 0;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     RenderOam_Init(0, 124, 0, 31, 0, 124, 0, 31, HEAP_ID_MINING);
     ov23_0224119C();
@@ -2756,18 +2908,34 @@ static void ov23_02240E88(void)
 
     v1 = NARC_ctor(NARC_INDEX_DATA__UG_ANIM, HEAP_ID_MINING);
 
+    #ifdef PLATFORM_DS
     ov23_02240E60(SpriteResourceCollection_AddTilesFrom(Unk_ov23_02257740->unk_1B0[0], v1, 6, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_MINING));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteTransfer_RequestChar(Unk_ov23_02257740->unk_1C0[Unk_ov23_02257740->unk_A2F - 1]);
+    #ifdef PLATFORM_DS
     ov23_02240E60(SpriteResourceCollection_AddPaletteFrom(Unk_ov23_02257740->unk_1B0[1], v1, 7, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1, HEAP_ID_MINING));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(Unk_ov23_02257740->unk_1C0[Unk_ov23_02257740->unk_A2F - 1]);
 
     ov23_02240E60(SpriteResourceCollection_AddFrom(Unk_ov23_02257740->unk_1B0[2], v1, 5, 0, 0, 2, HEAP_ID_MINING));
     ov23_02240E60(SpriteResourceCollection_AddFrom(Unk_ov23_02257740->unk_1B0[3], v1, 4, 0, 0, 3, HEAP_ID_MINING));
+    #ifdef PLATFORM_DS
     ov23_02240E60(SpriteResourceCollection_AddTilesFrom(Unk_ov23_02257740->unk_1B0[0], v1, 3, 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_MINING));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestChar(Unk_ov23_02257740->unk_1C0[Unk_ov23_02257740->unk_A2F - 1]);
+    #ifdef PLATFORM_DS
     ov23_02240E60(SpriteResourceCollection_AddPalette(Unk_ov23_02257740->unk_1B0[1], 52, 1, 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 3, HEAP_ID_MINING));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteTransfer_RequestPlttFreeSpace(Unk_ov23_02257740->unk_1C0[Unk_ov23_02257740->unk_A2F - 1]);
 
     ov23_02240E60(SpriteResourceCollection_AddFrom(Unk_ov23_02257740->unk_1B0[2], v1, 2, 0, 1, 2, HEAP_ID_MINING));
@@ -2793,7 +2961,11 @@ static void ov23_0224108C(void)
         v2.affineScale.z = FX32_ONE;
         v2.affineZRotation = 0;
         v2.priority = 0;
+        #ifdef PLATFORM_DS
         v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         v2.heapID = HEAP_ID_MINING;
         v2.position.x = FX32_ONE * 0;
         v2.position.y = FX32_ONE * 240;
@@ -2809,8 +2981,16 @@ static void ov23_0224108C(void)
         Sprite_SetAnimateFlag(Unk_ov23_02257740->sprites[v0], TRUE);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov23_0224119C(void)
@@ -2820,14 +3000,26 @@ static void ov23_0224119C(void)
             20, 2048 * 2, 2048 * 2, 29
         };
 
+        #ifdef PLATFORM_DS
         CharTransfer_InitWithVramModes(&v0, GX_OBJVRAMMODE_CHAR_1D_128K, GX_OBJVRAMMODE_CHAR_1D_128K);
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+        #endif
     }
 
     PlttTransfer_Init(20, HEAP_ID_MINING);
     CharTransfer_ClearBuffers();
     PlttTransfer_Clear();
+    #ifdef PLATFORM_DS
     ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE_2DMAIN, GX_OBJVRAMMODE_CHAR_1D_64K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_64K to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ReserveSlotsForWirelessIconPalette(NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 }
 
 static void ov23_022411E8(void *param0)

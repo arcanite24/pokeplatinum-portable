@@ -229,7 +229,11 @@ void ov13_02224500(BattleParty *param0)
     ov13_02224848(param0);
     ov13_02224948(param0);
     ov13_0222554C(param0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov13_0222453C(BattleParty *param0)
@@ -250,15 +254,27 @@ static void ov13_02224588(BattleParty *param0)
     NARC *v2 = NARC_ctor(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, param0->context->heapID);
     v0 = BattleSystem_GetSpriteSystem(param0->context->battleSystem);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->palette, PLTTBUF_SUB_OBJ, v0, param0->spriteMan, v2, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DSUB, 45063);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v0, param0->spriteMan, v2, PokeIcon32KCellsFileIndex(), FALSE, 45063);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v0, param0->spriteMan, v2, PokeIcon32KAnimationFileIndex(), FALSE, 45063);
 
     for (v1 = 0; v1 < 6; v1++) {
         if (param0->partyPokemon[v1].species != 0) {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadCharResObjFromOpenNarc(v0, param0->spriteMan, v2, Pokemon_IconSpriteIndex(param0->partyPokemon[v1].pokemon), FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 45063 + v1);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadCharResObjFromOpenNarc(v0, param0->spriteMan, v2, PokeIconSpriteIndex(0, 0, 0), FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 45063 + v1);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         }
     }
 
@@ -270,10 +286,18 @@ static void ov13_02224670(BattleParty *param0)
     SpriteSystem *v0 = BattleSystem_GetSpriteSystem(param0->context->battleSystem);
     NARC *v1 = NARC_ctor(NARC_INDEX_GRAPHIC__PL_PST_GRA, param0->context->heapID);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->palette, PLTTBUF_SUB_OBJ, v0, param0->spriteMan, v1, PokemonSummaryScreen_StatusIconPltt(), FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, 45064);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v0, param0->spriteMan, v1, PokemonSummaryScreen_StatusIconCell(), FALSE, 45064);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v0, param0->spriteMan, v1, PokemonSummaryScreen_StatusIconAnim(), FALSE, 45064);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v0, param0->spriteMan, v1, PokemonSummaryScreen_StatusIconChar(), FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 45069);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     NARC_dtor(v1);
 }
 
@@ -283,14 +307,26 @@ static void ov13_02224720(BattleParty *param0)
     u32 v1;
     spriteSys = BattleSystem_GetSpriteSystem(param0->context->battleSystem);
 
+    #ifdef PLATFORM_DS
     TypeIcon_LoadPltt(param0->palette, PLTTBUF_SUB_OBJ, spriteSys, param0->spriteMan, NNS_G2D_VRAM_TYPE_2DSUB, 45065);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     TypeIcon_LoadAnim(spriteSys, param0->spriteMan, 45065, 45065);
 
     for (v1 = 45070; v1 <= 45076; v1++) {
+        #ifdef PLATFORM_DS
         TypeIcon_LoadChar(spriteSys, param0->spriteMan, NNS_G2D_VRAM_TYPE_2DSUB, TYPE_NORMAL, v1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     CategoryIcon_LoadChar(spriteSys, param0->spriteMan, NNS_G2D_VRAM_TYPE_2DSUB, CLASS_PHYSICAL, 45077);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 }
 
 static void ov13_02224798(BattleParty *param0)
@@ -300,10 +336,18 @@ static void ov13_02224798(BattleParty *param0)
     NARC *v2 = NARC_ctor(NARC_INDEX_GRAPHIC__PL_PLIST_GRA, param0->context->heapID);
     v0 = BattleSystem_GetSpriteSystem(param0->context->battleSystem);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->palette, PLTTBUF_SUB_OBJ, v0, param0->spriteMan, v2, sub_02081934(), FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, 45066);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v0, param0->spriteMan, v2, sub_02081938(), FALSE, 45066);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v0, param0->spriteMan, v2, sub_0208193C(), FALSE, 45066);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v0, param0->spriteMan, v2, sub_02081930(), FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 45078);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     NARC_dtor(v2);
 }
 
@@ -311,10 +355,18 @@ static void ov13_02224848(BattleParty *param0)
 {
     SpriteSystem *v0 = BattleSystem_GetSpriteSystem(param0->context->battleSystem);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(param0->palette, PLTTBUF_SUB_OBJ, v0, param0->spriteMan, NARC_INDEX_BATTLE__GRAPHIC__PL_B_PLIST_GRA, 27, FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, 45067);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObj(v0, param0->spriteMan, NARC_INDEX_BATTLE__GRAPHIC__PL_B_PLIST_GRA, 25, FALSE, 45067);
     SpriteSystem_LoadAnimResObj(v0, param0->spriteMan, NARC_INDEX_BATTLE__GRAPHIC__PL_B_PLIST_GRA, 24, FALSE, 45067);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(v0, param0->spriteMan, NARC_INDEX_BATTLE__GRAPHIC__PL_B_PLIST_GRA, 26, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 45079);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 }
 
 static ManagedSprite *ov13_022248D8(BattleParty *param0, u32 param1)
@@ -328,7 +380,11 @@ static ManagedSprite *ov13_022248D8(BattleParty *param0, u32 param1)
     v0.animIdx = 0;
     v0.priority = Unk_ov13_02229514[param1][4];
     v0.plttIdx = 0;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v0.resources[0] = Unk_ov13_02229514[param1][0];
     v0.resources[1] = Unk_ov13_02229514[param1][1];
     v0.resources[2] = Unk_ov13_02229514[param1][2];

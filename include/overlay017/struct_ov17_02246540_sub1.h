@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_02246540_SUB1_H
 #define POKEPLATINUM_STRUCT_OV17_02246540_SUB1_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u32 unk_00_0 : 16;
     u32 unk_00_16 : 8;

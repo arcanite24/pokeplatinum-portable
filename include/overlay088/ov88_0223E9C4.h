@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV88_0223E9C4_H
 #define POKEPLATINUM_OV88_0223E9C4_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "game_options.h"
 #include "list_menu.h"

@@ -133,7 +133,11 @@ BOOL ov99_021D425C(UnkStruct_ov99_021D2CB0 *param0, s32 param1)
 
                 if ((param1 != -1) && (v6 == 0)) {
                     MI_CpuClear8(&param0->unk_6C[v6][v7].renderObj, sizeof(NNSG3dRenderObj));
+                    #ifdef PLATFORM_DS
                     NNS_G3dRenderObjInit(
+                    #else
+                    // TODO: Port NNS_G3dRenderObjInit to PAL
+                    #endif
                         &param0->unk_6C[v6][v7].renderObj, param0->unk_2C[param1].model);
                 }
 
@@ -183,15 +187,31 @@ void ov99_021D439C(UnkStruct_ov99_021D2CB0 *param0, int param1, int param2, int 
     v2 = Graphics_GetPlttDataFromOpenNARC(param0->unk_10F8, v3->unk_04, &v1, HEAP_ID_75);
 
     DC_FlushRange(v1->pRawData, v1->szByte);
+    #ifdef PLATFORM_DS
     GX_BeginLoadBGExtPltt();
+    #else
+    // TODO: Port GX_BeginLoadBGExtPltt to PAL
+    #endif
 
     if (param2 == 3) {
+        #ifdef PLATFORM_DS
         GX_LoadBGExtPltt(v1->pRawData, 0x6000, 0x2000);
+        #else
+        // TODO: Port GX_LoadBGExtPltt to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GX_LoadBGExtPltt(v1->pRawData, 0x4000, 0x2000);
+        #else
+        // TODO: Port GX_LoadBGExtPltt to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     GX_EndLoadBGExtPltt();
+    #else
+    // TODO: Port GX_EndLoadBGExtPltt to PAL
+    #endif
 
     Heap_Free(v2);
     PaletteData_FillBufferRange(param0->unk_0C, 0, 2, 0x0, 0, 1);
@@ -216,19 +236,55 @@ void ov99_021D44CC(UnkStruct_ov99_021D2CB0 *param0, ManagedSprite *param1)
         if (param0->unk_1114.unk_00 > 0) {
             param0->unk_1114.unk_00--;
         } else {
+            #ifdef PLATFORM_DS
             v0 = G2_GetOBJCharPtr();
+            #else
+            // TODO: Port G2_GetOBJCharPtr to PAL
+            #endif
             v2 = Sprite_GetImageProxy(param1->sprite);
 
             if (param0->unk_00->unk_00 == 0) {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2)], (void *)((u32)v0 + 0x1d * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x20], (void *)((u32)v0 + 0x1e * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x40], (void *)((u32)v0 + 0x25 * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x60], (void *)((u32)v0 + 0x26 * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2)], (void *)((u32)v0 + 0x45 * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x20], (void *)((u32)v0 + 0x46 * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x40], (void *)((u32)v0 + 0x4d * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 MI_CpuCopy32(&param0->unk_10F4[param0->unk_1114.unk_02 * ((0x20 * 8) / 2) + 0x60], (void *)((u32)v0 + 0x4e * 0x20 + v2->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN]), 0x20);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
             }
 
             if (param0->unk_1114.unk_02 == 0) {

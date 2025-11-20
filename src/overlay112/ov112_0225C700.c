@@ -186,23 +186,79 @@ static const CharTransferTemplate Unk_ov112_0225D814 = {
 };
 
 static const UnkStruct_02099F80 Unk_ov112_0225D858 = {
+    #ifdef PLATFORM_DS
     GX_VRAM_BG_256_AB,
+    #else
+    // TODO: Port GX_VRAM_BG_256_AB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_BGEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_BG_128_C,
+    #else
+    // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_BGEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_OBJ_96_EFG,
+    #else
+    // TODO: Port GX_VRAM_OBJ_96_EFG to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_OBJEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_OBJ_16_I,
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_SUB_OBJEXTPLTT_NONE,
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_TEX_NONE,
+    #else
+    // TODO: Port GX_VRAM_TEX_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VRAM_TEXPLTT_NONE
+    #else
+    // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+    #endif
 };
 
 static const GraphicsModes Unk_ov112_0225D834 = {
+    #ifdef PLATFORM_DS
     GX_DISPMODE_GRAPHICS,
+    #else
+    // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BGMODE_0,
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BGMODE_0,
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_BG0_AS_2D
+    #else
+    // TODO: Port GX_BG0_AS_2D to PAL
+    #endif
 };
 
 static const u32 Unk_ov112_0225D844[5] = {
@@ -220,10 +276,18 @@ static const BgTemplate Unk_ov112_0225D8C0[5] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -234,10 +298,18 @@ static const BgTemplate Unk_ov112_0225D8C0[5] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x1,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -248,10 +320,18 @@ static const BgTemplate Unk_ov112_0225D8C0[5] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xd800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x3,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -262,10 +342,18 @@ static const BgTemplate Unk_ov112_0225D8C0[5] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xd000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x2,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -276,10 +364,18 @@ static const BgTemplate Unk_ov112_0225D8C0[5] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -374,7 +470,11 @@ int ov112_0225C7C4(ApplicationManager *appMan, int *param1)
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & PAD_BUTTON_B) || (ov66_0222E12C(v1->unk_08) == 1) || (ov66_02231760() == 1)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             if (ov66_0222E12C(v1->unk_08) == 1) {
                 ov66_0222E2A4(v1->unk_08);
             }
@@ -539,15 +639,31 @@ static void ov112_0225CB98(UnkStruct_ov112_0225C9BC *param0, u32 heapID)
 {
     int i;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     RenderOam_Init(0, 126, 0, 31, 0, 126, 0, 31, heapID);
+    #ifdef PLATFORM_DS
     CharTransfer_InitWithVramModes(&Unk_ov112_0225D814, GX_OBJVRAMMODE_CHAR_1D_128K, GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
     PlttTransfer_Init(32, heapID);
     CharTransfer_ClearBuffers();
     PlttTransfer_Clear();
+    #ifdef PLATFORM_DS
     ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE_2DMAIN, GX_OBJVRAMMODE_CHAR_1D_128K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ReserveSlotsForWirelessIconPalette(NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     param0->unk_04 = SpriteList_InitRendering(32, &param0->unk_08, heapID);
 
@@ -558,8 +674,16 @@ static void ov112_0225CB98(UnkStruct_ov112_0225C9BC *param0, u32 heapID)
     }
 
     sub_02039734();
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov112_0225CC38(UnkStruct_ov112_0225C9BC *param0)
@@ -932,7 +1056,11 @@ static void ov112_0225D1B8(const UnkStruct_ov112_0225D180 *param0, const NNSG2dP
     const u8 *v2 = param1->pRawData;
 
     for (v1 = 0; v1 < 4; v1++) {
+        #ifdef PLATFORM_DS
         v0 = VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_MAIN, (param2 * 0x20) + (5 * 2) + (v1 * 0x4), (void *)(&v2[(7 * 0x20) + (param0->unk_00[v1] * 2)]), 0x4);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_BG_PLTT_MAIN to PAL
+        #endif
         GF_ASSERT(v0);
     }
 }
@@ -1231,7 +1359,11 @@ static void ov112_0225D784(UnkStruct_ov112_0225D73C *param0)
 
     BlendPalette(&v1, &param0->unk_04, 1, v0, 0x19);
     DC_FlushRange(&param0->unk_04, 2);
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt(&param0->unk_04, param0->unk_06, 2);
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
 
     param0->unk_02++;
 }

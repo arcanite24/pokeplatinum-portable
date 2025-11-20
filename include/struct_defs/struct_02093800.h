@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02093800_H
 #define POKEPLATINUM_STRUCT_02093800_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0202A750_decl.h"
 
 #include "game_options.h"

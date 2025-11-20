@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TERRAIN_COLLISION_MANAGER_H
 #define POKEPLATINUM_TERRAIN_COLLISION_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/types.h>

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_022416A8_H
 #define POKEPLATINUM_OV23_022416A8_H
 
+#include "platform/platform_types.h"
+
 #include <nitro/math.h>
 
 #include "field/field_system_decl.h"

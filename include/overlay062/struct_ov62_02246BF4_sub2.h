@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_02246BF4_SUB2_H
 #define POKEPLATINUM_STRUCT_OV62_02246BF4_SUB2_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "narc.h"
 #include "palette.h"

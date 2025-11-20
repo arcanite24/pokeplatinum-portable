@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ROWAN_INTRO_MAIN_H
 #define POKEPLATINUM_ROWAN_INTRO_MAIN_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL RowanIntro_Init(ApplicationManager *appMan, int *state);

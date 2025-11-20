@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BOAT_CUTSCENE_H
 #define POKEPLATINUM_BOAT_CUTSCENE_H
 
+#include "platform/platform_types.h"
+
 #include "constants/boat_cutscene.h"
 
 #include "field/field_system_decl.h"

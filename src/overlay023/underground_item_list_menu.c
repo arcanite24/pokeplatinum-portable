@@ -86,7 +86,15 @@ u32 UndergroundItemListMenu_ProcessInput(UndergroundItemListMenu *menu)
         if (menu->movingItems) {
             UndergroundItemListMenu_DrawColoredArrow(listPos, cursorPos, menu);
 
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A) || JOY_NEW(PAD_BUTTON_SELECT)) {
+            #else
+            // TODO: Port PAD_BUTTON_SELECT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
 
                 if (listPos + cursorPos == count - 1) {
@@ -138,7 +146,11 @@ u32 UndergroundItemListMenu_ProcessInput(UndergroundItemListMenu *menu)
                 return LIST_NOTHING_CHOSEN;
             }
         } else {
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_SELECT)) {
+            #else
+            // TODO: Port PAD_BUTTON_SELECT to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
 
                 if (listPos + cursorPos == count - 1) {

@@ -158,15 +158,27 @@ static void PerformTownMapDescriptionsChecks(FieldSystem *fieldSystem, TownMapCo
     VarsFlags *varsFlags = SaveData_GetVarsFlags(fieldSystem->saveData);
 
     FSFile flagsFile;
+    #ifdef PLATFORM_DS
     FS_InitFile(&flagsFile);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (!FS_OpenFile(&flagsFile, flagsFilePath)) {
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
         GF_ASSERT(FALSE);
         return;
     }
 
     int numFlags;
+    #ifdef PLATFORM_DS
     int readLength = FS_ReadFile(&flagsFile, &numFlags, sizeof(int));
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
     GF_ASSERT(readLength >= 0);
 
     TownMapDescriptionFlags *descFlags = Heap_AllocAtEnd(HEAP_ID_FIELD2, sizeof(TownMapDescriptionFlags));
@@ -176,7 +188,11 @@ static void PerformTownMapDescriptionsChecks(FieldSystem *fieldSystem, TownMapCo
 
     for (int i = 0; i < numFlags; i++) {
         TownMapLocationDescCheckResults *checksResult = &(ctx->descCheckResults[i]);
+        #ifdef PLATFORM_DS
         readLength = FS_ReadFile(&flagsFile, descFlags, sizeof(TownMapDescriptionFlags));
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
 
         switch (descFlags->areaDescriptionFlagType) {
         case TOWN_MAP_DESC_FLAG_FIRST_ARRIVAL:
@@ -201,6 +217,10 @@ static void PerformTownMapDescriptionsChecks(FieldSystem *fieldSystem, TownMapCo
         }
     }
 
+    #ifdef PLATFORM_DS
     FS_CloseFile(&flagsFile);
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
     Heap_Free(descFlags);
 }

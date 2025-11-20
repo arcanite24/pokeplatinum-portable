@@ -59,12 +59,24 @@ static u32 ov77_021D6C70(u32 param0, BOOL param1)
     u32 v0;
     NNSGfdTexKey v1;
 
+    #ifdef PLATFORM_DS
     v1 = NNS_GfdAllocTexVram(param0, param1, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
     ParticleSystem_RegisterTextureKey(v1);
 
+    #ifdef PLATFORM_DS
     GF_ASSERT(v1 != NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0 = NNS_GfdGetTexKeyAddr(v1);
+    #else
+    // TODO: Port NNS_GfdGetTexKeyAddr to PAL
+    #endif
 
     return v0;
 }
@@ -74,15 +86,31 @@ static u32 ov77_021D6C94(u32 param0, BOOL param1)
     NNSGfdPlttKey v0;
     u32 v1;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    #endif
     v0 = NNS_GfdAllocPlttVram(param0, param1, NNS_GFD_ALLOC_FROM_LOW);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_FROM_LOW to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (v0 == NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
         GF_ASSERT(FALSE);
     }
 
     ParticleSystem_RegisterPaletteKey(v0);
 
+    #ifdef PLATFORM_DS
     v1 = NNS_GfdGetPlttKeyAddr(v0);
+    #else
+    // TODO: Port NNS_GfdGetPlttKeyAddr to PAL
+    #endif
 
     return v1;
 }
@@ -178,12 +206,24 @@ void ov77_021D6E40(UnkStruct_ov77_021D6CFC *param0)
 void ov77_021D6E50(UnkStruct_ov77_021D6CFC *param0)
 {
     if (param0 != NULL) {
+        #ifdef PLATFORM_DS
         NNS_G3dGeFlushBuffer();
+        #else
+        // TODO: Port NNS_G3dGeFlushBuffer to PAL
+        #endif
         G3_ResetG3X();
+        #ifdef PLATFORM_DS
         NNS_G2dSetupSoftwareSpriteCamera();
+        #else
+        // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+        #endif
         PokemonSpriteManager_DrawSprites(param0->unk_00);
         ov77_021D725C();
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 }
 
@@ -205,7 +245,15 @@ BOOL ov77_021D6E78(UnkStruct_ov77_021D6CFC *param0, const u8 param1, const int p
 
     switch (*v0) {
     case 0:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetWndOutsidePlane to PAL
+        #endif
         G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+        #endif
         PokemonSprite_SetAttribute(param0->unk_04[param1], MON_SPRITE_SCALE_X, 0x400);
         PokemonSprite_SetAttribute(param0->unk_04[param1], MON_SPRITE_SCALE_Y, 0x400);
         PokemonSprite_SetAttribute(param0->unk_04[param1], MON_SPRITE_HIDE, 0);
@@ -225,7 +273,15 @@ BOOL ov77_021D6E78(UnkStruct_ov77_021D6CFC *param0, const u8 param1, const int p
         break;
     case 3:
         if (ParticleSystem_GetActiveEmitterCount(param0->unk_18) == 0) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(GX_WND_PLANEMASK_OBJ, 1);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
             (*v0)++;
         }
         break;

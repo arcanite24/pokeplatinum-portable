@@ -3,6 +3,8 @@
 
 #define OVERWORLD_MAP_HISTORY_LENGTH 6
 
+#include "platform/platform_types.h"
+
 typedef struct OverworldMapHistoryItem {
     u8 mapX;
     u8 mapZ;

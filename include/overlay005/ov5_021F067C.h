@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021F067C_H
 #define POKEPLATINUM_OV5_021F067C_H
 
+#include "platform/platform_types.h"
+
 #include "overlay005/struct_ov5_021F06D8_decl.h"
 
 #include "narc.h"

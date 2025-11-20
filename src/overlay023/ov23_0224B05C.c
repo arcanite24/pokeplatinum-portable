@@ -1029,7 +1029,11 @@ static Menu *ov23_0224BD90(BgConfig *param0, const WindowTemplate *param1, u16 p
     Window_AddFromTemplate(param0, v0.window, param1);
     Window_DrawStandardFrame(v0.window, 1, param2, param3);
 
+    #ifdef PLATFORM_DS
     return Menu_NewAndCopyToVRAM(&v0, 8, 0, 0, heapID, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 static void ov23_0224BE28(SysTask *param0, void *param1)
@@ -1672,7 +1676,11 @@ static BOOL ov23_0224C790(FieldTask *param0)
         break;
     case 12:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 v1->unk_0C = 13;
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 CommPlayer_SetDir(0);
@@ -1707,7 +1715,11 @@ static BOOL ov23_0224C790(FieldTask *param0)
         return 1;
     case 8:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 v1->unk_0C = 13;
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCommonTextPrinter());
                 return 0;
@@ -1798,7 +1810,11 @@ static void ov23_0224CB1C(SysTask *param0, void *param1)
         break;
     case 4:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v4 = 1;
             }
         }
@@ -2359,7 +2375,11 @@ static void ov23_0224D5BC(SysTask *param0, void *param1)
         break;
     case 1:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCaptureFlagTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 int v1 = v0->unk_05;
 
                 UndergroundTextPrinter_PrintText(CommManUnderground_GetCaptureFlagTextPrinter(), 14 + v1, FALSE, NULL);
@@ -2369,7 +2389,11 @@ static void ov23_0224D5BC(SysTask *param0, void *param1)
         break;
     case 2:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCaptureFlagTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 ov23_0224D54C(v0);
                 v0->unk_00 = 4;
                 UndergroundTextPrinter_EraseMessageBoxWindow(CommManUnderground_GetCaptureFlagTextPrinter());

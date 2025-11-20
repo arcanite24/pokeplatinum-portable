@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_SYSTEM_SUB2_T_H
 #define POKEPLATINUM_FIELD_SYSTEM_SUB2_T_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/berry_patch_manager_decl.h"
 
 #include "applications/poketch/poketch_system.h"

@@ -43,23 +43,71 @@ System gSystem;
 
 static void VBlankIntr(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
     MI_WaitDma(GX_DEFAULT_DMAID);
+    #else
+    // TODO: Port GX_DEFAULT_DMAID to PAL
+    #endif
     SysTaskManager_ExecuteTasks(gSystem.vBlankTaskMgr);
     gSystem.frameCounter++;
 }
 
 static void DummyVBlankIntr(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
     MI_WaitDma(GX_DEFAULT_DMAID);
+    #else
+    // TODO: Port GX_DEFAULT_DMAID to PAL
+    #endif
 }
 
 void SetDummyVBlankIntr(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_DisableIrqMask to PAL
+    #endif
     OS_DisableIrqMask(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqFunction to PAL
+    #endif
     OS_SetIrqFunction(OS_IE_V_BLANK, DummyVBlankIntr);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_EnableIrqMask to PAL
+    #endif
     OS_EnableIrqMask(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 void SetVBlankCallback(Callback cb, void *data)
@@ -103,25 +151,89 @@ static void HBlankIntr(void)
 
 static void SetHBlankEnabled(BOOL enabled)
 {
+    #ifdef PLATFORM_DS
     OS_DisableIrq();
+    #else
+    // TODO: Port OS_DisableIrq to PAL
+    #endif
     if (!enabled) {
+        #ifdef PLATFORM_DS
         OSIrqMask savedMask = OS_GetIrqMask();
+        #else
+        // TODO: Port OS_GetIrqMask to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_DisableIrqMask to PAL
+        #endif
         OS_DisableIrqMask(OS_IE_H_BLANK);
+        #else
+        // TODO: Port OS_IE_H_BLANK to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_HBlankIntr(FALSE);
+        #else
+        // TODO: Port GX_HBlankIntr to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         OSIrqMask savedMask = OS_GetIrqMask();
+        #else
+        // TODO: Port OS_GetIrqMask to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_SetIrqFunction to PAL
+        #endif
         OS_SetIrqFunction(OS_IE_H_BLANK, HBlankIntr);
+        #else
+        // TODO: Port OS_IE_H_BLANK to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_EnableIrqMask to PAL
+        #endif
         OS_EnableIrqMask(OS_IE_H_BLANK);
+        #else
+        // TODO: Port OS_IE_H_BLANK to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_HBlankIntr(TRUE);
+        #else
+        // TODO: Port GX_HBlankIntr to PAL
+        #endif
     }
+    #ifdef PLATFORM_DS
     OS_EnableIrq();
+    #else
+    // TODO: Port OS_EnableIrq to PAL
+    #endif
 }
 
 static const HeapParam sHeapInitParams[] = {
+    #ifdef PLATFORM_DS
     { HEAP_SIZE_SYSTEM, OS_ARENA_MAIN },
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { HEAP_SIZE_SAVE, OS_ARENA_MAIN },
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { HEAP_SIZE_DEBUG, OS_ARENA_MAIN },
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     { HEAP_SIZE_APPLICATION, OS_ARENA_MAIN }
+    #else
+    // TODO: Port OS_ARENA_MAIN to PAL
+    #endif
 };
 
 static void InitHeapSystem(void)
@@ -129,7 +241,11 @@ static void InitHeapSystem(void)
     u32 lowEntropyData[8];
     u8 md5[MATH_MD5_DIGEST_SIZE];
 
+    #ifdef PLATFORM_DS
     OS_GetLowEntropyData(lowEntropyData);
+    #else
+    // TODO: Port OS_GetLowEntropyData to PAL
+    #endif
     MATH_CalcMD5(md5, lowEntropyData, sizeof(lowEntropyData));
 
     u32 offset = 0;
@@ -178,20 +294,68 @@ void InitSystem(void)
     gSystem.postVBlankTaskMgr = SysTaskManager_Init(POST_VBLANK_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(POST_VBLANK_TASK_MAX)));
     gSystem.printTaskMgr = SysTaskManager_Init(PRINT_TASK_MAX, malloc(SysTaskManager_GetRequiredSize(PRINT_TASK_MAX)));
 #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqFunction to PAL
+    #endif
     OS_SetIrqFunction(OS_IE_V_BLANK, VBlankIntr);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_EnableIrqMask to PAL
+    #endif
     OS_EnableIrqMask(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_EnableIrqMask to PAL
+    #endif
     OS_EnableIrqMask(OS_IE_FIFO_RECV);
+    #else
+    // TODO: Port OS_IE_FIFO_RECV to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_EnableIrq();
+    #else
+    // TODO: Port OS_EnableIrq to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_VBlankIntr(TRUE);
+    #else
+    // TODO: Port GX_VBlankIntr to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_Init(1);
+    #else
+    // TODO: Port FS_Init to PAL
+    #endif
     CheckForMemoryTampering();
 
+    #ifdef PLATFORM_DS
     u32 fsTableSize = FS_GetTableSize();
+    #else
+    // TODO: Port FS_GetTableSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     void *fsTable = OS_AllocFromMainArenaLo(fsTableSize, 4);
+    #else
+    // TODO: Port OS_AllocFromMainArenaLo to PAL
+    #endif
 
     GF_ASSERT(fsTable != NULL);
+    #ifdef PLATFORM_DS
     FS_LoadTable(fsTable, fsTableSize);
+    #else
+    // TODO: Port FS_LoadTable to PAL
+    #endif
 
     gSystem.vblankCallback = NULL;
     gSystem.hblankCallback = NULL;
@@ -207,9 +371,21 @@ void InitSystem(void)
 
 void InitVRAM(void)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetBankForLCDC to PAL
+    #endif
     GX_SetBankForLCDC(GX_VRAM_LCDC_ALL);
+    #else
+    // TODO: Port GX_VRAM_LCDC_ALL to PAL
+    #endif
     MI_CpuClearFast((void *)HW_LCDC_VRAM, HW_LCDC_VRAM_SIZE);
+    #ifdef PLATFORM_DS
     GX_DisableBankForLCDC();
+    #else
+    // TODO: Port GX_DisableBankForLCDC to PAL
+    #endif
     MI_CpuFillFast((void *)HW_OAM, 192, HW_OAM_SIZE);
     MI_CpuFillFast((void *)HW_DB_OAM, 192, HW_DB_OAM_SIZE);
     MI_CpuClearFast((void *)HW_PLTT, HW_PLTT_SIZE);
@@ -219,20 +395,40 @@ void InitVRAM(void)
 void *ReadFileToHeap(int heapID, const char *filename)
 {
     FSFile file;
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
 
     void *buf;
+    #ifdef PLATFORM_DS
     if (FS_OpenFile(&file, filename)) {
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+        #ifdef PLATFORM_DS
         u32 length = FS_GetLength(&file);
+        #else
+        // TODO: Port FS_GetLength to PAL
+        #endif
         buf = Heap_Alloc(heapID, length);
         if (buf != NULL) {
+            #ifdef PLATFORM_DS
             if (FS_ReadFile(&file, buf, length) != length) {
+            #else
+            // TODO: Port FS_ReadFile to PAL
+            #endif
                 Heap_FreeExplicit(heapID, buf);
                 buf = NULL;
             }
         }
 
+        #ifdef PLATFORM_DS
         FS_CloseFile(&file);
+        #else
+        // TODO: Port FS_CloseFile to PAL
+        #endif
     } else {
         buf = NULL;
     }
@@ -243,17 +439,37 @@ void *ReadFileToHeap(int heapID, const char *filename)
 void ReadFileToBuffer(const char *filename, void **buf)
 {
     FSFile file;
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (FS_OpenFile(&file, filename)) {
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+        #ifdef PLATFORM_DS
         u32 length = FS_GetLength(&file);
+        #else
+        // TODO: Port FS_GetLength to PAL
+        #endif
         if (*buf != NULL) {
+            #ifdef PLATFORM_DS
             if (FS_ReadFile(&file, *buf, length) != length) {
+            #else
+            // TODO: Port FS_ReadFile to PAL
+            #endif
                 /* error not handled */
             }
         }
 
+        #ifdef PLATFORM_DS
         FS_CloseFile(&file);
+        #else
+        // TODO: Port FS_CloseFile to PAL
+        #endif
     }
 }
 
@@ -288,17 +504,33 @@ void InitKeypadAndTouchpad(void)
     gSystem.touchHeld = 0;
     gSystem.touchAutoSampling = FALSE;
 
+    #ifdef PLATFORM_DS
     TP_Init();
+    #else
+    // TODO: Port TP_Init to PAL
+    #endif
 
     TPCalibrateParam touchCalibration;
+    #ifdef PLATFORM_DS
     if (TP_GetUserInfo(&touchCalibration) == TRUE) {
+    #else
+    // TODO: Port TP_GetUserInfo to PAL
+    #endif
+        #ifdef PLATFORM_DS
         TP_SetCalibrateParam(&touchCalibration);
+        #else
+        // TODO: Port TP_SetCalibrateParam to PAL
+        #endif
     } else {
         touchCalibration.x0 = 0x02AE;
         touchCalibration.y0 = 0x058C;
         touchCalibration.xDotSize = 0x0E25;
         touchCalibration.yDotSize = 0x1208;
+        #ifdef PLATFORM_DS
         TP_SetCalibrateParam(&touchCalibration);
+        #else
+        // TODO: Port TP_SetCalibrateParam to PAL
+        #endif
     }
 }
 
@@ -357,13 +589,25 @@ void ReadKeypadAndTouchpad(void)
     ApplyButtonModeToInput();
 
     if (gSystem.touchAutoSampling == FALSE) {
+        #ifdef PLATFORM_DS
         while (TP_RequestRawSampling(&tpRaw) != FALSE)
+        #else
+        // TODO: Port TP_RequestRawSampling to PAL
+        #endif
             ;
     } else {
+        #ifdef PLATFORM_DS
         TP_GetLatestRawPointInAuto(&tpRaw);
+        #else
+        // TODO: Port TP_GetLatestRawPointInAuto to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     TP_GetCalibratedPoint(&tp, &tpRaw);
+    #else
+    // TODO: Port TP_GetCalibratedPoint to PAL
+    #endif
 #else
     // SDL3 implementation using PAL
     PAL_Input_Update();
@@ -467,24 +711,72 @@ static void ApplyButtonModeToInput(void)
         break;
 
     case BUTTON_MODE_START_IS_X:
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.pressedKeys, PAD_BUTTON_START, PAD_BUTTON_X);
+        #else
+        // TODO: Port PAD_BUTTON_X to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.heldKeys, PAD_BUTTON_START, PAD_BUTTON_X);
+        #else
+        // TODO: Port PAD_BUTTON_X to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.pressedKeysRepeatable, PAD_BUTTON_START, PAD_BUTTON_X);
+        #else
+        // TODO: Port PAD_BUTTON_X to PAL
+        #endif
         break;
 
     case BUTTON_MODE_SWAP_XY:
+        #ifdef PLATFORM_DS
         SWAP_KEY(gSystem.pressedKeys, PAD_BUTTON_X, PAD_BUTTON_Y);
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SWAP_KEY(gSystem.heldKeys, PAD_BUTTON_X, PAD_BUTTON_Y);
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SWAP_KEY(gSystem.pressedKeysRepeatable, PAD_BUTTON_X, PAD_BUTTON_Y);
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
         break;
 
     case BUTTON_MODE_L_IS_A:
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.pressedKeys, PAD_BUTTON_L, PAD_BUTTON_A);
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.heldKeys, PAD_BUTTON_L, PAD_BUTTON_A);
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CONVERT_KEY(gSystem.pressedKeysRepeatable, PAD_BUTTON_L, PAD_BUTTON_A);
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CLEAR_KEY(gSystem.pressedKeys, (PAD_BUTTON_L | PAD_BUTTON_R));
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CLEAR_KEY(gSystem.heldKeys, (PAD_BUTTON_L | PAD_BUTTON_R));
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
+        #ifdef PLATFORM_DS
         CLEAR_KEY(gSystem.pressedKeysRepeatable, (PAD_BUTTON_L | PAD_BUTTON_R));
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
         break;
     }
 }

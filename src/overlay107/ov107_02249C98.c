@@ -12,7 +12,11 @@
 #include "unk_0203061C.h"
 #include "unk_0205DFC4.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay104);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 u8 ov107_02249C98(u8 param0, u8 param1);
 u8 ov107_02249C9C(u8 param0, u8 param1);

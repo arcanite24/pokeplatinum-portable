@@ -15,8 +15,16 @@
 #include "poketch.h"
 #include "render_oam.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(poketch_unavailable);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay25);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int unk_00;
@@ -29,7 +37,11 @@ static BOOL ov5_021DDAE4(FieldTask *param0)
 
     switch (v1->unk_00) {
     case 0:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(2, -16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_SUB_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v1->unk_00++;
         break;
     case 1:
@@ -42,15 +54,27 @@ static BOOL ov5_021DDAE4(FieldTask *param0)
         if (PoketchUnavailableScreen_IsDone(fieldSystem->bgConfig)) {
             Poketch *poketch = SaveData_GetPoketch(fieldSystem->saveData);
 
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(poketch_unavailable));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
+            #ifdef PLATFORM_DS
             Overlay_LoadByID(FS_OVERLAY_ID(overlay25), 2);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             Poketch_Enable(poketch);
             PoketchSystem_Create(fieldSystem, &fieldSystem->unk_04->poketchSys, fieldSystem->saveData, fieldSystem->bgConfig, RenderOam_GetScreenOam(1));
             v1->unk_00++;
         }
         break;
     case 3:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(4, 0, -16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_SUB_SCREEN);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v1->unk_00++;
         break;
     case 4:

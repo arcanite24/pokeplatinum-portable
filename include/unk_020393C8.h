@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020393C8_H
 #define POKEPLATINUM_UNK_020393C8_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_020E5EB4.h"
 
 #include "sys_task_manager.h"

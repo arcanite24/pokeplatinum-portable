@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV59_021D2B44_H
 #define POKEPLATINUM_OV59_021D2B44_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0202440C_decl.h"
 #include "struct_decls/struct_0202E794_decl.h"
 

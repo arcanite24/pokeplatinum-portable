@@ -34,7 +34,11 @@
 
 #include "constdata/const_020EA358.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay105);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #include <nitro/code16.h>
 
@@ -100,13 +104,21 @@ BOOL ov104_02233324(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_02234130 *v2;
     UnkStruct_ov104_02230BE4 *v3 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay105);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v4 = {
         ov105_02241AE0,
         ov105_02241BD8,
         ov105_02241F54,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay105)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v1 = sub_0209B978(param0->unk_00->unk_00);
@@ -159,13 +171,21 @@ BOOL ov104_022333F8(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_02234130 *v2;
     UnkStruct_ov104_02230BE4 *v3 = sub_0209B970(param0->unk_00->unk_00);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay105);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v4 = {
         ov105_02241AE0,
         ov105_02241BD8,
         ov105_02241F54,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay105)
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     v1 = sub_0209B978(param0->unk_00->unk_00);
@@ -272,7 +292,11 @@ BOOL ov104_022334DC(UnkStruct_ov104_0222E930 *param0)
         }
         break;
     case 7:
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     case 9:
         *v15 = sub_0202FF68(v4->unk_4F4);

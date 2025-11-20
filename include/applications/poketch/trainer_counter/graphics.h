@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_TRAINER_COUNTER_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_TRAINER_COUNTER_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/species.h"
 
 #include "struct_defs/radar_chain_records.h"

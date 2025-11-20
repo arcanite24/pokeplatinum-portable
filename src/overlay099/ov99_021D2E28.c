@@ -102,12 +102,20 @@ BOOL ov99_021D2E28(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D3A40 *par
     switch (param1->unk_00) {
     case 0:
         ov99_021D2ED8(param0, v0);
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(24, 0, -16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         param1->unk_00++;
         break;
     case 1:
         if (param0->unk_10FC >= 6000) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(24, -16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             param1->unk_00++;
         }
         break;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SOUND_PLAYBACK_H
 #define POKEPLATINUM_SOUND_PLAYBACK_H
 
+#include "platform/platform_types.h"
+
 #include "constants/sound.h"
 #include "generated/sdat.h"
 

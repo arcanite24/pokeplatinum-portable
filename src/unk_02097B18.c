@@ -50,9 +50,21 @@
 
 #include "constdata/const_020F64C0.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay11);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(battle_anim);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay76);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int unk_00;
@@ -75,7 +87,11 @@ const ApplicationManagerTemplate Unk_020F64C0 = {
     sub_02097B18,
     sub_02097D30,
     sub_02097D88,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay76),
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static int sub_02097B18(ApplicationManager *appMan, int *param1)
@@ -219,14 +235,46 @@ static int sub_02097D88(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_ov76_0223DE00 *v0 = ApplicationManager_Data(appMan);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
     Bg_FreeTilemapBuffer(v0->unk_D4.unk_10, 1);
     Bg_FreeTilemapBuffer(v0->unk_D4.unk_10, 2);
     Bg_FreeTilemapBuffer(v0->unk_D4.unk_10, 3);
@@ -265,8 +313,16 @@ static int sub_02097D88(ApplicationManager *appMan, int *param1)
     }
 
     Heap_Destroy(HEAP_ID_53);
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay11));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(battle_anim));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     return 1;
 }

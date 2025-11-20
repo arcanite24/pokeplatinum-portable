@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_PARTY_GAUGE_H
 #define POKEPLATINUM_BATTLE_PARTY_GAUGE_H
 
+#include "platform/platform_types.h"
+
 #include "battle/struct_ov16_0226D160_decl.h"
 
 #include "palette.h"

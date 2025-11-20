@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEXFIELDMAP_H
 #define POKEPLATINUM_POKEDEXFIELDMAP_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 
 /**

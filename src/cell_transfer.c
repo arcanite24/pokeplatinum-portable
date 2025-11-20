@@ -32,7 +32,11 @@ void CellTransfer_Free(NNSG2dCellTransferState *transferStates)
     Heap_Free(transferStates);
 }
 
+#ifdef PLATFORM_DS
 static BOOL RegisterTransferTaskCB(NNS_GFD_DST_TYPE type, u32 destAddr, void *buf, u32 size)
+#else
+// TODO: Port NNS_GFD_DST_TYPE to PAL
+#endif
 {
     return VramTransfer_Request(type, destAddr, buf, size);
 }

@@ -22,7 +22,11 @@
 #include "screen_fade.h"
 #include "trainer_info.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay100);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 void sub_020985E4(FieldTask *param0, SaveData *saveData)
 {
@@ -58,7 +62,11 @@ BOOL sub_0209862C(FieldTask *param0)
                 ov100_021D0D80,
                 ov100_021D0EA8,
                 ov100_021D0F44,
+                #ifdef PLATFORM_DS
                 FS_OVERLAY_ID(overlay100)
+                #else
+                // TODO: Port FS_OVERLAY_ID to PAL
+                #endif
             };
 
             FieldSystem_StartChildProcess(fieldSystem, &v2, v1->unk_04);

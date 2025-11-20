@@ -63,7 +63,11 @@ void ov22_022590D4(UnkStruct_020298D8 *param0, PokemonSpriteManager *param1, Pok
 
         v4 = LoadMemberFromNARC(param3->narcID, param3->character, 0, param4, 0);
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(v4, &v5);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
         PokemonSprite_Decrypt((u8 *)v5->pRawData, param3->narcID);
 
         if (param5 == 0) {

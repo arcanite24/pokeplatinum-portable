@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GLOBAL_TRADE_H
 #define POKEPLATINUM_GLOBAL_TRADE_H
 
+#include "platform/platform_types.h"
+
 #include "pokemon.h"
 #include "savedata.h"
 

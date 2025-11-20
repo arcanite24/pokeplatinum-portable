@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_COMM_PLAYER_MANAGER_H
 #define POKEPLATINUM_COMM_PLAYER_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0205E884_decl.h"
 #include "struct_defs/struct_02057B48.h"
 

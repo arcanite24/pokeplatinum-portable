@@ -18,13 +18,29 @@
 #include "unk_0202C9F4.h"
 #include "unk_02097B18.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay11);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(battle_anim);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static void NitroStaticInit(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay11), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(battle_anim), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static void ov76_0223B15C(TouchScreenRect *rect, u8 param1, u8 param2)
@@ -171,12 +187,20 @@ void ov76_0223B36C(UnkStruct_ov76_0223DE00 *param0, u8 param1, u8 param2)
     SpriteManager *v3 = param0->unk_D4.unk_0C;
     PaletteData *v4 = param0->unk_D4.unk_14;
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(v4, 3, v2, v3, 91, 293, 0, 1, NNS_G2D_VRAM_TYPE_2DSUB, 21000 + 293);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     int v0 = sub_02098140(param1);
     int v1 = (param2 + 20000);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObj(v2, v3, NARC_INDEX_APPLICATION__CUSTOM_BALL__DATA__CB_DATA, v0, TRUE, NNS_G2D_VRAM_TYPE_2DSUB, v1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObj(v2, v3, NARC_INDEX_APPLICATION__CUSTOM_BALL__DATA__CB_DATA, 93, TRUE, 22000 + 93);
     SpriteSystem_LoadAnimResObj(v2, v3, NARC_INDEX_APPLICATION__CUSTOM_BALL__DATA__CB_DATA, 1, TRUE, 23000 + 1);
 }
@@ -279,7 +303,11 @@ BOOL ov76_0223B52C(UnkStruct_ov76_0223DE00 *param0, u8 param1)
     v3.plttIdx = 0;
     v3.vramTransfer = FALSE;
     v3.priority = 0;
+    #ifdef PLATFORM_DS
     v3.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v3.bgPriority = 1;
     v3.resources[4] = SPRITE_RESOURCE_NONE;
     v3.resources[5] = SPRITE_RESOURCE_NONE;
@@ -413,9 +441,17 @@ void ov76_0223B758(UnkStruct_ov76_0223DE00 *param0, int param1)
     BOOL v0 = ov76_0223B6C4(param0, param1);
 
     if (v0 == 0) {
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(param0->unk_324[param1].unk_08, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(param0->unk_324[param1].unk_08, GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     }
 }
 

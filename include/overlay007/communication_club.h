@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV7_02249960_H
 #define POKEPLATINUM_OV7_02249960_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void CommClub_StartBattleClient(FieldSystem *fieldSystem, int param1, int param2, int param3);

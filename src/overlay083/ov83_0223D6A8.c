@@ -198,8 +198,16 @@ void ov83_0223D7A8(UnkStruct_ov83_0223D784 *param0, UnkStruct_ov83_0223D95C *par
 {
     BOOL v0;
 
+    #ifdef PLATFORM_DS
     param1->unk_00[0] = SpriteResourceCollection_AddTilesFromEx(param0->unk_190[0], param2, param5, 0, param8, NNS_G2D_VRAM_TYPE_2DMAIN, param9, HEAP_ID_SAVE);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param1->unk_00[1] = SpriteResourceCollection_AddPaletteFromEx(param0->unk_190[1], param2, param3, 0, param8, NNS_G2D_VRAM_TYPE_2DMAIN, param4, param9, HEAP_ID_SAVE);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param1->unk_10 = 0;
     param1->unk_00[2] = SpriteResourceCollection_AddFrom(param0->unk_190[2], param2, param6, 0, param8, 2, param9);
     param1->unk_00[3] = SpriteResourceCollection_AddFrom(param0->unk_190[3], param2, param7, 0, param8, 3, param9);
@@ -220,7 +228,11 @@ void ov83_0223D894(UnkStruct_ov83_0223D784 *param0, UnkStruct_ov83_0223D95C *par
     BOOL v0;
     u32 v1;
 
+    #ifdef PLATFORM_DS
     param1->unk_00[0] = SpriteResourceCollection_AddTilesFromEx(param0->unk_190[0], param2, param4, 0, param7, NNS_G2D_VRAM_TYPE_2DMAIN, param8, HEAP_ID_SAVE);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param1->unk_00[1] = param3;
     param1->unk_10 = 1;
 
@@ -268,7 +280,11 @@ Sprite *ov83_0223D9A8(UnkStruct_ov83_0223D784 *param0, UnkStruct_ov83_0223D95C *
     v0.position.y = param3;
     v0.position.z = param4;
     v0.priority = param5;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.heapID = param6;
 
     v1 = SpriteList_Add(&v0);
@@ -1022,8 +1038,16 @@ void ov83_0223E720(UnkStruct_ov83_0223E824 *param0, BgConfig *param1, u32 heapID
     ov83_0223E77C(param0, heapID);
     ov83_0223E844(param0, heapID, param3);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     param0->unk_28 = 1;
 }
@@ -1092,8 +1116,16 @@ static void ov83_0223E8DC(SysTask *param0, void *param1)
     v0->unk_30++;
 
     if (v0->unk_30 >= 30) {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         SysTask_Done(param0);
         v0->unk_2C = NULL;
     }
@@ -1114,8 +1146,16 @@ void ov83_0223E908(UnkStruct_ov83_0223E824 *param0, u32 param1)
     }
 
     Window_CopyToVRAM(param0->unk_08[0]);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 }
 
 BOOL ov83_0223E984(const UnkStruct_ov83_0223E824 *param0)
@@ -1133,8 +1173,16 @@ void ov83_0223E994(UnkStruct_ov83_0223E824 *param0)
         return;
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
     SysTask_Done(param0->unk_2C);
 
     param0->unk_2C = NULL;
@@ -1814,7 +1862,11 @@ static void ov83_0223F6CC(UnkStruct_ov83_0223F670 *param0, int param1, fx32 para
 
 void ov83_0223F730(UnkStruct_ov83_0223F770 *param0, int param1, int param2, int param3, int param4)
 {
+    #ifdef PLATFORM_DS
     param0->unk_00 = sub_02098FFC(param4, 1, 1, (NNS_G2D_VRAM_TYPE_2DMAIN), 2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param0->unk_04 = sub_0209916C(param0->unk_00, param3, param1, param2, 0, 0, 0, 0);
 }
 

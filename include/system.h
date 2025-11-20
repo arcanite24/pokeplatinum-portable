@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SYSTEM_H
 #define POKEPLATINUM_SYSTEM_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 #include "constants/system.h"
 
@@ -20,7 +22,11 @@ enum SleepType {
     SLEEP_TYPE_SAVE_DATA = 1,
 };
 
+#ifdef PLATFORM_DS
 #define PAD_KEY                (PAD_KEY_UP | PAD_KEY_DOWN | PAD_KEY_LEFT | PAD_KEY_RIGHT)
+#else
+// TODO: Port PAD_KEY to PAL
+#endif
 #define JOY_NEW(buttons)       (gSystem.pressedKeys & (buttons))
 #define JOY_HELD(buttons)      (gSystem.heldKeys & (buttons))
 #define JOY_REPEAT(buttons)    (gSystem.pressedKeysRepeatable & (buttons))

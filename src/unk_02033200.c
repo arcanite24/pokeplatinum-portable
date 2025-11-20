@@ -190,7 +190,11 @@ static void sub_02033380(void)
 static void WirelessDriver_InitCallback(void *param0, WVRResult param1)
 {
     if (param1 != WVR_RESULT_SUCCESS) {
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
     } else {
         (void)0;
     }
@@ -210,8 +214,16 @@ void WirelessDriver_Init(void)
 
     sWirelessDriverStatus = WIRELESS_DRIVER_STATUS_CONNECTING;
 
+    #ifdef PLATFORM_DS
     if (WVR_RESULT_OPERATING != WVR_StartUpAsync(GX_VRAM_ARM7_128_D, WirelessDriver_InitCallback, NULL)) {
+    #else
+    // TODO: Port GX_VRAM_ARM7_128_D to PAL
+    #endif
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
     } else {
         (void)0;
     }

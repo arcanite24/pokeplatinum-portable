@@ -46,12 +46,32 @@ void Easy3DModel_Release(Easy3DModel *model)
     NNSG3dPlttKey paletteKey;
 
     if (model->texture) {
+        #ifdef PLATFORM_DS
         NNS_G3dTexReleaseTexKey(model->texture, &texKey, &tex4x4Key);
+        #else
+        // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(texKey);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(tex4x4Key);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         paletteKey = NNS_G3dPlttReleasePlttKey(model->texture);
+        #else
+        // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreePlttVram(paletteKey);
+        #else
+        // TODO: Port NNS_GfdFreePlttVram to PAL
+        #endif
     }
 
     if (model->data) {
@@ -78,7 +98,11 @@ void Easy3DAnim_LoadFromData(Easy3DAnim *anim, const Easy3DModel *model, void *d
 void Easy3DAnim_Release(Easy3DAnim *anim, NNSFndAllocator *allocator)
 {
     if (anim->data) {
+        #ifdef PLATFORM_DS
         NNS_G3dFreeAnmObj(allocator, anim->animObj);
+        #else
+        // TODO: Port NNS_G3dFreeAnmObj to PAL
+        #endif
 
         if (anim->dataBorrowed == FALSE) {
             Heap_Free(anim->data);
@@ -90,7 +114,11 @@ void Easy3DAnim_Release(Easy3DAnim *anim, NNSFndAllocator *allocator)
 
 void Easy3DAnim_UpdateLooped(Easy3DAnim *anim, fx32 frameDelta)
 {
+    #ifdef PLATFORM_DS
     fx32 frameCount = NNS_G3dAnmObjGetNumFrame(anim->animObj);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
 
     if (frameDelta > 0) {
         anim->frame = (anim->frame + frameDelta) % frameCount;
@@ -102,12 +130,20 @@ void Easy3DAnim_UpdateLooped(Easy3DAnim *anim, fx32 frameDelta)
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(anim->animObj, anim->frame);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 }
 
 BOOL Easy3DAnim_Update(Easy3DAnim *anim, fx32 frameDelta)
 {
+    #ifdef PLATFORM_DS
     fx32 frameCount = NNS_G3dAnmObjGetNumFrame(anim->animObj);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
     BOOL finished = FALSE;
 
     if (frameDelta > 0) {
@@ -126,14 +162,22 @@ BOOL Easy3DAnim_Update(Easy3DAnim *anim, fx32 frameDelta)
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(anim->animObj, anim->frame);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
     return finished;
 }
 
 void Easy3DAnim_SetFrame(Easy3DAnim *anim, fx32 frame)
 {
     anim->frame = frame;
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(anim->animObj, frame);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 }
 
 fx32 Easy3DAnim_GetFrame(const Easy3DAnim *anim)
@@ -143,13 +187,21 @@ fx32 Easy3DAnim_GetFrame(const Easy3DAnim *anim)
 
 fx32 Easy3DAnim_GetFrameCount(const Easy3DAnim *anim)
 {
+    #ifdef PLATFORM_DS
     return NNS_G3dAnmObjGetNumFrame(anim->animObj);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
 }
 
 void Easy3DObject_Init(Easy3DObject *obj, Easy3DModel *model)
 {
     memset(obj, 0, sizeof(Easy3DObject));
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(&obj->renderObj, model->model);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 
     obj->visible = TRUE;
     obj->scale.x = FX32_ONE;
@@ -159,12 +211,20 @@ void Easy3DObject_Init(Easy3DObject *obj, Easy3DModel *model)
 
 void Easy3DObject_AddAnim(Easy3DObject *obj, Easy3DAnim *anim)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(&obj->renderObj, anim->animObj);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
 }
 
 void Easy3DObject_RemoveAnim(Easy3DObject *obj, Easy3DAnim *anim)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjRemoveAnmObj(&obj->renderObj, anim->animObj);
+    #else
+    // TODO: Port NNS_G3dRenderObjRemoveAnmObj to PAL
+    #endif
 }
 
 void Easy3DObject_Draw(Easy3DObject *obj)
@@ -243,19 +303,43 @@ u16 Easy3DObject_GetRotation(const Easy3DObject *obj, enum RotationAxis axis)
 static void Easy3DAnim_LoadInternal(Easy3DAnim *anim, const Easy3DModel *model, void *data, NNSFndAllocator *allocator)
 {
     anim->data = data;
+    #ifdef PLATFORM_DS
     anim->anim = NNS_G3dGetAnmByIdx(anim->data, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     anim->animObj = NNS_G3dAllocAnmObj(allocator, anim->anim, model->model);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(anim->animObj, anim->anim, model->model, model->texture);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
 }
 
 static void Easy3DModel_LoadInternal(Easy3DModel *model)
 {
     GF_ASSERT(model->data);
 
+    #ifdef PLATFORM_DS
     model->set = NNS_G3dGetMdlSet(model->data);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     model->model = NNS_G3dGetMdlByIdx(model->set, 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     model->texture = NNS_G3dGetTex(model->data);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     if (model->texture) {
         SysTask_ExecuteAfterVBlank(Easy3DModel_BindTexture, model, 1024);

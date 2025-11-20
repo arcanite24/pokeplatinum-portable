@@ -141,14 +141,22 @@ static void sub_0201DE3C(UnkStruct_0201DDF4 *param0, const UnkStruct_0202144C *p
 {
     void *v0 = sub_0201DE94(param0, param1);
 
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_3D_TEX_VRAM, NNS_GfdGetTexKeyAddr(param0->unk_08), v0, NNS_GfdGetTexKeySize(param0->unk_08));
+    #else
+    // TODO: Port NNS_GfdGetTexKeySize to PAL
+    #endif
     param0->unk_10 = param1->unk_00;
 }
 
 static void sub_0201DE68(UnkStruct_0201DDF4 *param0, const UnkStruct_0202144C *param1)
 {
     void *v0 = sub_0201DEA0(param0, param1);
+    #ifdef PLATFORM_DS
     VramTransfer_Request(NNS_GFD_DST_3D_TEX_PLTT, NNS_GfdGetPlttKeyAddr(param0->unk_0C), v0, NNS_GfdGetPlttKeySize(param0->unk_0C));
+    #else
+    // TODO: Port NNS_GfdGetPlttKeySize to PAL
+    #endif
 
     param0->unk_11 = param1->unk_01;
 }
@@ -166,19 +174,31 @@ static void *sub_0201DEA0(UnkStruct_0201DDF4 *param0, const UnkStruct_0202144C *
 void *sub_0201DEAC(NNSG3dResTex *param0, const u8 param1)
 {
     u32 v0;
+    #ifdef PLATFORM_DS
     const NNSG3dResDictTexData *v1 = NNS_G3dGetTexDataByIdx(param0, param1);
+    #else
+    // TODO: Port NNS_G3dGetTexDataByIdx to PAL
+    #endif
 
     if (v1 == NULL) {
         return NULL;
     }
 
+    #ifdef PLATFORM_DS
     v0 = (v1->texImageParam & NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK) + param0->texInfo.vramKey;
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK to PAL
+    #endif
     return (void *)((u8 *)param0 + param0->texInfo.ofsTex + (v0 << 3));
 }
 
 void *sub_0201DEFC(NNSG3dResTex *param0, const u8 param1)
 {
+    #ifdef PLATFORM_DS
     const NNSG3dResDictPlttData *v0 = NNS_G3dGetPlttDataByIdx(param0, param1);
+    #else
+    // TODO: Port NNS_G3dGetPlttDataByIdx to PAL
+    #endif
 
     if (v0 == NULL) {
         return NULL;
@@ -189,9 +209,17 @@ void *sub_0201DEFC(NNSG3dResTex *param0, const u8 param1)
 
 static void *sub_0201DF40(NNSG3dResTex *param0, const NNSG3dResDictTexData *param1)
 {
+    #ifdef PLATFORM_DS
     u32 v0 = (param1->texImageParam & NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK) << 3;
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_TEX_ADDR_MASK to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0 += NNS_GfdGetTexKeyAddr(param0->texInfo.vramKey);
+    #else
+    // TODO: Port NNS_GfdGetTexKeyAddr to PAL
+    #endif
     return (void *)(v0);
 }
 
@@ -201,7 +229,11 @@ void *sub_0201DF50(NNSG3dResTex *param0, const char *param1)
     const NNSG3dResDictTexData *v1;
 
     Ascii_SetResourceName(&v0, param1);
+    #ifdef PLATFORM_DS
     v1 = NNS_G3dGetTexDataByName(param0, &v0);
+    #else
+    // TODO: Port NNS_G3dGetTexDataByName to PAL
+    #endif
 
     if (v1 == NULL) {
         return NULL;
@@ -217,32 +249,64 @@ static int sub_0201DF84(NNSG3dResTex *param0, const NNSG3dResDictTexData *param1
     u32 v2, v3;
     u32 v4;
 
+    #ifdef PLATFORM_DS
     v1 = (param1->texImageParam & NNS_G3D_TEXIMAGE_PARAM_TEXFMT_MASK) >> NNS_G3D_TEXIMAGE_PARAM_TEXFMT_SHIFT;
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_TEXFMT_SHIFT to PAL
+    #endif
 
     switch (v1) {
+    #ifdef PLATFORM_DS
     case GX_TEXFMT_PLTT4:
+    #else
+    // TODO: Port GX_TEXFMT_PLTT4 to PAL
+    #endif
         v4 = 4;
         break;
+    #ifdef PLATFORM_DS
     case GX_TEXFMT_PLTT16:
+    #else
+    // TODO: Port GX_TEXFMT_PLTT16 to PAL
+    #endif
         v4 = 2;
         break;
+    #ifdef PLATFORM_DS
     case GX_TEXFMT_PLTT256:
+    #else
+    // TODO: Port GX_TEXFMT_PLTT256 to PAL
+    #endif
         v4 = 1;
         break;
+    #ifdef PLATFORM_DS
     case GX_TEXFMT_A3I5:
+    #else
+    // TODO: Port GX_TEXFMT_A3I5 to PAL
+    #endif
         v4 = 1;
         break;
+    #ifdef PLATFORM_DS
     case GX_TEXFMT_A5I3:
+    #else
+    // TODO: Port GX_TEXFMT_A5I3 to PAL
+    #endif
         v4 = 1;
         break;
     default:
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     v3 = (param1->texImageParam & NNS_G3D_TEXIMAGE_PARAM_S_SIZE_MASK) >> NNS_G3D_TEXIMAGE_PARAM_S_SIZE_SHIFT;
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_S_SIZE_SHIFT to PAL
+    #endif
     v3 <<= 4;
 
+    #ifdef PLATFORM_DS
     v2 = (param1->texImageParam & NNS_G3D_TEXIMAGE_PARAM_T_SIZE_MASK) >> NNS_G3D_TEXIMAGE_PARAM_T_SIZE_SHIFT;
+    #else
+    // TODO: Port NNS_G3D_TEXIMAGE_PARAM_T_SIZE_SHIFT to PAL
+    #endif
     v2 <<= 4;
 
     v0 = (v3 * v2) / v4;
@@ -256,7 +320,11 @@ int sub_0201DFE4(NNSG3dResTex *param0, const char *param1)
     NNSG3dResName v1;
 
     Ascii_SetResourceName(&v1, param1);
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dGetTexDataByName(param0, &v1);
+    #else
+    // TODO: Port NNS_G3dGetTexDataByName to PAL
+    #endif
 
     return sub_0201DF84(param0, v0);
 }

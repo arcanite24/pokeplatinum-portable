@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_WILD_ENCOUNTERS_H
 #define POKEPLATINUM_WILD_ENCOUNTERS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/wild_encounters.h"
 
 #include "field/field_system_decl.h"

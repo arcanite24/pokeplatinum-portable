@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPRITE_H
 #define POKEPLATINUM_SPRITE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/gx.h>
@@ -81,7 +83,11 @@ typedef struct Sprite {
     u16 activeAnimID;
     u8 explicitPriority;
     u16 priority;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     struct Sprite *prev;
     struct Sprite *next;
 } Sprite;
@@ -134,7 +140,11 @@ typedef struct SpriteListTemplate {
     const SpriteResourcesHeader *resourceData;
     VecFx32 position;
     u32 priority;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     enum HeapID heapID;
 } SpriteListTemplate;
 
@@ -145,7 +155,11 @@ typedef struct AffineSpriteListTemplate {
     VecFx32 affineScale;
     u16 affineZRotation;
     u32 priority;
+    #ifdef PLATFORM_DS
     enum NNS_G2D_VRAM_TYPE vramType;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
+    #endif
     enum HeapID heapID;
 } AffineSpriteListTemplate;
 
@@ -196,7 +210,11 @@ void Sprite_SetImageProxy(Sprite *sprite, const NNSG2dImageProxy *imageProxy);
 NNSG2dImageProxy *Sprite_GetImageProxy(Sprite *sprite);
 NNSG2dImagePaletteProxy *Sprite_GetPaletteProxy(Sprite *paletteProxy);
 void Sprite_SetMosaicFlag(Sprite *sprite, BOOL mosaic);
+#ifdef PLATFORM_DS
 enum NNS_G2D_VRAM_TYPE Sprite_GetVRamType(const Sprite *sprite);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 BOOL Sprite_IsAnimated(Sprite *sprite);
 void Sprite_SetExplicitOAMMode(Sprite *sprite, GXOamMode mode);
 void Utility_Clear2DMainOAM(enum HeapID heapID);

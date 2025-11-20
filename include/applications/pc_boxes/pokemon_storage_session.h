@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_STORAGE_SESSION_H
 #define POKEPLATINUM_POKEMON_STORAGE_SESSION_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pc_boxes/box_settings.h"
 
 #include "savedata.h"

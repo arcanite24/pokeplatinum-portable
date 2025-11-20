@@ -60,7 +60,11 @@
 #include "constdata/const_020F410C.h"
 #include "res/text/bank/box_messages.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(bag);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 enum BoxSelectorState {
     BOX_SELECTOR_START,
@@ -246,7 +250,11 @@ BOOL BoxAppMan_Main(ApplicationManager *appMan, int *state)
         boxAppMan->boxApplicationAction(boxAppMan, &boxAppMan->boxApplicationActionState);
         return FALSE;
     } else if (boxAppMan->cursorLocationInputHandler != NULL) {
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_Y)) {
+        #else
+        // TODO: Port PAD_BUTTON_Y to PAL
+        #endif
             if (BoxGraphics_CheckAllTasksDone(boxAppMan->unk_114) == TRUE) {
                 BoxApp_ToggleCursorFastMode(&boxAppMan->boxApp);
                 BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_ov19_021D7340);
@@ -427,7 +435,11 @@ static int BoxAppMan_CursorInBoxInputHandler(BoxApplicationManager *boxAppMan)
 {
     switch (boxAppMan->cursorLocationHandlerState) {
     case CURSOR_IN_BOX_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (BoxApp_IsMonAvailableToCursor(&boxAppMan->boxApp)) {
                 if (BoxApp_GetBoxMode(&boxAppMan->boxApp) != PC_MODE_MOVE_ITEMS) {
                     BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_MonCursorMenuAction);
@@ -438,18 +450,30 @@ static int BoxAppMan_CursorInBoxInputHandler(BoxApplicationManager *boxAppMan)
             }
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ContinueBoxOperationsAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_L)) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             BoxApp_LoadLeftBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_R)) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             BoxApp_LoadRightBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
@@ -514,7 +538,11 @@ static int BoxAppMan_CursorInPartyInputHandler(BoxApplicationManager *boxAppMan)
 {
     switch (boxAppMan->cursorLocationHandlerState) {
     case CURSOR_IN_PARTY_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (BoxApp_GetCursorPartyPosition(&boxAppMan->boxApp) == MAX_PARTY_SIZE) {
                 boxAppMan->cursorLocationHandlerState = CURSOR_IN_PARTY_LEAVE_PARTY;
                 break;
@@ -531,7 +559,15 @@ static int BoxAppMan_CursorInPartyInputHandler(BoxApplicationManager *boxAppMan)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_B) || JOY_NEW(PAD_KEY_RIGHT) && BoxApp_GetCursorPartyPosition(&boxAppMan->boxApp) & 1 || JOY_NEW(PAD_KEY_RIGHT) && BoxApp_GetCursorPartyPosition(&boxAppMan->boxApp) == MAX_PARTY_SIZE) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             boxAppMan->cursorLocationHandlerState = CURSOR_IN_PARTY_LEAVE_PARTY;
             break;
         }
@@ -597,7 +633,15 @@ static int BoxAppMan_CursorInPartyInputHandler(BoxApplicationManager *boxAppMan)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             boxAppMan->cursorLocationHandlerState = CURSOR_IN_PARTY_WAIT_FOR_INPUT;
         }
@@ -621,24 +665,48 @@ static int BoxAppMan_CursorOnHeaderInputHandler(BoxApplicationManager *boxAppMan
 {
     switch (boxAppMan->cursorLocationHandlerState) {
     case CURSOR_ON_HEADER_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
         if (JOY_HELD(PAD_KEY_LEFT | PAD_BUTTON_L)) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             BoxApp_LoadLeftBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
         if (JOY_HELD(PAD_KEY_RIGHT | PAD_BUTTON_R)) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             BoxApp_LoadRightBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_BoxHeaderMenuAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ContinueBoxOperationsAction);
             break;
         }
@@ -676,23 +744,39 @@ static int BoxAppMan_CursorOnCloseInputHandler(BoxApplicationManager *boxAppMan)
 {
     switch (boxAppMan->cursorLocationHandlerState) {
     case CURSOR_CLOSE_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_CloseBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ContinueBoxOperationsAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_L)) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             BoxApp_LoadLeftBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_R)) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             BoxApp_LoadRightBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
@@ -739,7 +823,11 @@ static int BoxAppMan_CursorOnPartyButtonInputHandler(BoxApplicationManager *boxA
 {
     switch (boxAppMan->cursorLocationHandlerState) {
     case CURSOR_ON_PARTY_BUTTON_STATE_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (BoxApp_GetBoxMode(&boxAppMan->boxApp) != PC_MODE_WITHDRAW) {
                 BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_PressBoxButton);
                 boxAppMan->cursorLocationHandlerState = CURSOR_ON_PARTY_BUTTON_ANIMATE_PRESS_BUTTON;
@@ -752,18 +840,30 @@ static int BoxAppMan_CursorOnPartyButtonInputHandler(BoxApplicationManager *boxA
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ContinueBoxOperationsAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_L)) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             BoxApp_LoadLeftBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_R)) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             BoxApp_LoadRightBoxCustomization(&boxAppMan->boxApp);
             BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_ChangeToNewBoxAction);
             break;
@@ -812,7 +912,15 @@ static int BoxAppMan_CursorOnPartyButtonInputHandler(BoxApplicationManager *boxA
         }
         break;
     case CURSOR_ON_PARTY_BUTTON_CONFIRM_MESSAGE:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             boxAppMan->cursorLocationHandlerState = 0;
         }
@@ -951,7 +1059,15 @@ static void BoxAppMan_CloseBoxAction(BoxApplicationManager *boxAppMan, u32 *stat
         }
         *state = CLOSE_BOX_CONFIRM_MESSAGE;
     case CLOSE_BOX_CONFIRM_MESSAGE:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = CLOSE_BOX_END;
         }
@@ -1016,7 +1132,15 @@ static void BoxAppMan_ContinueBoxOperationsAction(BoxApplicationManager *boxAppM
         }
         *state = CONTINUE_OPERATIONS_CONFIRM_MESSAGE;
     case CONTINUE_OPERATIONS_CONFIRM_MESSAGE:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = CONTINUE_OPERATIONS_END;
         }
@@ -1297,7 +1421,15 @@ static void BoxAppMan_MonItemMenuAction(BoxApplicationManager *boxAppMan, u32 *s
         }
         break;
     case MON_ITEM_MENU_CONFIRM_MESSAGE:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = MON_ITEM_MENU_END;
         }
@@ -1596,7 +1728,11 @@ static void BoxAppMan_MultiSelectAction(BoxApplicationManager *boxAppMan, u32 *s
 {
     switch (*state) {
     case MULTI_MOVE_START:
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             BoxAppMan_ResetMultiSelectLocation(boxAppMan, &boxAppMan->boxApp);
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_StartDrawMultiSelect);
             Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -1607,10 +1743,22 @@ static void BoxAppMan_MultiSelectAction(BoxApplicationManager *boxAppMan, u32 *s
         break;
 
     case MULTI_MOVE_DEFINE_SELECTION:
+        #ifdef PLATFORM_DS
         if (JOY_HELD(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             switch (BoxAppMan_TryMoveSelectionFromUserInput(gSystem.heldKeys, boxAppMan)) {
             case CURSOR_STOP:
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port PAD_PLUS_KEY_MASK to PAL
+                #endif
                 if (JOY_HELD(PAD_PLUS_KEY_MASK) == JOY_NEW(PAD_PLUS_KEY_MASK)) {
+                #else
+                // TODO: Port PAD_PLUS_KEY_MASK to PAL
+                #endif
                     Sound_PlayEffect(SEQ_SE_DP_BOX03);
                 }
                 break;
@@ -1643,7 +1791,15 @@ static void BoxAppMan_MultiSelectAction(BoxApplicationManager *boxAppMan, u32 *s
 
         switch (BoxAppMan_TryMoveSelectionFromUserInput(gSystem.heldKeys, boxAppMan)) {
         case CURSOR_STOP:
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_PLUS_KEY_MASK to PAL
+            #endif
             if (JOY_HELD(PAD_PLUS_KEY_MASK) == JOY_NEW(PAD_PLUS_KEY_MASK)) {
+            #else
+            // TODO: Port PAD_PLUS_KEY_MASK to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BOX03);
             }
             break;
@@ -1670,7 +1826,11 @@ static void BoxAppMan_MultiSelectAction(BoxApplicationManager *boxAppMan, u32 *s
             break;
 
         case CURSOR_NO_MOVEMENT:
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 if (BoxApp_IsBoxUnderSelectedMonsEmpty(&boxAppMan->boxApp)) {
                     BoxAppMan_PutDownSelectedMons(boxAppMan, &boxAppMan->boxApp);
                     BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_PlaceMonDownFromCursor);
@@ -1681,7 +1841,11 @@ static void BoxAppMan_MultiSelectAction(BoxApplicationManager *boxAppMan, u32 *s
                 }
                 break;
             }
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_BOX03);
             }
             break;
@@ -1772,7 +1936,15 @@ static void BoxAppMan_PickUpMonAction(BoxApplicationManager *boxAppMan, u32 *sta
         }
         break;
     case PICK_UP_MON_CONFIRM_LAST_MON:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = PICK_UP_MON_DONE;
         }
@@ -1877,7 +2049,11 @@ static void BoxAppMan_ShiftMonAction(BoxApplicationManager *boxAppMan, u32 *stat
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = SHIFT_END;
         }
@@ -1966,7 +2142,15 @@ static void BoxAppMan_WithdrawMonAction(BoxApplicationManager *boxAppMan, u32 *s
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = WITHDRAW_END;
         }
@@ -2058,7 +2242,15 @@ static void BoxAppMan_StoreMonAction(BoxApplicationManager *boxAppMan, u32 *stat
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxSelectorPopup_Reset(boxAppMan);
             *state = STORE_MON_SELECT_BOX;
         }
@@ -2068,7 +2260,15 @@ static void BoxAppMan_StoreMonAction(BoxApplicationManager *boxAppMan, u32 *stat
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = STORE_MON_END;
         }
@@ -2256,7 +2456,15 @@ static void BoxAppMan_ReleaseMonAction(BoxApplicationManager *boxAppMan, u32 *st
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxApp_SetBoxMessage(&boxAppMan->boxApp, BoxText_GoodbyeForever);
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_DisplayBoxMessage);
             *state = RELEASE_MON_CLOSE_MESSAGE_BOX;
@@ -2267,7 +2475,15 @@ static void BoxAppMan_ReleaseMonAction(BoxApplicationManager *boxAppMan, u32 *st
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxApp_SetBoxMessage(&boxAppMan->boxApp, BoxText_MonWasWorried);
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_DisplayBoxMessage);
             *state = RELEASE_MON_CLOSE_MESSAGE_BOX;
@@ -2278,7 +2494,15 @@ static void BoxAppMan_ReleaseMonAction(BoxApplicationManager *boxAppMan, u32 *st
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = RELEASE_MON_PREPARE_END_RELEASE;
         }
@@ -2302,7 +2526,15 @@ static void BoxAppMan_ReleaseMonAction(BoxApplicationManager *boxAppMan, u32 *st
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
             *state = RELEASE_MON_END;
         }
@@ -2561,7 +2793,11 @@ enum GiveItemFromBag {
 
 static void BoxAppMan_GiveItemFromBagAction(BoxApplicationManager *boxAppMan, u32 *state)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(bag);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const u8 bagPockets[] = {
         POCKET_ITEMS,
@@ -2588,7 +2824,11 @@ static void BoxAppMan_GiveItemFromBagAction(BoxApplicationManager *boxAppMan, u3
             Bag *bag = SaveData_GetBag(boxAppMan->saveData);
             boxAppMan->bagAppArgs = BagContext_CreateWithPockets(bag, bagPockets, HEAP_ID_BOX_DATA);
             BagContext_Init(boxAppMan->bagAppArgs, boxAppMan->saveData, 1, NULL);
+            #ifdef PLATFORM_DS
             Overlay_LoadByID(FS_OVERLAY_ID(bag), OVERLAY_LOAD_ASYNC);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             boxAppMan->ApplicationManager = ApplicationManager_New(&gBagApplicationTemplate, boxAppMan->bagAppArgs, HEAP_ID_BOX_DATA);
             (*state)++;
         }
@@ -2599,7 +2839,11 @@ static void BoxAppMan_GiveItemFromBagAction(BoxApplicationManager *boxAppMan, u3
 
             ApplicationManager_Free(boxAppMan->ApplicationManager);
             Heap_Free(boxAppMan->bagAppArgs);
+            #ifdef PLATFORM_DS
             Overlay_UnloadByID(FS_OVERLAY_ID(bag));
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
 
             if (item == ITEM_GRISEOUS_ORB && BoxPokemon_GetValue(boxAppMan->boxApp.pcMonPreview.mon, MON_DATA_SPECIES, NULL) != SPECIES_GIRATINA) {
                 (void)0;
@@ -2640,7 +2884,15 @@ static void BoxAppMan_GiveItemFromBagAction(BoxApplicationManager *boxAppMan, u3
         break;
     case GIVE_FROM_BAG_CONFIRM_MESSAGE:
         if (BoxGraphics_IsSysTaskDone(boxAppMan->unk_114, FUNC_BoxGraphics_DisplayBoxMessage)) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_DECIDE);
                 BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
                 (*state)++;
@@ -2726,7 +2978,15 @@ static void BoxAppMan_MonItemHeldAction(BoxApplicationManager *boxAppMan, u32 *s
         break;
     case ITEM_HELD_CONFIRM_MESSAGE:
         if (BoxGraphics_IsSysTaskDone(boxAppMan->unk_114, FUNC_BoxGraphics_DisplayBoxMessage)) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_DECIDE);
                 BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
                 *state = ITEM_HELD_END;
@@ -2825,7 +3085,15 @@ static void BoxAppMan_PutAwayItemAction(BoxApplicationManager *boxAppMan, u32 *s
         break;
     case PUT_AWAY_ITEM_CONFIRM_MESSAGE:
         if (BoxGraphics_IsSysTaskDone(boxAppMan->unk_114, FUNC_BoxGraphics_DisplayBoxMessage)) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_DP_DECIDE);
                 BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseMessageBox);
                 *state = PUT_AWAY_ITEM_END;
@@ -2867,7 +3135,15 @@ static void BoxAppMan_DisplayItemInfoAction(BoxApplicationManager *boxAppMan, u3
         }
         break;
     case ITEM_INFO_CONFIRM:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B | PAD_PLUS_KEY_MASK)) {
+        #else
+        // TODO: Port PAD_PLUS_KEY_MASK to PAL
+        #endif
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_CloseItemInfo);
             (*state)++;
         }
@@ -2931,7 +3207,15 @@ static BOOL BoxAppMan_TrySelectBoxFromPopup(BoxApplicationManager *boxAppMan)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
         if (JOY_NEW(PAD_KEY_LEFT | PAD_BUTTON_L)) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             boxSelector->boxID--;
 
             if (boxSelector->boxID < 0) {
@@ -2943,7 +3227,15 @@ static BOOL BoxAppMan_TrySelectBoxFromPopup(BoxApplicationManager *boxAppMan)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
         if (JOY_NEW(PAD_KEY_RIGHT | PAD_BUTTON_R)) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             if (++(boxSelector->boxID) >= MAX_PC_BOXES) {
                 boxSelector->boxID = 0;
             }
@@ -2953,12 +3245,20 @@ static BOOL BoxAppMan_TrySelectBoxFromPopup(BoxApplicationManager *boxAppMan)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             return TRUE;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             boxSelector->boxID = -1;
             return TRUE;
@@ -3040,7 +3340,15 @@ static void BoxAppMan_TouchScreenBoxJump(BoxApplicationManager *boxAppMan, u32 *
             }
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_PLUS_KEY_MASK to PAL
+        #endif
         if (JOY_NEW(PAD_PLUS_KEY_MASK | PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             BoxApp_SetTouchDialSelected(&boxAppMan->boxApp, TOUCH_DIALS_NONE);
             BoxApp_SetTouchDialOffset(&boxAppMan->boxApp, BoxApp_GetCurrentBox(&boxAppMan->boxApp));
@@ -3181,7 +3489,15 @@ static void BoxAppMan_MarkingsFilterAction(BoxApplicationManager *boxAppMan, u32
             }
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_PLUS_KEY_MASK to PAL
+        #endif
         if (JOY_NEW(PAD_PLUS_KEY_MASK | PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_DECIDE);
             BoxApp_SetTouchDialSelected(&boxAppMan->boxApp, TOUCH_DIALS_NONE);
             BoxGraphics_TaskHandler(boxAppMan->unk_114, FUNC_BoxGraphics_OpenOrCloseSelectedTouchDial);
@@ -3477,22 +3793,38 @@ static BOOL BoxAppMan_TryMoveCursorFromUserInput(u32 heldKeys, BoxApplicationMan
     BOOL cursorMoved = FALSE;
 
     do {
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             cursorMoved = BoxApp_TryMoveCursor(&boxAppMan->boxApp, -1, 0);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             cursorMoved = BoxApp_TryMoveCursor(&boxAppMan->boxApp, 1, 0);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             cursorMoved = BoxApp_TryMoveCursor(&boxAppMan->boxApp, 0, -1);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             cursorMoved = BoxApp_TryMoveCursor(&boxAppMan->boxApp, 0, 1);
             break;
         }
@@ -3629,32 +3961,56 @@ static enum CursorMovementState BoxAppMan_TryMoveSelectionFromUserInput(u32 held
     enum CursorMovementState cursorMovement = CURSOR_NO_MOVEMENT;
 
     do {
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             cursorMovement = BoxApp_TryMoveSelection(&boxAppMan->boxApp, -1, 0);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             cursorMovement = BoxApp_TryMoveSelection(&boxAppMan->boxApp, 1, 0);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             cursorMovement = BoxApp_TryMoveSelection(&boxAppMan->boxApp, 0, -1);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             cursorMovement = BoxApp_TryMoveSelection(&boxAppMan->boxApp, 0, 1);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_BUTTON_L) {
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
             cursorMovement = CURSOR_MOVE_TO_LEFT_BOX;
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (heldKeys & PAD_BUTTON_R) {
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
             cursorMovement = CURSOR_MOVE_TO_RIGHT_BOX;
             break;
         }

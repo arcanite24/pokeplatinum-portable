@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_PC_MON_PREVIEW_H
 #define POKEPLATINUM_STRUCT_PC_MON_PREVIEW_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 
 typedef struct {

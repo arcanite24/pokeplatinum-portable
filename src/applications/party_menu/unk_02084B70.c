@@ -411,7 +411,11 @@ int sub_02085348(void *param0)
         return 5;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         application->partyMenu->menuSelectionResult = 0;
         return 32;
     }
@@ -638,7 +642,11 @@ int sub_02085804(PartyMenuApplication *application)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             v3 = application->currPartySlot;
             application->currPartySlot = GetFirstFaintedMon(application, application->currPartySlot + 1);
@@ -724,7 +732,11 @@ static int sub_02085C50(void *applicationPtr)
     switch (application->unk_B13) {
     case 0:
         if (Text_IsPrinterActive(application->textPrinterID) == 0) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 PartyMenu_DrawLevelUpStatIncreases(application);
                 application->unk_B13 = 1;
@@ -732,14 +744,22 @@ static int sub_02085C50(void *applicationPtr)
         }
         break;
     case 1:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             PartyMenu_DrawLevelUpNewStatValues(application);
             application->unk_B13 = 2;
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             PartyMenu_RemoveContextWindow(application);
             application->unk_B13 = 3;
@@ -785,14 +805,22 @@ static int sub_02085C50(void *applicationPtr)
         break;
     case 4:
         if (Text_IsPrinterActive(application->textPrinterID) == 0) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 application->unk_B13 = 3;
             }
         }
         break;
     case 5:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             mon = Party_GetPokemonBySlotIndex(application->partyMenu->party, application->currPartySlot);
             TeachMove(application, mon, application->partyMenu->selectedMoveSlot);
             strBuf = MessageLoader_GetNewStrbuf(application->messageLoader, 61);
@@ -1029,7 +1057,11 @@ int sub_020863A0(PartyMenuApplication *application)
     Pokemon *mon;
     Strbuf *strBuf;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         mon = Party_GetPokemonBySlotIndex(application->partyMenu->party, application->currPartySlot);
 
         TeachMove(application, mon, application->partyMenu->selectedMoveSlot);
@@ -1186,7 +1218,11 @@ void sub_020866A0(PartyMenuApplication *application, u8 param1)
     }
 
     Window_DrawStandardFrame(&application->windows[36], 1, 1, 14);
+    #ifdef PLATFORM_DS
     application->contextMenu = Menu_NewAndCopyToVRAM(&menuTemplate, 8, 0, 0, 12, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 int sub_02086774(PartyMenuApplication *application)

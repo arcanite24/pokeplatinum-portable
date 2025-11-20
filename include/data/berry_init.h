@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 #include "constants/items.h"
 
 typedef struct BerryPatchInit {

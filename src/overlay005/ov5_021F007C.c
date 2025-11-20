@@ -66,7 +66,11 @@ static void ov5_021F007C(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
     ov5_021F02B8(&v0->unk_28, 0, 8, 19);
 
     Bg_SetPriority(BG_LAYER_MAIN_2, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers((GX_PLANEMASK_BG2), 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
     Sound_PlayEffect(SEQ_SE_DP_FW230);
 }
 
@@ -103,7 +107,11 @@ static void ov5_021F00F0(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
         v1->unk_3C = 1;
     }
 
+    #ifdef PLATFORM_DS
     BlendPalettes(v1->unk_04->pRawData, v1->unk_08, 0x1, v1->unk_28.unk_00, (GX_RGB(31, 10, 23)));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     Bg_LoadPalette(2, v1->unk_08, 32, 6 * 32);
 }
 
@@ -116,10 +124,22 @@ static void ov5_021F013C(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
 
     v0->unk_14 = 0;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
     G2_SetBlendAlpha((GX_PLANEMASK_BG2), GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD, 0, 16 - 0);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 
     Bg_SetPriority(BG_LAYER_MAIN_2, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers((GX_PLANEMASK_BG2), 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
     Sound_PlayEffect(SEQ_SE_DP_FW230);
 }
 
@@ -132,7 +152,15 @@ static void ov5_021F0188(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
 
     v0->unk_14 = 0;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
     G2_SetBlendAlpha((GX_PLANEMASK_BG2), GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BD, 10, 16 - 10);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 static void ov5_021F01BC(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSystem, void *param2)
@@ -155,7 +183,11 @@ static void ov5_021F01C0(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
         v1->unk_14 = 1;
     }
 
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(v1->unk_00.unk_00, 16 - v1->unk_00.unk_00);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 }
 
 static void ov5_021F01EC(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSystem, void *param2)
@@ -238,7 +270,11 @@ BOOL ov5_021F0254(UnkStruct_ov5_021D1BEC *param0)
 
 static void ov5_021F0260(BgConfig *param0)
 {
+    #ifdef PLATFORM_DS
     GXRgb v0 = (GX_RGB(31, 10, 23));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     u8 *v1;
 
     Bg_LoadPalette(2, &v0, sizeof(short), (6 * 32) + 2);
@@ -290,14 +326,26 @@ static void ov5_021F0310(FieldSystem *fieldSystem)
 {
     u16 v0 = 0x7fff;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(3);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
 
     Bg_LoadPalette(2, &v0, 2, ((6 * 32) + 4));
     Bg_FillTilesRange(fieldSystem->bgConfig, 2, 2, 1, 2);
     Bg_FillTilemap(fieldSystem->bgConfig, 2, ((6 << 12) | 2));
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     ov5_021F02F4(fieldSystem);
 }
@@ -306,14 +354,26 @@ static void ov5_021F0374(FieldSystem *fieldSystem)
 {
     u16 v0 = 0x7fff;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG3Priority(3);
+    #else
+    // TODO: Port G2_SetBG3Priority to PAL
+    #endif
 
     Bg_LoadPalette(3, &v0, 2, ((6 * 32) + 4));
     Bg_FillTilesRange(fieldSystem->bgConfig, 3, 2, 1, 2);
     Bg_FillTilemap(fieldSystem->bgConfig, 3, ((6 << 12) | 2));
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG3 to PAL
+    #endif
 
     ov5_021F02F4(fieldSystem);
 }
@@ -450,7 +510,11 @@ BOOL ov5_021F0488(FieldTask *param0)
         v1->unk_0C = 2;
 
         Bg_SetPriority(BG_LAYER_MAIN_2, 0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers((GX_PLANEMASK_BG2), 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
     case 2:
         if (v1->unk_08 == 0) {
@@ -508,8 +572,16 @@ BOOL ov5_021F0488(FieldTask *param0)
 
         if (v2 == 1) {
             if (v1->unk_08 == 0) {
+                #ifdef PLATFORM_DS
                 GXLayers_EngineAToggleLayers((GX_PLANEMASK_BG2), 0);
+                #else
+                // TODO: Port GX_PLANEMASK_BG2 to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 G2_BlendNone();
+                #else
+                // TODO: Port G2_BlendNone to PAL
+                #endif
                 Bg_SetPriority(BG_LAYER_MAIN_2, 3);
 
                 Bg_ClearTilemap(fieldSystem->bgConfig, BG_LAYER_MAIN_2);

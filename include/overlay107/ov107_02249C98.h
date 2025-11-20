@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV107_02249C98_H
 #define POKEPLATINUM_OV107_02249C98_H
 
+#include "platform/platform_types.h"
+
 #include "savedata.h"
 #include "string_template.h"
 

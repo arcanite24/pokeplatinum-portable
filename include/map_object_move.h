@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_OBJECT_MOVE_H
 #define POKEPLATINUM_MAP_OBJECT_MOVE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

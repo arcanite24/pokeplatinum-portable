@@ -256,12 +256,20 @@ static int ov21_021E6204(void *graphics, PokedexGraphicsManager *graphicsMan, co
 
 static void SetTrainerHeightLarge(HeightCheckVisuals *heightCheckVisuals)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(heightCheckVisuals->trainerHeightCellActor, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 }
 
 static void SetTrainerHeightNormal(HeightCheckVisuals *heightCheckVisuals)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(heightCheckVisuals->trainerHeightCellActor, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 }
 
 static void ov21_021E628C(HeightCheckVisuals *heightCheckVisuals, PokedexGraphicData **param1, const UnkStruct_ov21_021E6104 *param2, BOOL param3)
@@ -270,9 +278,17 @@ static void ov21_021E628C(HeightCheckVisuals *heightCheckVisuals, PokedexGraphic
 
     if (ov21_021E2A54(param2->unk_08)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendMain, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendMain, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -339,12 +355,20 @@ static void GetHeightCheckGraphics(HeightCheckVisuals *heightCheckVisuals, Poked
     PokedexGraphicData *v0 = *param1;
     NARC *pokedexGraphicsNarc = PokedexGraphics_GetNARC(v0);
 
+    #ifdef PLATFORM_DS
     heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[SPRITE_RESOURCE_CHAR], pokedexGraphicsNarc, size_check_icons_NCGR_lz, TRUE, size_check_icons_NCGR_lz + 7000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[SPRITE_RESOURCE_PLTT], pokedexGraphicsNarc, size_check_icons_NCLR, FALSE, size_check_icons_NCLR + 7000, NNS_G2D_VRAM_TYPE_2DMAIN, 5, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(heightCheckVisuals->heightCheckGraphics[SPRITE_RESOURCE_PLTT]);
@@ -377,7 +401,11 @@ static void DisplayTrainerHeight(HeightCheckVisuals *heightCheckVisuals, Pokedex
     trainerCellParams.list = v2->spriteList;
     trainerCellParams.resourceData = &trainerResource;
     trainerCellParams.priority = 31;
+    #ifdef PLATFORM_DS
     trainerCellParams.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     trainerCellParams.heapID = heapID;
 
     short trainerPos = Pokedex_HeightWeightData_TrainerPos(param2->unk_04->HWData, species);

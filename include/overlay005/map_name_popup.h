@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_NAME_POPUP_H
 #define POKEPLATINUM_MAP_NAME_POPUP_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "bg_window.h"

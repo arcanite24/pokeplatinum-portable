@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_02238534_H
 #define POKEPLATINUM_MAIN_MENU_02238534_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/funcptr_ov97_02238A4C.h"
 
 BOOL ov97_022389C8(void);

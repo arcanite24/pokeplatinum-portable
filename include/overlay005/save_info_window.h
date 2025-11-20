@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SAVE_INFO_WINDOW_H
 #define POKEPLATINUM_SAVE_INFO_WINDOW_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system.h"
 
 #include "bg_window.h"

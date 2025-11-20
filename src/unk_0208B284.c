@@ -180,8 +180,16 @@ void sub_0208B63C(UnkStruct_0208B878 *param0, int param1)
 
     SpriteManager_UnloadPlttObjById(v2, 22222 + 1);
     SpriteManager_UnloadPlttObjById(v2, 22222 + 2);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, 2, v1, v2, v0, Unk_020F2FB0[param1], 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 22222 + 1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, 3, v1, v2, v0, Unk_020F2FB0[param1], 0, 1, NNS_G2D_VRAM_TYPE_2DSUB, 22222 + 2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 }
 
 void sub_0208B6B0(UnkStruct_0208B878 *param0, int param1)
@@ -199,20 +207,44 @@ void sub_0208B6B0(UnkStruct_0208B878 *param0, int param1)
 
     if (param0->unk_10.unk_08 == 1) {
         if (param0->unk_10.unk_0C == 0) {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, 2, v1, v2, v0, Unk_020F2FB0[param1], 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, v4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, 2, v1, v2, v0, 96, 0, 1, NNS_G2D_VRAM_TYPE_2DMAIN, v4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(v1, v2, v0, 95, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, v4);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     } else {
         if (param0->unk_10.unk_0C == 0) {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, PLTTBUF_SUB_OBJ, v1, v2, v0, Unk_020F2FB0[param1], FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, v4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             SpriteSystem_LoadPaletteBufferFromOpenNarc(v3, PLTTBUF_SUB_OBJ, v1, v2, v0, 96, FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, v4);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(v1, v2, v0, 95, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, v4);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     SpriteSystem_LoadCellResObjFromOpenNarc(v1, v2, v0, 93, FALSE, v4);

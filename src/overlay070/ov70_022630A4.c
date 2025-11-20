@@ -450,16 +450,32 @@ static BOOL ov70_02263120(int param0)
 
     switch (param0) {
     case 0:
+        #ifdef PLATFORM_DS
         v0 = PAD_KEY_UP;
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
         break;
     case 1:
+        #ifdef PLATFORM_DS
         v0 = PAD_KEY_DOWN;
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
         break;
     case 2:
+        #ifdef PLATFORM_DS
         v0 = PAD_KEY_LEFT;
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
         break;
     case 3:
+        #ifdef PLATFORM_DS
         v0 = PAD_KEY_RIGHT;
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
         break;
     }
 
@@ -888,7 +904,11 @@ static BOOL ov70_02263414(UnkStruct_ov70_02263344 *param0, UnkStruct_ov70_0225DE
         ov70_02262E88(param0, 21);
         break;
     case 18:
+        #ifdef PLATFORM_DS
         if (!((Sound_IsEffectPlaying(1448) == 0) && (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             break;
         }
 
@@ -1293,7 +1313,11 @@ static BOOL ov70_02263CC8(UnkStruct_ov70_02263344 *param0, UnkStruct_ov70_0225DE
                     return 0;
                 }
 
+                #ifdef PLATFORM_DS
                 if (gSystem.pressedKeys & PAD_BUTTON_A) {
+                #else
+                // TODO: Port PAD_BUTTON_A to PAL
+                #endif
                     {
                         UnkStruct_ov70_0225CC54 *v17;
                         u32 v18;
@@ -1381,7 +1405,11 @@ static BOOL ov70_02263CC8(UnkStruct_ov70_02263344 *param0, UnkStruct_ov70_0225DE
                     }
                 }
 
+                #ifdef PLATFORM_DS
                 if (gSystem.pressedKeys & PAD_BUTTON_X) {
+                #else
+                // TODO: Port PAD_BUTTON_X to PAL
+                #endif
                     if (ov70_0225E3F0(param1) == 0) {
                         ov70_0225E328(param1, ov66_0222E338(v11), 0);
                         Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -2397,7 +2425,11 @@ static BOOL ov70_02264D38(UnkStruct_ov70_02263344 *param0, UnkStruct_ov70_0225DE
         }
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & PAD_BUTTON_B) || (gSystem.pressedKeys & PAD_KEY_DOWN)) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             ov66_0222EBC4(v4, param2);
             ov70_0225DFCC(param1);
             v0->unk_0A = 6;

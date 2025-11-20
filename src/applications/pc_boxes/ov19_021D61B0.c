@@ -224,19 +224,55 @@ BOOL BoxGraphics_Load(UnkStruct_ov19_021D61B0 **param0, const BoxApplication *pa
             GXLayers_DisableEngineALayers();
             GXLayers_DisableEngineBLayers();
 
+            #ifdef PLATFORM_DS
             GX_SetVisiblePlane(0);
+            #else
+            // TODO: Port GX_SetVisiblePlane to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_SetVisiblePlane(0);
+            #else
+            // TODO: Port GXS_SetVisiblePlane to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetOBJVRamModeChar to PAL
+            #endif
             GX_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_64K);
+            #else
+            // TODO: Port GX_OBJVRAMMODE_CHAR_1D_64K to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GXS_SetOBJVRamModeChar to PAL
+            #endif
             GXS_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+            #else
+            // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+            #endif
+            #ifdef PLATFORM_DS
             NNS_G2dInitOamManagerModule();
+            #else
+            // TODO: Port NNS_G2dInitOamManagerModule to PAL
+            #endif
 
             RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, 10);
             v0->unk_18 = SpriteList_InitRendering(128, &v0->unk_1C, HEAP_ID_BOX_GRAPHICS);
             SetSubScreenViewRect(&(v0->unk_1C), 0, 384 << FX32_SHIFT);
 
+            #ifdef PLATFORM_DS
             NNS_G2dInitImagePaletteProxy(&(v0->unk_1A8));
+            #else
+            // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             Graphics_LoadPartialPaletteFromOpenNARC(boxGraphicsNarc, 26, NNS_G2D_VRAM_TYPE_2DMAIN, 0, 10, &(v0->unk_1A8));
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             Font_UseImmediateGlyphAccess(FONT_SYSTEM, 10);
 
             v0->unk_1BC = PokemonSpriteManager_New(HEAP_ID_BOX_GRAPHICS);
@@ -281,11 +317,23 @@ static void ov19_021D6474(SysTask *param0, void *param1)
 
     G3X_Reset();
     G3X_ResetMtxStack();
+    #ifdef PLATFORM_DS
     NNS_G2dSetupSoftwareSpriteCamera();
+    #else
+    // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+    #endif
 
     PokemonSpriteManager_DrawSprites(v0->unk_1BC);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
 }
 
 void BoxGraphics_Free(UnkStruct_ov19_021D61B0 *param0)
@@ -393,7 +441,15 @@ static void ov19_021D6664(SysTask *param0, void *param1)
     SpriteList_Update(v0->unk_18);
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void ov19_021D6694(SysTask *param0, void *param1)
@@ -441,7 +497,19 @@ static void BoxGraphics_ScreenFadeBothToBlackLogIn(SysTask *task, void *param1)
     switch (v2->state) {
     case 0:
         Sound_PlayEffect(SEQ_SE_DP_PC_LOGIN);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_ALL, 0x6, 0xa);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_IN, FADE_TYPE_BRIGHTNESS_IN, COLOR_BLACK, 8, 1, HEAP_ID_BOX_GRAPHICS);
         v2->state++;
         break;
@@ -463,7 +531,19 @@ static void BoxGraphics_ScreenFadeBothToBlack1(SysTask *task, void *param1)
 
     switch (v2->state) {
     case 0:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_ALL, 0x6, 0xa);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
         StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_IN, FADE_TYPE_BRIGHTNESS_IN, COLOR_BLACK, 6, 1, HEAP_ID_BOX_GRAPHICS);
         v2->state++;
         break;
@@ -1530,23 +1610,79 @@ static void BoxGraphics_ScreenFadeBothToBlackLogOff(SysTask *task, void *param1)
 static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication *param1)
 {
     static const UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     static const GraphicsModes v1 = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_3D,
+        #else
+        // TODO: Port GX_BG0_AS_3D to PAL
+        #endif
     };
 
     static const BgTemplate v2 = {
@@ -1555,10 +1691,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = 0,
         .charBase = 0,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1570,10 +1714,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xe000),
         .charBase = (GX_BG_CHARBASE_0x18000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1585,10 +1737,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xe800),
         .charBase = (GX_BG_CHARBASE_0x00000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1600,10 +1760,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xf000),
         .charBase = (GX_BG_CHARBASE_0x10000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1615,10 +1783,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xf000),
         .charBase = (GX_BG_CHARBASE_0x10000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1630,10 +1806,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xd000),
         .charBase = (GX_BG_CHARBASE_0x00000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1645,10 +1829,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xe000),
         .charBase = (GX_BG_CHARBASE_0x00000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1660,10 +1852,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = (GX_BG_SCRBASE_0xf800),
         .charBase = (GX_BG_CHARBASE_0x00000),
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1675,10 +1875,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1690,10 +1898,18 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         .bufferSize = 0x0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -1701,8 +1917,24 @@ static void ov19_021D74B4(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
 
     GXLayers_SetBanks(&v0);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetDispSelect to PAL
+    #endif
     GX_SetDispSelect(GX_DISP_SELECT_MAIN_SUB);
+    #else
+    // TODO: Port GX_DISP_SELECT_MAIN_SUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetGraphicsMode to PAL
+    #endif
     GX_SetGraphicsMode(GX_DISPMODE_GRAPHICS, GX_BGMODE_0, GX_BG0_AS_3D);
+    #else
+    // TODO: Port GX_BG0_AS_3D to PAL
+    #endif
 
     SetAllGraphicsModes(&v1);
     Bg_InitFromTemplate(param0->unk_1C0, BG_LAYER_MAIN_1, &v3, 0);
@@ -1748,25 +1980,65 @@ static void ov19_021D75CC(UnkStruct_ov19_021D61B0 *param0, const BoxApplication 
         ov19_021DC6A0(&(param0->unk_B290));
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_DispOn();
+    #else
+    // TODO: Port GX_DispOn to PAL
+    #endif
 }
 
 static void ov19_021D76FC(void)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dInit();
+    #else
+    // TODO: Port NNS_G3dInit to PAL
+    #endif
     G3X_InitMtxStack();
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(1);
     G3X_AlphaTest(0, 0);
     G3X_AlphaBlend(1);
+    #ifdef PLATFORM_DS
     G3X_SetClearColor(GX_RGB(0, 0, 0), 0, 0x7fff, 63, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
     G3_ViewPort(0, 0, 255, 191);
 }
 
@@ -1874,10 +2146,18 @@ Sprite *ov19_021D785C(SpriteList *param0, SpriteResourcesHeader *param1, u32 par
     v0.heapID = HEAP_ID_BOX_GRAPHICS;
 
     {
+        #ifdef PLATFORM_DS
         OSIntrMode v2 = OS_DisableInterrupts();
+        #else
+        // TODO: Port OS_DisableInterrupts to PAL
+        #endif
 
         v1 = SpriteList_Add(&v0);
+        #ifdef PLATFORM_DS
         OS_RestoreInterrupts(v2);
+        #else
+        // TODO: Port OS_RestoreInterrupts to PAL
+        #endif
     }
 
     if (v1) {
@@ -1890,10 +2170,18 @@ Sprite *ov19_021D785C(SpriteList *param0, SpriteResourcesHeader *param1, u32 par
 
 void BoxGraphics_SetSpritePriority(Sprite *sprite, u32 priority)
 {
+    #ifdef PLATFORM_DS
     OSIntrMode mode = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
 
     Sprite_SetPriority(sprite, priority);
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(mode);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }
 
 void ov19_021D78C8(const u16 *param0, u16 *param1, u32 param2, u16 param3, u32 param4)

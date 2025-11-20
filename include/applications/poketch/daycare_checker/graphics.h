@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_DAYCARE_CHECKER_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_DAYCARE_CHECKER_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/daycare.h"
 #include "generated/genders.h"
 

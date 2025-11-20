@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GTS_SCREENS_MAIN_MENU_H
 #define POKEPLATINUM_GTS_SCREENS_MAIN_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "overlay094/gts_application_state.h"
 
 #include "bg_window.h"

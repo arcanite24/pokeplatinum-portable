@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BERRY_DATA_H
 #define POKEPLATINUM_BERRY_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "narc.h"
 #include "strbuf.h"
 

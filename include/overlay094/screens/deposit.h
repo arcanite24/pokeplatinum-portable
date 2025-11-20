@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_GTS_SCREENS_DEPOSIT_H
 #define POKEPLATINUM_GTS_SCREENS_DEPOSIT_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pokedexdata_decl.h"
 
 #include "overlay094/gts_application_state.h"

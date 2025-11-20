@@ -234,7 +234,11 @@ TownMapAppFlyLocationsManager *TownMap_LoadFlyLocations(SpriteSystem *spriteSyst
         .animIdx = 0,
         .priority = 10,
         .plttIdx = PLTT_5,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .dummy18 = 0,
         .dummy1C = 0,
         .dummy20 = 0,

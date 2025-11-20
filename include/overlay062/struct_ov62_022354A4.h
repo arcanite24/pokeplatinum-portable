@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_022354A4_H
 #define POKEPLATINUM_STRUCT_OV62_022354A4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/font_oam.h"
 #include "struct_defs/struct_0208B878.h"
 

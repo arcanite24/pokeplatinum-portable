@@ -3,6 +3,8 @@
 
 #include "platform/platform_types.h"
 
+#include "platform/platform_types.h"
+
 typedef struct GridMenuCursorPosition {
     u8 xCoord1;
     u8 yCoord1;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021F0EB0_H
 #define POKEPLATINUM_OV5_021F0EB0_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "sys_task_manager.h"

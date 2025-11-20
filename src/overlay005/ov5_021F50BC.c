@@ -165,7 +165,11 @@ static void ov5_021F5204(OverworldAnimManager *param0, void *param1)
         v1.z += -(FX32_ONE * 5);
 
         {
+            #ifdef PLATFORM_DS
             const MtxFx43 *v4 = NNS_G3dGlbGetInvCameraMtx();
+            #else
+            // TODO: Port NNS_G3dGlbGetInvCameraMtx to PAL
+            #endif
             MtxFx33 v5;
 
             MTX_Rot33Angles(&v3, 90, 0, 0);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNDERGROUND_TRAPS_H
 #define POKEPLATINUM_UNDERGROUND_TRAPS_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/math.h>
 #endif

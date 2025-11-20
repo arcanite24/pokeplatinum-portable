@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_JOURNAL_CONTROLLER_H
 #define POKEPLATINUM_JOURNAL_CONTROLLER_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "journal.h"
 #include "message.h"

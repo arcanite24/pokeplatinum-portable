@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_BATTLE_DATA_TRANSFER_H
 #define POKEPLATINUM_FIELD_BATTLE_DATA_TRANSFER_H
 
+#include "platform/platform_types.h"
+
 #include "constants/battle.h"
 #include "generated/evolution_methods.h"
 #include "generated/map_headers.h"

@@ -30,7 +30,11 @@ int GameRecords_SaveSize(void)
 void GameRecords_Init(GameRecords *records)
 {
     MI_CpuClear32(records, sizeof(GameRecords));
+    #ifdef PLATFORM_DS
     records->seed.modifier = OS_GetVBlankCount() | (OS_GetVBlankCount() << 8);
+    #else
+    // TODO: Port OS_GetVBlankCount to PAL
+    #endif
 
     EncodeGameRecords(records, START_ENCODED_RECORDS);
 }

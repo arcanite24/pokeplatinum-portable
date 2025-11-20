@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRCMD_TV_BROADCAST_H
 #define POKEPLATINUM_SCRCMD_TV_BROADCAST_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_CallTVBroadcast(ScriptContext *param0);

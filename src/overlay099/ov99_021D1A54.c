@@ -245,7 +245,11 @@ static const SpriteTemplate Unk_ov99_021D499C = {
     0x0,
     0x96,
     0x1,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2713, 0x2713, 0x2713, 0x2713, 0xffffffff, 0xffffffff },
     0x2,
     0x0
@@ -258,7 +262,11 @@ static const SpriteTemplate Unk_ov99_021D4968 = {
     0x1,
     0x96,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2714, 0x2714, 0x2714, 0x2714, 0xffffffff, 0xffffffff },
     0x2,
     0x0
@@ -271,7 +279,11 @@ static const SpriteTemplate Unk_ov99_021D4934 = {
     0x2,
     0x96,
     0x2,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2715, 0x2715, 0x2715, 0x2715, 0xffffffff, 0xffffffff },
     0x2,
     0x0
@@ -284,7 +296,11 @@ static const SpriteTemplate Unk_ov99_021D49D0 = {
     0x3,
     0xC8,
     0x3,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x2712, 0x2712, 0x2712, 0x2712, 0xffffffff, 0xffffffff },
     0x3,
     0x0
@@ -297,7 +313,11 @@ static const SpriteTemplate Unk_ov99_021D48CC = {
     0x3,
     0xC8,
     0x3,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x2715, 0x2715, 0x2715, 0x2715, 0xffffffff, 0xffffffff },
     0x3,
     0x0
@@ -310,7 +330,11 @@ static const SpriteTemplate Unk_ov99_021D4900 = {
     0x0,
     0x33,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x2711, 0x2711, 0x2711, 0x2711, 0xffffffff, 0xffffffff },
     0x1,
     0x1
@@ -321,25 +345,49 @@ static void ov99_021D1A54(UnkStruct_ov99_021D2CB0 *param0)
     u8 v0;
 
     if (param0->unk_00->unk_00 == 0) {
+        #ifdef PLATFORM_DS
         v0 = SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_MAIN_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 31, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 10001);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 28, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 10001);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 29, FALSE, 10001);
         SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 30, FALSE, 10001);
     } else {
+        #ifdef PLATFORM_DS
         v0 = SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_MAIN_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 36, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 10001);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 33, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 10001);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 34, FALSE, 10001);
         SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 35, FALSE, 10001);
     }
 
     switch (param0->unk_1101) {
     case 0:
+        #ifdef PLATFORM_DS
         PaletteData_Blend(param0->unk_0C, 2, v0 * 16, 16, 4, GX_RGB(28, 12, 6));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         break;
     case 2:
         break;
     case 4:
+        #ifdef PLATFORM_DS
         PaletteData_Blend(param0->unk_0C, 2, v0 * 16, 16, 4, GX_RGB(11, 11, 16));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         break;
     }
 }
@@ -462,8 +510,16 @@ static void ov99_021D1D68(UnkStruct_ov99_021D2CB0 *param0)
 
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 1);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 1);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     Bg_ScheduleTilemapTransfer(param0->unk_08, 2);
     Bg_ScheduleTilemapTransfer(param0->unk_08, 7);
@@ -473,8 +529,16 @@ static void ov99_021D1E6C(UnkStruct_ov99_021D2CB0 *param0)
 {
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 0);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov99_021D1E90(UnkStruct_ov99_021D2CB0 *param0)
@@ -499,8 +563,16 @@ static void ov99_021D1EB4(UnkStruct_ov99_021D2CB0 *param0)
 
 static void ov99_021D1EC8(UnkStruct_ov99_021D2CB0 *param0)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_SUB_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 15, FALSE, 10, NNS_G2D_VRAM_TYPE_2DSUB, 10003);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 0, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 10003);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 1, FALSE, 10003);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 2, FALSE, 10003);
 }
@@ -541,17 +613,49 @@ static void ov99_021D1FD8(UnkStruct_ov99_021D2CB0 *param0)
 
     Easy3DModel_LoadFrom(&param0->unk_2C[0], param0->unk_10F8, 80, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     Easy3DModel_LoadFrom(&param0->unk_2C[1], param0->unk_10F8, 81, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     for (v0 = 0; v0 < 16; v0++) {
         Easy3DObject_Init(&param0->unk_6C[0][v0], &param0->unk_2C[0]);
@@ -680,8 +784,16 @@ static void ov99_021D2180(UnkStruct_ov99_021D2CB0 *param0)
 
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 1);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 1);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     Bg_ScheduleTilemapTransfer(param0->unk_08, 2);
     Bg_ScheduleTilemapTransfer(param0->unk_08, 7);
@@ -691,8 +803,16 @@ static void ov99_021D22AC(UnkStruct_ov99_021D2CB0 *param0)
 {
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 0);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov99_021D22D0(UnkStruct_ov99_021D2CB0 *param0)
@@ -717,8 +837,16 @@ static void ov99_021D22F4(UnkStruct_ov99_021D2CB0 *param0)
 
 static void ov99_021D2308(UnkStruct_ov99_021D2CB0 *param0)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_SUB_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 15, FALSE, 10, NNS_G2D_VRAM_TYPE_2DSUB, 10004);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 0, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 10004);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 1, FALSE, 10004);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 2, FALSE, 10004);
 }
@@ -757,10 +885,26 @@ static void ov99_021D2410(UnkStruct_ov99_021D2CB0 *param0)
 
     Easy3DModel_LoadFrom(&param0->unk_2C[0], param0->unk_10F8, 78, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     for (v0 = 0; v0 < 16; v0++) {
         Easy3DObject_Init(&param0->unk_6C[0][v0], &param0->unk_2C[0]);
@@ -823,8 +967,16 @@ static void ov99_021D24F0(UnkStruct_ov99_021D2CB0 *param0)
 
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 1);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 1);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     Bg_ScheduleTilemapTransfer(param0->unk_08, 2);
     Bg_ScheduleTilemapTransfer(param0->unk_08, 7);
@@ -834,16 +986,32 @@ static void ov99_021D2640(UnkStruct_ov99_021D2CB0 *param0)
 {
     Bg_ToggleLayer(BG_LAYER_MAIN_2, 0);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov99_021D2664(UnkStruct_ov99_021D2CB0 *param0)
 {
     ov99_021D1A54(param0);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_MAIN_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 15, FALSE, 4, NNS_G2D_VRAM_TYPE_2DMAIN, 10002);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 0, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 10002);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 1, FALSE, 10002);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 2, FALSE, 10002);
 }
@@ -877,8 +1045,16 @@ static void ov99_021D275C(UnkStruct_ov99_021D2CB0 *param0)
 
 static void ov99_021D2780(UnkStruct_ov99_021D2CB0 *param0)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_0C, PLTTBUF_SUB_OBJ, param0->unk_18, param0->unk_1C, param0->unk_10F8, 15, FALSE, 10, NNS_G2D_VRAM_TYPE_2DSUB, 10005);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 0, FALSE, NNS_G2D_VRAM_TYPE_2DSUB, 10005);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 1, FALSE, 10005);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_18, param0->unk_1C, param0->unk_10F8, 2, FALSE, 10005);
 }
@@ -925,24 +1101,72 @@ static void ov99_021D28AC(UnkStruct_ov99_021D2CB0 *param0)
 
     Easy3DModel_LoadFrom(&param0->unk_2C[0], param0->unk_10F8, 82, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[0].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     Easy3DModel_LoadFrom(&param0->unk_2C[1], param0->unk_10F8, 83, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[1].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     Easy3DModel_LoadFrom(&param0->unk_2C[2], param0->unk_10F8, 84, HEAP_ID_75);
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbDiff(param0->unk_2C[2].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbDiff to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbAmb(param0->unk_2C[2].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbAmb to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbSpec(param0->unk_2C[2].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbSpec to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseGlbEmi(param0->unk_2C[2].model);
+    #else
+    // TODO: Port NNS_G3dMdlUseGlbEmi to PAL
+    #endif
 
     Easy3DModel_LoadFrom(&param0->unk_2C[3], param0->unk_10F8, 79, HEAP_ID_75);
 
@@ -1082,12 +1306,32 @@ static void ov99_021D2AAC(UnkStruct_ov99_021D2CB0 *param0)
     Bg_SetOffset(v0, BG_LAYER_SUB_3, 3, 0);
     Bg_ToggleLayer(BG_LAYER_SUB_3, 1);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 
     SetScreenMasterBrightness(DS_SCREEN_MAIN, BRIGHTNESS_BLACK);
     SetScreenMasterBrightness(DS_SCREEN_SUB, BRIGHTNESS_BLACK);
+    #ifdef PLATFORM_DS
     BrightnessController_SetScreenBrightness(0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
     Bg_ScheduleTilemapTransfer(param0->unk_08, 7);
 }
 

@@ -126,7 +126,11 @@ BOOL sub_02089820(UnkStruct_02089688 *param0)
         NNSG2dPaletteData *v0;
         void *v1 = sub_020394A8(HEAP_ID_101);
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedPaletteData(v1, &v0);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
         PaletteData_LoadBuffer(param0->unk_2EC.unk_10, v0->pRawData, 0x1 | 0x2, 0xe0, 0x20);
         Heap_Free(v1);
     }
@@ -328,18 +332,30 @@ void sub_02089C20(UnkStruct_02089688 *param0)
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (param0->unk_214[1].unk_14.unk_02 > 0) {
             param0->unk_214[1].unk_14.unk_02--;
         } else {
             param0->unk_214[1].unk_14.unk_02 = 2;
         }
         v1 = TRUE;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0->unk_214[1].unk_14.unk_02++;
         param0->unk_214[1].unk_14.unk_02 %= 3;
         v1 = TRUE;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
 
         if (v2 == 10) {
             param0->unk_214[1].unk_14.unk_00 = 3;
@@ -350,7 +366,11 @@ void sub_02089C20(UnkStruct_02089688 *param0)
             param0->unk_214[1].unk_14.unk_00 %= 5;
         }
         v1 = TRUE;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
 
         if (v2 == 10) {
             param0->unk_214[1].unk_14.unk_00 = 3;
@@ -364,7 +384,11 @@ void sub_02089C20(UnkStruct_02089688 *param0)
             }
         }
         v1 = TRUE;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         int v3;
         int v4;
         int v5;
@@ -413,10 +437,18 @@ void sub_02089C20(UnkStruct_02089688 *param0)
                 Sound_PlayEffect(1509);
             }
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         sub_02089FFC(param0);
         Sound_PlayEffect(1509);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_BUTTON_L) {
+    #else
+    // TODO: Port PAD_BUTTON_L to PAL
+    #endif
         int v6 = param0->unk_214[0].unk_00;
 
         if (v6 == param0->unk_3F0) {
@@ -435,7 +467,11 @@ void sub_02089C20(UnkStruct_02089688 *param0)
             param0->unk_3AC.unk_08 = 1;
         }
         Sound_PlayEffect(1504);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeysRepeatable & PAD_BUTTON_R) {
+    #else
+    // TODO: Port PAD_BUTTON_R to PAL
+    #endif
         int v7 = param0->unk_214[0].unk_00;
 
         if (v7 == param0->unk_2D0 - 1) {

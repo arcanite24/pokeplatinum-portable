@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0202EE10_SUB1_H
 #define POKEPLATINUM_STRUCT_0202EE10_SUB1_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 
 typedef struct {

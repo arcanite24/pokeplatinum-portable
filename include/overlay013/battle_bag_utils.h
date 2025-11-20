@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_BAG_UTILS
 #define POKEPLATINUM_BATTLE_BAG_UTILS
 
+#include "platform/platform_types.h"
+
 #include "overlay013/battle_bag.h"
 
 enum BattlePocketIndex {

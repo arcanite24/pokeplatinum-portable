@@ -45,11 +45,39 @@ int sub_02017498(ApplicationManager *appMan, int *param1)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisibleWnd to PAL
+    #endif
     GXS_SetVisibleWnd(GX_WNDMASK_NONE);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
 
     Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_116, (0x20000 + 0x8000));
@@ -150,7 +178,11 @@ static void sub_0201767C(UnkStruct_02017498 *param0)
 {
     if (param0->unk_88 == 0) {
         param0->unk_18 = Heap_Alloc(HEAP_ID_116, 0x20000 + 32);
+        #ifdef PLATFORM_DS
         param0->unk_1C = NNS_FndCreateExpHeap((void *)(((u32)param0->unk_18 + 31) / 32 * 32), 0x20000);
+        #else
+        // TODO: Port NNS_FndCreateExpHeap to PAL
+        #endif
 
         sub_02099550();
         Overlay_LoadHttpOverlay();
@@ -161,7 +193,11 @@ static void sub_0201767C(UnkStruct_02017498 *param0)
 static void sub_020176B4(UnkStruct_02017498 *param0)
 {
     if (param0->unk_88 == 1) {
+        #ifdef PLATFORM_DS
         NNS_FndDestroyExpHeap(param0->unk_1C);
+        #else
+        // TODO: Port NNS_FndDestroyExpHeap to PAL
+        #endif
 
         Heap_Free(param0->unk_18);
         Overlay_UnloadHttpOverlay();
@@ -178,10 +214,22 @@ static void *sub_020176DC(DWCAllocType param0, u32 param1, int param2)
     void *v0;
     OSIntrMode v1;
 
+    #ifdef PLATFORM_DS
     v1 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_FndAllocFromExpHeapEx(Unk_021BF678, param1, param2);
+    #else
+    // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v1);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     if (v0 == NULL) {
         (void)0;
@@ -199,7 +247,19 @@ static void sub_02017704(DWCAllocType param0, void *param1, u32 param2)
         return;
     }
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_FndFreeToExpHeap(Unk_021BF678, param1);
+    #else
+    // TODO: Port NNS_FndFreeToExpHeap to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }

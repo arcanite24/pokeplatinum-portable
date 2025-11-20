@@ -24,7 +24,11 @@ static const SpriteTemplate Unk_ov16_022700CC[] = {
         0x0,
         0x3E8,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x4E2D, 0x4E29, 0x4E25, 0x4E25, 0xFFFFFFFF, 0xFFFFFFFF },
         0x3,
         0x0,
@@ -36,7 +40,11 @@ static const SpriteTemplate Unk_ov16_022700CC[] = {
         0x0,
         0x3E8,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x4E2E, 0x4E29, 0x4E26, 0x4E26, 0xFFFFFFFF, 0xFFFFFFFF },
         0x3,
         0x0,
@@ -201,8 +209,16 @@ void ov16_02268520(UnkStruct_ov16_02268520 *param0)
         v8 = 20006;
     }
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v0, v1, v10, v3, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, v4);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(BattleSystem_PaletteSys(param0->unk_04), PLTTBUF_MAIN_OBJ, v0, v1, v10, Unk_ov16_02270134[param0->unk_09][v9], FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 20009);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     PaletteData_LoadBufferFromFileStart(BattleSystem_PaletteSys(param0->unk_04), NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, Unk_ov16_02270134[param0->unk_09][v9], 5, PLTTBUF_MAIN_BG, 0x20, 0x7 * 0x10);
     SpriteSystem_LoadCellResObjFromOpenNarc(v0, v1, v10, v5, TRUE, v6);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v0, v1, v10, v7, TRUE, v8);

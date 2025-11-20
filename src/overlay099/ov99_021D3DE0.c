@@ -21,7 +21,11 @@ BOOL ov99_021D3DE0(UnkStruct_ov99_021D2CB0 *param0, UnkStruct_ov99_021D3A40 *par
         break;
     case 1:
         if (IsScreenFadeDone() == TRUE) {
+            #ifdef PLATFORM_DS
             if ((param0->unk_10FC > 10080) || (gSystem.pressedKeys & PAD_BUTTON_A) || (gSystem.pressedKeys & PAD_BUTTON_START)) {
+            #else
+            // TODO: Port PAD_BUTTON_START to PAL
+            #endif
                 StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_OUT, FADE_TYPE_BRIGHTNESS_OUT, COLOR_BLACK, 45, 1, HEAP_ID_75);
                 param1->unk_00++;
             }

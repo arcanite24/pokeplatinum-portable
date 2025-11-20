@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020363E8_H
 #define POKEPLATINUM_UNK_020363E8_H
 
+#include "platform/platform_types.h"
+
 void CommTool_Init(int param0);
 void CommTool_Delete(void);
 BOOL CommTool_IsInitialized(void);

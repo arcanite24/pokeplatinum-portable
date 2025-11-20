@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SOUND_H
 #define POKEPLATINUM_SOUND_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/snd.h>
 #include <nitro/spi.h>

@@ -91,19 +91,31 @@ void ov105_02246080(UnkStruct_ov105_02246060 *param0)
     }
 
     if (param0->unk_01 == 2) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             if (param0->unk_02 == 0) {
                 param0->unk_02 = (param0->unk_00 - 1);
             } else {
                 param0->unk_02--;
             }
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             if (param0->unk_02 == (param0->unk_00 - 1)) {
                 param0->unk_02 = 0;
             } else {
                 param0->unk_02++;
             }
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             if (param0->unk_02 < (param0->unk_10)) {
                 param0->unk_02 = param0->unk_10;
             } else if (param0->unk_02 == (param0->unk_00 - 1)) {
@@ -111,7 +123,11 @@ void ov105_02246080(UnkStruct_ov105_02246060 *param0)
             } else {
                 param0->unk_02++;
             }
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             if (param0->unk_02 < (param0->unk_10)) {
                 param0->unk_02 = (param0->unk_00 - 1);
             } else {
@@ -120,11 +136,27 @@ void ov105_02246080(UnkStruct_ov105_02246060 *param0)
         }
     } else {
         if (param0->unk_01 == 0) {
+            #ifdef PLATFORM_DS
             v1 = PAD_KEY_RIGHT;
+            #else
+            // TODO: Port PAD_KEY_RIGHT to PAL
+            #endif
+            #ifdef PLATFORM_DS
             v2 = PAD_KEY_LEFT;
+            #else
+            // TODO: Port PAD_KEY_LEFT to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             v1 = PAD_KEY_DOWN;
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
+            #ifdef PLATFORM_DS
             v2 = PAD_KEY_UP;
+            #else
+            // TODO: Port PAD_KEY_UP to PAL
+            #endif
         }
 
         if (gSystem.pressedKeys & v1) {

@@ -64,15 +64,27 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
 {
     menu->lastAction = LIST_MENU_ACTION_NONE;
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return menu->template.choices[menu->listPos + menu->cursorPos].index;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return LIST_CANCEL;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (UpdateSelectedRow(menu, TRUE, 1, FALSE) == 0) {
             menu->lastAction = LIST_MENU_ACTION_MOVE_UP;
         }
@@ -80,7 +92,11 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
         return LIST_NOTHING_CHOSEN;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (UpdateSelectedRow(menu, TRUE, 1, TRUE) == 0) {
             menu->lastAction = LIST_MENU_ACTION_MOVE_DOWN;
         }
@@ -97,13 +113,29 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
         break;
 
     case PAGER_MODE_LEFT_RIGHT_PAD:
+        #ifdef PLATFORM_DS
         pageUp = JOY_REPEAT(PAD_KEY_LEFT);
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
+        #ifdef PLATFORM_DS
         pageDown = JOY_REPEAT(PAD_KEY_RIGHT);
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
         break;
 
     case PAGER_MODE_SHOULDER_BUTTONS:
+        #ifdef PLATFORM_DS
         pageUp = JOY_REPEAT(PAD_BUTTON_L);
+        #else
+        // TODO: Port PAD_BUTTON_L to PAL
+        #endif
+        #ifdef PLATFORM_DS
         pageDown = JOY_REPEAT(PAD_BUTTON_R);
+        #else
+        // TODO: Port PAD_BUTTON_R to PAL
+        #endif
         break;
     }
 
@@ -166,9 +198,17 @@ u32 ListMenu_TestInput(ListMenu *menu, ListMenuTemplate *template, u16 listPos, 
     menu->dummy2C = 0;
     menu->dummy2D = 0;
 
+    #ifdef PLATFORM_DS
     if (input == PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         UpdateSelectedRow(menu, updateCursor, 1, 0);
+    #ifdef PLATFORM_DS
     } else if (input == PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         UpdateSelectedRow(menu, updateCursor, 1, 1);
     }
 

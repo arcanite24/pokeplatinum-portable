@@ -138,10 +138,22 @@ static enum AutoSamplingOperationResult StopAutoSampling(void)
     }
 
     do {
+        #ifdef PLATFORM_DS
         TP_RequestAutoSamplingStopAsync();
+        #else
+        // TODO: Port TP_RequestAutoSamplingStopAsync to PAL
+        #endif
+        #ifdef PLATFORM_DS
         TP_WaitBusy(TP_REQUEST_COMMAND_FLAG_AUTO_OFF);
+        #else
+        // TODO: Port TP_WaitBusy to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         hasError = TP_CheckError(TP_REQUEST_COMMAND_FLAG_AUTO_OFF);
+        #else
+        // TODO: Port TP_CheckError to PAL
+        #endif
 
         if (hasError != FALSE) {
             errorCount++;
@@ -178,7 +190,11 @@ u32 WriteAutoSamplingDataToBuffer(TouchPadDataBuffer *outBuffer, enum TouchPadEx
     GF_ASSERT(touchPadState.touchPadDisabled == FALSE);
 
     if (touchPadState.touchPadMode != TOUCH_PAD_MODE_INACTIVE) {
+        #ifdef PLATFORM_DS
         latestAutoSamplingIndex = TP_GetLatestIndexInAuto();
+        #else
+        // TODO: Port TP_GetLatestIndexInAuto to PAL
+        #endif
 
         ConvertTouchPadDataToScreenSpace(touchPadState.autoSamplingBuffer, AUTO_SAMPLING_BUFFER_MAX_SIZE);
 
@@ -202,7 +218,11 @@ void ConvertTouchPadDataToScreenSpace(TPData *touchPadDataBuffer, u32 touchPadDa
     TPData convertedData;
 
     for (i = 0; i < touchPadDataBufferSize; i++) {
+        #ifdef PLATFORM_DS
         TP_GetCalibratedPoint(&convertedData, &(touchPadDataBuffer[i]));
+        #else
+        // TODO: Port TP_GetCalibratedPoint to PAL
+        #endif
         touchPadDataBuffer[i] = convertedData;
     }
 }
@@ -241,10 +261,22 @@ static enum AutoSamplingOperationResult StartAutoSampling(u32 frequency)
     BOOL hasError;
 
     do {
+        #ifdef PLATFORM_DS
         TP_RequestAutoSamplingStartAsync(0, frequency, touchPadState.autoSamplingBuffer, AUTO_SAMPLING_BUFFER_MAX_SIZE);
+        #else
+        // TODO: Port TP_RequestAutoSamplingStartAsync to PAL
+        #endif
+        #ifdef PLATFORM_DS
         TP_WaitBusy(TP_REQUEST_COMMAND_FLAG_AUTO_ON);
+        #else
+        // TODO: Port TP_WaitBusy to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         hasError = TP_CheckError(TP_REQUEST_COMMAND_FLAG_AUTO_ON);
+        #else
+        // TODO: Port TP_CheckError to PAL
+        #endif
 
         if (hasError != FALSE) {
             errorCount++;

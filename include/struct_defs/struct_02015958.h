@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02015958_H
 #define POKEPLATINUM_STRUCT_02015958_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 
 typedef struct {

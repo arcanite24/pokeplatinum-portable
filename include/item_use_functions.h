@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ITEM_USE_FUNCTIONS_H
 #define POKEPLATINUM_ITEM_USE_FUNCTIONS_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0205E884_decl.h"
 
 #include "field/field_system_decl.h"

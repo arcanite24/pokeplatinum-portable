@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021EF4BC_H
 #define POKEPLATINUM_OV5_021EF4BC_H
 
+#include "platform/platform_types.h"
+
 #include "overlay005/struct_ov5_021EF4F8_decl.h"
 
 #include "hblank_system.h"

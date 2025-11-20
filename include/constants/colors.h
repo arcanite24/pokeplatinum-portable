@@ -1,7 +1,11 @@
 #ifndef POKEPLATINUM_CONSTANTS_COLORS_H
 #define POKEPLATINUM_CONSTANTS_COLORS_H
 
+#ifdef PLATFORM_DS
 // Equivalent to GX_RGB_ constants
+#else
+// TODO: Port GX_RGB_ to PAL
+#endif
 #define COLOR_RGB_R_MASK  0x001F
 #define COLOR_RGB_G_SHIFT 5
 #define COLOR_RGB_B_SHIFT 10

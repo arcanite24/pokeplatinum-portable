@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV83_0223FCE8_H
 #define POKEPLATINUM_STRUCT_OV83_0223FCE8_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u8 unk_00[4];
     u8 unk_04[4];

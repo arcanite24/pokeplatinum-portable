@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02054884_H
 #define POKEPLATINUM_UNK_02054884_H
 
+#include "platform/platform_types.h"
+
 #include "party.h"
 #include "pokemon.h"
 #include "savedata.h"

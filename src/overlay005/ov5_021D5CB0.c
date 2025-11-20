@@ -105,7 +105,11 @@ static int ov5_021D5D30(UnkStruct_ov5_021D5CB0 *param0, NNSG3dResTex *param1, in
     sprintf(v2, "data/fld_anime%d.bin", param2);
     param0->unk_08[v0].unk_10 = &(param0->unk_04->unk_04[param2]);
     param0->unk_08[v0].unk_0C = NARC_AllocAndReadWholeMember(param3, param2 + 1, 4);
+    #ifdef PLATFORM_DS
     param0->unk_08[v0].unk_08 = NNS_G3dGetTex((NNSG3dResFileHeader *)param0->unk_08[v0].unk_0C);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     return v0;
 }
@@ -137,7 +141,11 @@ void ov5_021D5DEC(UnkStruct_ov5_021D5CB0 *param0)
                 v1->unk_14 = 0;
             }
 
+            #ifdef PLATFORM_DS
             VramTransfer_Request(NNS_GFD_DST_3D_TEX_VRAM, (u32)v1->unk_00, sub_0201DEAC(v1->unk_08, v1->unk_10->unk_10[v1->unk_14][0]), v1->unk_04);
+            #else
+            // TODO: Port NNS_GFD_DST_3D_TEX_VRAM to PAL
+            #endif
         } else {
             v1->unk_16++;
         }

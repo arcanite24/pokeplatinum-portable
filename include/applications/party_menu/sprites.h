@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PARTY_MENU_SPRITES_H
 #define POKEPLATINUM_PARTY_MENU_SPRITES_H
 
+#include "platform/platform_types.h"
+
 #include "applications/party_menu/defs.h"
 
 #include "narc.h"

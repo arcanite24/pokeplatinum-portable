@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POFFIN_H
 #define POKEPLATINUM_POFFIN_H
 
+#include "platform/platform_types.h"
+
 #include "savedata.h"
 
 #define POFFIN_NONE 0xFFFF

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_PAL_PAD_H
 #define POKEPLATINUM_UNK_PAL_PAD_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "savedata.h"

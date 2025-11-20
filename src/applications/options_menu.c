@@ -235,7 +235,15 @@ BOOL OptionsMenu_Main(ApplicationManager *appMan, int *state)
         break;
 
     case STATE_HANDLE_INPUT:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if ((JOY_NEW(PAD_BUTTON_A) && menuData->cursor == ENTRY_CLOSE) || JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             if (ChangesWereMade(menuData) == TRUE) {
                 menuData->state = STATE_CONFIRM_NEW_SETTINGS;
             } else {
@@ -310,16 +318,56 @@ BOOL OptionsMenu_Main(ApplicationManager *appMan, int *state)
 static void SetVRAMBanks()
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_16_G,
+        #else
+        // TODO: Port GX_VRAM_OBJ_16_G to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -340,9 +388,21 @@ static void OptionsMenuVBlank(void *data)
     }
 
     SpriteSystem_TransferOam();
+    #ifdef PLATFORM_DS
     NNS_GfdDoVramTransfer();
+    #else
+    // TODO: Port NNS_GfdDoVramTransfer to PAL
+    #endif
     Bg_RunScheduledUpdates(menuData->bgConfig);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static int SetupMenuVisuals(OptionsMenuData *menuData)
@@ -354,8 +414,16 @@ static int SetupMenuVisuals(OptionsMenuData *menuData)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
 
         SetVRAMBanks();
         ResetVisibleHardwareWindows(DS_SCREEN_MAIN);
@@ -376,7 +444,11 @@ static int SetupMenuVisuals(OptionsMenuData *menuData)
         SetupWindows(menuData);
         PrintTitleAndEntries(menuData);
         VramTransfer_New(32, menuData->heapID);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         NetworkIcon_Init();
         SetVBlankCallback(OptionsMenuVBlank, menuData);
         menuData->subState = 0;
@@ -413,8 +485,16 @@ static int TeardownMenuData(OptionsMenuData *menuData)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
         menuData->subState = 0;
         return TRUE;
     }
@@ -428,10 +508,26 @@ static void SetupBgs(OptionsMenuData *menuData)
     menuData->bgConfig = BgConfig_New(menuData->heapID);
 
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -443,10 +539,18 @@ static void SetupBgs(OptionsMenuData *menuData)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -457,10 +561,18 @@ static void SetupBgs(OptionsMenuData *menuData)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -471,10 +583,18 @@ static void SetupBgs(OptionsMenuData *menuData)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -485,10 +605,18 @@ static void SetupBgs(OptionsMenuData *menuData)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -499,10 +627,18 @@ static void SetupBgs(OptionsMenuData *menuData)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -547,7 +683,11 @@ static void LoadBgTiles(OptionsMenuData *menuData)
     u32 memberSize = NARC_GetMemberSize(narc, tiles_NCGR);
     void *memberBuffer = Heap_AllocAtEnd(menuData->heapID, memberSize);
     NARC_ReadWholeMember(narc, tiles_NCGR, memberBuffer);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedCharacterData(memberBuffer, &cursorTiles);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+    #endif
     Bg_LoadTiles(menuData->bgConfig, BG_LAYER_MAIN_0, cursorTiles->pRawData, cursorTiles->szByte, 0);
     Bg_LoadTiles(menuData->bgConfig, BG_LAYER_SUB_0, cursorTiles->pRawData, cursorTiles->szByte, 0);
     Heap_Free(memberBuffer);
@@ -555,7 +695,11 @@ static void LoadBgTiles(OptionsMenuData *menuData)
     memberSize = NARC_GetMemberSize(narc, tiles_NCLR);
     memberBuffer = Heap_AllocAtEnd(menuData->heapID, memberSize);
     NARC_ReadWholeMember(narc, tiles_NCLR, memberBuffer);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedPaletteData(memberBuffer, &cursorPalette);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+    #endif
     Bg_LoadPalette(BG_LAYER_MAIN_0, cursorPalette->pRawData, PALETTE_SIZE_BYTES, 0);
     Bg_LoadPalette(BG_LAYER_SUB_0, cursorPalette->pRawData, PALETTE_SIZE_BYTES, 0);
     Heap_Free(memberBuffer);
@@ -563,7 +707,11 @@ static void LoadBgTiles(OptionsMenuData *menuData)
     memberSize = NARC_GetMemberSize(narc, tilemap_bin);
     menuData->nscrBuffer = Heap_Alloc(menuData->heapID, memberSize);
     NARC_ReadWholeMember(narc, tilemap_bin, menuData->nscrBuffer);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(menuData->nscrBuffer, &(menuData->tilemapData));
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     NARC_dtor(narc);
 
@@ -890,18 +1038,30 @@ static void ProcessMainInput(OptionsMenuData *menuData)
     OptionsMenuEntry *entry = &menuData->entries.asArray[menuData->cursor];
 
     if (menuData->cursor != ENTRY_CLOSE) {
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_KEY_RIGHT)) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             entry->selected = (entry->selected + 1) % entry->numChoices;
             PrintEntryChoices(menuData, menuData->cursor);
             Sound_PlayEffect(SEQ_SE_CONFIRM);
+        #ifdef PLATFORM_DS
         } else if (JOY_NEW(PAD_KEY_LEFT)) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             entry->selected = (entry->selected + entry->numChoices - 1) % entry->numChoices;
             PrintEntryChoices(menuData, menuData->cursor);
             Sound_PlayEffect(SEQ_SE_CONFIRM);
         }
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_UP)) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         menuData->cursor = (menuData->cursor + 7 - 1) % 7;
         Bg_ScheduleScroll(menuData->bgConfig,
             BG_LAYER_MAIN_0,
@@ -910,7 +1070,11 @@ static void ProcessMainInput(OptionsMenuData *menuData)
 
         PrintEntryDescription(menuData, menuData->cursor, TRUE);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_KEY_DOWN)) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         menuData->cursor = (menuData->cursor + 1) % 7;
         Bg_ScheduleScroll(menuData->bgConfig,
             BG_LAYER_MAIN_0,

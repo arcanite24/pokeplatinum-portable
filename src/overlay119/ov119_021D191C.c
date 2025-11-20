@@ -510,7 +510,11 @@ static BOOL ov119_021D1FAC(UnkStruct_ov119_021D0FD0 *param0)
         }
 
         ManagedSprite_SetAnimationFrame(param0->unk_74, 4);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         param0->unk_68++;
         break;
     case 1: {
@@ -542,7 +546,11 @@ static BOOL ov119_021D1FAC(UnkStruct_ov119_021D0FD0 *param0)
                 int v2;
 
                 v1 = Sprite_GetPaletteProxy(param0->unk_78->sprite);
+                #ifdef PLATFORM_DS
                 v2 = PlttTransfer_GetPlttOffset(v1, NNS_G2D_VRAM_TYPE_2DMAIN);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
 
                 PaletteData_StartFade(param0->unk_04.unk_04, 0x4, 0xFFFF ^ (1 << v2), 0, 0, 16, 0xFFFF);
             }
@@ -575,7 +583,11 @@ static BOOL ov119_021D1FAC(UnkStruct_ov119_021D0FD0 *param0)
             break;
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         ov119_021D190C(param0, 0);
         ManagedSprite_SetDrawFlag(param0->unk_74, 0);
         ManagedSprite_SetDrawFlag(param0->unk_78, 0);
@@ -623,7 +635,11 @@ static BOOL ov119_021D21BC(UnkStruct_ov119_021D0FD0 *param0)
         ov119_021D14DC(param0->unk_04.unk_40, 1);
         ov119_021D14DC(param0->unk_04.unk_40, 2);
         ov119_021D14DC(param0->unk_04.unk_40, 3);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         param0->unk_68++;
         break;
     case 1:
@@ -648,7 +664,11 @@ static BOOL ov119_021D21BC(UnkStruct_ov119_021D0FD0 *param0)
                 int v1;
 
                 v0 = Sprite_GetPaletteProxy(param0->unk_78->sprite);
+                #ifdef PLATFORM_DS
                 v1 = PlttTransfer_GetPlttOffset(v0, NNS_G2D_VRAM_TYPE_2DMAIN);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
 
                 PaletteData_StartFade(param0->unk_04.unk_04, 0x4, 0xFFFF ^ (1 << v1), 0, 0, 16, 0xFFFF);
             }
@@ -683,7 +703,11 @@ static BOOL ov119_021D21BC(UnkStruct_ov119_021D0FD0 *param0)
 
         ov119_021D190C(param0, 0);
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         ManagedSprite_SetDrawFlag(param0->unk_74, 0);
         ManagedSprite_SetDrawFlag(param0->unk_78, 0);
         ManagedSprite_SetDrawFlag(param0->unk_7C, 0);

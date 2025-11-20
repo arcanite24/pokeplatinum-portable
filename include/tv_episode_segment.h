@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TV_EPISODE_SEGMENT_H
 #define POKEPLATINUM_TV_EPISODE_SEGMENT_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0202440C_decl.h"
 #include "struct_decls/struct_0206D140_decl.h"
 

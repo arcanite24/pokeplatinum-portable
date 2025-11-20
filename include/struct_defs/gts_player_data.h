@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_GTS_PLAYER_DATA_H
 #define POKEPLATINUM_STRUCT_GTS_PLAYER_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_boxes_decl.h"
 #include "struct_decls/pokedexdata_decl.h"
 #include "struct_decls/struct_0202B370_decl.h"

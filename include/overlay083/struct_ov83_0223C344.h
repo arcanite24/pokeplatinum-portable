@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV83_0223C344_H
 #define POKEPLATINUM_STRUCT_OV83_0223C344_H
 
+#include "platform/platform_types.h"
+
 #include "overlay082/struct_ov82_0223B164.h"
 
 #include "bag.h"

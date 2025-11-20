@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0206C660_H
 #define POKEPLATINUM_UNK_0206C660_H
 
+#include "platform/platform_types.h"
+
 #include "overlay006/npc_trade.h"
 
 #include "field_task.h"

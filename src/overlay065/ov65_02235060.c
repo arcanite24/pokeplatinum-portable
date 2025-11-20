@@ -196,12 +196,20 @@ u32 ov65_02235198(UnkStruct_ov65_02235130 *param0)
         if (v0 == 1) {
             ov65_02235B30(param0);
 
+            #ifdef PLATFORM_DS
             if (gSystem.heldKeys & PAD_KEY_DOWN) {
+            #else
+            // TODO: Port PAD_KEY_DOWN to PAL
+            #endif
                 return 1;
             }
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (ov65_02235254(param0) > 0) {
                 return 2;
             } else if (ov65_02235654(param0) == 1) {
@@ -533,7 +541,11 @@ static void ov65_022357E8(UnkStruct_ov65_02235130 *param0, u32 param1, u32 heapI
 {
     int v0;
 
+    #ifdef PLATFORM_DS
     param0->unk_750 = ov63_0222CD2C(param0->unk_14.unk_00, NULL, 48, param1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     ov63_0222CE30(param0->unk_750, 2, heapID);
 }
@@ -548,10 +560,18 @@ static void ov65_0223582C(UnkStruct_ov65_02235130 *param0, u32 heapID, NARC *par
     UnkStruct_ov65_0223582C v0 = {
         0,
         0,
+        #ifdef PLATFORM_DS
         GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         GX_BG_SCRBASE_0xe000,
         GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         3,
         0,
         92,
@@ -638,8 +658,16 @@ static void ov65_02235960(UnkStruct_ov65_022358CC *param0, u32 param1, NARC *par
 {
     BOOL v0;
 
+    #ifdef PLATFORM_DS
     param0->unk_1A0.unk_00[0] = SpriteResourceCollection_AddTilesFrom(param0->unk_190[0], param2, 37, 0, 50, NNS_G2D_VRAM_TYPE_2DMAIN, param1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0.unk_00[1] = SpriteResourceCollection_AddPaletteFrom(param0->unk_190[1], param2, 36, 0, 50, NNS_G2D_VRAM_TYPE_2DMAIN, 1, param1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param0->unk_1A0.unk_00[2] = SpriteResourceCollection_AddFrom(param0->unk_190[2], param2, 38, 0, 50, 2, param1);
     param0->unk_1A0.unk_00[3] = SpriteResourceCollection_AddFrom(param0->unk_190[3], param2, 39, 0, 50, 3, param1);
 
@@ -674,7 +702,11 @@ static void ov65_02235A94(UnkStruct_ov65_022358CC *param0, u32 param1)
 
     v0.list = param0->unk_00;
     v0.resourceData = &param0->unk_1A0.unk_10;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.affineScale.x = FX32_ONE;
     v0.affineScale.y = FX32_ONE;
     v0.priority = 0;
@@ -976,7 +1008,11 @@ static BOOL ov65_02236044(UnkStruct_ov65_02235130 *param0, UnkStruct_ov65_022354
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         v4 = ov65_022357A8(param0, param1, v0);
 
         if (v4 != NULL) {
@@ -994,31 +1030,51 @@ static BOOL ov65_02236044(UnkStruct_ov65_02235130 *param0, UnkStruct_ov65_022354
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         v3 = 3;
     } else {
         v3 = 2;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (v0 == 0) {
             ov65_02236230(param0, v3, v0, v1);
         } else {
             ov65_02236230(param0, 1, 0, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (v0 == 1) {
             ov65_02236230(param0, v3, v0, v1);
         } else {
             ov65_02236230(param0, 1, 1, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (v0 == 2) {
             ov65_02236230(param0, v3, v0, v1);
         } else {
             ov65_02236230(param0, 1, 2, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (v0 == 3) {
             ov65_02236230(param0, v3, v0, v1);
         } else {
@@ -1188,7 +1244,11 @@ static void ov65_02236318(UnkStruct_ov65_02236318 *param0)
 
         for (v0 = 0; v0 < 4; v0++) {
             if (param0->unk_08 & (1 << v0)) {
+                #ifdef PLATFORM_DS
                 VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_MAIN, MCR_PCANM_DESTPL(v0), ov65_02236410(param0, v1), 2);
+                #else
+                // TODO: Port NNS_GFD_DST_2D_BG_PLTT_MAIN to PAL
+                #endif
             }
         }
     }
@@ -1228,7 +1288,11 @@ static void ov65_02236384(UnkStruct_ov65_02236318 *param0)
     }
 
     if (v0) {
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_MAIN, MCR_PCANM_DESTPL(param0->unk_0C), ov65_02236410(param0, v1), 2);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_BG_PLTT_MAIN to PAL
+        #endif
     }
 }
 

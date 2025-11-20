@@ -24,7 +24,11 @@ static const SpriteTemplate sArrowSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 0x34D8, 0x34D8, 0x34D8, 0x34D8, 0x0, 0x0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -36,7 +40,11 @@ static const SpriteTemplate sArrowSpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 0x34D8, 0x34D8, 0x34D8, 0x34D8, 0x0, 0x0 },
         .bgPriority = 0,
         .vramTransfer = FALSE,
@@ -62,10 +70,18 @@ ScrollPrompts *ScrollPrompts_New(enum HeapID heapID)
 
     NARC *narc = NARC_ctor(NARC_INDEX_GRAPHIC__FLD_COMACT, heapID);
 
+    #ifdef PLATFORM_DS
     ov5_021D32E8(&prompts->unk_00, narc, scroll_prompts_NCLR, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov5_021D3374(&prompts->unk_00, narc, scroll_prompts_cell_NCER, FALSE, 13528);
     ov5_021D339C(&prompts->unk_00, narc, scroll_prompts_anim_NANR, FALSE, 13528);
+    #ifdef PLATFORM_DS
     ov5_021D3414(&prompts->unk_00, narc, scroll_prompts_NCGR, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (u32 i = 0; i < SCROLL_PROMPT_ARROW_COUNT; i++) {
         prompts->arrowSprites[i] = ov5_021D3584(&prompts->unk_00, &sArrowSpriteTemplates[i]);

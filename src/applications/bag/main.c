@@ -197,7 +197,11 @@ const ApplicationManagerTemplate gBagApplicationTemplate = {
     BagApplication_Init,
     BagApplication_Main,
     BagApplication_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 static const ListMenuTemplate sItemListMenuTemplate = {
@@ -418,9 +422,21 @@ int BagApplication_Init(ApplicationManager *appMan, int *state)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
     G2S_BlendNone();
 
     Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_BAG, HEAP_SIZE_BAG);
@@ -655,22 +671,70 @@ static void BagUIVBlankCB(void *data)
     Bg_RunScheduledUpdates(controller->bgConfig);
     VramTransfer_Process();
     SpriteSystem_TransferOam();
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void SetVRAMBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_128_B,
+        #else
+        // TODO: Port GX_VRAM_OBJ_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -679,10 +743,26 @@ static void SetVRAMBanks(void)
 static void SetupBGLayers(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_1,
+        #else
+        // TODO: Port GX_BGMODE_1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
     SetAllGraphicsModes(&graphicsModes);
 
@@ -692,10 +772,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -709,10 +797,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -725,10 +821,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -742,10 +846,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -758,10 +870,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -775,10 +895,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -791,10 +919,18 @@ static void SetupBGLayers(BgConfig *bgConfig)
         .bufferSize = 0x400,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -810,8 +946,16 @@ static void SetupBGLayers(BgConfig *bgConfig)
 
 static void FreeBGLayers(BgConfig *bgConfig)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_3);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_1);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_0);
@@ -1222,7 +1366,11 @@ static u8 ProcessItemListMenuInput(BagController *interface)
 
     ListMenu_GetListAndCursorPos(interface->itemList, &pocket->cursorScroll, &pocket->cursorPos);
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_SELECT)) {
+    #else
+    // TODO: Port PAD_BUTTON_SELECT to PAL
+    #endif
         if (CanMoveSelectedEntry(interface) == TRUE) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             return ITEM_LIST_INPUT_MOVE_ITEM;
@@ -1286,7 +1434,11 @@ static void CalcPocketSelectorIconsPos(BagController *controller)
 
 static u8 CheckPocketChange_DPad(BagController *controller)
 {
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_LEFT)) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (controller->numPockets == 1) {
             return FALSE;
         }
@@ -1308,7 +1460,11 @@ static u8 CheckPocketChange_DPad(BagController *controller)
 
         return TRUE;
     }
+    #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (controller->numPockets == 1) {
             return FALSE;
         }
@@ -1439,7 +1595,11 @@ static u8 DoDPadPocketSwitch(BagController *controller)
 {
     BagPocketSelector *pocketSelector = &controller->pocketSelector;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (controller->numPockets == 1) {
             return TRUE;
         }
@@ -1472,7 +1632,11 @@ static u8 DoDPadPocketSwitch(BagController *controller)
         BagUI_StartMovingPocketHighlight(controller);
         return TRUE;
     }
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (controller->numPockets == 1) {
             return TRUE;
         }
@@ -1831,7 +1995,11 @@ static u8 ProcessItemListInput_MovingItem(BagController *controller)
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_SELECT) {
+    #else
+    // TODO: Port PAD_BUTTON_SELECT to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         MoveItemToCurrentPosition(controller);
         return TRUE;
@@ -1861,7 +2029,11 @@ static u8 ProcessItemListInput_MovingItem(BagController *controller)
     case LIST_CANCEL:
         Sound_PlayEffect(SEQ_SE_CONFIRM);
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             MoveItemToCurrentPosition(controller);
         } else {
             StopMovingItem(controller);
@@ -2094,7 +2266,15 @@ static int ItemActionFunc_Use(BagController *controller)
 static int CheckPlayerDismissedItemUseMsg(BagController *interface)
 {
     if (Text_IsPrinterActive(interface->msgBoxPrinterID) == FALSE) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseMessageBox(&interface->windows[BAG_UI_WINDOW_MSG_BOX_WIDE], FALSE);
             Window_ScheduleCopyToVRAM(&interface->windows[BAG_UI_WINDOW_ITEM_DESCRIPTION]);
             BagUI_SetHighlightSpritesPalette(interface, PLTT_1);
@@ -2169,7 +2349,15 @@ static int TMHMUseTask(BagController *controller)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Strbuf *string = MessageLoader_GetNewStrbuf(controller->bagStringsLoader, Bag_Text_TMHMContainedMove);
 
             Window_FillTilemap(&controller->windows[BAG_UI_WINDOW_MSG_BOX_WIDE], 15);
@@ -2296,7 +2484,15 @@ static int InBagItemUseTask(BagController *controller)
             break;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseMessageBox(&controller->windows[BAG_UI_WINDOW_MSG_BOX_WIDE], FALSE);
             controller->itemUseTaskState = 2;
         }
@@ -2378,13 +2574,21 @@ static int ProcessItemCountInput_TrashCount(BagController *controller)
         Sound_PlayEffect(SEQ_SE_DP_BAG_004);
         return BAG_APP_STATE_SELECT_ITEM_TRASH_COUNT;
     }
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         BagUI_PrintConfirmItemTrashMsg(controller);
         BagUI_ToggleItemCountArrows(controller, FALSE);
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         return BAG_APP_STATE_SHOW_CONFIRM_TRASH_MSG;
     }
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         BagUI_CloseItemTrashWindows(controller);
         BagUI_ToggleItemCountArrows(controller, FALSE);
         BagUI_SetHighlightSpritesPalette(controller, PLTT_1);
@@ -2472,7 +2676,15 @@ static int ResolveTrash(BagController *controller)
 static int CheckPlayerDismissedTrashedMsg(BagController *controller)
 {
     if (Text_IsPrinterActive(controller->msgBoxPrinterID) == FALSE) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             controller->hideDescription = FALSE;
             Window_EraseMessageBox(&controller->windows[BAG_UI_WINDOW_MSG_BOX_WIDE], FALSE);
             Window_ScheduleCopyToVRAM(&controller->windows[BAG_UI_WINDOW_ITEM_DESCRIPTION]);
@@ -2569,7 +2781,15 @@ static int ProcessItemListInput_GiveToMon(BagController *controller)
 static int CheckPlayerDismissedItemCantBeHeldMsg(BagController *controller)
 {
     if (Text_IsPrinterActive(controller->msgBoxPrinterID) == FALSE) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseMessageBox(&controller->windows[BAG_UI_WINDOW_MSG_BOX_WIDE], FALSE);
             Window_ScheduleCopyToVRAM(&controller->windows[BAG_UI_WINDOW_ITEM_DESCRIPTION]);
             BagUI_SetHighlightSpritesPalette(controller, PLTT_1);
@@ -2698,7 +2918,11 @@ static int ProcessItemCountInput_SellCount(BagController *interface)
         Sound_PlayEffect(SEQ_SE_DP_BAG_004);
         return BAG_APP_STATE_SELECT_ITEM_SELL_COUNT;
     }
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Strbuf *string;
 
         BagUI_ToggleItemCountArrows(interface, FALSE);
@@ -2715,7 +2939,11 @@ static int ProcessItemCountInput_SellCount(BagController *interface)
 
         return BAG_APP_STATE_PRINT_CONFIRM_SALE_MSG;
     }
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         interface->soldItemPrice = 0;
 
         BagUI_ToggleItemCountArrows(interface, FALSE);
@@ -2824,7 +3052,15 @@ static int ResolveSale(BagController *interface)
 static int CheckPlayerDismissedItemsSoldMsg(BagController *interface)
 {
     if (Text_IsPrinterActive(interface->msgBoxPrinterID) == FALSE) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || gSystem.touchPressed) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             interface->hideDescription = FALSE;
             interface->soldItemPrice = 0;
 
@@ -2973,7 +3209,11 @@ static BOOL CheckItemListDialScroll_Normal(BagController *controller)
     BOOL scrolling = CalcDialScroll(controller, 36);
 
     if (controller->queuedScroll > 0) {
+        #ifdef PLATFORM_DS
         if (DoItemListInput_Normal(controller, PAD_KEY_UP) == TRUE) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             controller->queuedScroll--;
         } else {
             controller->queuedScroll = 0;
@@ -2981,7 +3221,11 @@ static BOOL CheckItemListDialScroll_Normal(BagController *controller)
 
         return TRUE;
     } else if (controller->queuedScroll < 0) {
+        #ifdef PLATFORM_DS
         if (DoItemListInput_Normal(controller, PAD_KEY_DOWN) == TRUE) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             controller->queuedScroll++;
         } else {
             controller->queuedScroll = 0;
@@ -3018,7 +3262,11 @@ static BOOL CheckItemListDialScroll_Sorting(BagController *interface)
     BOOL scrolling = CalcDialScroll(interface, 36);
 
     if (interface->queuedScroll > 0) {
+        #ifdef PLATFORM_DS
         if (DoItemListInput_Sorting(interface, PAD_KEY_UP) == TRUE) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             interface->queuedScroll--;
         } else {
             interface->queuedScroll = 0;
@@ -3026,7 +3274,11 @@ static BOOL CheckItemListDialScroll_Sorting(BagController *interface)
 
         return TRUE;
     } else if (interface->queuedScroll < 0) {
+        #ifdef PLATFORM_DS
         if (DoItemListInput_Sorting(interface, PAD_KEY_DOWN) == TRUE) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             interface->queuedScroll++;
         } else {
             interface->queuedScroll = 0;

@@ -211,8 +211,16 @@ BOOL TrainerCardScreen_Init(ApplicationManager *appMan, int *state)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
 
     SetAutorepeat(4, 8);
     Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_TRAINER_CARD_SCREEN, HEAP_SIZE_TRAINER_CARD_SCREEN);
@@ -466,16 +474,56 @@ static void TrainerCard_FreeStrBufs(TrainerCardScreen *trainerCardScreen)
 static void TrainerCard_SetVRAMBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_64_E,
+        #else
+        // TODO: Port GX_VRAM_BG_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_128_B,
+        #else
+        // TODO: Port GX_VRAM_OBJ_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -514,8 +562,16 @@ static void TrainerCard_LoadCardPalette(u8 level, u8 pokedexObtained, NARC *narc
     DC_FlushRange(paletteData->pRawData, PALETTE_SIZE_EXT_BYTES);
     u16 *rawData = paletteData->pRawData;
 
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(&rawData[PALETTE_SIZE], PALETTE_SIZE_BYTES, PALETTE_SIZE_BYTES * 3);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(&rawData[PALETTE_SIZE * 15], PALETTE_SIZE_BYTES * 15, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
 
     Heap_Free(nclrBuffer);
 }
@@ -548,8 +604,16 @@ static void TrainerCard_LoadCasePalette(u8 gameVersion, NARC *narc)
 
     DC_FlushRange(paletteData->pRawData, PALETTE_SIZE_BYTES);
 
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt(paletteData->pRawData, 0, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(paletteData->pRawData, 0, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
 
     Heap_Free(nclrBuffer);
 }
@@ -562,20 +626,48 @@ static void TrainerCard_LoadTrainerAppearancePalette(u8 trainerAppearance, NARC 
     u8 *rawData = (u8 *)(paletteData->pRawData);
 
     DC_FlushRange(&rawData[PALETTE_SIZE_BYTES * trainerAppearance], PALETTE_SIZE_BYTES);
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(&rawData[PALETTE_SIZE_BYTES * trainerAppearance], PALETTE_SIZE_BYTES * 4, PALETTE_SIZE_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
 
     Heap_Free(nclrBuffer);
 }
 
 static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetDispSelect to PAL
+    #endif
     GX_SetDispSelect(GX_DISP_SELECT_SUB_MAIN);
+    #else
+    // TODO: Port GX_DISP_SELECT_SUB_MAIN to PAL
+    #endif
 
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         .displayMode = GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .mainBgMode = GX_BGMODE_1,
+        #else
+        // TODO: Port GX_BGMODE_1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .subBgMode = GX_BGMODE_4,
+        #else
+        // TODO: Port GX_BGMODE_4 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .bg0As2DOr3D = GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -586,10 +678,18 @@ static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -604,10 +704,18 @@ static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x0c000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -622,10 +730,18 @@ static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -640,10 +756,18 @@ static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -658,10 +782,18 @@ static void TrainerCard_InitBackgrounds(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe800,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -679,7 +811,11 @@ static void TrainerCard_DrawTrainerCard(TrainerCardScreen *trainerCardScreen, NA
     void *nclrBuffer = Graphics_GetPlttDataFromOpenNARC(narc, 0, &paletteData, HEAP_ID_TRAINER_CARD_SCREEN);
 
     DC_FlushRange(paletteData->pRawData, PALETTE_SIZE_EXT_BYTES);
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt(paletteData->pRawData, 0, PALETTE_SIZE_EXT_BYTES);
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
     Heap_Free(nclrBuffer);
 
     TrainerCard_LoadCardPalette(trainerCardScreen->trainerCard->level, trainerCardScreen->trainerCard->pokedexObtained, narc);
@@ -689,7 +825,11 @@ static void TrainerCard_DrawTrainerCard(TrainerCardScreen *trainerCardScreen, NA
     nclrBuffer = Graphics_GetPlttDataFromOpenNARC(narc, 13, &paletteData2, HEAP_ID_TRAINER_CARD_SCREEN);
 
     DC_FlushRange(paletteData2->pRawData, PALETTE_SIZE_EXT_BYTES);
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt(paletteData2->pRawData, 0, PALETTE_SIZE_EXT_BYTES);
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
     Heap_Free(nclrBuffer);
 
     TrainerCard_LoadCasePalette(trainerCardScreen->trainerCard->gameVersion, narc);
@@ -714,7 +854,11 @@ static void TrainerCard_DrawTrainerCard(TrainerCardScreen *trainerCardScreen, NA
         trainerCardScreen->trainerSprite = LoadMemberFromOpenNARC(narc, trainerSpriteNarcIndex, FALSE, HEAP_ID_TRAINER_CARD_SCREEN, FALSE);
         GF_ASSERT(trainerCardScreen->trainerSprite != NULL);
 
+        #ifdef PLATFORM_DS
         BOOL success = NNS_G2dGetUnpackedBGCharacterData(trainerCardScreen->trainerSprite, &trainerCardScreen->trainerCharacterData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
         GF_ASSERT(success);
 
         if (trainerPaletteNarcIndex != -1) {
@@ -730,7 +874,11 @@ static void TrainerCard_DrawTrainerCard(TrainerCardScreen *trainerCardScreen, NA
         trainerCardScreen->trainerSprite = LoadMemberFromOpenNARC(narc, sTrainerAppearanceNarcIndices[trainerCardScreen->trainerCard->trainerAppearance], FALSE, HEAP_ID_TRAINER_CARD_SCREEN, FALSE);
         GF_ASSERT(trainerCardScreen->trainerSprite != NULL);
 
+        #ifdef PLATFORM_DS
         BOOL success = NNS_G2dGetUnpackedBGCharacterData(trainerCardScreen->trainerSprite, &trainerCardScreen->trainerCharacterData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
         GF_ASSERT(success);
 
         trainerCardScreen->trainerScreenDataNSCRBuffer = Graphics_GetScrnDataFromOpenNARC(narc, 49, FALSE, &trainerCardScreen->trainerScreenData, HEAP_ID_TRAINER_CARD_SCREEN);
@@ -757,8 +905,16 @@ static void TrainerCard_DrawTrainerCard(TrainerCardScreen *trainerCardScreen, NA
 
 static void TrainerCard_TeardownBgs(BgConfig *bgConfig)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_3);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_2);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_SUB_1);
@@ -917,7 +1073,11 @@ static BOOL TrainerCard_OpenCloseBadgeCase(TrainerCardScreen *trainerCardScreen)
     affineTransform._11 = yScale;
 
     SVC_WaitVBlankIntr();
+    #ifdef PLATFORM_DS
     G2_SetBG3Affine(&affineTransform, 128, 0, 0, 0);
+    #else
+    // TODO: Port G2_SetBG3Affine to PAL
+    #endif
 
     return FALSE;
 }
@@ -950,9 +1110,17 @@ static int TrainerCard_GetPlayerInput(TrainerCardScreen *trainerCardScreen)
     }
 
     if (touchScreenInput == FALSE) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             input = INPUT_A_BUTTON;
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             input = INPUT_B_BUTTON;
         }
     }
@@ -1060,7 +1228,15 @@ static void TrainerCard_TransferGraphicsOnVBlank(void *unused)
     VramTransfer_Process();
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void TrainerCard_PolishBadge(TrainerCardScreen *trainerCardScreen, u8 badgeID)
@@ -1117,7 +1293,11 @@ static void TrainerCard_ResetAffineTransforms(void)
 
     SVC_WaitVBlankIntr();
 
+    #ifdef PLATFORM_DS
     G2_SetBG3Affine(&affineTransform, 128, 0, 0, 0);
+    #else
+    // TODO: Port G2_SetBG3Affine to PAL
+    #endif
 }
 
 static void TrainerCard_HandleBadgeCaseButtonAnimation(TrainerCardScreen *trainerCardScreen)

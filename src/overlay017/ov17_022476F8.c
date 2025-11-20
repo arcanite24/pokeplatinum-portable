@@ -41,7 +41,11 @@ static const SpriteTemplate Unk_ov17_022543F8 = {
     0x0,
     0xA,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x80EA, 0x80EA, 0x80EA, 0x80EA, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -93,7 +97,11 @@ void ov17_02247734(UnkStruct_ov17_022476F8 *param0)
 
 void ov17_0224774C(SpriteSystem *param0, SpriteManager *param1, NARC *param2)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0, param1, param2, 67, TRUE, NNS_G2D_VRAM_TYPE_2DSUB, 33002);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0, param1, param2, 68, TRUE, 33002);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0, param1, param2, 69, TRUE, 33002);
 }

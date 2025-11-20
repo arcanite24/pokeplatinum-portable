@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RESOURCE_MANAGER_H
 #define POKEPLATINUM_RESOURCE_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

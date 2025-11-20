@@ -162,23 +162,55 @@ void ParticleSystem_Free(ParticleSystem *particleSystem)
     ParticleSystem_DeleteAllEmitters(particleSystem);
 
     if (particleSystem->vramAutoRelease & VRAM_AUTO_RELEASE_TEXTURE_FRM) {
+        #ifdef PLATFORM_DS
         NNS_GfdSetFrmTexVramState(&particleSystem->textureVRAMState);
+        #else
+        // TODO: Port NNS_GfdSetFrmTexVramState to PAL
+        #endif
     } else if (particleSystem->vramAutoRelease & VRAM_AUTO_RELEASE_TEXTURE_LNK) {
         for (int i = 0; i < MAX_TEXTURE_KEYS; i++) {
+            #ifdef PLATFORM_DS
             if (particleSystem->textureKeys[i] != NNS_GFD_ALLOC_ERROR_TEXKEY) {
+            #else
+            // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 NNS_GfdFreeLnkTexVram(particleSystem->textureKeys[i]);
+                #else
+                // TODO: Port NNS_GfdFreeLnkTexVram to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 particleSystem->textureKeys[i] = NNS_GFD_ALLOC_ERROR_TEXKEY;
+                #else
+                // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+                #endif
             }
         }
     }
 
     if (particleSystem->vramAutoRelease & (1 << 2)) {
+        #ifdef PLATFORM_DS
         NNS_GfdSetFrmPlttVramState(&particleSystem->paletteVRAMState);
+        #else
+        // TODO: Port NNS_GfdSetFrmPlttVramState to PAL
+        #endif
     } else if (particleSystem->vramAutoRelease & (1 << 3)) {
         for (int i = 0; i < MAX_PALETTE_KEYS; i++) {
+            #ifdef PLATFORM_DS
             if (particleSystem->paletteKeys[i] != NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+            #else
+            // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 NNS_GfdFreeLnkPlttVram(particleSystem->paletteKeys[i]);
+                #else
+                // TODO: Port NNS_GfdFreeLnkPlttVram to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 particleSystem->paletteKeys[i] = NNS_GFD_ALLOC_ERROR_PLTTKEY;
+                #else
+                // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+                #endif
             }
         }
     }
@@ -325,18 +357,34 @@ void ParticleSystem_SetResource(ParticleSystem *particleSystem, void *resource, 
     particleSystem->vramAutoRelease = autoRelease;
 
     if (autoRelease & VRAM_AUTO_RELEASE_TEXTURE_FRM) {
+        #ifdef PLATFORM_DS
         NNS_GfdGetFrmTexVramState(&particleSystem->textureVRAMState);
+        #else
+        // TODO: Port NNS_GfdGetFrmTexVramState to PAL
+        #endif
     } else if (autoRelease & VRAM_AUTO_RELEASE_TEXTURE_LNK) {
         for (int i = 0; i < MAX_TEXTURE_KEYS; i++) {
+            #ifdef PLATFORM_DS
             particleSystem->textureKeys[i] = NNS_GFD_ALLOC_ERROR_TEXKEY;
+            #else
+            // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+            #endif
         }
     }
 
     if (autoRelease & VRAM_AUTO_RELEASE_PALETTE_FRM) {
+        #ifdef PLATFORM_DS
         NNS_GfdGetFrmPlttVramState(&particleSystem->paletteVRAMState);
+        #else
+        // TODO: Port NNS_GfdGetFrmPlttVramState to PAL
+        #endif
     } else if (autoRelease & VRAM_AUTO_RELEASE_PALETTE_LNK) {
         for (int i = 0; i < MAX_PALETTE_KEYS; i++) {
+            #ifdef PLATFORM_DS
             particleSystem->paletteKeys[i] = NNS_GFD_ALLOC_ERROR_PLTTKEY;
+            #else
+            // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+            #endif
         }
     }
 
@@ -380,13 +428,21 @@ static void ParticleSystem_VBlankResourceUploadInternal(SysTask *task, void *par
 
 void ParticleSystem_RegisterTextureKey(NNSGfdTexKey key)
 {
+    #ifdef PLATFORM_DS
     GF_ASSERT(key != NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
     GF_ASSERT(sUploadingParticleSystem != NULL);
 
     ParticleSystem *particleSystem = sUploadingParticleSystem;
 
     for (int i = 0; i < MAX_TEXTURE_KEYS; i++) {
+        #ifdef PLATFORM_DS
         if (particleSystem->textureKeys[i] == NNS_GFD_ALLOC_ERROR_TEXKEY) {
+        #else
+        // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+        #endif
             particleSystem->textureKeys[i] = key;
             return;
         }
@@ -397,13 +453,21 @@ void ParticleSystem_RegisterTextureKey(NNSGfdTexKey key)
 
 void ParticleSystem_RegisterPaletteKey(NNSGfdPlttKey key)
 {
+    #ifdef PLATFORM_DS
     GF_ASSERT(key != NNS_GFD_ALLOC_ERROR_PLTTKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
     GF_ASSERT(sUploadingParticleSystem != NULL);
 
     ParticleSystem *particleSystem = sUploadingParticleSystem;
 
     for (int i = 0; i < MAX_PALETTE_KEYS; i++) {
+        #ifdef PLATFORM_DS
         if (particleSystem->paletteKeys[i] == NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+        #else
+        // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+        #endif
             particleSystem->paletteKeys[i] = key;
             return;
         }
@@ -420,16 +484,28 @@ void ParticleSystem_Draw(ParticleSystem *particleSystem)
         Camera_ComputeViewMatrix();
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbFlush();
+    #else
+    // TODO: Port NNS_G3dGlbFlush to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     const MtxFx43 *viewMatrix = NNS_G3dGlbGetCameraMtx();
+    #else
+    // TODO: Port NNS_G3dGlbGetCameraMtx to PAL
+    #endif
     SPLManager_Draw(particleSystem->manager, viewMatrix);
 
     if (particleSystem->camera != NULL) {
         Camera_ClearActive();
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbFlush();
+    #else
+    // TODO: Port NNS_G3dGlbFlush to PAL
+    #endif
 }
 
 void ParticleSystem_Update(ParticleSystem *particleSystem)

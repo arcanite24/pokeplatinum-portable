@@ -131,7 +131,11 @@ int PokedexMain_Main(ApplicationManager *appMan, int *state)
     switch (*state) {
     case POKEDEX_STATE_TRANSITION_IN:
         EntranceTransition(appPtr);
+        #ifdef PLATFORM_DS
         BrightnessController_SetScreenBrightness(-16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 3);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         (*state)++;
         break;
     case POKEDEX_STATE_USE:
@@ -148,7 +152,11 @@ int PokedexMain_Main(ApplicationManager *appMan, int *state)
         if (TransitionComplete(appPtr)) {
             ResetVisibleHardwareWindows(DS_SCREEN_MAIN);
             ResetVisibleHardwareWindows(DS_SCREEN_SUB);
+            #ifdef PLATFORM_DS
             G2_BlendNone();
+            #else
+            // TODO: Port G2_BlendNone to PAL
+            #endif
             G2S_BlendNone();
             return 1;
         }
@@ -347,7 +355,11 @@ BOOL ov21_021D10B8(PokedexApp *pokedexApp)
 
     G3_ResetG3X();
     PokemonGraphics_UpdateSprites(&pokedexApp->graphicData);
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
 
     pokedexApp->unk_1A68 = 0;
     pokedexApp->unk_1A6C = 0;
@@ -694,7 +706,11 @@ void PokedexMain_EntryNameNumber(PokedexGraphicData *pokedexGraphicData, const P
     displayBox.y = -(16 / 2);
     displayBox.spriteResourcePriority = 0;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     displayBox.heapID = heapID;
 
     Window *window = PokedexMain_DisplayNameNumber(pokedexGraphicData, pokedexSortData, heapID, speciesCaughtStatus->species);
@@ -958,16 +974,56 @@ static void FreePokedexApp(PokedexApp *pokedexApp)
 static void SetGXBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_80_EF,
+        #else
+        // TODO: Port GX_VRAM_OBJ_80_EF to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_0_G
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_0_G to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -975,7 +1031,11 @@ static void SetGXBanks(void)
 
 static void InitG2(enum HeapID heapID)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, heapID);
 
     {
@@ -986,7 +1046,11 @@ static void InitG2(enum HeapID heapID)
         };
 
         charTransferTemplate.heapID = heapID;
+        #ifdef PLATFORM_DS
         CharTransfer_InitWithVramModes(&charTransferTemplate, GX_OBJVRAMMODE_CHAR_1D_128K, GX_OBJVRAMMODE_CHAR_1D_32K);
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     }
 
     PlttTransfer_Init(32, heapID);
@@ -1002,23 +1066,59 @@ static void ov21_021D1EEC(PokedexApp *pokedexApp)
 
 static void InitG3(void)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dInit();
+    #else
+    // TODO: Port NNS_G3dInit to PAL
+    #endif
 
     G3X_InitMtxStack();
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(1);
     G3X_AlphaTest(0, 0);
     G3X_AlphaBlend(1);
+    #ifdef PLATFORM_DS
     G3X_SetClearColor(GX_RGB(0, 0, 0), 0, 0x7fff, 63, 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
     G3_ViewPort(0, 0, 255, 191);
 
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmTexVramManager(1, 1);
+    #else
+    // TODO: Port NNS_GfdInitFrmTexVramManager to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmPlttVramManager(0x4000, 1);
+    #else
+    // TODO: Port NNS_GfdInitFrmPlttVramManager to PAL
+    #endif
 }
 
 static void ResetFrm(void)
 {
+    #ifdef PLATFORM_DS
     NNS_GfdResetFrmTexVramState();
+    #else
+    // TODO: Port NNS_GfdResetFrmTexVramState to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdResetFrmPlttVramState();
+    #else
+    // TODO: Port NNS_GfdResetFrmPlttVramState to PAL
+    #endif
 }

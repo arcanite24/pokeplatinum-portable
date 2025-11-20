@@ -402,7 +402,11 @@ static void ov104_022324C8(SysTask *param0, void *param1)
 
     v0 = Menu_ProcessInput(v1->unk_B0);
 
+    #ifdef PLATFORM_DS
     if ((gSystem.pressedKeysRepeatable & PAD_KEY_UP) || (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) || (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) || (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         ov104_022325D8(v1);
     }
 
@@ -629,7 +633,11 @@ static void ov104_0223296C(SysTask *param0, void *param1)
         Sound_PlayEffect(SEQ_SE_CONFIRM);
     }
 
+    #ifdef PLATFORM_DS
     if ((gSystem.pressedKeysRepeatable & PAD_KEY_UP) || (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) || (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) || (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         ov104_02232B2C(v2);
     }
 
@@ -867,8 +875,16 @@ void ov104_02232CE0(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1, enum Heap
 
         v6 = NARC_ctor(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, heapID);
 
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(v0, v1, v6, 112, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, param3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(v2, PLTTBUF_MAIN_OBJ, v0, v1, v6, 111, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 1, param3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObjFromOpenNarc(v0, v1, v6, 113, FALSE, param3);
         SpriteSystem_LoadAnimResObjFromOpenNarc(v0, v1, v6, 114, FALSE, param3);
         NARC_dtor(v6);
@@ -886,7 +902,11 @@ void ov104_02232CE0(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1, enum Heap
         v8.animIdx = 0;
         v8.priority = param6;
         v8.plttIdx = 0;
+        #ifdef PLATFORM_DS
         v8.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         v8.bgPriority = param7;
         v8.vramTransfer = FALSE;
 
@@ -916,10 +936,22 @@ void ov104_02232CE0(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1, enum Heap
 
         v11 = Sprite_GetImageProxy(v5->sprite);
         DC_FlushRange(v4, sizeof(10 * 10 * ((8 / 2) * 8)));
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
         GX_LoadOBJ(v4, v11->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN], (10 * 10 * ((8 / 2) * 8)));
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v12 = Sprite_GetPaletteProxy(v5->sprite);
+        #ifdef PLATFORM_DS
         v13 = PlttTransfer_GetPlttOffset(v12, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         PaletteData_LoadBufferFromFileStart(v2, v3.narcID, v3.palette, heapID, 2, 0x20, v13 * 16);
 
@@ -953,7 +985,11 @@ static const SpriteTemplate Unk_ov104_0223F9E0 = {
     0x0,
     0x64,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x7D0, 0x7D0, 0x7D0, 0x7D0, 0xffffffff, 0xffffffff },
     0x1,
     0x0
@@ -966,7 +1002,11 @@ static const SpriteTemplate Unk_ov104_0223F9AC = {
     0x0,
     0x63,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     { 0x7D9, 0x7D1, 0x7D1, 0x7D1, 0xffffffff, 0xffffffff },
     0x1,
     0x0
@@ -974,7 +1014,11 @@ static const SpriteTemplate Unk_ov104_0223F9AC = {
 
 void ov104_02232EC0(UnkStruct_ov104_0223C4CC *param0)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBuffer(param0->unk_04, PLTTBUF_MAIN_OBJ, param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 2000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObj(param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KCellsFileIndex(), FALSE, 2000);
     SpriteSystem_LoadAnimResObj(param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KAnimationFileIndex(), FALSE, 2000);
 }
@@ -994,7 +1038,11 @@ ManagedSprite *ov104_02232F4C(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1,
     GF_ASSERT(param2 < (2008 - 2000));
 
     SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(
+        #ifdef PLATFORM_DS
         param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, Pokemon_IconSpriteIndex(param1), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2000 + param2);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
     v1 = Unk_ov104_0223F9E0;
 
@@ -1021,10 +1069,18 @@ void ov104_02232FEC(UnkStruct_ov104_0223C4CC *param0)
 {
     NARC *v0 = NARC_ctor(NARC_INDEX_GRAPHIC__PL_PLIST_GRA, HEAP_ID_94);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_04, PLTTBUF_MAIN_OBJ, param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_02081934(), FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 2001);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_02081938(), FALSE, 2001);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_0208193C(), FALSE, 2001);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(param0->unk_34.unk_00, param0->unk_34.unk_04, 20, sub_02081930(), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2009);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     NARC_dtor(v0);
 }
 
@@ -1120,12 +1176,48 @@ void ov104_022331E8(SysTask *param0, void *param1)
 
     if (v0->unk_08 <= 0) {
         if (v0->unk_0A == 1) {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWnd0InsidePlane to PAL
+            #endif
             G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3, 1);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
             G2_SetWndOutsidePlane(GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3 | GX_WND_PLANEMASK_OBJ, 1);
+            #else
+            // TODO: Port GX_WND_PLANEMASK_OBJ to PAL
+            #endif
+            #ifdef PLATFORM_DS
             G2_SetWnd0Position(v0->unk_04, v0->unk_05, v0->unk_06, v0->unk_07);
+            #else
+            // TODO: Port G2_SetWnd0Position to PAL
+            #endif
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_W0);
+            #else
+            // TODO: Port GX_WNDMASK_W0 to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SetVisibleWnd to PAL
+            #endif
             GX_SetVisibleWnd(GX_WNDMASK_NONE);
+            #else
+            // TODO: Port GX_WNDMASK_NONE to PAL
+            #endif
         }
 
         SysTask_Done(param0);

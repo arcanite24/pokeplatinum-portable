@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FIELD_MAP_CHANGE_H
 #define POKEPLATINUM_FIELD_MAP_CHANGE_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "field_task.h"

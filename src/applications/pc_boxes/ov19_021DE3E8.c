@@ -114,13 +114,33 @@ static void ov19_021DE450(UnkStruct_ov19_021DE3E8 *param0)
         if (v3) {
             int v5;
 
+            #ifdef PLATFORM_DS
             v2->mapingType = GX_GetOBJVRamModeChar();
+            #else
+            // TODO: Port GX_GetOBJVRamModeChar to PAL
+            #endif
 
             for (v5 = 0; v5 < 3; v5++) {
+                #ifdef PLATFORM_DS
                 NNS_G2dInitImageProxy(&v1);
+                #else
+                // TODO: Port NNS_G2dInitImageProxy to PAL
+                #endif
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+                #endif
                 NNS_G2dLoadImage1DMapping(v2, Unk_ov19_021E04CC[v5].unk_00, NNS_G2D_VRAM_TYPE_2DMAIN, &v1);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
 
+                #ifdef PLATFORM_DS
                 param0->unk_1C[v5] = ov19_021D785C(param0->unk_10, &v0, 0, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+                #else
+                // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+                #endif
 
                 Sprite_SetExplicitPalette(param0->unk_1C[v5], Unk_ov19_021E04CC[v5].unk_04);
                 Sprite_SetDrawFlag(param0->unk_1C[v5], FALSE);

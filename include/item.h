@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ITEM_DATA_H
 #define POKEPLATINUM_ITEM_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #include "strbuf.h"

@@ -454,7 +454,11 @@ static int ov21_021DCD04(void *graphics, PokedexGraphicsManager *graphicsMan, co
         graphicsMan->state++;
         break;
     case 3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         Heap_Free(mapDisplay->dungeonCoordinatesArray);
         Heap_Free(mapDisplay->fieldCoordinatesArray);
         Heap_Free(graphicsMan->pageGraphics);
@@ -535,19 +539,31 @@ static void ov21_021DCFC8(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
     PokedexGraphicData *v0 = param1->unk_00;
     NARC *v1 = PokedexGraphics_GetNARC(param1->unk_00);
 
+    #ifdef PLATFORM_DS
     mapDisplay->unk_B4[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v1, dungeon_highlight_NCGR_lz, TRUE, dungeon_highlight_NCGR_lz + 6000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(mapDisplay->unk_B4[0]);
     SpriteResource_ReleaseData(mapDisplay->unk_B4[0]);
 
     mapDisplay->unk_B4[2] = SpriteResourceCollection_AddFrom(v0->spriteResourceCollection[2], v1, dungeon_highlight_cell_NCER_lz, TRUE, dungeon_highlight_cell_NCER_lz + 6000, 2, heapID);
     mapDisplay->unk_B4[3] = SpriteResourceCollection_AddFrom(v0->spriteResourceCollection[3], v1, dungeon_highlight_anim_NANR_lz, TRUE, dungeon_highlight_anim_NANR_lz + 6000, 3, heapID);
+    #ifdef PLATFORM_DS
     mapDisplay->unk_D0[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v1, size_check_icons_NCGR_lz, TRUE, size_check_icons_NCGR_lz + 6000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(mapDisplay->unk_D0[0]);
     SpriteResource_ReleaseData(mapDisplay->unk_D0[0]);
 
+    #ifdef PLATFORM_DS
     mapDisplay->unk_D0[1] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[1], v1, size_check_icons_NCLR, FALSE, size_check_icons_NCLR + 6000, NNS_G2D_VRAM_TYPE_2DMAIN, 5, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(mapDisplay->unk_D0[1]);
     SpriteResource_ReleaseData(mapDisplay->unk_D0[1]);
@@ -584,7 +600,11 @@ static void ov21_021DD1A8(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = heapID;
     v1.position.x = 160 * FX32_ONE;
     v1.position.y = 96 * FX32_ONE;
@@ -597,7 +617,11 @@ static void ov21_021DD1A8(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = heapID;
     v1.position.x = 0;
     v1.position.y = 0;
@@ -605,7 +629,11 @@ static void ov21_021DD1A8(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
     for (v3 = 0; v3 < (NUMDUNGEONS * 2); v3++) {
         mapDisplay->cellActorArray[v3] = SpriteList_Add(&v1);
         Sprite_SetDrawFlag(mapDisplay->cellActorArray[v3], FALSE);
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(mapDisplay->cellActorArray[v3], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 }
 
@@ -640,10 +668,18 @@ static void ov21_021DD2E0(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
     displayBox.paletteProxy = SpriteTransfer_GetPaletteProxy(v2, NULL);
     displayBox.spriteResourcePriority = 1;
     displayBox.spriteListPriority = 31 - 1;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     displayBox.heapID = heapID;
 
+    #ifdef PLATFORM_DS
     v4 = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0 = PokedexTextManager_NewWindow(v3->textMan, 16, 2);
     v6 = PokedexTextManager_DisplayMessage(v3->textMan, v0, TEXT_BANK_POKEDEX, pl_msg_pokedex_areaunknown, 0, 0);
 
@@ -688,11 +724,23 @@ static void PokedexMapDisplay_OAMMode_XLU(PokedexMapDisplay *mapDisplay)
 {
     int v0;
 
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(mapDisplay->AreaUnknownCellActor, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(mapDisplay->AreaUnknownSpriteManager->fontOAM, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     for (v0 = 0; v0 < 3; v0++) {
+        #ifdef PLATFORM_DS
         sub_02012AF0(mapDisplay->unk_E0[v0]->fontOAM, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 }
 
@@ -700,11 +748,23 @@ static void PokedexMapDisplay_OAMMode_Normal(PokedexMapDisplay *mapDisplay)
 {
     int v0;
 
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(mapDisplay->AreaUnknownCellActor, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(mapDisplay->AreaUnknownSpriteManager->fontOAM, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 
     for (v0 = 0; v0 < 3; v0++) {
+        #ifdef PLATFORM_DS
         sub_02012AF0(mapDisplay->unk_E0[v0]->fontOAM, GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     }
 }
 
@@ -714,9 +774,17 @@ static void ov21_021DD490(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
 
     if (ov21_021E2A54(param2->unk_08)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 
@@ -756,9 +824,17 @@ static void ov21_021DD554(PokedexMapDisplay *mapDisplay, UnkStruct_ov21_021DCAE0
 
     if (ov21_021E2A54(param2->unk_08)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, param1->unk_10, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, param1->unk_10, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -1191,7 +1267,11 @@ static void ov21_021DDB8C(PokedexMapDisplay *mapDisplay)
     mapDisplay->unk_80C = 0;
     mapDisplay->unk_810 = 0;
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
 
     for (dungeonIndex = 0; dungeonIndex < mapDisplay->numDungeons; dungeonIndex++) {
         Sprite_SetDrawFlag(mapDisplay->cellActorArray[dungeonIndex], FALSE);
@@ -1202,8 +1282,24 @@ static void ov21_021DDBCC(PokedexMapDisplay *mapDisplay)
 {
     int dungeonIndex;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, GX_BLEND_PLANEMASK_BG3, 0, 16);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
 
     for (dungeonIndex = 0; dungeonIndex < mapDisplay->numDungeons; dungeonIndex++) {
         Sprite_SetDrawFlag(mapDisplay->cellActorArray[dungeonIndex], FALSE);
@@ -1226,7 +1322,11 @@ static void ov21_021DDC14(PokedexMapDisplay *mapDisplay)
 
             mapDisplay->unk_810 = 1;
         } else {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, 1);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+            #endif
             mapDisplay->unk_810 = 0;
         }
     }
@@ -1240,13 +1340,21 @@ static void ov21_021DDC14(PokedexMapDisplay *mapDisplay)
     v0 = FX_Mul((16 << FX32_SHIFT), (v1 << FX32_SHIFT));
     v0 = FX_Div(v0, (16 << FX32_SHIFT));
 
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(v0 >> FX32_SHIFT, 16);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     mapDisplay->unk_80C++;
 
     if (mapDisplay->unk_80C >= 32) {
         if (mapDisplay->unk_810 == 0) {
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_BLEND_PLANEMASK_BG1, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+            #endif
         } else {
             for (dungeonIndex = 0; dungeonIndex < mapDisplay->numDungeons; dungeonIndex++) {
                 Sprite_SetDrawFlag(mapDisplay->cellActorArray[dungeonIndex], FALSE);

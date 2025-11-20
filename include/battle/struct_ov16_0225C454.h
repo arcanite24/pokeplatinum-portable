@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV16_0225C454_H
 #define POKEPLATINUM_STRUCT_OV16_0225C454_H
 
+#include "platform/platform_types.h"
+
 #include "battle/battle_message.h"
 
 typedef struct {

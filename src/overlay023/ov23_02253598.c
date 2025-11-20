@@ -203,7 +203,11 @@ static void ov23_0225381C(SysTask *param0, void *param1)
 {
     UnkStruct_ov23_022537D4 *v0 = param1;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         ov23_022537D4(param0, param1);
     }
 }

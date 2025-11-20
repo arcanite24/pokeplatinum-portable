@@ -797,31 +797,51 @@ static void ov70_0225D310(UnkStruct_ov70_0225CC54 *param0, UnkStruct_ov70_0225CA
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         v3 = 3;
     } else {
         v3 = 2;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (v0 == 0) {
             ov70_0225D17C(param1, v3, v0, v1);
         } else {
             ov70_0225D17C(param1, 1, 0, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (v0 == 1) {
             ov70_0225D17C(param1, v3, v0, v1);
         } else {
             ov70_0225D17C(param1, 1, 1, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (v0 == 2) {
             ov70_0225D17C(param1, v3, v0, v1);
         } else {
             ov70_0225D17C(param1, 1, 2, v1);
         }
+    #ifdef PLATFORM_DS
     } else if (gSystem.heldKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (v0 == 3) {
             ov70_0225D17C(param1, v3, v0, v1);
         } else {

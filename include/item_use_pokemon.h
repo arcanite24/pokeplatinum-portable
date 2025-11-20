@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ITEM_USE_POKEMON_H
 #define POKEPLATINUM_ITEM_USE_POKEMON_H
 
+#include "platform/platform_types.h"
+
 #include "party.h"
 #include "pokemon.h"
 

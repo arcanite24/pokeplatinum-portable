@@ -16,7 +16,11 @@ static const SpriteTemplate Unk_ov104_022417D8[] = {
         0x0,
         0x64,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x21, 0x2C, 0x23, 0x22, 0xffffffff, 0xffffffff },
         0x1,
         0x0,
@@ -28,7 +32,11 @@ static const SpriteTemplate Unk_ov104_022417D8[] = {
         0x0,
         0x64,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x21, 0x2C, 0x23, 0x22, 0xffffffff, 0xffffffff },
         0x1,
         0x0,
@@ -40,7 +48,11 @@ static const SpriteTemplate Unk_ov104_022417D8[] = {
         0x0,
         0x64,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x18, 0x2A, 0x1A, 0x19, 0xffffffff, 0xffffffff },
         0x1,
         0x0,
@@ -52,7 +64,11 @@ static const SpriteTemplate Unk_ov104_022417D8[] = {
         0x0,
         0x64,
         0x0,
+        #ifdef PLATFORM_DS
         NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         { 0x1B, 0x2B, 0x1D, 0x1C, 0xffffffff, 0xffffffff },
         0x1,
         0x0,
@@ -66,8 +82,16 @@ void ov104_0223D768(SpriteSystem *param0, SpriteManager *param1, NARC *param2, P
     GF_ASSERT(param4 < NELEMS(Unk_ov104_022417D8));
     v0 = &Unk_ov104_022417D8[param4];
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_CHAR], TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, v0->resources[SPRITE_RESOURCE_CHAR]);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param3, PLTTBUF_MAIN_OBJ, param0, param1, param2, v0->resources[SPRITE_RESOURCE_PLTT], FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, v0->resources[SPRITE_RESOURCE_PLTT]);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_CELL], TRUE, v0->resources[SPRITE_RESOURCE_CELL]);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_ANIM], TRUE, v0->resources[SPRITE_RESOURCE_ANIM]);
 }

@@ -3,6 +3,8 @@
 
 #define NUM_SWARMS 22
 
+#include "platform/platform_types.h"
+
 u32 Swarm_GetMapId(const u32 swarm);
 void Swarm_GetMapIdAndSpecies(const u32 swarm, u16 *mapIdDest, u16 *speciesDest);
 

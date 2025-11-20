@@ -1519,7 +1519,11 @@ static BOOL ov12_02236E7C(BallRotation *param0)
 {
     switch (param0->unk_08) {
     case 0:
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(param0->unk_30, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         param0->unk_08++;
     case 1:
         if (param0->unk_20 > 0) {
@@ -1532,7 +1536,11 @@ static BOOL ov12_02236E7C(BallRotation *param0)
             param0->unk_08++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(param0->unk_20, param0->unk_21);
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         break;
     default:
         ov12_022368E4(param0, 26);
@@ -2275,8 +2283,16 @@ static void ov12_02237C54(BallRotation *param0)
 
         v6 = NARC_ctor(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, param0->unk_90.heapID);
 
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(param0->unk_90.cellActorSys, param0->unk_2C, v6, v0, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, param0->unk_90.target + 6000);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_90.paletteSys, 2, param0->unk_90.cellActorSys, param0->unk_2C, v6, v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1, param0->unk_90.target + 6000);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_90.cellActorSys, param0->unk_2C, v6, v2, TRUE, param0->unk_90.target + 6000);
         SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_90.cellActorSys, param0->unk_2C, v6, v3, TRUE, param0->unk_90.target + 6000);
         NARC_dtor(v6);
@@ -2295,7 +2311,11 @@ static void ov12_02237D8C(BallRotation *param0)
     v1.animIdx = 0;
     v1.priority = 0;
     v1.plttIdx = 0;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.bgPriority = param0->unk_90.bgPrio;
     v1.vramTransfer = FALSE;
 

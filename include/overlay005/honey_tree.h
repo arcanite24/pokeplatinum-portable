@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HONEY_TREE_H
 #define POKEPLATINUM_HONEY_TREE_H
 
+#include "platform/platform_types.h"
+
 #include "constants/honey_tree.h"
 
 #include "field/field_system.h"

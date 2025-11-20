@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02078B40_H
 #define POKEPLATINUM_STRUCT_02078B40_H
 
+#include "platform/platform_types.h"
+
 typedef struct UnkStruct_02078B40_t {
     u32 personality;
     u16 partyDecrypted : 1;

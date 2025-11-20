@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_02235D18_H
 #define POKEPLATINUM_MAIN_MENU_02235D18_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/gba_save.h"
 
 enum AGBGameType {

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SAVEDATA_MISC_H
 #define POKEPLATINUM_SAVEDATA_MISC_H
 
+#include "platform/platform_types.h"
+
 #include "constants/savedata/save_table.h"
 #include "constants/string.h"
 

@@ -282,7 +282,11 @@ static BOOL sub_0205A324(FieldTask *param0)
             v0->unk_34 = 7;
             MapObjectMan_StopAllMovement(v0->fieldSystem->mapObjMan);
             v0->unk_08(1, v0->unk_50);
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             v0->unk_34 = 4;
             CommTiming_StartSync(92);
             v0->unk_43 = 5;
@@ -926,17 +930,29 @@ static void sub_0205AF18(UnkStruct_0205A0D8 *param0, int param1)
 static int sub_0205AFE4(UnkStruct_0205A0D8 *param0)
 {
     do {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             param0->unk_81 = ((param0->unk_81 == 0) ? (param0->unk_80 - 1) : (param0->unk_81 - 1));
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             param0->unk_81 = (param0->unk_81 == (param0->unk_80 - 1)) ? 0 : (param0->unk_81 + 1);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
 
             if (param0->unk_81 < (param0->unk_80 - 1)) {
@@ -946,7 +962,11 @@ static int sub_0205AFE4(UnkStruct_0205A0D8 *param0)
             }
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             return 2;
         }
@@ -1026,7 +1046,11 @@ static BOOL sub_0205B140(FieldTask *param0)
         break;
     case 1:
         if (FieldMessage_FinishedPrinting(v1->unk_20)) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 MessageLoader_Free(v1->unk_1C);
                 StringTemplate_Free(v1->unk_18);
                 Strbuf_Free(v1->unk_00);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_TASK_H
 #define POKEPLATINUM_POKETCH_TASK_H
 
+#include "platform/platform_types.h"
+
 #include "sys_task_manager.h"
 
 #define POKETCH_TASK_LIST_VALIDATOR 0x12345678 // If activeList[VALIDATOR_IDX] is not this value, tasks will not be added or removed.

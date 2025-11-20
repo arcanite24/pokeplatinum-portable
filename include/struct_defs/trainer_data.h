@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_TRAINER_DATA_H
 #define POKEPLATINUM_STRUCT_TRAINER_DATA_H
 
+#include "platform/platform_types.h"
+
 /*
  * Note: *most* source files should not include this header directly, and should
  * instead including `struct_defs/trainer.h`. This header is held separately for

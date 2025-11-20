@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV83_0223D95C_H
 #define POKEPLATINUM_STRUCT_OV83_0223D95C_H
 
+#include "platform/platform_types.h"
+
 #include "sprite.h"
 #include "sprite_resource.h"
 

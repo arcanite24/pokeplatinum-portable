@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_EVOLUTION_H
 #define POKEPLATINUM_EVOLUTION_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pokedexdata_decl.h"
 #include "struct_decls/pokemon_animation_sys_decl.h"
 #include "struct_defs/struct_0207C8C4.h"

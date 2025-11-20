@@ -39,11 +39,31 @@
 #include "unk_0209BA18.h"
 #include "vars_flags.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay65);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay114);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay115);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay116);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay117);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     UnkStruct_ov98_02247168 *unk_00;
@@ -71,14 +91,22 @@ static const ApplicationManagerTemplate Unk_020F1B98 = {
     ov65_0222E2A8,
     ov65_0222E3FC,
     ov65_0222E548,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay65)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static const ApplicationManagerTemplate Unk_020F1B88 = {
     ov65_0223648C,
     ov65_02236548,
     ov65_0223668C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay65)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static const u8 Unk_020F1B64[4] = {
@@ -195,7 +223,11 @@ static BOOL sub_0207DA28(FieldTask *task)
         Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_54, DWC_UTILITY_WORK_SIZE + 0x100);
         sub_02099570();
         ov18_0221F800(HEAP_ID_54);
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     case 9:
     case 11:
@@ -378,15 +410,27 @@ static UnkStruct_ov115_02260440 *sub_0207DE90(FieldSystem *fieldSystem, u32 heap
 {
     UnkStruct_ov115_02260440 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay115);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     {
         static const ApplicationManagerTemplate v1 = {
             ov115_02260440,
             ov115_0226048C,
             ov115_022608E4,
+            #ifdef PLATFORM_DS
             FS_OVERLAY_ID(overlay115),
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         };
 
         v0 = Heap_Alloc(heapID, sizeof(UnkStruct_ov115_02260440));
@@ -396,7 +440,11 @@ static UnkStruct_ov115_02260440 *sub_0207DE90(FieldSystem *fieldSystem, u32 heap
         v0->unk_39 = 0;
         v0->saveData = fieldSystem->saveData;
 
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         FieldSystem_StartChildProcess(fieldSystem, &v1, v0);
     }
     return v0;
@@ -404,24 +452,44 @@ static UnkStruct_ov115_02260440 *sub_0207DE90(FieldSystem *fieldSystem, u32 heap
 
 static void sub_0207DED8(UnkStruct_ov115_02260440 *param0)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     Heap_Free(param0);
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static UnkStruct_ov66_02231134 *sub_0207DEEC(FieldSystem *fieldSystem, u32 heapID, u32 param2)
 {
     UnkStruct_ov66_02231134 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay116);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
     {
         static const ApplicationManagerTemplate v1 = {
             ov116_022609B4,
             ov116_02260CF4,
             ov116_0226126C,
+            #ifdef PLATFORM_DS
             FS_OVERLAY_ID(overlay116),
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         };
 
         v0 = Heap_Alloc(heapID, sizeof(UnkStruct_ov66_02231134));
@@ -430,7 +498,11 @@ static UnkStruct_ov66_02231134 *sub_0207DEEC(FieldSystem *fieldSystem, u32 heapI
         v0->unk_38 = 0;
         v0->saveData = fieldSystem->saveData;
 
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         FieldSystem_StartChildProcess(fieldSystem, &v1, v0);
     }
     return v0;
@@ -438,25 +510,45 @@ static UnkStruct_ov66_02231134 *sub_0207DEEC(FieldSystem *fieldSystem, u32 heapI
 
 static void sub_0207DF2C(UnkStruct_ov66_02231134 *param0)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     Heap_Free(param0);
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static UnkStruct_ov117_02260440 *sub_0207DF40(FieldSystem *fieldSystem, u32 heapID, u32 param2)
 {
     UnkStruct_ov117_02260440 *v0;
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay117);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     {
         static const ApplicationManagerTemplate v1 = {
             ov117_02260440,
             ov117_02260474,
             ov117_022605C0,
+            #ifdef PLATFORM_DS
             FS_OVERLAY_ID(overlay117),
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         };
 
         v0 = Heap_Alloc(heapID, sizeof(UnkStruct_ov117_02260440));
@@ -466,7 +558,11 @@ static UnkStruct_ov117_02260440 *sub_0207DF40(FieldSystem *fieldSystem, u32 heap
         v0->unk_39 = 0;
         v0->saveData = fieldSystem->saveData;
 
+        #ifdef PLATFORM_DS
         Overlay_LoadByID(FS_OVERLAY_ID(overlay114), 2);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         FieldSystem_StartChildProcess(fieldSystem, &v1, v0);
     }
 
@@ -475,10 +571,18 @@ static UnkStruct_ov117_02260440 *sub_0207DF40(FieldSystem *fieldSystem, u32 heap
 
 static void sub_0207DF88(UnkStruct_ov115_02260440 *param0)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay114);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     Heap_Free(param0);
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay114));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static void sub_0207DF9C(FieldSystem *fieldSystem)

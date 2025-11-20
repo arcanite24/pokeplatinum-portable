@@ -65,33 +65,53 @@ BOOL PCHallOfFameManager_Main(ApplicationManager *appMan, int *state)
 
     switch (*state) {
     case 0:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             PCHallOfFame_HandleTransition(pcHallOfFameMan, PC_HALL_OF_FAME_TRANSITION_CLOSE);
             (*state)++;
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             pcHallOfFameMan->pcHallOfFameScreen.textState ^= 1;
             PCHallOfFame_HandleTransition(pcHallOfFameMan, PC_HALL_OF_FAME_TRANSITION_CHANGE_TEXT);
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             if (PCHallOfFame_LoadLeftEntry(pcHallOfFameMan)) {
                 PCHallOfFame_HandleTransition(pcHallOfFameMan, PC_HALL_OF_FAME_TRANSITION_CHANGE_ENTRY);
             }
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             if (PCHallOfFame_LoadRightEntry(pcHallOfFameMan)) {
                 PCHallOfFame_HandleTransition(pcHallOfFameMan, PC_HALL_OF_FAME_TRANSITION_CHANGE_ENTRY);
             }
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             if (--(pcHallOfFameMan->pcHallOfFameScreen.pokemonIndex) < 0) {
                 if (PCHallOfFame_LoadLeftEntry(pcHallOfFameMan)) {
                     pcHallOfFameMan->pcHallOfFameScreen.pokemonIndex = pcHallOfFameMan->pcHallOfFameScreen.pokemonCount - 1;
@@ -103,7 +123,11 @@ BOOL PCHallOfFameManager_Main(ApplicationManager *appMan, int *state)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             if (++(pcHallOfFameMan->pcHallOfFameScreen.pokemonIndex) >= pcHallOfFameMan->pcHallOfFameScreen.pokemonCount) {
                 if (PCHallOfFame_LoadRightEntry(pcHallOfFameMan)) {
                     PCHallOfFame_HandleTransition(pcHallOfFameMan, PC_HALL_OF_FAME_TRANSITION_CHANGE_ENTRY);

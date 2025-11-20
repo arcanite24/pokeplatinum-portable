@@ -37,7 +37,11 @@ void CheckForMemoryTampering()
             sanityHeader = checkHeader;
         }
 
+        #ifdef PLATFORM_DS
         FSArchive *archive = FS_FindArchive(sLoadName, sLoadNameLen);
+        #else
+        // TODO: Port FS_FindArchive to PAL
+        #endif
         archive->fat = sanityHeader->fat.offset;
         archive->fat_size = sanityHeader->fat.length;
         archive->fnt = sanityHeader->fnt.offset;
@@ -45,7 +49,11 @@ void CheckForMemoryTampering()
 
         if (sanityHeader->game_code != GAME_CODE_POKEMON_DIAMOND_JP
             || sanityHeader->maker_code != MAKER_CODE_NINTENDO) {
+            #ifdef PLATFORM_DS
             OS_Terminate();
+            #else
+            // TODO: Port OS_Terminate to PAL
+            #endif
         }
     }
 #else

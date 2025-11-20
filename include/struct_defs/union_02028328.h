@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNION_02028328_H
 #define POKEPLATINUM_UNION_02028328_H
 
+#include "platform/platform_types.h"
+
 typedef union {
     struct {
         u16 val1_0 : 12;

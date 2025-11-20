@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0208C098_H
 #define POKEPLATINUM_UNK_0208C098_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

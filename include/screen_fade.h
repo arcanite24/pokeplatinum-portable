@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCREEN_FADE_H
 #define POKEPLATINUM_SCREEN_FADE_H
 
+#include "platform/platform_types.h"
+
 #include "constants/graphics.h"
 #include "constants/heap.h"
 #include "generated/fade_types.h"

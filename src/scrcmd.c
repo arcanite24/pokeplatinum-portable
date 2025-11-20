@@ -2244,7 +2244,11 @@ static BOOL ScrCmd_WaitABPress(ScriptContext *ctx)
 static BOOL ScriptContext_CheckABPress(ScriptContext *ctx)
 {
     // this doesn't match using == TRUE or leaving off a comparison entirely
+    #ifdef PLATFORM_DS
     return (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) != FALSE;
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
 }
 
 static BOOL ScrCmd_WaitABPressTime(ScriptContext *ctx)
@@ -2256,7 +2260,11 @@ static BOOL ScrCmd_WaitABPressTime(ScriptContext *ctx)
 
 static BOOL ScriptContext_DecrementABPressTimer(ScriptContext *ctx)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return TRUE;
     }
 
@@ -2273,19 +2281,43 @@ static BOOL ScrCmd_WaitABXPadPress(ScriptContext *ctx)
 
 static BOOL ScriptContext_CheckABXPadPress(ScriptContext *ctx)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         Player_SetDir(ctx->fieldSystem->playerAvatar, DIR_NORTH);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         Player_SetDir(ctx->fieldSystem->playerAvatar, DIR_SOUTH);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         Player_SetDir(ctx->fieldSystem->playerAvatar, DIR_WEST);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         Player_SetDir(ctx->fieldSystem->playerAvatar, DIR_EAST);
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_X) {
+    #else
+    // TODO: Port PAD_BUTTON_X to PAL
+    #endif
         FieldSystem_ShowStartMenu(ctx->fieldSystem);
     } else {
         return FALSE;
@@ -2303,10 +2335,18 @@ static BOOL ScrCmd_WaitABPadPress(ScriptContext *ctx)
 static BOOL ScriptContext_CheckABPadPress(ScriptContext *ctx)
 {
     // this function doesn't match simplified further, using == TRUE, or leaving off a comparison entirely
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return TRUE;
     }
+    #ifdef PLATFORM_DS
     return (gSystem.pressedKeys & PAD_KEY) != FALSE;
+    #else
+    // TODO: Port PAD_KEY to PAL
+    #endif
 }
 
 static BOOL ScrCmd_OpenMessage(ScriptContext *ctx)
@@ -2518,13 +2558,29 @@ static BOOL WaitScrollingSignpostInput(ScriptContext *ctx)
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         dir = DIR_NORTH;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         dir = DIR_SOUTH;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         dir = DIR_WEST;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         dir = DIR_EAST;
     }
 
@@ -2535,7 +2591,11 @@ static BOOL WaitScrollingSignpostInput(ScriptContext *ctx)
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_X) {
+    #else
+    // TODO: Port PAD_BUTTON_X to PAL
+    #endif
         Text_RemovePrinter(*printerID);
         *destVar = 1;
         return TRUE;
@@ -2560,18 +2620,38 @@ static BOOL HandleSignpostInput(ScriptContext *ctx)
     u16 *destVar = FieldSystem_GetVarPointer(fieldSystem, ctx->data[0]);
     int dir = 0xffff;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         *destVar = 0;
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         dir = DIR_NORTH;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         dir = DIR_SOUTH;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         dir = DIR_WEST;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         dir = DIR_EAST;
     }
 
@@ -2581,7 +2661,11 @@ static BOOL HandleSignpostInput(ScriptContext *ctx)
         return TRUE;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_X) {
+    #else
+    // TODO: Port PAD_BUTTON_X to PAL
+    #endif
         *destVar = 1;
         return TRUE;
     }
@@ -5275,7 +5359,11 @@ static BOOL sub_02043A4C(ScriptContext *ctx)
     u16 *v0 = FieldSystem_GetVarPointer(ctx->fieldSystem, ctx->data[0]);
     u32 v1 = sub_0205B91C(ctx->fieldSystem->unk_7C);
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         v1 = sub_0205B9EC(ctx->fieldSystem->unk_7C, 8);
     }
 
@@ -7746,11 +7834,19 @@ static BOOL ScrCmd_2FC(ScriptContext *ctx)
 
     *v0 = 0;
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         *v0 = 1;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         *v0 = 1;
     }
 

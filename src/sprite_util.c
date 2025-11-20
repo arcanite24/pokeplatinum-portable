@@ -143,13 +143,21 @@ SpriteList *SpriteList_InitRendering(int maxElements, G2dRenderer *g2dRenderer, 
     viewRect.posTopLeft.y = 0;
     viewRect.sizeView.x = (255 << FX32_SHIFT);
     viewRect.sizeView.y = (192 << FX32_SHIFT);
+    #ifdef PLATFORM_DS
     RenderOam_InitSurface(&g2dRenderer->mainScreen, &viewRect, NNS_G2D_SURFACETYPE_MAIN2D, &g2dRenderer->renderer);
+    #else
+    // TODO: Port NNS_G2D_SURFACETYPE_MAIN2D to PAL
+    #endif
 
     viewRect.posTopLeft.x = 0;
     viewRect.posTopLeft.y = (192 << FX32_SHIFT);
     viewRect.sizeView.x = (255 << FX32_SHIFT);
     viewRect.sizeView.y = (192 << FX32_SHIFT);
+    #ifdef PLATFORM_DS
     RenderOam_InitSurface(&g2dRenderer->subScreen, &viewRect, NNS_G2D_SURFACETYPE_SUB2D, &g2dRenderer->renderer);
+    #else
+    // TODO: Port NNS_G2D_SURFACETYPE_SUB2D to PAL
+    #endif
 
     template.maxElements = maxElements;
     template.renderer = &g2dRenderer->renderer;
@@ -177,23 +185,55 @@ void SetSubScreenViewRect(G2dRenderer *g2dRenderer, fx32 x, fx32 y)
     SetRenderSurfaceViewRect(&g2dRenderer->subScreen, &viewRect);
 }
 
+#ifdef PLATFORM_DS
 void ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE vramType, GXOBJVRamModeChar vramMode)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     switch (vramMode) {
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_32K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_GetBankForOBJ to PAL
+        #endif
         if (GX_GetBankForOBJ() == GX_VRAM_OBJ_16_G || GX_GetBankForOBJ() == GX_VRAM_OBJ_16_F) {
+        #else
+        // TODO: Port GX_VRAM_OBJ_16_F to PAL
+        #endif
             CharTransfer_ReserveVramRange((512 - 16) * TILE_SIZE_4BPP, 16 * TILE_SIZE_4BPP, vramType);
         } else {
             CharTransfer_ReserveVramRange((1024 - 16) * TILE_SIZE_4BPP, 16 * TILE_SIZE_4BPP, vramType);
         }
         break;
 
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_64K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_64K to PAL
+    #endif
         CharTransfer_ReserveVramRange((2048 - 16) * TILE_SIZE_4BPP, 16 * TILE_SIZE_4BPP, vramType);
         break;
 
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_128K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_GetBankForOBJ to PAL
+        #endif
         if (GX_GetBankForOBJ() == GX_VRAM_OBJ_80_EF || GX_GetBankForOBJ() == GX_VRAM_OBJ_80_EG) {
+        #else
+        // TODO: Port GX_VRAM_OBJ_80_EG to PAL
+        #endif
             CharTransfer_ReserveVramRange((2560 - 16) * TILE_SIZE_4BPP, 16 * TILE_SIZE_4BPP, vramType);
         } else {
             CharTransfer_ReserveVramRange((4096 - 16) * TILE_SIZE_4BPP, 16 * TILE_SIZE_4BPP, vramType);
@@ -206,7 +246,11 @@ void ReserveVramForWirelessIconChars(NNS_G2D_VRAM_TYPE vramType, GXOBJVRamModeCh
     }
 }
 
+#ifdef PLATFORM_DS
 void ReserveSlotsForWirelessIconPalette(NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     PlttTransfer_MarkReservedSlots((1 << 14 | 1 << 15), vramType);
 }

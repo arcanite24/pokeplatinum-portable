@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CONSTANTS_FIELD_MAP_H
 #define POKEPLATINUM_CONSTANTS_FIELD_MAP_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx_const.h>
 #include <nitro/types.h>

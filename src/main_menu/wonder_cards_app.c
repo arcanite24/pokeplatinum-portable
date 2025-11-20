@@ -57,7 +57,11 @@
 
 #include "res/text/bank/mystery_gift_menu.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(main_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 #define DIRECTION_NEXT     1
 #define DIRECTION_PREVIOUS -1
@@ -1086,7 +1090,11 @@ static void LoadTilemapBufferFromNarc(WonderCardsAppData *appData, u32 narcMembe
     NNSG2dScreenData *screenData;
     void *nscr = LoadMemberFromNARC(NARC_INDEX_GRAPHIC__MYSTERY, narcMemberIdx, TRUE, appData->heapID, TRUE);
 
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(nscr, &screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     Bg_LoadTilemapBuffer(appData->bgConfig, bgLayer, screenData->rawData, size);
     Heap_Free(nscr);
@@ -1194,7 +1202,11 @@ static void LoadPokemonSpritesForSelectedWc(WonderCardsAppData *appData)
         u8 *ncgrBuffer = Graphics_GetCharData(NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconSpriteIndex(species, FALSE, HEAP_ID_SYSTEM), FALSE, &charData, appData->heapID);
 
         DC_FlushRange(charData->pRawData, (4 * 4 * TILE_SIZE_4BPP));
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(charData->pRawData, (0x64 + i * 4 * 4) * TILE_SIZE_4BPP, (4 * 4 * TILE_SIZE_4BPP));
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
 
         Sprite_SetExplicitPalette(appData->selectedWcSprites[i], PokeIconPaletteIndex(species, 0, 0) + 3);
         Heap_Free(ncgrBuffer);
@@ -1357,11 +1369,19 @@ static void HandleWCShareScreenInput(WonderCardsAppData *appData, int playerCoun
 {
     enum WonderCardShareBtn selectedButton = appData->shareScreenSelectedBtn;
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_RIGHT) && appData->shareScreenSelectedBtn != WC_SHARE_BTN_CANCEL) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         appData->shareScreenSelectedBtn = WC_SHARE_BTN_CANCEL;
     }
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_KEY_LEFT) && appData->shareScreenSelectedBtn != WC_SHARE_BTN_SEND) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         appData->shareScreenSelectedBtn = WC_SHARE_BTN_SEND;
     }
 
@@ -1372,13 +1392,29 @@ static void HandleWCShareScreenInput(WonderCardsAppData *appData, int playerCoun
 
     enum WonderCardShareAction nextAction = WC_SHARE_ACTION_NONE;
 
+    #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         nextAction = WC_SHARE_ACTION_EXIT;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_BUTTON_A) && playerCount && appData->shareScreenSelectedBtn == WC_SHARE_BTN_SEND) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         nextAction = WC_SHARE_ACTION_SEND;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_BUTTON_A) && appData->shareScreenSelectedBtn == WC_SHARE_BTN_CANCEL) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         nextAction = WC_SHARE_ACTION_EXIT;
+    #ifdef PLATFORM_DS
     } else if (JOY_NEW(PAD_BUTTON_A) && playerCount == 0) { // "SEND" pressed, no player connected
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         nextAction = WC_SHARE_ACTION_PLAY_SOUND;
     }
 
@@ -1439,14 +1475,30 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
     case WC_APP_STATE_SELECT_WONDERCARD: {
         int selectedWcSlot = appData->selectedWondercardSlot;
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_KEY_UP)) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             selectedWcSlot = GetNextOccupiedWcSlot(appData, appData->selectedWondercardSlot, DIRECTION_PREVIOUS);
+        #ifdef PLATFORM_DS
         } else if (JOY_NEW(PAD_KEY_DOWN)) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             selectedWcSlot = GetNextOccupiedWcSlot(appData, appData->selectedWondercardSlot, DIRECTION_NEXT);
+        #ifdef PLATFORM_DS
         } else if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             DoScreenTransitionToState(appData, FADE_TYPE_BRIGHTNESS_OUT, WC_APP_STATE_EXIT, state);
+        #ifdef PLATFORM_DS
         } else if (JOY_NEW(PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             *state = WC_APP_STATE_SHOW_WONDERCARD_ACTIONS;
         }
@@ -1466,14 +1518,22 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
     case WC_APP_STATE_WAIT_FOR_MENU_CHOICE:
         ProcessStateTransitionMenuInput(appMan, state, NULL);
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             *state = WC_APP_STATE_CLOSE_WINDOWS;
         }
         break;
     case WC_APP_STATE_START_FLIP_WC_TO_BACK:
         Sound_PlayEffect(SEQ_SE_DP_CARD2);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         EraseMessageBoxIfInUse(&appData->messageBox, FALSE);
         EraseStandardWindowIfInUse(&appData->standardWindow, FALSE);
         StartFlipAnim(appData, WC_FLIP_STAGE_SHRINKING, 1 * FX32_ONE, 0.025 * FX32_ONE);
@@ -1489,7 +1549,15 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
     case WC_APP_STATE_SHOW_WONDERCARD_BACK:
         RunFlipAnimFrame(appData);
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_DP_CARD2);
             StartFlipAnim(appData, WC_FLIP_STAGE_SHRINKING, 1 * FX32_ONE, 0.025 * FX32_ONE);
             *state = WC_APP_STATE_START_FLIP_WC_TO_FRONT;
@@ -1499,7 +1567,11 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
         if (RunFlipAnimFrame(appData)) {
             ShowWindowsForScreen(appData, 1, WC_SCREEN_WONDERCARD_FRONT);
             StartFlipAnim(appData, WC_FLIP_STAGE_GROWING, 1800 * FX32_ONE, 900 * FX32_ONE);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, FALSE);
+            #else
+            // TODO: Port GX_PLANEMASK_OBJ to PAL
+            #endif
             *state = WC_APP_STATE_WAIT_WC_FLIP_TO_FRONT_HALFWAY;
         }
         break;
@@ -1507,7 +1579,11 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
         if (RunFlipAnimFrame(appData)) {
             Window_DrawMessageBoxWithScrollCursor(&appData->messageBox, FALSE, BASE_TILE_MESSAGE_BOX_FRAME, PLTT_10);
             Window_DrawStandardFrame(&appData->standardWindow, FALSE, BASE_TILE_FIELD_WINDOW_FRAME, PLTT_14);
+            #ifdef PLATFORM_DS
             GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+            #else
+            // TODO: Port GX_PLANEMASK_OBJ to PAL
+            #endif
             CancelFlipAnim(appData);
             *state = WC_APP_STATE_WAIT_FOR_MENU_CHOICE;
         }
@@ -1608,7 +1684,15 @@ static int WonderCardsApp_Main(ApplicationManager *appMan, enum WonderCardsAppSt
         }
         break;
     case WC_APP_STATE_DISTRIBUTION_SUCCESSFUL:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             *state = WC_APP_STATE_RETURN_AFTER_COMM_MAN_EXIT;
         }
         break;
@@ -1838,7 +1922,11 @@ static BOOL WonderCardsApp_Exit(ApplicationManager *appMan, int *unused)
     Bg_FreeTilemapBuffer(appData->bgConfig, BG_LAYER_MAIN_2);
     Bg_FreeTilemapBuffer(appData->bgConfig, BG_LAYER_MAIN_3);
     Heap_Free(appData->bgConfig);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(main_menu), &gMysteryGiftAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     Heap_Destroy(HEAP_ID_91);
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(HEAP_ID_WONDER_CARDS_APP);
@@ -1850,7 +1938,11 @@ const ApplicationManagerTemplate gWonderCardsAppTemplate = {
     WonderCardsApp_Init,
     (OverlayFunc)WonderCardsApp_Main, // Erase enum type information for the second argument
     WonderCardsApp_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 void WonderCardsApp_ShowWondercard(BgConfig *bgConfig, WonderCard *wonderCard, enum HeapID heapID)

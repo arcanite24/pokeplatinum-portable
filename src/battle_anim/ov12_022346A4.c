@@ -189,7 +189,11 @@ void ov12_022348C8(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
     v0->unk_10 = param3;
 
     ManagedSprite_SetDrawFlag(v0->unk_10, 0);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(v0->unk_10, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ManagedSprite_SetPriority(v0->unk_10, 100);
     ManagedSprite_SetExplicitPriority(v0->unk_10, 1);
 
@@ -458,7 +462,11 @@ void ov12_02234D98(BattleAnimSystem *param0, SpriteSystem *param1, SpriteManager
         }
 
         ManagedSprite_SetPriority(v0->unk_18[v1], 100);
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(v0->unk_18[v1], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         ManagedSprite_SetAnimateFlag(v0->unk_18[v1], 1);
     }
 

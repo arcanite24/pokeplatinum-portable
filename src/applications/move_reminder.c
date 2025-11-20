@@ -391,7 +391,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47272, 47272, 47272, 47272, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -403,7 +407,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47272, 47272, 47272, 47272, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -415,7 +423,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47273, 47272, 47273, 47273, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -427,7 +439,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47273, 47272, 47273, 47273, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -439,7 +455,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47274, 47272, 47274, 47274, 0, 0 },
         .bgPriority = 1,
         .vramTransfer = 0,
@@ -451,7 +471,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47275, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -463,7 +487,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47276, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -475,7 +503,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47277, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -487,7 +519,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47278, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -499,7 +535,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47279, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -511,7 +551,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47280, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -523,7 +567,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47281, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -535,7 +583,11 @@ static const SpriteTemplate sSpriteTemplates[] = {
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         .resources = { 47282, 47272, 47275, 47275, 0, 0 },
         .bgPriority = 2,
         .vramTransfer = 0,
@@ -655,8 +707,16 @@ static void MoveReminder_Setup(MoveReminderController *controller)
     GXLayers_DisableEngineALayers();
     GXLayers_DisableEngineBLayers();
 
+    #ifdef PLATFORM_DS
     GX_SetVisiblePlane(0);
+    #else
+    // TODO: Port GX_SetVisiblePlane to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_SetVisiblePlane(0);
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
 
     controller->bgConfig = BgConfig_New(HEAP_ID_MOVE_REMINDER);
 
@@ -695,22 +755,70 @@ static void MoveReminder_VBlankCallback(void *data)
     VramTransfer_Process();
     SpriteSystem_TransferOam();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void MoveReminder_SetGXBanks(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_128_B,
+        #else
+        // TODO: Port GX_VRAM_OBJ_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_NONE,
+        #else
+        // TODO: Port GX_VRAM_TEX_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_NONE
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -719,10 +827,26 @@ static void MoveReminder_SetGXBanks(void)
 static void MoveReminder_InitBgs(BgConfig *bgConfig)
 {
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D,
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     SetAllGraphicsModes(&graphicsModes);
@@ -733,10 +857,18 @@ static void MoveReminder_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -751,10 +883,18 @@ static void MoveReminder_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -769,10 +909,18 @@ static void MoveReminder_InitBgs(BgConfig *bgConfig)
         .bufferSize = 0x1000,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_512x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xe000,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -786,7 +934,11 @@ static void MoveReminder_InitBgs(BgConfig *bgConfig)
 
 static void MoveReminder_FreeBgs(BgConfig *bgConfig)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_MAIN_2);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_MAIN_1);
     Bg_FreeTilemapBuffer(bgConfig, BG_LAYER_MAIN_0);
@@ -848,7 +1000,15 @@ static int MoveReminder_State_Init(MoveReminderController *controller)
 
 static int MoveReminder_State_ProcessMainInput(MoveReminderController *controller)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
     if (JOY_NEW(PAD_KEY_LEFT | PAD_KEY_RIGHT)) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_DP_DECIDE);
         controller->data->showingContest ^= 1;
         MoveReminder_DrawMovesInfo(controller);
@@ -1479,14 +1639,26 @@ static void MoveReminder_InitSpriteSystem(MoveReminderController *controller)
         .maxTasks = 13,
         .sizeMain = 1024 * 128,
         .sizeSub = 1024 * 16,
+        #ifdef PLATFORM_DS
         .modeMain = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .modeSub = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     };
 
     SpriteSystem_Init(controller->spriteSystem, &renderOamTemplate, &charTransferTemplate, 32);
     SpriteSystem_InitSprites(controller->spriteSystem, controller->spriteManager, NELEMS(controller->managedSprites));
     SpriteSystem_InitManagerWithCapacities(controller->spriteSystem, controller->spriteManager, &capacities);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void MoveReminder_FreeSpriteSystem(MoveReminderController *controller)
@@ -1508,17 +1680,45 @@ static void MoveReminder_UpdateSpritesAnim(MoveReminderController *controller)
 
 static void MoveReminder_LoadSpriteResources(MoveReminderController *controller, NARC *narc)
 {
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 5, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 47272);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 8, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 47273);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 2, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 47274);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (u32 i = 47276; i <= 47282; i++) {
+        #ifdef PLATFORM_DS
         TypeIcon_LoadChar(controller->spriteSystem, controller->spriteManager, NNS_G2D_VRAM_TYPE_2DMAIN, TYPE_NORMAL, i);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     CategoryIcon_LoadChar(controller->spriteSystem, controller->spriteManager, NNS_G2D_VRAM_TYPE_2DMAIN, 0, 47275);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPlttResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 9, FALSE, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 47272);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     TypeIcon_LoadPlttSrc(controller->spriteSystem, controller->spriteManager, NNS_G2D_VRAM_TYPE_2DMAIN, 47273);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 4, FALSE, 47272);
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 7, FALSE, 47273);
     SpriteSystem_LoadCellResObjFromOpenNarc(controller->spriteSystem, controller->spriteManager, narc, 1, FALSE, 47274);

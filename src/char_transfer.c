@@ -63,18 +63,30 @@ static void ResetTransferTask(CharTransferTask *task);
 static BOOL ReserveAndTransfer(CharTransferTask *task);
 static BOOL ReserveAndTransferFromHead(CharTransferTask *task);
 static BOOL ReserveAndTransferFromTail(CharTransferTask *task);
+#ifdef PLATFORM_DS
 static void ReserveTransferRangeByOffsetAndSize(NNS_G2D_VRAM_TYPE vramType, u32 offsetMain, u32 offsetSub, u32 sizeMain, u32 sizeSub);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static void ClearTransferTaskRange(CharTransferTask *task);
 static CharTransferTask *FindNextFreeTask(void);
 static CharTransferTask *FindTransferTaskByImageProxy(const NNSG2dImageProxy *search);
 static CharTransferTask *FindTransferTaskByResourceID(int resourceID);
+#ifdef PLATFORM_DS
 static GXOBJVRamModeChar UpdateMappingTypeFromHardware(CharTransferTask *task, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static void SetBaseAddresses(CharTransferTask *task, u32 baseAddrMain, u32 baseAddrSub);
 static void UpdateBaseAddresses(CharTransferTask *task, u32 offsetMain, u32 offsetSub);
 static void UpdateVramCapacities(void);
 static BOOL TryGetFreeTransferSpace(int vramType, u32 *outOffsetMain, u32 *outOffsetSub, u32 size, u32 *outSizeMain, u32 *outSizeSub);
 static void LoadImageMapping(CharTransferTask *task);
+#ifdef PLATFORM_DS
 static void LoadImageMappingForScreen(CharTransferTask *task, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static void LoadImageVramTransfer(CharTransferTask *task);
 static void LoadImageVramTransferForScreen(CharTransferTask *task, int vramType);
 
@@ -88,18 +100,30 @@ static u32 GetNumBlocks(u8 *buf);
 static void InitTransferBuffers(u32 numBlocksMain, u32 numBlocksSub, enum HeapID heapID);
 static void FreeBlockTransferBuffer(u8 *buf);
 static void ReserveTransferRange(u32 start, u32 count, u8 *buf);
+#ifdef PLATFORM_DS
 static void ReserveVramSpace(u32 size, NNS_G2D_VRAM_TYPE vramType);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static void ClearTransferRange(u32 start, u32 count, u8 *buf);
 static void ClearTransferBuffer(u8 *buf);
 static void ClearBothTransferBuffers(void);
 static u32 FindAvailableTransferRange(u32 size, u8 *buf);
+#ifdef PLATFORM_DS
 static BOOL TryGetDestOffsets(u32 size, NNS_G2D_VRAM_TYPE vramType, u32 *outOffsetMain, u32 *outOffsetSub);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 
 static CharTransferTaskManager *sTaskManager = NULL;
 
 void CharTransfer_Init(const CharTransferTemplate *template)
 {
+    #ifdef PLATFORM_DS
     CharTransfer_InitWithVramModes(template, GX_GetOBJVRamModeChar(), GXS_GetOBJVRamModeChar());
+    #else
+    // TODO: Port GXS_GetOBJVRamModeChar to PAL
+    #endif
 }
 
 void CharTransfer_InitWithVramModes(const CharTransferTemplate *template, GXOBJVRamModeChar modeMain, GXOBJVRamModeChar modeSub)
@@ -117,8 +141,16 @@ void CharTransfer_InitWithVramModes(const CharTransferTemplate *template, GXOBJV
         sTaskManager->blockSizeMain = CharTransfer_GetBlockSize(modeMain);
         sTaskManager->blockSizeSub = CharTransfer_GetBlockSize(modeSub);
 
+        #ifdef PLATFORM_DS
         GX_SetOBJVRamModeChar(modeMain);
+        #else
+        // TODO: Port GX_SetOBJVRamModeChar to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetOBJVRamModeChar(modeSub);
+        #else
+        // TODO: Port GXS_SetOBJVRamModeChar to PAL
+        #endif
 
         int numBlocksMain = CalcBlockMaximum(template->sizeMain, sTaskManager->blockSizeMain);
         int numBlocksSub = CalcBlockMaximum(template->sizeSub, sTaskManager->blockSizeSub);
@@ -151,18 +183,34 @@ void CharTransfer_ClearBuffers(void)
     UpdateVramCapacities();
 }
 
+#ifdef PLATFORM_DS
 void CharTransfer_ReserveVramRange(u32 offset, u32 size, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     int fixedOffset, fixedSize;
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         FixOffsetAndSize(sTaskManager->freeSizeMain, offset, size, &fixedOffset, &fixedSize);
         if (fixedSize > 0) {
+            #ifdef PLATFORM_DS
             ReserveTransferRangeByOffsetAndSize(NNS_G2D_VRAM_TYPE_2DMAIN, fixedOffset, 0, fixedSize, 0);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
         }
     } else {
         FixOffsetAndSize(sTaskManager->freeSizeSub, offset, size, &fixedOffset, &fixedSize);
         if (fixedSize > 0) {
+            #ifdef PLATFORM_DS
             ReserveTransferRangeByOffsetAndSize(NNS_G2D_VRAM_TYPE_2DSUB, 0, fixedOffset, 0, fixedSize);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         }
     }
 }
@@ -237,11 +285,27 @@ void CharTransfer_ReplaceCharData(int resourceID, NNSG2dCharacterData *data)
     GF_ASSERT(task);
 
     task->data = data;
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_2D_OBJ_CHAR_MAIN, task->baseAddrMain, data->pRawData, data->szByte);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_OBJ_CHAR_MAIN to PAL
+        #endif
     }
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_2D_OBJ_CHAR_SUB, task->baseAddrSub, data->pRawData, data->szByte);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_OBJ_CHAR_SUB to PAL
+        #endif
     }
 }
 
@@ -334,7 +398,11 @@ NNSG2dImageProxy *CharTransfer_CopyTask(const NNSG2dImageProxy *imageProxy)
     dstTask->state = CTT_VRAM_COPIED;
 
     u32 size;
+    #ifdef PLATFORM_DS
     if (dstTask->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         size = dstTask->regionSizeMain;
     } else {
         size = dstTask->regionSizeSub;
@@ -378,7 +446,11 @@ void CharTransfer_DeleteTask(const NNSG2dImageProxy *imageProxy)
     }
 }
 
+#ifdef PLATFORM_DS
 BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, CharTransferAllocation *allocation)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     u32 offsetMain, offsetSub;
     u32 sizeMain, sizeSub;
@@ -391,7 +463,11 @@ BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, C
             allocation->vramType = vramType;
             allocation->size = size;
 
+            #ifdef PLATFORM_DS
             if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
                 allocation->offset = offsetMain;
             } else {
                 allocation->offset = offsetSub;
@@ -405,7 +481,11 @@ BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, C
             ReserveTransferRangeByOffsetAndSize(vramType, offsetMain, offsetSub, sizeMain, sizeSub);
             allocation->vramType = vramType;
 
+            #ifdef PLATFORM_DS
             if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
                 allocation->size = sizeMain;
                 allocation->offset = offsetMain + sTaskManager->freeSizeMain;
             } else {
@@ -426,13 +506,21 @@ void CharTransfer_ClearRange(CharTransferAllocation *allocation)
         return;
     }
 
+    #ifdef PLATFORM_DS
     if (allocation->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         int count = CalcBlockMaximum(allocation->size, sTaskManager->blockSizeMain);
         int start = CalcBlockMaximum(allocation->offset - sTaskManager->freeSizeMain, sTaskManager->blockSizeMain);
         ClearTransferRange(start, count, sTaskManager->bufMain);
     }
 
+    #ifdef PLATFORM_DS
     if (allocation->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         int count = CalcBlockMaximum(allocation->size, sTaskManager->blockSizeSub);
         int start = CalcBlockMaximum(allocation->offset - sTaskManager->freeSizeSub, sTaskManager->blockSizeSub);
         ClearTransferRange(start, count, sTaskManager->bufSub);
@@ -465,7 +553,11 @@ static void InitTransferTask(CharTransferTask *task)
     task->state = CTT_INIT;
     task->useHardwareMappingType = FALSE;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&task->imageProxy);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 }
 
 static BOOL InitTransferTaskFromTemplate(const CharTransferTaskTemplate *template, CharTransferTask *task)
@@ -570,12 +662,28 @@ static CharTransferTask *FindTransferTaskByResourceID(int resourceID)
     return NULL;
 }
 
+#ifdef PLATFORM_DS
 static GXOBJVRamModeChar UpdateMappingTypeFromHardware(CharTransferTask *task, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         task->data->mapingType = GX_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         task->data->mapingType = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
     return task->data->mapingType;
@@ -591,10 +699,18 @@ static void SetBaseAddresses(CharTransferTask *task, u32 baseAddrMain, u32 baseA
     }
 }
 
+#ifdef PLATFORM_DS
 // NNS_G2D_VRAM_TYPE does not match against int here, for some reason.
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static BOOL TryGetFreeTransferSpace(int vramType, u32 *outOffsetMain, u32 *outOffsetSub, u32 size, u32 *outSizeMain, u32 *outSizeSub)
 {
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         *outSizeMain = AlignToBlockSize(size, sTaskManager->blockSizeMain, TRUE);
         u32 blockMax = CalcBlockMaximum(*outSizeMain, sTaskManager->blockSizeMain);
         *outOffsetMain = FindAvailableTransferRange(blockMax, sTaskManager->bufMain);
@@ -607,7 +723,11 @@ static BOOL TryGetFreeTransferSpace(int vramType, u32 *outOffsetMain, u32 *outOf
         *outOffsetMain = CalcBlockOffset(*outOffsetMain, sTaskManager->blockSizeMain);
     }
 
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         *outSizeSub = AlignToBlockSize(size, sTaskManager->blockSizeSub, TRUE);
         u32 blockMax = CalcBlockMaximum(*outSizeSub, sTaskManager->blockSizeSub);
         *outOffsetSub = FindAvailableTransferRange(blockMax, sTaskManager->bufSub);
@@ -625,24 +745,44 @@ static BOOL TryGetFreeTransferSpace(int vramType, u32 *outOffsetMain, u32 *outOf
 
 static void UpdateBaseAddresses(CharTransferTask *task, u32 offsetMain, u32 offsetSub)
 {
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         task->baseAddrMain = offsetMain + sTaskManager->freeSizeMain;
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         task->baseAddrSub = offsetSub + sTaskManager->freeSizeSub;
     }
 }
 
+#ifdef PLATFORM_DS
 static void ReserveTransferRangeByOffsetAndSize(NNS_G2D_VRAM_TYPE vramType, u32 offsetMain, u32 offsetSub, u32 sizeMain, u32 sizeSub)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         int count = CalcBlockMaximum(sizeMain, sTaskManager->blockSizeMain);
         int start = CalcBlockMaximum(offsetMain, sTaskManager->blockSizeMain);
         ReserveTransferRange(start, count, sTaskManager->bufMain);
     }
 
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         int count = CalcBlockMaximum(sizeSub, sTaskManager->blockSizeSub);
         int start = CalcBlockMaximum(offsetSub, sTaskManager->blockSizeSub);
         ReserveTransferRange(start, count, sTaskManager->bufSub);
@@ -651,45 +791,105 @@ static void ReserveTransferRangeByOffsetAndSize(NNS_G2D_VRAM_TYPE vramType, u32 
 
 static void LoadImageMapping(CharTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&task->imageProxy);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (task->vramType != NNS_G2D_VRAM_TYPE_MAX) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
         LoadImageMappingForScreen(task, task->vramType);
     } else {
+        #ifdef PLATFORM_DS
         LoadImageMappingForScreen(task, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         LoadImageMappingForScreen(task, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 }
 
+#ifdef PLATFORM_DS
 static void LoadImageMappingForScreen(CharTransferTask *task, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     int mappingType = task->useHardwareMappingType ? UpdateMappingTypeFromHardware(task, vramType) : vramType;
 
     u32 baseAddr;
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         baseAddr = task->baseAddrMain;
+        #ifdef PLATFORM_DS
         GX_GetOBJVRamModeChar(); // result unused
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
         baseAddr = task->baseAddrSub;
+        #ifdef PLATFORM_DS
         GXS_GetOBJVRamModeChar(); // result unused
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (mappingType == GX_OBJVRAMMODE_CHAR_2D) {
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_2D to PAL
+    #endif
+        #ifdef PLATFORM_DS
         NNS_G2dLoadImage2DMapping(task->data, baseAddr, vramType, &task->imageProxy);
+        #else
+        // TODO: Port NNS_G2dLoadImage2DMapping to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         NNS_G2dLoadImage1DMapping(task->data, baseAddr, vramType, &task->imageProxy);
+        #else
+        // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+        #endif
     }
 }
 
 static void LoadImageVramTransfer(CharTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&task->imageProxy);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (task->vramType != NNS_G2D_VRAM_TYPE_MAX) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_MAX to PAL
+    #endif
         LoadImageVramTransferForScreen(task, task->vramType);
     } else {
+        #ifdef PLATFORM_DS
         LoadImageVramTransferForScreen(task, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
         LoadImageVramTransferForScreen(task, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 }
 
@@ -698,15 +898,31 @@ static void LoadImageVramTransferForScreen(CharTransferTask *task, int vramType)
     int mappingType = task->useHardwareMappingType ? UpdateMappingTypeFromHardware(task, vramType) : vramType;
 
     int baseAddr;
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         baseAddr = task->baseAddrMain;
+        #ifdef PLATFORM_DS
         GX_GetOBJVRamModeChar(); // result unused
+        #else
+        // TODO: Port GX_GetOBJVRamModeChar to PAL
+        #endif
     } else {
         baseAddr = task->baseAddrSub;
+        #ifdef PLATFORM_DS
         GXS_GetOBJVRamModeChar(); // result unused
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     NNS_G2dLoadImageVramTransfer(task->data, baseAddr, vramType, &task->imageProxy);
+    #else
+    // TODO: Port NNS_G2dLoadImageVramTransfer to PAL
+    #endif
 }
 
 static CharTransferTask *FindNextFreeTask(void)
@@ -722,32 +938,80 @@ static CharTransferTask *FindNextFreeTask(void)
 
 static void UpdateVramCapacities(void)
 {
+    #ifdef PLATFORM_DS
     switch (GX_GetBankForOBJ()) {
+    #else
+    // TODO: Port GX_GetBankForOBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_NONE:
+    #else
+    // TODO: Port GX_VRAM_OBJ_NONE to PAL
+    #endif
         sTaskManager->vramSizeMain = 0;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_16_F:
+    #else
+    // TODO: Port GX_VRAM_OBJ_16_F to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_16_G:
+    #else
+    // TODO: Port GX_VRAM_OBJ_16_G to PAL
+    #endif
         sTaskManager->vramSizeMain = 16 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_32_FG:
+    #else
+    // TODO: Port GX_VRAM_OBJ_32_FG to PAL
+    #endif
         sTaskManager->vramSizeMain = 32 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_64_E:
+    #else
+    // TODO: Port GX_VRAM_OBJ_64_E to PAL
+    #endif
         sTaskManager->vramSizeMain = 64 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_80_EF:
+    #else
+    // TODO: Port GX_VRAM_OBJ_80_EF to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_80_EG:
+    #else
+    // TODO: Port GX_VRAM_OBJ_80_EG to PAL
+    #endif
         sTaskManager->vramSizeMain = 80 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_96_EFG:
+    #else
+    // TODO: Port GX_VRAM_OBJ_96_EFG to PAL
+    #endif
         sTaskManager->vramSizeMain = 96 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_128_A:
+    #else
+    // TODO: Port GX_VRAM_OBJ_128_A to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_128_B:
+    #else
+    // TODO: Port GX_VRAM_OBJ_128_B to PAL
+    #endif
         sTaskManager->vramSizeMain = 128 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_OBJ_256_AB:
+    #else
+    // TODO: Port GX_VRAM_OBJ_256_AB to PAL
+    #endif
         sTaskManager->vramSizeMain = 256 * 1024;
         break;
     default:
@@ -755,14 +1019,30 @@ static void UpdateVramCapacities(void)
         break;
     }
 
+    #ifdef PLATFORM_DS
     switch (GX_GetBankForSubOBJ()) {
+    #else
+    // TODO: Port GX_GetBankForSubOBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case GX_VRAM_SUB_OBJ_NONE:
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+    #endif
         sTaskManager->vramSizeSub = 0;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_SUB_OBJ_16_I:
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+    #endif
         sTaskManager->vramSizeSub = 16 * 1024;
         break;
+    #ifdef PLATFORM_DS
     case GX_VRAM_SUB_OBJ_128_D:
+    #else
+    // TODO: Port GX_VRAM_SUB_OBJ_128_D to PAL
+    #endif
         sTaskManager->vramSizeSub = 128 * 1024;
         break;
     default:
@@ -922,15 +1202,39 @@ static void ClearTransferRange(u32 start, u32 count, u8 *buf)
 
 static void ClearTransferTaskRange(CharTransferTask *task)
 {
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dGetImageLocation to PAL
+        #endif
         u32 location = NNS_G2dGetImageLocation(&task->imageProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         u32 start = CalcBlockMaximum(location - sTaskManager->freeSizeMain, sTaskManager->blockSizeMain);
         u32 count = CalcBlockMaximum(task->regionSizeMain, sTaskManager->blockSizeMain);
         ClearTransferRange(start, count, sTaskManager->bufMain);
     }
 
+    #ifdef PLATFORM_DS
     if (task->vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dGetImageLocation to PAL
+        #endif
         u32 location = NNS_G2dGetImageLocation(&task->imageProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         u32 start = CalcBlockMaximum(location - sTaskManager->freeSizeSub, sTaskManager->blockSizeSub);
         u32 count = CalcBlockMaximum(task->regionSizeSub, sTaskManager->blockSizeSub);
         ClearTransferRange(start, count, sTaskManager->bufSub);
@@ -942,13 +1246,29 @@ static void ClearTransferTaskRange(CharTransferTask *task)
 int CharTransfer_GetBlockSize(GXOBJVRamModeChar vramMode)
 {
     switch (vramMode) {
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_32K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
         return 1;
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_64K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_64K to PAL
+    #endif
         return 2;
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_128K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_128K to PAL
+    #endif
         return 4;
+    #ifdef PLATFORM_DS
     case GX_OBJVRAMMODE_CHAR_1D_256K:
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_256K to PAL
+    #endif
         return 8;
     default:
         return 1;
@@ -979,11 +1299,19 @@ static int CalcBlockOffset(int blockNum, int blockSize)
     return blockNum * blockSize * 32;
 }
 
+#ifdef PLATFORM_DS
 static BOOL TryGetDestOffsets(u32 size, NNS_G2D_VRAM_TYPE vramType, u32 *outOffsetMain, u32 *outOffsetSub)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     BOOL result = TRUE;
 
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         if (sTaskManager->offsetMain + size > sTaskManager->freeSizeMain) {
             GF_ASSERT(FALSE);
             result = FALSE;
@@ -992,7 +1320,11 @@ static BOOL TryGetDestOffsets(u32 size, NNS_G2D_VRAM_TYPE vramType, u32 *outOffs
         }
     }
 
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         if (sTaskManager->offsetSub + size > sTaskManager->freeSizeSub) {
             GF_ASSERT(FALSE);
             result = FALSE;
@@ -1004,14 +1336,26 @@ static BOOL TryGetDestOffsets(u32 size, NNS_G2D_VRAM_TYPE vramType, u32 *outOffs
     return result;
 }
 
+#ifdef PLATFORM_DS
 static void ReserveVramSpace(u32 size, NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DMAIN) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
         sTaskManager->offsetMain += size;
         sTaskManager->offsetMain = AlignToBlockSize(sTaskManager->offsetMain, sTaskManager->blockSizeMain, TRUE);
     }
 
+    #ifdef PLATFORM_DS
     if (vramType & NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         sTaskManager->offsetSub += size;
         sTaskManager->offsetSub = AlignToBlockSize(sTaskManager->offsetSub, sTaskManager->blockSizeSub, TRUE);
     }
@@ -1101,7 +1445,11 @@ void CharTransfer_DeleteTask(const NNSG2dImageProxy *imageProxy) {
     (void)imageProxy;
 }
 
+#ifdef PLATFORM_DS
 BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, CharTransferAllocation *allocation) {
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
     (void)size; (void)atEnd; (void)vramType; (void)allocation;
     return FALSE;
 }

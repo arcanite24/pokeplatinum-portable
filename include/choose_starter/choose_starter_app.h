@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CHOOSE_STARTER_APP_H
 #define POKEPLATINUM_CHOOSE_STARTER_APP_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL ChooseStarter_Init(ApplicationManager *appMan, int *state);

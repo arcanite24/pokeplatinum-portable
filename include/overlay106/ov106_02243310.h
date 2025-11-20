@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV106_02243310_H
 #define POKEPLATINUM_OV106_02243310_H
 
+#include "platform/platform_types.h"
+
 #include "overlay106/struct_ov106_02243310.h"
 
 #include "pokemon.h"

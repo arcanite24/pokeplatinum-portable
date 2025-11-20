@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_NPC_TRADE_H
 #define POKEPLATINUM_NPC_TRADE_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 #include "overlay006/struct_npc_trade_animation_template.h"
 

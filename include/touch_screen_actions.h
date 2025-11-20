@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TOUCH_SCREEN_HIT_TABLE_ACTION_H
 #define POKEPLATINUM_TOUCH_SCREEN_HIT_TABLE_ACTION_H
 
+#include "platform/platform_types.h"
+
 #include "touch_screen.h"
 
 typedef void (*TouchScreenHitTableAction)(u32, enum TouchScreenButtonState, void *);

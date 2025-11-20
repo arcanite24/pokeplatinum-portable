@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FONT_MANAGER_H
 #define POKEPLATINUM_FONT_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "charcode.h"
 #include "narc.h"
 #include "render_text.h"

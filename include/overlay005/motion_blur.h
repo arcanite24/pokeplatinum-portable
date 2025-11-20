@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MOTION_BLUR_H
 #define POKEPLATINUM_MOTION_BLUR_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #else

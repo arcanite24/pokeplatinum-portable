@@ -181,7 +181,11 @@ static void ov19_021D7BC0(UnkStruct_ov19_021D8318 *param0, const BoxCustomizatio
 
         if (param3) {
             DC_FlushRange(v0->pRawData, 0x20);
+            #ifdef PLATFORM_DS
             GX_LoadBGPltt(v0->pRawData, param2 * 0x20, 0x20);
+            #else
+            // TODO: Port GX_LoadBGPltt to PAL
+            #endif
         }
 
         for (v2 = 0, v3 = 0; v2 < 8; v2++) {
@@ -202,7 +206,11 @@ static void ov19_021D7C58(UnkStruct_ov19_021D8318 *param0, const BoxCustomizatio
     if (v0 != NULL) {
         NNSG2dCharacterData *v1;
 
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(v0, &v1)) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
             Window *v2;
 
             v2 = Window_New(HEAP_ID_BOX_GRAPHICS, 1);
@@ -237,7 +245,11 @@ static void ov19_021D7D00(UnkStruct_ov19_021D8318 *param0, const BoxCustomizatio
         u16 *v1;
         NNSG2dScreenData *v2;
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedScreenData(v0, &v2);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
         v1 = Bg_GetTilemapBuffer(param0->unk_58F4, 3);
 
         if (v1) {
@@ -466,7 +478,11 @@ static void ov19_021D8210(SysTask *param0, void *param1)
     } else {
         if (v0->unk_04 != v0->unk_06) {
             v0->unk_04 += v0->unk_08;
+            #ifdef PLATFORM_DS
             GX_LoadBGPltt(v0->unk_00->unk_5860[v0->unk_04], v0->unk_0C, 0x20);
+            #else
+            // TODO: Port GX_LoadBGPltt to PAL
+            #endif
             v0->unk_0A = 2;
         } else {
             ov19_021D79B8(v0, ov19_021D826C, v0->unk_00);
@@ -742,13 +758,25 @@ static void ov19_021D8764(u16 *param0, const u16 *param1, u32 param2, u32 param3
 
         for (v1 = 0; v1 < 20; v1++) {
             v3 = param1[v1 * 21 + v0];
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_SCRFMT_TEXT_CHARNAME_MASK to PAL
+            #endif
             v3 = ((GX_SCRFMT_TEXT_CHARNAME_MASK & v3) + param3) | ((GX_SCRFMT_TEXT_HF_MASK | GX_SCRFMT_TEXT_VF_MASK) & v3) | (param4 << GX_SCRFMT_TEXT_COLORPLTT_SHIFT);
+            #else
+            // TODO: Port GX_SCRFMT_TEXT_COLORPLTT_SHIFT to PAL
+            #endif
             *v2 = v3;
             v2 += 32;
         }
 
         for (v1 = 0; v1 < 4; v1++) {
+            #ifdef PLATFORM_DS
             *v2 = (param4 << GX_SCRFMT_TEXT_COLORPLTT_SHIFT) | (param3 + 0);
+            #else
+            // TODO: Port GX_SCRFMT_TEXT_COLORPLTT_SHIFT to PAL
+            #endif
             v2 += 32;
         }
 
@@ -767,7 +795,11 @@ static void ov19_021D8764(u16 *param0, const u16 *param1, u32 param2, u32 param3
         v2 = param0 + ((32 * 0) + (param2 & 31));
 
         for (v1 = 0; v1 < (20 + 4); v1++) {
+            #ifdef PLATFORM_DS
             *v2 = (param4 << GX_SCRFMT_TEXT_COLORPLTT_SHIFT) | (param3 + 0);
+            #else
+            // TODO: Port GX_SCRFMT_TEXT_COLORPLTT_SHIFT to PAL
+            #endif
             v2 += 32;
         }
 

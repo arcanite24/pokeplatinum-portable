@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02048614_H
 #define POKEPLATINUM_UNK_02048614_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 
 BOOL ScrCmd_0B6(ScriptContext *ctx);

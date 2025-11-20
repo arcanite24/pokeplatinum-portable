@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV62_02248408_H
 #define POKEPLATINUM_OV62_02248408_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0202F264_decl.h"
 
 #include "field_battle_data_transfer.h"

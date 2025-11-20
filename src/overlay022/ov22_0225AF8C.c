@@ -400,7 +400,11 @@ static void ov22_0225B490(UnkStruct_ov22_0225B1BC *param0, const UnkStruct_ov22_
 
     ov22_0225B080(param0, param1->unk_60, param1->unk_64);
 
+    #ifdef PLATFORM_DS
     param0->unk_2C0 = GX_RGB(31, 31, 31);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 static void ov22_0225B4E4(UnkStruct_ov22_0225B4E4 *param0, const UnkStruct_ov22_0225AF8C *param1)
@@ -466,7 +470,11 @@ static void ov22_0225B5A8(UnkStruct_ov22_0225A0E4 *param0, UnkStruct_ov22_02255C
             v2 = LoadMemberFromOpenNARC(param0->unk_5C, v3 + 1, 0, heapID, 1);
 
             ResourceCollection_Add(param1->unk_10, v2, v1);
+            #ifdef PLATFORM_DS
             NNS_G2dGetUnpackedCharacterData(v2, &param1->unk_00[v1].charsData);
+            #else
+            // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+            #endif
 
             param1->unk_00[v1].softSpriteMan = param0->unk_00;
         }
@@ -475,7 +483,11 @@ static void ov22_0225B5A8(UnkStruct_ov22_0225A0E4 *param0, UnkStruct_ov22_02255C
     v2 = LoadMemberFromOpenNARC(param0->unk_5C, 0, 0, heapID, 1);
 
     ResourceCollection_Add(param1->unk_14, v2, 0);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedPaletteData(v2, &param1->unk_08[0].paletteData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+    #endif
 
     param1->unk_08[0].softSpriteMan = param0->unk_00;
     param1->unk_08[0].paletteSlot = 3;

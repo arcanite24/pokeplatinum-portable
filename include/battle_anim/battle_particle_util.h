@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_PARTICLE_UTIL_H
 #define POKEPLATINUM_BATTLE_PARTICLE_UTIL_H
 
+#include "platform/platform_types.h"
+
 #include "narc.h"
 #include "particle_system.h"
 

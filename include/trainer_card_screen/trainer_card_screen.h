@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINERCARD_SCREEN_H
 #define POKEPLATINUM_TRAINERCARD_SCREEN_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL TrainerCardScreen_Init(ApplicationManager *appMan, int *state);

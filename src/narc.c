@@ -222,30 +222,102 @@ static void ReadFromNarcMemberByPathAndIndex(void *dest, const char *path, int m
     u32 fileEnd = 0;
     u16 fileCount = 0;
 
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_OpenFile(&file, path);
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, 12, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     btnfStart = btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btnfStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileCount, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     GF_ASSERT(fileCount > memberIndex);
 
     gmifStart = btnfStart + btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, gmifStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     chunkSize = gmifStart + btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btnfStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, chunkSize + 8 + fileStart + offset, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
 
     if (bytesToRead) {
         btafStart = bytesToRead;
@@ -255,8 +327,16 @@ static void ReadFromNarcMemberByPathAndIndex(void *dest, const char *path, int m
 
     GF_ASSERT(btafStart != 0);
 
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, dest, btafStart);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_CloseFile(&file);
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
 }
 
 static void *AllocAndReadFromNarcMemberByPathAndIndex(const char *path, int memberIndex, int heapID, int offset, int bytesToRead, BOOL allocAtEnd)
@@ -271,30 +351,102 @@ static void *AllocAndReadFromNarcMemberByPathAndIndex(const char *path, int memb
     void *dest;
     u16 fileCount = 0;
 
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_OpenFile(&file, path);
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, 12, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     btnfStart = btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btnfStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileCount, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     GF_ASSERT(fileCount > memberIndex);
 
     gmifStart = btnfStart + btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, gmifStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &btafStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     chunkSize = gmifStart + btafStart;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btnfStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, chunkSize + 8 + fileStart + offset, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
 
     if (bytesToRead) {
         btafStart = bytesToRead;
@@ -310,8 +462,16 @@ static void *AllocAndReadFromNarcMemberByPathAndIndex(const char *path, int memb
         dest = Heap_AllocAtEnd(heapID, btafStart);
     }
 
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, dest, btafStart);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_CloseFile(&file);
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
 
     return dest;
 }
@@ -357,30 +517,102 @@ u32 NARC_GetMemberSizeByIndexPair(enum NarcID narcID, int memberIndex)
     u32 fileEnd = 0;
     u16 fileCount = 0;
 
+    #ifdef PLATFORM_DS
     FS_InitFile(&file);
+    #else
+    // TODO: Port FS_InitFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_OpenFile(&file, sNarcPaths[narcID]);
+    #else
+    // TODO: Port FS_OpenFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, 12, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &chunkSize, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     btafStart = chunkSize;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btafStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &chunkSize, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileCount, 2);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     GF_ASSERT(fileCount > memberIndex);
 
     btnfStart = btafStart + chunkSize;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btnfStart + 4, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &chunkSize, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     gmifStart = btnfStart + chunkSize;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, btafStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&file, gmifStart + 8 + fileStart, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
 
     chunkSize = fileEnd - fileStart;
 
@@ -400,18 +632,66 @@ NARC *NARC_ctor(enum NarcID narcID, u32 heapID)
 
         narc->fatbStart = 0;
 
+        #ifdef PLATFORM_DS
         FS_InitFile(&narc->file);
+        #else
+        // TODO: Port FS_InitFile to PAL
+        #endif
+        #ifdef PLATFORM_DS
         FS_OpenFile(&narc->file, sNarcPaths[narcID]);
+        #else
+        // TODO: Port FS_OpenFile to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port FS_SeekFile to PAL
+        #endif
         FS_SeekFile(&narc->file, 12, FS_SEEK_SET);
+        #else
+        // TODO: Port FS_SEEK_SET to PAL
+        #endif
+        #ifdef PLATFORM_DS
         FS_ReadFile(&narc->file, &(narc->fatbStart), 2);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port FS_SeekFile to PAL
+        #endif
         FS_SeekFile(&narc->file, narc->fatbStart + 4, FS_SEEK_SET);
+        #else
+        // TODO: Port FS_SEEK_SET to PAL
+        #endif
+        #ifdef PLATFORM_DS
         FS_ReadFile(&narc->file, &chunkSize, 4);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
+        #ifdef PLATFORM_DS
         FS_ReadFile(&narc->file, &(narc->numFiles), 2);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
 
         btnfStart = narc->fatbStart + chunkSize;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port FS_SeekFile to PAL
+        #endif
         FS_SeekFile(&narc->file, btnfStart + 4, FS_SEEK_SET);
+        #else
+        // TODO: Port FS_SEEK_SET to PAL
+        #endif
+        #ifdef PLATFORM_DS
         FS_ReadFile(&narc->file, &chunkSize, 4);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
 
         narc->fimgStart = btnfStart + chunkSize;
     }
@@ -421,7 +701,11 @@ NARC *NARC_ctor(enum NarcID narcID, u32 heapID)
 
 void NARC_dtor(NARC *param0)
 {
+    #ifdef PLATFORM_DS
     FS_CloseFile(&(param0->file));
+    #else
+    // TODO: Port FS_CloseFile to PAL
+    #endif
     Heap_Free(param0);
 }
 
@@ -433,15 +717,43 @@ void *NARC_AllocAndReadWholeMember(NARC *narc, u32 memberIndex, u32 heapID)
 
     GF_ASSERT(narc->numFiles > memberIndex);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fatbStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fimgStart + 8 + fileStart, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
 
     dest = Heap_Alloc(heapID, fileEnd - fileStart);
 
     if (dest) {
+        #ifdef PLATFORM_DS
         FS_ReadFile(&narc->file, dest, fileEnd - fileStart);
+        #else
+        // TODO: Port FS_ReadFile to PAL
+        #endif
     }
 
     return dest;
@@ -454,11 +766,39 @@ void NARC_ReadWholeMember(NARC *narc, u32 memberIndex, void *dest)
 
     GF_ASSERT(narc->numFiles > memberIndex);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fatbStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fimgStart + 8 + fileStart, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, dest, fileEnd - fileStart);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 }
 
 u32 NARC_GetMemberSize(NARC *narc, u32 memberIndex)
@@ -468,9 +808,25 @@ u32 NARC_GetMemberSize(NARC *narc, u32 memberIndex)
 
     GF_ASSERT(narc->numFiles > memberIndex);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fatbStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileEnd, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 
     return fileEnd - fileStart;
 }
@@ -481,20 +837,56 @@ void NARC_ReadFromMember(NARC *narc, u32 memberIndex, u32 offset, u32 bytesToRea
 
     GF_ASSERT(narc->numFiles > memberIndex);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fatbStart + 12 + memberIndex * 8, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, &fileStart, 4);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, narc->fimgStart + 8 + fileStart + offset, FS_SEEK_SET);
+    #else
+    // TODO: Port FS_SEEK_SET to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, dest, bytesToRead);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 }
 
 void NARC_ReadFile(NARC *narc, u32 bytesToRead, void *dest)
 {
+    #ifdef PLATFORM_DS
     FS_ReadFile(&narc->file, dest, bytesToRead);
+    #else
+    // TODO: Port FS_ReadFile to PAL
+    #endif
 }
 
 void NARC_Seek(NARC *narc, u32 offset)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port FS_SeekFile to PAL
+    #endif
     FS_SeekFile(&narc->file, offset, FS_SEEK_CUR);
+    #else
+    // TODO: Port FS_SEEK_CUR to PAL
+    #endif
 }
 
 u16 NARC_GetFileCount(NARC *narc)

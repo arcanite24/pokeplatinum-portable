@@ -1,10 +1,9 @@
 #include "bg_window.h"
 
 #ifdef PLATFORM_DS
-#include <nitro.h>
-#else
-#include "platform/platform_types.h"
+#error PLATFORM_DS is defined!
 #endif
+
 #include <string.h>
 
 #include "constants/graphics.h"
@@ -97,75 +96,167 @@ void Bg_InitFromTemplate(BgConfig *bgConfig, u8 bgLayer, const BgTemplate *bgTem
 
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG0Control(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase, bgTemplate->bgExtPltt);
+        #else
+        // TODO: Port G2_SetBG0Control to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(bgTemplate->priority);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BG0Mosaic(bgTemplate->mosaic);
+        #else
+        // TODO: Port G2_BG0Mosaic to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG1Control(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase, bgTemplate->bgExtPltt);
+        #else
+        // TODO: Port G2_SetBG1Control to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG1Priority(bgTemplate->priority);
+        #else
+        // TODO: Port G2_SetBG1Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BG1Mosaic(bgTemplate->mosaic);
+        #else
+        // TODO: Port G2_BG1Mosaic to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         switch (bgType) {
         default:
         case BG_TYPE_STATIC:
+            #ifdef PLATFORM_DS
             G2_SetBG2ControlText(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG2ControlText to PAL
+            #endif
             break;
         case BG_TYPE_AFFINE:
+            #ifdef PLATFORM_DS
             G2_SetBG2ControlAffine(screenSize, bgTemplate->areaOver, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG2ControlAffine to PAL
+            #endif
             break;
         case BG_TYPE_STATIC_WITH_AFFINE:
+            #ifdef PLATFORM_DS
             G2_SetBG2Control256x16Pltt(screenSize, bgTemplate->areaOver, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG2Control256x16Pltt to PAL
+            #endif
             break;
         }
 
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(bgTemplate->priority);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BG2Mosaic(bgTemplate->mosaic);
+        #else
+        // TODO: Port G2_BG2Mosaic to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
 
         switch (bgType) {
         default:
         case BG_TYPE_STATIC:
+            #ifdef PLATFORM_DS
             G2_SetBG3ControlText(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG3ControlText to PAL
+            #endif
             break;
         case BG_TYPE_AFFINE:
+            #ifdef PLATFORM_DS
             G2_SetBG3ControlAffine(screenSize, bgTemplate->areaOver, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG3ControlAffine to PAL
+            #endif
             break;
         case BG_TYPE_STATIC_WITH_AFFINE:
+            #ifdef PLATFORM_DS
             G2_SetBG3Control256x16Pltt(screenSize, bgTemplate->areaOver, bgTemplate->screenBase, bgTemplate->charBase);
+            #else
+            // TODO: Port G2_SetBG3Control256x16Pltt to PAL
+            #endif
             break;
         }
 
+        #ifdef PLATFORM_DS
         G2_SetBG3Priority(bgTemplate->priority);
+        #else
+        // TODO: Port G2_SetBG3Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_BG3Mosaic(bgTemplate->mosaic);
+        #else
+        // TODO: Port G2_BG3Mosaic to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_0:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         G2S_SetBG0Control(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase, bgTemplate->bgExtPltt);
         G2S_SetBG0Priority(bgTemplate->priority);
         G2S_BG0Mosaic(bgTemplate->mosaic);
         break;
 
     case BG_LAYER_SUB_1:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         G2S_SetBG1Control(screenSize, bgTemplate->colorMode, bgTemplate->screenBase, bgTemplate->charBase, bgTemplate->bgExtPltt);
         G2S_SetBG1Priority(bgTemplate->priority);
         G2S_BG1Mosaic(bgTemplate->mosaic);
         break;
 
     case BG_LAYER_SUB_2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
 
         switch (bgType) {
         default:
@@ -185,7 +276,11 @@ void Bg_InitFromTemplate(BgConfig *bgConfig, u8 bgLayer, const BgTemplate *bgTem
         break;
 
     case BG_LAYER_SUB_3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
 
         switch (bgType) {
         default:
@@ -246,7 +341,12 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
 
     switch (bgLayer) {
     case BG_LAYER_MAIN_0: {
+        #ifdef PLATFORM_DS
         GXBg01Control bgControl = G2_GetBG0Control();
+        #else
+        // TODO: Port G2_GetBG0Control to PAL
+        GXBg01Control bgControl = {0};
+        #endif
 
         if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
             bgControl.screenBase = val;
@@ -254,11 +354,20 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
             bgControl.charBase = val;
         }
 
+        #ifdef PLATFORM_DS
         G2_SetBG0Control(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase, bgControl.bgExtPltt);
+        #else
+        // TODO: Port G2_SetBG0Control to PAL
+        #endif
     } break;
 
     case BG_LAYER_MAIN_1: {
+        #ifdef PLATFORM_DS
         GXBg01Control bgControl = G2_GetBG1Control();
+        #else
+        // TODO: Port G2_GetBG1Control to PAL
+        GXBg01Control bgControl = {0};
+        #endif
 
         if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
             bgControl.screenBase = val;
@@ -266,14 +375,23 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
             bgControl.charBase = val;
         }
 
+        #ifdef PLATFORM_DS
         G2_SetBG1Control(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase, bgControl.bgExtPltt);
+        #else
+        // TODO: Port G2_SetBG1Control to PAL
+        #endif
     } break;
 
     case BG_LAYER_MAIN_2:
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText bgControl = G2_GetBG2ControlText();
+            #else
+            // TODO: Port G2_GetBG2ControlText to PAL
+            GXBg23ControlText bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -281,10 +399,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG2ControlText(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG2ControlText to PAL
+            #endif
         } break;
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine bgControl = G2_GetBG2ControlAffine();
+            #else
+            // TODO: Port G2_GetBG2ControlAffine to PAL
+            GXBg23ControlAffine bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -292,10 +419,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG2ControlAffine(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG2ControlAffine to PAL
+            #endif
         } break;
         case BG_TYPE_STATIC_WITH_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt bgControl = G2_GetBG2Control256x16Pltt();
+            #else
+            // TODO: Port G2_GetBG2Control256x16Pltt to PAL
+            GXBg23Control256x16Pltt bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -303,7 +439,11 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG2Control256x16Pltt(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG2Control256x16Pltt to PAL
+            #endif
         } break;
         }
 
@@ -313,7 +453,12 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText bgControl = G2_GetBG3ControlText();
+            #else
+            // TODO: Port G2_GetBG3ControlText to PAL
+            GXBg23ControlText bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -321,10 +466,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG3ControlText(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG3ControlText to PAL
+            #endif
         } break;
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine bgControl = G2_GetBG3ControlAffine();
+            #else
+            // TODO: Port G2_GetBG3ControlAffine to PAL
+            GXBg23ControlAffine bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -332,10 +486,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG3ControlAffine(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG3ControlAffine to PAL
+            #endif
         } break;
         case BG_TYPE_STATIC_WITH_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt bgControl = G2_GetBG3Control256x16Pltt();
+            #else
+            // TODO: Port G2_GetBG3Control256x16Pltt to PAL
+            GXBg23Control256x16Pltt bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -343,14 +506,23 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2_SetBG3Control256x16Pltt(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2_SetBG3Control256x16Pltt to PAL
+            #endif
         } break;
         }
 
         break;
 
     case BG_LAYER_SUB_0: {
+        #ifdef PLATFORM_DS
         GXBg01Control bgControl = G2S_GetBG0Control();
+        #else
+        // TODO: Port G2S_GetBG0Control to PAL
+        GXBg01Control bgControl = {0};
+        #endif
 
         if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
             bgControl.screenBase = val;
@@ -358,11 +530,20 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
             bgControl.charBase = val;
         }
 
+        #ifdef PLATFORM_DS
         G2S_SetBG0Control(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase, bgControl.bgExtPltt);
+        #else
+        // TODO: Port G2S_SetBG0Control to PAL
+        #endif
     } break;
 
     case BG_LAYER_SUB_1: {
+        #ifdef PLATFORM_DS
         GXBg01Control bgControl = G2S_GetBG1Control();
+        #else
+        // TODO: Port G2S_GetBG1Control to PAL
+        GXBg01Control bgControl = {0};
+        #endif
 
         if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
             bgControl.screenBase = val;
@@ -370,14 +551,23 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
             bgControl.charBase = val;
         }
 
+        #ifdef PLATFORM_DS
         G2S_SetBG1Control(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase, bgControl.bgExtPltt);
+        #else
+        // TODO: Port G2S_SetBG1Control to PAL
+        #endif
     } break;
 
     case BG_LAYER_SUB_2:
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText bgControl = G2S_GetBG2ControlText();
+            #else
+            // TODO: Port G2S_GetBG2ControlText to PAL
+            GXBg23ControlText bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -385,10 +575,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG2ControlText(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG2ControlText to PAL
+            #endif
         } break;
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine bgControl = G2S_GetBG2ControlAffine();
+            #else
+            // TODO: Port G2S_GetBG2ControlAffine to PAL
+            GXBg23ControlAffine bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -396,10 +595,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG2ControlAffine(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG2ControlAffine to PAL
+            #endif
         } break;
-        case BG_TYPE_STATIC_WITH_AFFINE: {
+        case BG_TYPE_256x16PLTT: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt bgControl = G2S_GetBG2Control256x16Pltt();
+            #else
+            // TODO: Port G2S_GetBG2Control256x16Pltt to PAL
+            GXBg23Control256x16Pltt bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -407,7 +615,11 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG2Control256x16Pltt(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG2Control256x16Pltt to PAL
+            #endif
         } break;
         }
 
@@ -417,7 +629,12 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText bgControl = G2S_GetBG3ControlText();
+            #else
+            // TODO: Port G2S_GetBG3ControlText to PAL
+            GXBg23ControlText bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -425,10 +642,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG3ControlText(bgControl.screenSize, bgConfig->bgs[bgLayer].colorMode, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG3ControlText to PAL
+            #endif
         } break;
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine bgControl = G2S_GetBG3ControlAffine();
+            #else
+            // TODO: Port G2S_GetBG3ControlAffine to PAL
+            GXBg23ControlAffine bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -436,10 +662,19 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG3ControlAffine(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG3ControlAffine to PAL
+            #endif
         } break;
-        case BG_TYPE_STATIC_WITH_AFFINE: {
+        case BG_TYPE_256x16PLTT: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt bgControl = G2S_GetBG3Control256x16Pltt();
+            #else
+            // TODO: Port G2S_GetBG3Control256x16Pltt to PAL
+            GXBg23Control256x16Pltt bgControl = {0};
+            #endif
 
             if (bgControlParam == BG_CONTROL_PARAM_SCREEN_BASE) {
                 bgControl.screenBase = val;
@@ -447,7 +682,11 @@ void Bg_SetControlParam(BgConfig *bgConfig, u8 bgLayer, enum BgControlParam bgCo
                 bgControl.charBase = val;
             }
 
+            #ifdef PLATFORM_DS
             G2S_SetBG3Control256x16Pltt(bgControl.screenSize, bgControl.areaOver, bgControl.screenBase, bgControl.charBase);
+            #else
+            // TODO: Port G2S_SetBG3Control256x16Pltt to PAL
+            #endif
         } break;
         }
         break;
@@ -564,19 +803,35 @@ void Bg_SetPriority(u8 bgLayer, u8 priority)
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(priority);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         G2_SetBG1Priority(priority);
+        #else
+        // TODO: Port G2_SetBG1Priority to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(priority);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         G2_SetBG3Priority(priority);
+        #else
+        // TODO: Port G2_SetBG3Priority to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_0:
@@ -601,35 +856,67 @@ void Bg_ToggleLayer(u8 bgLayer, u8 enable)
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG3, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_0:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_1:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG2, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         break;
 
     case BG_LAYER_SUB_3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG3, enable);
+        #else
+        // TODO: Port GX_PLANEMASK_BG3 to PAL
+        #endif
         break;
     }
 }
@@ -643,16 +930,28 @@ void Bg_SetOffset(BgConfig *bgConfig, u8 bgLayer, u8 bgUpdateOffsetOp, int val)
 
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         G2_SetBG0Offset(hOffset, vOffset);
+        #else
+        // TODO: Port G2_SetBG0Offset to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         G2_SetBG1Offset(hOffset, vOffset);
+        #else
+        // TODO: Port G2_SetBG1Offset to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_2:
         if (bgConfig->bgs[BG_LAYER_MAIN_2].type == BG_TYPE_STATIC) {
+            #ifdef PLATFORM_DS
             G2_SetBG2Offset(hOffset, vOffset);
+            #else
+            // TODO: Port G2_SetBG2Offset to PAL
+            #endif
         } else {
             ResetBgAffineTransforms(bgConfig, BG_LAYER_MAIN_2);
         }
@@ -660,7 +959,11 @@ void Bg_SetOffset(BgConfig *bgConfig, u8 bgLayer, u8 bgUpdateOffsetOp, int val)
 
     case BG_LAYER_MAIN_3:
         if (bgConfig->bgs[BG_LAYER_MAIN_3].type == BG_TYPE_STATIC) {
+            #ifdef PLATFORM_DS
             G2_SetBG3Offset(hOffset, vOffset);
+            #else
+            // TODO: Port G2_SetBG3Offset to PAL
+            #endif
         } else {
             ResetBgAffineTransforms(bgConfig, BG_LAYER_MAIN_3);
         }
@@ -735,11 +1038,19 @@ void Bg_SetAffineParams(BgConfig *bgConfig, u8 bgLayer, const MtxFx22 *mtx, int 
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         G2_SetBG2Affine(mtx, centerX, centerY, bgConfig->bgs[bgLayer].xOffset, bgConfig->bgs[bgLayer].yOffset);
+        #else
+        // TODO: Port G2_SetBG2Affine to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         G2_SetBG3Affine(mtx, centerX, centerY, bgConfig->bgs[bgLayer].xOffset, bgConfig->bgs[bgLayer].yOffset);
+        #else
+        // TODO: Port G2_SetBG3Affine to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_2:
@@ -816,35 +1127,67 @@ static void LoadBgVRAMScr(u8 bgLayer, void *src, u32 offset, u32 size)
 
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         GX_LoadBG0Scr(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG0Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         GX_LoadBG1Scr(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG1Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         GX_LoadBG2Scr(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG2Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         GX_LoadBG3Scr(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG3Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_0:
+        #ifdef PLATFORM_DS
         GXS_LoadBG0Scr(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG0Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_1:
+        #ifdef PLATFORM_DS
         GXS_LoadBG1Scr(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG1Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_2:
+        #ifdef PLATFORM_DS
         GXS_LoadBG2Scr(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG2Scr to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_3:
+        #ifdef PLATFORM_DS
         GXS_LoadBG3Scr(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG3Scr to PAL
+        #endif
         return;
     }
 }
@@ -885,35 +1228,67 @@ static void LoadBgVRAMChar(u8 bgLayer, void *src, u32 offset, u32 size)
 
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         GX_LoadBG0Char(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG0Char to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         GX_LoadBG1Char(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG1Char to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         GX_LoadBG2Char(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG2Char to PAL
+        #endif
         return;
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         GX_LoadBG3Char(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBG3Char to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_0:
+        #ifdef PLATFORM_DS
         GXS_LoadBG0Char(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG0Char to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_1:
+        #ifdef PLATFORM_DS
         GXS_LoadBG1Char(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG1Char to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_2:
+        #ifdef PLATFORM_DS
         GXS_LoadBG2Char(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG2Char to PAL
+        #endif
         return;
 
     case BG_LAYER_SUB_3:
+        #ifdef PLATFORM_DS
         GXS_LoadBG3Char(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBG3Char to PAL
+        #endif
         return;
     }
 }
@@ -951,9 +1326,17 @@ void Bg_LoadPalette(u8 bgLayer, void *src, u16 size, u16 offset)
     DC_FlushRange(src, size);
 
     if (bgLayer < BG_LAYER_SUB_0) {
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(src, offset, size);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_LoadBGPltt(src, offset, size);
+        #else
+        // TODO: Port GXS_LoadBGPltt to PAL
+        #endif
     }
 }
 
@@ -1282,16 +1665,32 @@ void *Bg_GetCharPtr(u8 bgLayer)
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         return G2_GetBG0CharPtr();
+        #else
+        // TODO: Port G2_GetBG0CharPtr to PAL
+        #endif
 
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         return G2_GetBG1CharPtr();
+        #else
+        // TODO: Port G2_GetBG1CharPtr to PAL
+        #endif
 
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         return G2_GetBG2CharPtr();
+        #else
+        // TODO: Port G2_GetBG2CharPtr to PAL
+        #endif
 
     case BG_LAYER_MAIN_3:
+        #ifdef PLATFORM_DS
         return G2_GetBG3CharPtr();
+        #else
+        // TODO: Port G2_GetBG3CharPtr to PAL
+        #endif
 
     case BG_LAYER_SUB_0:
         return G2S_GetBG0CharPtr();
@@ -1353,12 +1752,20 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_0: {
+        #ifdef PLATFORM_DS
         GXBg01Control control = G2_GetBG0Control();
+        #else
+        // TODO: Port G2_GetBG0Control to PAL
+        #endif
         return control.priority;
     }
 
     case BG_LAYER_MAIN_1: {
+        #ifdef PLATFORM_DS
         GXBg01Control control = G2_GetBG1Control();
+        #else
+        // TODO: Port G2_GetBG1Control to PAL
+        #endif
         return control.priority;
     }
 
@@ -1366,15 +1773,27 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText control = G2_GetBG2ControlText();
+            #else
+            // TODO: Port G2_GetBG2ControlText to PAL
+            #endif
             return control.priority;
         }
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine control = G2_GetBG2ControlAffine();
+            #else
+            // TODO: Port G2_GetBG2ControlAffine to PAL
+            #endif
             return control.priority;
         }
         case BG_TYPE_STATIC_WITH_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt control = G2_GetBG2Control256x16Pltt();
+            #else
+            // TODO: Port G2_GetBG2Control256x16Pltt to PAL
+            #endif
             return control.priority;
         }
         }
@@ -1383,15 +1802,27 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
+            #ifdef PLATFORM_DS
             GXBg23ControlText control = G2_GetBG3ControlText();
+            #else
+            // TODO: Port G2_GetBG3ControlText to PAL
+            #endif
             return control.priority;
         }
         case BG_TYPE_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23ControlAffine control = G2_GetBG3ControlAffine();
+            #else
+            // TODO: Port G2_GetBG3ControlAffine to PAL
+            #endif
             return control.priority;
         }
         case BG_TYPE_STATIC_WITH_AFFINE: {
+            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt control = G2_GetBG3Control256x16Pltt();
+            #else
+            // TODO: Port G2_GetBG3Control256x16Pltt to PAL
+            #endif
             return control.priority;
         }
         }
@@ -1461,7 +1892,7 @@ void Bitmap_BlitRect4bpp(const Bitmap *src, const Bitmap *dest, u16 srcX, u16 sr
 
     if (dest->height - destY < height) {
         yEnd = dest->height - destY + srcY;
-    } else {
+       } else {
         yEnd = height + srcY;
     }
 
@@ -1505,6 +1936,8 @@ void Bitmap_BlitRect8bpp(const Bitmap *src, const Bitmap *dest, u16 srcX, u16 sr
     } else {
         xEnd = width + srcX;
     }
+
+
 
     if (dest->height - destY < height) {
         yEnd = dest->height - destY + srcY;
@@ -1644,7 +2077,11 @@ void Window_Add(BgConfig *bgConfig, Window *window, u8 bgLayer, u8 tilemapLeft, 
     window->palette = palette;
     window->baseTile = baseTile;
     window->pixels = pixels;
+    #ifdef PLATFORM_DS
     window->colorMode = (bgConfig->bgs[bgLayer].colorMode == GX_BG_COLORMODE_16) ? BG_COLOR_MODE_4BPP : BG_COLOR_MODE_8BPP;
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
 }
 
 void Window_AddToTopLeftCorner(BgConfig *bgConfig, Window *window, u8 width, u8 height, u16 baseTile, u8 fillVal)
@@ -2004,7 +2441,11 @@ void Window_BlitBitmapRectWithTransparency(Window *window, void *src, u16 srcX, 
     bmpDest.width = window->width * 8;
     bmpDest.height = window->height * 8;
 
+    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
         Bitmap_BlitRect4bpp(&bmpSrc, &bmpDest, srcX, srcY, destX, destY, destWidth, destHeight, transparent);
     } else {
         Bitmap_BlitRect8bpp(&bmpSrc, &bmpDest, srcX, srcY, destX, destY, destWidth, destHeight, transparent);
@@ -2019,7 +2460,11 @@ void Window_FillRectWithColor(Window *window, u8 color, u16 x, u16 y, u16 width,
     bmp.width = window->width * 8;
     bmp.height = window->height * 8;
 
+    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
         Bitmap_FillRect4bpp((const Bitmap *)&bmp, x, y, width, height, color);
     } else {
         Bitmap_FillRect8bpp((const Bitmap *)&bmp, x, y, width, height, color);
@@ -2199,7 +2644,11 @@ void Window_CopyGlyph(Window *window, const u8 *glyphPixels, u16 srcWidth, u16 s
 
 void Window_Scroll(Window *window, u8 direction, u8 distance, u8 fillVal)
 {
+    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
         ScrollWindow4bpp(window, direction, distance, fillVal);
     } else {
         ScrollWindow8bpp(window, direction, distance, fillVal);
@@ -2440,30 +2889,42 @@ void Bg_ScheduleTilemapTransfer(BgConfig *bgConfig, u8 bgLayer)
 static void RunScheduledScrolls(BgConfig *bgConfig)
 {
     if ((bgConfig->scrollScheduled & (1 << BG_LAYER_MAIN_0)) != 0) {
+        #ifdef PLATFORM_DS
         G2_SetBG0Offset(bgConfig->bgs[BG_LAYER_MAIN_0].xOffset, bgConfig->bgs[BG_LAYER_MAIN_0].yOffset);
+        #else
+        // TODO: Port G2_SetBG0Offset to PAL
+        #endif
     }
 
     if ((bgConfig->scrollScheduled & (1 << BG_LAYER_MAIN_1)) != 0) {
+        #ifdef PLATFORM_DS
         G2_SetBG1Offset(bgConfig->bgs[BG_LAYER_MAIN_1].xOffset, bgConfig->bgs[BG_LAYER_MAIN_1].yOffset);
+        #else
+        // TODO: Port G2_SetBG1Offset to PAL
+        #endif
     }
 
     if ((bgConfig->scrollScheduled & (1 << BG_LAYER_MAIN_2)) != 0) {
         if (bgConfig->bgs[BG_LAYER_MAIN_2].type == BG_TYPE_STATIC) {
+            #ifdef PLATFORM_DS
             G2_SetBG2Offset(bgConfig->bgs[BG_LAYER_MAIN_2].xOffset, bgConfig->bgs[BG_LAYER_MAIN_2].yOffset);
+            #else
+            // TODO: Port G2_SetBG2Offset to PAL
+            #endif
         } else {
-            MtxFx22 mtx;
-            CreateAffineTransformationMatrix(&mtx, bgConfig->bgs[BG_LAYER_MAIN_2].rotation, bgConfig->bgs[BG_LAYER_MAIN_2].xScale, bgConfig->bgs[BG_LAYER_MAIN_2].yScale, AFFINE_MODE_MAX_360);
-            G2_SetBG2Affine(&mtx, bgConfig->bgs[BG_LAYER_MAIN_2].xCenter, bgConfig->bgs[BG_LAYER_MAIN_2].yCenter, bgConfig->bgs[BG_LAYER_MAIN_2].xOffset, bgConfig->bgs[BG_LAYER_MAIN_2].yOffset);
+            ResetBgAffineTransforms(bgConfig, BG_LAYER_MAIN_2);
         }
     }
 
     if ((bgConfig->scrollScheduled & (1 << BG_LAYER_MAIN_3)) != 0) {
         if (bgConfig->bgs[BG_LAYER_MAIN_3].type == BG_TYPE_STATIC) {
+            #ifdef PLATFORM_DS
             G2_SetBG3Offset(bgConfig->bgs[BG_LAYER_MAIN_3].xOffset, bgConfig->bgs[BG_LAYER_MAIN_3].yOffset);
+            #else
+            // TODO: Port G2_SetBG3Offset to PAL
+            #endif
         } else {
-            MtxFx22 mtx;
-            CreateAffineTransformationMatrix(&mtx, bgConfig->bgs[BG_LAYER_MAIN_3].rotation, bgConfig->bgs[BG_LAYER_MAIN_3].xScale, bgConfig->bgs[BG_LAYER_MAIN_3].yScale, AFFINE_MODE_MAX_360);
-            G2_SetBG3Affine(&mtx, bgConfig->bgs[BG_LAYER_MAIN_3].xCenter, bgConfig->bgs[BG_LAYER_MAIN_3].yCenter, bgConfig->bgs[BG_LAYER_MAIN_3].xOffset, bgConfig->bgs[BG_LAYER_MAIN_3].yOffset);
+            ResetBgAffineTransforms(bgConfig, BG_LAYER_MAIN_3);
         }
     }
 
@@ -2479,9 +2940,7 @@ static void RunScheduledScrolls(BgConfig *bgConfig)
         if (bgConfig->bgs[BG_LAYER_SUB_2].type == BG_TYPE_STATIC) {
             G2S_SetBG2Offset(bgConfig->bgs[BG_LAYER_SUB_2].xOffset, bgConfig->bgs[BG_LAYER_SUB_2].yOffset);
         } else {
-            MtxFx22 mtx;
-            CreateAffineTransformationMatrix(&mtx, bgConfig->bgs[BG_LAYER_SUB_2].rotation, bgConfig->bgs[BG_LAYER_SUB_2].xScale, bgConfig->bgs[BG_LAYER_SUB_2].yScale, AFFINE_MODE_MAX_360);
-            G2S_SetBG2Affine(&mtx, bgConfig->bgs[BG_LAYER_SUB_2].xCenter, bgConfig->bgs[BG_LAYER_SUB_2].yCenter, bgConfig->bgs[BG_LAYER_SUB_2].xOffset, bgConfig->bgs[BG_LAYER_SUB_2].yOffset);
+            ResetBgAffineTransforms(bgConfig, BG_LAYER_SUB_2);
         }
     }
 
@@ -2489,9 +2948,7 @@ static void RunScheduledScrolls(BgConfig *bgConfig)
         if (bgConfig->bgs[BG_LAYER_SUB_3].type == BG_TYPE_STATIC) {
             G2S_SetBG3Offset(bgConfig->bgs[BG_LAYER_SUB_3].xOffset, bgConfig->bgs[BG_LAYER_SUB_3].yOffset);
         } else {
-            MtxFx22 mtx;
-            CreateAffineTransformationMatrix(&mtx, bgConfig->bgs[BG_LAYER_SUB_3].rotation, bgConfig->bgs[BG_LAYER_SUB_3].xScale, bgConfig->bgs[BG_LAYER_SUB_3].yScale, AFFINE_MODE_MAX_360);
-            G2S_SetBG3Affine(&mtx, bgConfig->bgs[BG_LAYER_SUB_3].xCenter, bgConfig->bgs[BG_LAYER_SUB_3].yCenter, bgConfig->bgs[BG_LAYER_SUB_3].xOffset, bgConfig->bgs[BG_LAYER_SUB_3].yOffset);
+            ResetBgAffineTransforms(bgConfig, BG_LAYER_SUB_3);
         }
     }
 }
@@ -2621,7 +3078,11 @@ u8 Bg_DoesPixelAtXYMatchVal(BgConfig *bgConfig, u8 bgLayer, u16 x, u16 y, u16 *s
     xPixelOffset = x & 7;
     yPixelOffset = y & 7;
 
+    #ifdef PLATFORM_DS
     if (bgConfig->bgs[bgLayer].colorMode == GX_BG_COLORMODE_16) {
+    #else
+    // TODO: Port GX_BG_COLORMODE_16 to PAL
+    #endif
         u16 *tilemapBuffer = bgConfig->bgs[bgLayer].tilemapBuffer;
         u8 *tile = Heap_AllocAtEnd(bgConfig->heapID, 64);
 

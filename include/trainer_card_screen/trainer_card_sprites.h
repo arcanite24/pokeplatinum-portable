@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINERCARD_SPRITES_H
 #define POKEPLATINUM_TRAINERCARD_SPRITES_H
 
+#include "platform/platform_types.h"
+
 #include "trainer_card_screen/trainer_card_screen_defs.h"
 
 #include "narc.h"

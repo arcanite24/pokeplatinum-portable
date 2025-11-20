@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV111_021D2F80_H
 #define POKEPLATINUM_OV111_021D2F80_H
 
+#include "platform/platform_types.h"
+
 #include "overlay111/struct_ov111_021D2F80.h"
 
 #include "sprite.h"

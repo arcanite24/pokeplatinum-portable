@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_FISHING_H
 #define POKEPLATINUM_FISHING_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 #include "overlay006/wild_encounters.h"
 

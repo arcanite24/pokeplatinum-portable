@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SYSTEM_DATA_H
 #define POKEPLATINUM_SYSTEM_DATA_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/rtc.h>
 #else

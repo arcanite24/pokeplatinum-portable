@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV17_02243C28_H
 #define POKEPLATINUM_STRUCT_OV17_02243C28_H
 
+#include "platform/platform_types.h"
+
 #include "overlay017/struct_ov17_022539E4.h"
 
 typedef struct {

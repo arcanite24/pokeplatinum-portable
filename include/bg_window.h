@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BG_WINDOW_H
 #define POKEPLATINUM_BG_WINDOW_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #include <nitro/gx.h>
@@ -35,6 +37,7 @@ enum BgType {
     BG_TYPE_STATIC = 0,
     BG_TYPE_AFFINE,
     BG_TYPE_STATIC_WITH_AFFINE,
+    BG_TYPE_256x16PLTT,
 };
 
 enum BgControlParam {

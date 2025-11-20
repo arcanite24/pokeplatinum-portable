@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV82_0223B140_H
 #define POKEPLATINUM_OV82_0223B140_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL ov82_0223B140(ApplicationManager **appManPtr);

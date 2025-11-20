@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BATTLE_FRONTIER_TRAINER_DATA
 #define POKEPLATINUM_STRUCT_BATTLE_FRONTIER_TRAINER_DATA
 
+#include "platform/platform_types.h"
+
 typedef struct BattleFrontierTrainerData {
     u16 trainerType;
     u16 numSets;

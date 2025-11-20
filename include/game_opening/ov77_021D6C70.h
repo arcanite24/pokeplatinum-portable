@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV77_021D6C70_H
 #define POKEPLATINUM_OV77_021D6C70_H
 
+#include "platform/platform_types.h"
+
 #include "game_opening/struct_ov77_021D6CFC_decl.h"
 
 #include "particle_system.h"

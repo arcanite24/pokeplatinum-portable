@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_BAG_BUTTONS_H
 #define POKEPLATINUM_BATTLE_BAG_BUTTONS_H
 
+#include "platform/platform_types.h"
+
 #include "overlay013/battle_bag.h"
 
 #define BATTLE_BAG_POCKET_MENU_SCREEN_BUTTON_OFFSET   6

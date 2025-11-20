@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BAG_CONTEXT_H
 #define POKEPLATINUM_BAG_CONTEXT_H
 
+#include "platform/platform_types.h"
+
 #include "bag.h"
 #include "item_use_functions.h"
 #include "savedata.h"

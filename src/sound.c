@@ -121,27 +121,95 @@ int Sound_LoadSoundEffectsForScene(u8 scene)
     case 19:
         result = SoundSystem_LoadSoundGroup(GROUP_SE_FIELD);
 
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON02, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON03_2, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON05, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON01, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON07, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_ALERT4, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_DP_FW104, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_NOMI02, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_DP_023, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_POINT1, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_POINT2, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_POINT3, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_BALLOON05_2, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_DP_HAMARU, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_DP_CON_016, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_KIRAKIRA, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(SEQ_SE_PL_FCALL, NNS_SND_ARC_LOAD_SEQ);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_SEQ to PAL
+        #endif
         break;
     case 14:
         result = SoundSystem_LoadSoundGroup(GROUP_SE_NUTMIXER);
@@ -396,10 +464,18 @@ static void Sound_Impl_ResumeAndSwitchFieldBGM(u16 bgmID, u16 unused)
     u16 currentBankID = Sound_GetBankIDFromSequenceID(*currentBGM);
 
     if (currentBankID != BANK_BGM_FIELD && currentBankID != BANK_BGM_DUNGEON) {
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(bgmID, NNS_SND_ARC_LOAD_WAVE);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_WAVE to PAL
+        #endif
         GF_ASSERT(FALSE);
     } else {
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(*currentBGM, NNS_SND_ARC_LOAD_WAVE | NNS_SND_ARC_LOAD_BANK);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_BANK to PAL
+        #endif
     }
 
     SoundSystem_SaveHeapState(SoundSystem_GetParam(SOUND_SYSTEM_PARAM_HEAP_STATE_BGM));
@@ -416,17 +492,29 @@ void Sound_LoadSoundDataForFieldBGM(u16 seqID, u16 currentBankID)
     if (*bankState == FIELD_BGM_BANK_STATE_SWITCH || currentBankID == 0) {
         SoundSystem_LoadHeapState(Sound_GetHeapState(SOUND_HEAP_STATE_PERSISTENT));
         Sound_SetSubScene(0);
+        #ifdef PLATFORM_DS
         SoundSystem_LoadSequenceEx(*newFieldBGM, NNS_SND_ARC_LOAD_BANK);
+        #else
+        // TODO: Port NNS_SND_ARC_LOAD_BANK to PAL
+        #endif
         SoundSystem_SaveHeapState(SoundSystem_GetParam(SOUND_SYSTEM_PARAM_HEAP_STATE_BGM_BANK));
         Sound_LoadSoundEffectsForScene(SOUND_SCENE_FIELD);
         SoundSystem_SaveHeapState(SoundSystem_GetParam(SOUND_SYSTEM_PARAM_HEAP_STATE_SFX));
 
         u16 newBankID = Sound_GetBankIDFromSequenceID(*newFieldBGM);
         if (newBankID != BANK_BGM_FIELD && newBankID != BANK_BGM_DUNGEON) {
+            #ifdef PLATFORM_DS
             SoundSystem_LoadSequenceEx(seqID, NNS_SND_ARC_LOAD_WAVE);
+            #else
+            // TODO: Port NNS_SND_ARC_LOAD_WAVE to PAL
+            #endif
             GF_ASSERT(FALSE);
         } else {
+            #ifdef PLATFORM_DS
             SoundSystem_LoadSequenceEx(*newFieldBGM, NNS_SND_ARC_LOAD_WAVE);
+            #else
+            // TODO: Port NNS_SND_ARC_LOAD_WAVE to PAL
+            #endif
         }
 
         SoundSystem_SaveHeapState(SoundSystem_GetParam(SOUND_SYSTEM_PARAM_HEAP_STATE_BGM));
@@ -564,7 +652,11 @@ void Sound_SetBGMPlayerPaused(u8 playerID, BOOL paused)
         Sound_SetCurrentBGM(Sound_GetSequenceIDFromSoundHandle(SoundSystem_GetSoundHandle(handleType)));
     }
 
+    #ifdef PLATFORM_DS
     NNS_SndPlayerPause(SoundSystem_GetSoundHandle(handleType), paused);
+    #else
+    // TODO: Port NNS_SndPlayerPause to PAL
+    #endif
     *playerPaused = paused;
 }
 
@@ -579,7 +671,11 @@ void Sound_ClearBGMPauseFlags(void)
 
 void Sound_FadeVolumeForHandle(enum SoundHandleType handleType, int targetVolume, int frames)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerMoveVolume(SoundSystem_GetSoundHandle(handleType), targetVolume, frames);
+    #else
+    // TODO: Port NNS_SndPlayerMoveVolume to PAL
+    #endif
 }
 
 void Sound_SetInitialVolumeForHandle(enum SoundHandleType handleType, int volume)
@@ -592,7 +688,11 @@ void Sound_SetInitialVolumeForHandle(enum SoundHandleType handleType, int volume
         volume = SOUND_VOLUME_MAX;
     }
 
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetInitialVolume(SoundSystem_GetSoundHandle(handleType), volume);
+    #else
+    // TODO: Port NNS_SndPlayerSetInitialVolume to PAL
+    #endif
 }
 
 void Sound_AdjustVolumeForVoiceChat(int seqID)
@@ -606,7 +706,11 @@ void Sound_AdjustVolumeForVoiceChat(int seqID)
 void Sound_AdjustVolumeForVoiceChatEx(int seqID, enum SoundHandleType handleType)
 {
     u8 volume;
+    #ifdef PLATFORM_DS
     const NNSSndSeqParam *param = NNS_SndArcGetSeqParam(seqID);
+    #else
+    // TODO: Port NNS_SndArcGetSeqParam to PAL
+    #endif
 
     switch (handleType) {
     case SOUND_HANDLE_TYPE_POKEMON_CRY:
@@ -638,7 +742,11 @@ void Sound_SetInitialVolumeForSequence(u16 seqID, int volume)
 
 BOOL Sound_PlaySequenceWithPlayer(enum SoundHandleType handleType, int playerID, u16 seqID)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcPlayerStartSeqEx(SoundSystem_GetSoundHandle(handleType), playerID, -1, -1, seqID);
+    #else
+    // TODO: Port NNS_SndArcPlayerStartSeqEx to PAL
+    #endif
 }
 
 int Sound_GetNumberOfPlayingSequencesForPlayer(int playerID)
@@ -647,7 +755,11 @@ int Sound_GetNumberOfPlayingSequencesForPlayer(int playerID)
         GF_ASSERT(FALSE);
     }
 
+    #ifdef PLATFORM_DS
     return NNS_SndPlayerCountPlayingSeqByPlayerNo(playerID);
+    #else
+    // TODO: Port NNS_SndPlayerCountPlayingSeqByPlayerNo to PAL
+    #endif
 }
 
 u8 Sound_GetPlayerForSequence(u16 seqID)
@@ -656,7 +768,11 @@ u8 Sound_GetPlayerForSequence(u16 seqID)
         return 0xFF;
     }
 
+    #ifdef PLATFORM_DS
     const NNSSndSeqParam *param = NNS_SndArcGetSeqParam(seqID);
+    #else
+    // TODO: Port NNS_SndArcGetSeqParam to PAL
+    #endif
     if (param == NULL) {
         return 0xff;
     }
@@ -666,17 +782,29 @@ u8 Sound_GetPlayerForSequence(u16 seqID)
 
 int Sound_GetSequenceIDFromSoundHandle(NNSSndHandle *handle)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndPlayerGetSeqNo(handle);
+    #else
+    // TODO: Port NNS_SndPlayerGetSeqNo to PAL
+    #endif
 }
 
 const NNSSndArcBankInfo *Sound_GetBankInfoForSequence(int seqID)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcGetBankInfo(Sound_GetBankIDFromSequenceID(seqID));
+    #else
+    // TODO: Port NNS_SndArcGetBankInfo to PAL
+    #endif
 }
 
 u16 Sound_GetBankIDFromSequenceID(int seqID)
 {
+    #ifdef PLATFORM_DS
     const NNSSndSeqParam *param = NNS_SndArcGetSeqParam(seqID);
+    #else
+    // TODO: Port NNS_SndArcGetSeqParam to PAL
+    #endif
     if (param == NULL) {
         return 0;
     }
@@ -740,9 +868,17 @@ BOOL Sound_AllocateWaveOutChannel(enum WaveOutChannel channel)
     if (channel == WAVE_OUT_CHANNEL_PRIMARY) {
         if (*primaryAllocated == FALSE) {
             handle = SoundSystem_GetParam(SOUND_SYSTEM_PARAM_WAVE_OUT_PRIMARY_HANDLE);
+            #ifdef PLATFORM_DS
             *handle = NNS_SndWaveOutAllocChannel(channel);
+            #else
+            // TODO: Port NNS_SndWaveOutAllocChannel to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             if (*handle == NNS_SND_WAVEOUT_INVALID_HANDLE) {
+            #else
+            // TODO: Port NNS_SND_WAVEOUT_INVALID_HANDLE to PAL
+            #endif
                 return FALSE;
             }
 
@@ -753,9 +889,17 @@ BOOL Sound_AllocateWaveOutChannel(enum WaveOutChannel channel)
     } else {
         if (*secondaryAllocated == FALSE) {
             handle = SoundSystem_GetParam(SOUND_SYSTEM_PARAM_WAVE_OUT_SECONDARY_HANDLE);
+            #ifdef PLATFORM_DS
             *handle = NNS_SndWaveOutAllocChannel(channel);
+            #else
+            // TODO: Port NNS_SndWaveOutAllocChannel to PAL
+            #endif
 
+            #ifdef PLATFORM_DS
             if (*handle == NNS_SND_WAVEOUT_INVALID_HANDLE) {
+            #else
+            // TODO: Port NNS_SND_WAVEOUT_INVALID_HANDLE to PAL
+            #endif
                 return FALSE;
             }
 
@@ -782,14 +926,22 @@ void Sound_FreeWaveOutChannel(enum WaveOutChannel channel)
 
     if (channel == WAVE_OUT_CHANNEL_PRIMARY) {
         if (*primaryAllocated == TRUE) {
+            #ifdef PLATFORM_DS
             NNS_SndWaveOutFreeChannel(*Sound_GetWaveOutHandle(channel));
+            #else
+            // TODO: Port NNS_SndWaveOutFreeChannel to PAL
+            #endif
             *primaryAllocated = FALSE;
         } else {
             GF_ASSERT(FALSE);
         }
     } else {
         if (*secondaryAllocated == TRUE) {
+            #ifdef PLATFORM_DS
             NNS_SndWaveOutFreeChannel(*Sound_GetWaveOutHandle(channel));
+            #else
+            // TODO: Port NNS_SndWaveOutFreeChannel to PAL
+            #endif
             *secondaryAllocated = FALSE;
         } else {
             GF_ASSERT(FALSE);
@@ -799,7 +951,11 @@ void Sound_FreeWaveOutChannel(enum WaveOutChannel channel)
 
 BOOL Sound_PlayWaveOut(WaveOutParam *param, enum WaveOutChannel channel)
 {
+    #ifdef PLATFORM_DS
     BOOL success = NNS_SndWaveOutStart(
+    #else
+    // TODO: Port NNS_SndWaveOutStart to PAL
+    #endif
         *param->handle,
         param->format,
         param->data,
@@ -820,12 +976,20 @@ BOOL Sound_PlayWaveOut(WaveOutParam *param, enum WaveOutChannel channel)
 
 void Sound_StopWaveOut(enum WaveOutChannel channel)
 {
+    #ifdef PLATFORM_DS
     NNS_SndWaveOutStop(*Sound_GetWaveOutHandle(channel));
+    #else
+    // TODO: Port NNS_SndWaveOutStop to PAL
+    #endif
 }
 
 BOOL Sound_IsWaveOutPlaying(enum WaveOutChannel channel)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndWaveOutIsPlaying(*Sound_GetWaveOutHandle(channel));
+    #else
+    // TODO: Port NNS_SndWaveOutIsPlaying to PAL
+    #endif
 }
 
 void Sound_SetWaveOutPan(enum WaveOutChannel channel, u8 pan)
@@ -837,20 +1001,36 @@ void Sound_SetWaveOutPan(enum WaveOutChannel channel, u8 pan)
         clampedPan = pan;
     }
 
+    #ifdef PLATFORM_DS
     NNS_SndWaveOutSetPan(*Sound_GetWaveOutHandle(channel), clampedPan);
+    #else
+    // TODO: Port NNS_SndWaveOutSetPan to PAL
+    #endif
 }
 
 void Sound_SetWaveOutSpeed(enum WaveOutChannel channel, u32 speed)
 {
+    #ifdef PLATFORM_DS
     NNS_SndWaveOutSetSpeed(*Sound_GetWaveOutHandle(channel), speed);
+    #else
+    // TODO: Port NNS_SndWaveOutSetSpeed to PAL
+    #endif
 }
 
 void Sound_SetWaveOutVolume(enum WaveOutChannel channel, int volume)
 {
     if (sub_02036314() == 1) {
+        #ifdef PLATFORM_DS
         NNS_SndWaveOutSetVolume(*Sound_GetWaveOutHandle(channel), volume / 5);
+        #else
+        // TODO: Port NNS_SndWaveOutSetVolume to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         NNS_SndWaveOutSetVolume(*Sound_GetWaveOutHandle(channel), volume);
+        #else
+        // TODO: Port NNS_SndWaveOutSetVolume to PAL
+        #endif
     }
 }
 
@@ -863,13 +1043,21 @@ BOOL Sound_PlayWaveOutReversed(u16 waveArcID, int volume, int pan, enum WaveOutC
         GF_ASSERT(FALSE);
     }
 
+    #ifdef PLATFORM_DS
     const NNSSndArcWaveArcInfo *info = NNS_SndArcGetWaveArcInfo(waveArcID);
+    #else
+    // TODO: Port NNS_SndArcGetWaveArcInfo to PAL
+    #endif
     if (info == NULL) {
         GF_ASSERT(FALSE);
         return FALSE;
     }
 
+    #ifdef PLATFORM_DS
     u32 fileSize = NNS_SndArcGetFileSize(info->fileId);
+    #else
+    // TODO: Port NNS_SndArcGetFileSize to PAL
+    #endif
     if (fileSize == 0) {
         GF_ASSERT(FALSE);
         return FALSE;
@@ -884,7 +1072,11 @@ BOOL Sound_PlayWaveOutReversed(u16 waveArcID, int volume, int pan, enum WaveOutC
 
         memset(*reverseBuffer, 0, fileSize);
 
+        #ifdef PLATFORM_DS
         if (NNS_SndArcReadFile(info->fileId, *reverseBuffer, fileSize, 0) == -1) {
+        #else
+        // TODO: Port NNS_SndArcReadFile to PAL
+        #endif
             GF_ASSERT(FALSE);
             return FALSE;
         }
@@ -894,7 +1086,11 @@ BOOL Sound_PlayWaveOutReversed(u16 waveArcID, int volume, int pan, enum WaveOutC
 
     WaveOutParam param;
     param.handle = Sound_GetWaveOutHandle(channel);
+    #ifdef PLATFORM_DS
     param.format = NNS_SND_WAVE_FORMAT_PCM8;
+    #else
+    // TODO: Port NNS_SND_WAVE_FORMAT_PCM8 to PAL
+    #endif
     param.data = *reverseBuffer;
     param.loop = FALSE;
     param.loopStartSample = 0;
@@ -943,24 +1139,44 @@ void Sound_StopWaveOutReversed(enum WaveOutChannel channel)
 
 BOOL Sound_IsCaptureActive(void)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndCaptureIsActive();
+    #else
+    // TODO: Port NNS_SndCaptureIsActive to PAL
+    #endif
 }
 
 BOOL Sound_StartReverb(int volume)
 {
     UNUSED(SoundSystem_Get());
     void *buffer = SoundSystem_GetParam(SOUND_SYSTEM_PARAM_CAPTURE_BUFFER);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_SndCaptureStartReverb to PAL
+    #endif
     return NNS_SndCaptureStartReverb(buffer, 0x1000, (NNS_SND_CAPTURE_FORMAT_PCM16), 16000, volume);
+    #else
+    // TODO: Port NNS_SND_CAPTURE_FORMAT_PCM16 to PAL
+    #endif
 }
 
 void Sound_StopReverb(int frames)
 {
+    #ifdef PLATFORM_DS
     NNS_SndCaptureStopReverb(frames);
+    #else
+    // TODO: Port NNS_SndCaptureStopReverb to PAL
+    #endif
 }
 
 void Sound_SetReverbVolume(int targetVolume, int frames)
 {
+    #ifdef PLATFORM_DS
     NNS_SndCaptureSetReverbVolume(targetVolume, frames);
+    #else
+    // TODO: Port NNS_SndCaptureSetReverbVolume to PAL
+    #endif
 }
 
 BOOL Sound_StartFilter(void)
@@ -968,10 +1184,18 @@ BOOL Sound_StartFilter(void)
     UNUSED(SoundSystem_Get());
 
     MI_CpuClear8(SoundSystem_GetParam(SOUND_SYSTEM_PARAM_FILTER_CALLBACK_PARAM), sizeof(SoundFilterCallbackParam));
+    #ifdef PLATFORM_DS
     return NNS_SndCaptureStartEffect(
+    #else
+    // TODO: Port NNS_SndCaptureStartEffect to PAL
+    #endif
         SoundSystem_GetParam(SOUND_SYSTEM_PARAM_CAPTURE_BUFFER),
         SOUND_SYSTEM_CAPTURE_BUFFER_SIZE,
+        #ifdef PLATFORM_DS
         NNS_SND_CAPTURE_FORMAT_PCM16,
+        #else
+        // TODO: Port NNS_SND_CAPTURE_FORMAT_PCM16 to PAL
+        #endif
         SOUND_FILTER_SAMPLE_RATE,
         SOUND_FILTER_INTERVAL,
         Sound_Impl_FilterCallback,
@@ -980,7 +1204,11 @@ BOOL Sound_StartFilter(void)
 
 void Sound_StopFilter(void)
 {
+    #ifdef PLATFORM_DS
     NNS_SndCaptureStopEffect();
+    #else
+    // TODO: Port NNS_SndCaptureStopEffect to PAL
+    #endif
 }
 
 void Sound_SetFilterSize(int size)
@@ -998,7 +1226,11 @@ void Sound_SetFilterSize(int size)
 
 void Sound_SetPitchForHandle(enum SoundHandleType handleType, u16 tracks, int pitch)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetTrackPitch(SoundSystem_GetSoundHandle(handleType), tracks, pitch);
+    #else
+    // TODO: Port NNS_SndPlayerSetTrackPitch to PAL
+    #endif
 }
 
 void Sound_SetPitchForSequence(u16 seqID, u16 tracks, int pitch)
@@ -1011,17 +1243,29 @@ void Sound_SetPitchForSequence(u16 seqID, u16 tracks, int pitch)
 
 void Sound_SetPanForHandle(enum SoundHandleType handleType, u16 tracks, int pan)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetTrackPan(SoundSystem_GetSoundHandle(handleType), tracks, pan);
+    #else
+    // TODO: Port NNS_SndPlayerSetTrackPan to PAL
+    #endif
 }
 
 void Sound_SetTempoRatioForHandle(enum SoundHandleType handleType, int tempoRatio)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetTempoRatio(SoundSystem_GetSoundHandle(handleType), tempoRatio);
+    #else
+    // TODO: Port NNS_SndPlayerSetTempoRatio to PAL
+    #endif
 }
 
 void Sound_SetPlaybackMode(int mode)
 {
+    #ifdef PLATFORM_DS
     NNS_SndSetMonoFlag(mode);
+    #else
+    // TODO: Port NNS_SndSetMonoFlag to PAL
+    #endif
     sPlaybackMode = mode;
 }
 
@@ -1051,7 +1295,11 @@ BOOL Sound_UpdateFollowUpWaitFrames()
 
 void Sound_SetMasterVolume(int volume)
 {
+    #ifdef PLATFORM_DS
     NNS_SndSetMasterVolume(volume);
+    #else
+    // TODO: Port NNS_SndSetMasterVolume to PAL
+    #endif
 }
 
 void *Sound_GetWaveBuffer(void)
@@ -1149,19 +1397,31 @@ static const SNDWaveData *Sound_Impl_GetWaveDataForSpecies(int species)
         }
     }
 
+    #ifdef PLATFORM_DS
     const NNSSndArcWaveArcInfo *info = NNS_SndArcGetWaveArcInfo(waveArcID);
+    #else
+    // TODO: Port NNS_SndArcGetWaveArcInfo to PAL
+    #endif
     if (info == NULL) {
         GF_ASSERT(FALSE);
         return NULL;
     }
 
+    #ifdef PLATFORM_DS
     SNDWaveArc *waveArc = NNS_SndArcGetFileAddress(info->fileId);
+    #else
+    // TODO: Port NNS_SndArcGetFileAddress to PAL
+    #endif
     if (waveArc == NULL) {
         GF_ASSERT(FALSE);
         return NULL;
     }
 
+    #ifdef PLATFORM_DS
     *waveData = SND_GetWaveDataAddress(waveArc, 0);
+    #else
+    // TODO: Port SND_GetWaveDataAddress to PAL
+    #endif
     return *waveData;
 }
 
@@ -1192,7 +1452,11 @@ u32 Sound_GetNumberOfPlayedCrySamples(int unused, const SNDWaveData *data, int p
 
 u32 Sound_GetTicksForHandle(enum SoundHandleType handleType)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndPlayerGetTick(SoundSystem_GetSoundHandle(handleType));
+    #else
+    // TODO: Port NNS_SndPlayerGetTick to PAL
+    #endif
 }
 
 // Maps the number of times the sample midpoint (128) is crossed in a certain window
@@ -1294,7 +1558,11 @@ static void Sound_Impl_FilterCallback(void *bufferL, void *bufferR, u32 length, 
     u8 *filterSize = SoundSystem_GetParam(SOUND_SYSTEM_PARAM_FILTER_SIZE);
     int total, i, j; // Need to be declared here to match
 
+    #ifdef PLATFORM_DS
     int sampleCount = (format == NNS_SND_CAPTURE_FORMAT_PCM8) ? length : (length >> 1);
+    #else
+    // TODO: Port NNS_SND_CAPTURE_FORMAT_PCM8 to PAL
+    #endif
 
     if (*filterSize == 0) {
         return;
@@ -1333,7 +1601,11 @@ static void Sound_Impl_FilterCallback(void *bufferL, void *bufferR, u32 length, 
 
 static void Sound_SetBGMAllocatableChannels(u16 channels)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetAllocatableChannel(PLAYER_BGM, channels);
+    #else
+    // TODO: Port NNS_SndPlayerSetAllocatableChannel to PAL
+    #endif
 }
 
 void Sound_ConfigureBGMChannelsAndReverb(enum SoundChannelConfig config)
@@ -1364,7 +1636,11 @@ static void Sound_Impl_PauseOrStopFieldBGM(void)
 
 void Sound_SetPlayerVolume(int playerID, int volume)
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerSetPlayerVolume(playerID, volume);
+    #else
+    // TODO: Port NNS_SndPlayerSetPlayerVolume to PAL
+    #endif
 }
 
 void Sound_Set2PokemonCriesAllowed(BOOL allowed)

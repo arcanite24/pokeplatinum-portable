@@ -586,12 +586,28 @@ void ov62_02247574(UnkStruct_ov62_02246BF4 *param0)
 
     Graphics_LoadTilesToBgLayerFromOpenNARC(v0, 54, param0->unk_220.unk_0C, BG_LAYER_MAIN_3, 0, 0, FALSE, HEAP_ID_102);
     Graphics_LoadTilemapToBgLayerFromOpenNARC(v0, 43, v1, BG_LAYER_MAIN_3, 0, 0, FALSE, HEAP_ID_102);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_MAIN_OBJ, v2, v3, v0, 44, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 1000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, 40, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 1000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, 41, FALSE, 1000);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v2, v3, v0, 42, FALSE, 1000);
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(v4, PLTTBUF_MAIN_OBJ, v2, v3, v0, 88, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 1001);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(v2, v3, v0, 87, FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 1001);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(v2, v3, v0, 85, FALSE, 1001);
     SpriteSystem_LoadAnimResObjFromOpenNarc(v2, v3, v0, 86, FALSE, 1001);
 }
@@ -637,7 +653,11 @@ void ov62_02247754(UnkStruct_ov62_02246BF4 *param0)
     v3.z = 0;
     v3.animIdx = 0;
     v3.priority = 10;
+    #ifdef PLATFORM_DS
     v3.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v3.bgPriority = 0;
     v3.vramTransfer = FALSE;
     v3.plttIdx = 0;
@@ -678,7 +698,11 @@ void ov62_0224784C(UnkStruct_ov62_02246BF4 *param0)
     v0.z = 0;
     v0.animIdx = 0;
     v0.priority = 0;
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0.bgPriority = 0;
     v0.vramTransfer = FALSE;
     v0.plttIdx = 0;
@@ -704,7 +728,11 @@ void ov62_0224784C(UnkStruct_ov62_02246BF4 *param0)
     ov62_022479D4(param0, 0);
     ManagedSprite_SetAnim(param0->unk_188[1].unk_0C, param0->unk_188[1].unk_00);
     ManagedSprite_TickFrame(param0->unk_188[1].unk_0C);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(param0->unk_188[1].unk_0C, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     param0->unk_188[2].unk_14.unk_00 = 0;
     param0->unk_188[2].unk_14.unk_02 = 0;
@@ -713,7 +741,11 @@ void ov62_0224784C(UnkStruct_ov62_02246BF4 *param0)
     ov62_022479D4(param0, 0);
     ManagedSprite_SetAnim(param0->unk_188[2].unk_0C, param0->unk_188[2].unk_00);
     ManagedSprite_TickFrame(param0->unk_188[2].unk_0C);
+    #ifdef PLATFORM_DS
     ManagedSprite_SetExplicitOamMode(param0->unk_188[2].unk_0C, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
     ov62_02247968(param0, 1, 0);
     ov62_02247968(param0, 2, 0);
 }

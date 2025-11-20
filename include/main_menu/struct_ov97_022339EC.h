@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIN_MENU_022339EC_H
 #define POKEPLATINUM_STRUCT_MAIN_MENU_022339EC_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/struct_ov97_022339EC_sub1.h"
 
 typedef struct {

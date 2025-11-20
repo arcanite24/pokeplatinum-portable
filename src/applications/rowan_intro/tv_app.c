@@ -91,8 +91,16 @@ BOOL RowanIntroTv_Main(ApplicationManager *appMan, enum RowanIntroTvAppState *st
 
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
         SetAutorepeat(4, 8);
 
         RowanIntroTv_InitGraphics(tv);
@@ -105,7 +113,11 @@ BOOL RowanIntroTv_Main(ApplicationManager *appMan, enum RowanIntroTvAppState *st
             u16 *paletteAddress = (u16 *)GetHardwareMainBgPaletteAddress();
 
             BlendPalettes(paletteAddress, paletteAddress, 0xFFFC, 7, 0);
+            #ifdef PLATFORM_DS
             GX_LoadBGPltt((const void *)paletteAddress, 0, 16 * 0x20);
+            #else
+            // TODO: Port GX_LoadBGPltt to PAL
+            #endif
         }
 
         tv->delayUpdateCounter = 2 * 30;
@@ -197,16 +209,56 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
 {
     {
         UnkStruct_02099F80 banks = {
+            #ifdef PLATFORM_DS
             .unk_00 = GX_VRAM_BG_256_AB,
+            #else
+            // TODO: Port GX_VRAM_BG_256_AB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_04 = GX_VRAM_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_08 = GX_VRAM_SUB_BG_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BG_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_0C = GX_VRAM_SUB_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_10 = GX_VRAM_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_14 = GX_VRAM_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_18 = GX_VRAM_SUB_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_1C = GX_VRAM_SUB_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_20 = GX_VRAM_TEX_NONE,
+            #else
+            // TODO: Port GX_VRAM_TEX_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_24 = GX_VRAM_TEXPLTT_NONE
+            #else
+            // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+            #endif
         };
 
         GXLayers_SetBanks(&banks);
@@ -217,10 +269,26 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
     }
     {
         GraphicsModes graphicsModes = {
+            #ifdef PLATFORM_DS
             .displayMode = GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .mainBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .subBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bg0As2DOr3D = GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&graphicsModes);
@@ -236,10 +304,18 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
                 .bufferSize = 0x800,
                 .baseTile = 0,
                 .screenSize = BG_SCREEN_SIZE_256x256,
+                #ifdef PLATFORM_DS
                 .colorMode = GX_BG_COLORMODE_16,
+                #else
+                // TODO: Port GX_BG_COLORMODE_16 to PAL
+                #endif
                 .screenBase = GX_BG_SCRBASE_0x0000,
                 .charBase = GX_BG_CHARBASE_0x18000,
+                #ifdef PLATFORM_DS
                 .bgExtPltt = GX_BG_EXTPLTT_01,
+                #else
+                // TODO: Port GX_BG_EXTPLTT_01 to PAL
+                #endif
                 .priority = 1,
                 .areaOver = 0,
                 .mosaic = FALSE,
@@ -258,10 +334,18 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
                 .bufferSize = 0x800,
                 .baseTile = 0,
                 .screenSize = BG_SCREEN_SIZE_256x256,
+                #ifdef PLATFORM_DS
                 .colorMode = GX_BG_COLORMODE_16,
+                #else
+                // TODO: Port GX_BG_COLORMODE_16 to PAL
+                #endif
                 .screenBase = GX_BG_SCRBASE_0x0800,
                 .charBase = GX_BG_CHARBASE_0x14000,
+                #ifdef PLATFORM_DS
                 .bgExtPltt = GX_BG_EXTPLTT_01,
+                #else
+                // TODO: Port GX_BG_EXTPLTT_01 to PAL
+                #endif
                 .priority = 1,
                 .areaOver = 0,
                 .mosaic = FALSE,
@@ -298,10 +382,18 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
                 .bufferSize = 0x800,
                 .baseTile = 0,
                 .screenSize = BG_SCREEN_SIZE_256x256,
+                #ifdef PLATFORM_DS
                 .colorMode = GX_BG_COLORMODE_16,
+                #else
+                // TODO: Port GX_BG_COLORMODE_16 to PAL
+                #endif
                 .screenBase = GX_BG_SCRBASE_0x1000,
                 .charBase = GX_BG_CHARBASE_0x10000,
+                #ifdef PLATFORM_DS
                 .bgExtPltt = GX_BG_EXTPLTT_01,
+                #else
+                // TODO: Port GX_BG_EXTPLTT_01 to PAL
+                #endif
                 .priority = 1,
                 .areaOver = 0,
                 .mosaic = FALSE,
@@ -338,10 +430,18 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
                 .bufferSize = 0x800,
                 .baseTile = 0,
                 .screenSize = BG_SCREEN_SIZE_256x256,
+                #ifdef PLATFORM_DS
                 .colorMode = GX_BG_COLORMODE_256,
+                #else
+                // TODO: Port GX_BG_COLORMODE_256 to PAL
+                #endif
                 .screenBase = GX_BG_SCRBASE_0x1800,
                 .charBase = GX_BG_CHARBASE_0x20000,
+                #ifdef PLATFORM_DS
                 .bgExtPltt = GX_BG_EXTPLTT_01,
+                #else
+                // TODO: Port GX_BG_EXTPLTT_01 to PAL
+                #endif
                 .priority = 1,
                 .areaOver = 0,
                 .mosaic = FALSE,
@@ -385,7 +485,19 @@ static void RowanIntroTv_InitGraphics(RowanIntroTv *tv)
     Bg_MaskPalette(BG_LAYER_MAIN_0, 0);
     Bg_MaskPalette(BG_LAYER_SUB_0, 0);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, 4, 12);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+    #endif
 }
 
 static void RowanIntroTv_FreeGraphics(RowanIntroTv *tv)
@@ -399,7 +511,11 @@ static void RowanIntroTv_FreeGraphics(RowanIntroTv *tv)
     Bg_ToggleLayer(BG_LAYER_SUB_2, FALSE);
     Bg_ToggleLayer(BG_LAYER_SUB_3, FALSE);
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 
     Bg_FreeTilemapBuffer(tv->bgConfig, BG_LAYER_MAIN_3);
     Bg_FreeTilemapBuffer(tv->bgConfig, BG_LAYER_MAIN_1);
@@ -470,7 +586,15 @@ static BOOL RowanIntroTv_Run(RowanIntroTv *tv, int msgEntryID, int unused0, int 
         }
         break;
     case RIT_STATE_WAIT_INPUT:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A) == PAD_BUTTON_A || JOY_NEW(PAD_BUTTON_B) == PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             tv->state = RIT_STATE_EXIT;
         }
         break;

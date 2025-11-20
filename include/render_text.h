@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RENDER_TEXT_H
 #define POKEPLATINUM_RENDER_TEXT_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "charcode.h"
 #include "strbuf.h"

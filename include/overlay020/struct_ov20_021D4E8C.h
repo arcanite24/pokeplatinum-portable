@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV20_021D4E8C_H
 #define POKEPLATINUM_STRUCT_OV20_021D4E8C_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "sys_task_manager.h"
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV95_0224B3D8_H
 #define POKEPLATINUM_OV95_0224B3D8_H
 
+#include "platform/platform_types.h"
+
 #include "overlay095/ov95_02246C20.h"
 
 void *ov95_0224B3D8(TradeSequenceData *param0);

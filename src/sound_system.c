@@ -33,20 +33,40 @@ void SoundSystem_Init(ChatotCry *chatotCry, Options *options)
 {
     SoundSystem *soundSys = SoundSystem_Get();
 
+    #ifdef PLATFORM_DS
     NNS_SndInit();
+    #else
+    // TODO: Port NNS_SndInit to PAL
+    #endif
 
     SoundSystem_InitMic();
     SoundSystem_InitHeapStates(soundSys);
 
+    #ifdef PLATFORM_DS
     soundSys->heap = NNS_SndHeapCreate(&soundSys->heapBuffer, sizeof(soundSys->heapBuffer));
+    #else
+    // TODO: Port NNS_SndHeapCreate to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_SndArcInit(&soundSys->arc, "data/sound/pl_sound_data.sdat", soundSys->heap, 0);
+    #else
+    // TODO: Port NNS_SndArcInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_SndArcPlayerSetup(soundSys->heap);
+    #else
+    // TODO: Port NNS_SndArcPlayerSetup to PAL
+    #endif
 
     SoundSystem_InitSoundHandles(soundSys);
     SoundSystem_LoadPersistentGroup(soundSys);
 
+    #ifdef PLATFORM_DS
     sOutputEffectType = NNS_SND_CAPTURE_OUTPUT_EFFECT_NORMAL;
+    #else
+    // TODO: Port NNS_SND_CAPTURE_OUTPUT_EFFECT_NORMAL to PAL
+    #endif
     soundSys->chatotCry = chatotCry;
 
     Sound_SetPlaybackMode(options->soundMode);
@@ -82,7 +102,11 @@ void SoundSystem_Tick()
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_SndMain();
+    #else
+    // TODO: Port NNS_SndMain to PAL
+    #endif
 }
 
 static void SoundSystem_UpdateState()
@@ -278,7 +302,11 @@ void *SoundSystem_GetParam(enum SoundSystemParam param)
 
 int SoundSystem_SaveHeapState(int *state)
 {
+    #ifdef PLATFORM_DS
     int newState = NNS_SndHeapSaveState(SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndHeapSaveState to PAL
+    #endif
     if (newState == SOUND_HEAP_STATE_INVALID) {
         GF_ASSERT(FALSE);
     }
@@ -292,32 +320,56 @@ int SoundSystem_SaveHeapState(int *state)
 
 void SoundSystem_LoadHeapState(int state)
 {
+    #ifdef PLATFORM_DS
     NNS_SndHeapLoadState(SoundSystem_Get()->heap, state);
+    #else
+    // TODO: Port NNS_SndHeapLoadState to PAL
+    #endif
 }
 
 BOOL SoundSystem_LoadSoundGroup(u16 group)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcLoadGroup(group, SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndArcLoadGroup to PAL
+    #endif
 }
 
 BOOL SoundSystem_LoadSequence(u16 id)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcLoadSeq(id, SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndArcLoadSeq to PAL
+    #endif
 }
 
 BOOL SoundSystem_LoadSequenceEx(u16 id, u32 flags)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcLoadSeqEx(id, flags, SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndArcLoadSeqEx to PAL
+    #endif
 }
 
 BOOL SoundSystem_LoadWaveArc(u16 id)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcLoadWaveArc(id, SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndArcLoadWaveArc to PAL
+    #endif
 }
 
 BOOL SoundSystem_LoadBank(u16 id)
 {
+    #ifdef PLATFORM_DS
     return NNS_SndArcLoadBank(id, SoundSystem_Get()->heap);
+    #else
+    // TODO: Port NNS_SndArcLoadBank to PAL
+    #endif
 }
 
 NNSSndHandle *SoundSystem_GetSoundHandle(enum SoundHandleType type)
@@ -382,7 +434,11 @@ static void SoundSystem_InitHeapStates(SoundSystem *soundSys)
 static void SoundSystem_InitSoundHandles(SoundSystem *soundSys)
 {
     for (int i = 0; i < SOUND_HANDLE_TYPE_COUNT; i++) {
+        #ifdef PLATFORM_DS
         NNS_SndHandleInit(&soundSys->soundHandles[i]);
+        #else
+        // TODO: Port NNS_SndHandleInit to PAL
+        #endif
     }
 }
 
@@ -402,6 +458,14 @@ static void SoundSystem_InitMic()
 
 static void SoundSystem_StopBGM()
 {
+    #ifdef PLATFORM_DS
     NNS_SndPlayerStopSeqByPlayerNo(PLAYER_BGM, 0);
+    #else
+    // TODO: Port NNS_SndPlayerStopSeqByPlayerNo to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_SndHandleReleaseSeq(SoundSystem_GetSoundHandle(SOUND_HANDLE_TYPE_BGM));
+    #else
+    // TODO: Port NNS_SndHandleReleaseSeq to PAL
+    #endif
 }

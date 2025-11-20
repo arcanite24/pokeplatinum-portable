@@ -105,7 +105,11 @@ int ov118_021D0DBC(PartyMenuApplication *param0)
         v0->unk_00++;
         break;
     case 4:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
         ov118_021D1028(v0);
         v0->unk_00++;
         break;
@@ -171,7 +175,19 @@ static void ov118_021D0F88(PartyMenuApplication *param0)
     sub_0207EA74(param0, 0);
     ov118_021D0FDC(param0->unk_B24);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_ALL, 31, 0);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
 }
 
 static void ov118_021D0FB8(PartyMenuApplication *param0)
@@ -179,7 +195,11 @@ static void ov118_021D0FB8(PartyMenuApplication *param0)
     ov118_021D110C(param0->unk_B24);
     sub_0207EA74(param0, 1);
 
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 }
 
 static void ov118_021D0FDC(OverlayMetadata *param0)
@@ -237,7 +257,11 @@ static int ov118_021D10E8(void)
     }
 
     ParticleSystem_UpdateAll();
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
 
     return v0;
 }
@@ -253,21 +277,49 @@ static u32 ov118_021D1128(u32 param0, BOOL param1)
 {
     NNSGfdTexKey v0;
 
+    #ifdef PLATFORM_DS
     v0 = NNS_GfdAllocTexVram(param0, param1, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(v0 != NNS_GFD_ALLOC_ERROR_TEXKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
     ParticleSystem_RegisterTextureKey(v0);
 
+    #ifdef PLATFORM_DS
     return NNS_GfdGetTexKeyAddr(v0);
+    #else
+    // TODO: Port NNS_GfdGetTexKeyAddr to PAL
+    #endif
 }
 
 static u32 ov118_021D114C(u32 param0, BOOL param1)
 {
     NNSGfdPlttKey v0;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    #endif
     v0 = NNS_GfdAllocPlttVram(param0, param1, NNS_GFD_ALLOC_FROM_LOW);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_FROM_LOW to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(v0 != NNS_GFD_ALLOC_ERROR_PLTTKEY);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
 
     ParticleSystem_RegisterPaletteKey(v0);
 
+    #ifdef PLATFORM_DS
     return NNS_GfdGetPlttKeyAddr(v0);
+    #else
+    // TODO: Port NNS_GfdGetPlttKeyAddr to PAL
+    #endif
 }

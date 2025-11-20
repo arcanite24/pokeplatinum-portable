@@ -133,7 +133,11 @@ void BrightnessController_SetScreenBrightness(const s16 brightness, const int pl
 {
     if (IS_SCREEN_SELECTED(screenSelect, BRIGHTNESS_MAIN_SCREEN)) {
 #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
         G2_SetBlendBrightness(planeMask, brightness);
+        #else
+        // TODO: Port G2_SetBlendBrightness to PAL
+        #endif
 #else
         (void)brightness;
         (void)planeMask;

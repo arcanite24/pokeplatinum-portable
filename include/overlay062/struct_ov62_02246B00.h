@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_02246B00_H
 #define POKEPLATINUM_STRUCT_OV62_02246B00_H
 
+#include "platform/platform_types.h"
+
 #include "game_options.h"
 #include "strbuf.h"
 

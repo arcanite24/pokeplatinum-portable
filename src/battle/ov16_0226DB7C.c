@@ -33,7 +33,11 @@ static const SpriteTemplate Unk_ov16_02270AA4 = {
     0x0,
     0x0,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x0, 0x0, 0x0, 0x0, 0xFFFFFFFF, 0xFFFFFFFF },
     0x0,
     0x0
@@ -43,8 +47,16 @@ void ov16_0226DB7C(SpriteSystem *param0, SpriteManager *param1, PaletteData *par
 {
     NARC *v0 = NARC_ctor(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, heapID);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(param2, PLTTBUF_SUB_OBJ, param0, param1, v0, 80, FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, param5);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(param0, param1, v0, 250, TRUE, NNS_G2D_VRAM_TYPE_2DSUB, param4);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(param0, param1, v0, 251, TRUE, param6);
     SpriteSystem_LoadAnimResObjFromOpenNarc(param0, param1, v0, 252, TRUE, param7);
     NARC_dtor(v0);

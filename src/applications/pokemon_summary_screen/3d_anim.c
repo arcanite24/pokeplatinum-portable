@@ -136,23 +136,47 @@ static const ConditionVtxBounds sConditionRectBounds[][MAX_CONDITION_RECT_VTX] =
 
 void PokemonSummaryScreen_Setup3DGfx(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dInit();
+    #else
+    // TODO: Port NNS_G3dInit to PAL
+    #endif
 
     G3X_Init();
     G3X_InitMtxStack();
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AlphaTest(0, 0);
     G3X_AlphaBlend(1);
     G3X_AntiAlias(1);
     G3X_EdgeMarking(0);
     G3X_SetFog(0, 0, 0, 0);
     G3X_SetClearColor(0, 0, 0x7FFF, 63, 0);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
     G3_ViewPort(0, 0, 255, 191);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
 }
 
 void PokemonSummaryScreen_Update3DGfx(PokemonSummaryScreen *summaryScreen)
@@ -161,21 +185,49 @@ void PokemonSummaryScreen_Update3DGfx(PokemonSummaryScreen *summaryScreen)
         G3_ResetG3X();
         Camera_ComputeViewMatrix();
 
+        #ifdef PLATFORM_DS
         G3_MtxMode(GX_MTXMODE_PROJECTION);
+        #else
+        // TODO: Port GX_MTXMODE_PROJECTION to PAL
+        #endif
         G3_Identity();
+        #ifdef PLATFORM_DS
         G3_MtxMode(GX_MTXMODE_POSITION_VECTOR);
+        #else
+        // TODO: Port GX_MTXMODE_POSITION_VECTOR to PAL
+        #endif
         G3_Identity();
 
+        #ifdef PLATFORM_DS
         NNS_G3dGlbFlush();
+        #else
+        // TODO: Port NNS_G3dGlbFlush to PAL
+        #endif
         DrawConditionRects(summaryScreen->currRects);
+        #ifdef PLATFORM_DS
         NNS_G3dGlbFlush();
+        #else
+        // TODO: Port NNS_G3dGlbFlush to PAL
+        #endif
         UpdateConditionRectsOrFlash(summaryScreen);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G2dSetupSoftwareSpriteCamera();
+    #else
+    // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+    #endif
     PokemonSpriteManager_DrawSprites(summaryScreen->monSprite.spriteManager);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_MANUAL to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_MANUAL, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
 }
 
 void PokemonSummaryScreen_FreeCameraAndMonSprite(PokemonSummaryScreen *summaryScreen)
@@ -203,17 +255,45 @@ void PokemonSummaryScreen_SetupCamera(PokemonSummaryScreen *summaryScreen)
 
 static void DrawConditionRects(ConditionRectangle *rects)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_LIGHTMASK_NONE to PAL
+    #endif
     G3_PolygonAttr(GX_LIGHTMASK_NONE, GX_POLYGONMODE_MODULATE, GX_CULL_NONE, 18, 20, 0);
+    #else
+    // TODO: Port GX_CULL_NONE to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G3_Begin(GX_BEGIN_QUADS);
+    #else
+    // TODO: Port GX_BEGIN_QUADS to PAL
+    #endif
 
     for (u32 i = 0; i < MAX_CONDITION_RECT; i++) {
+        #ifdef PLATFORM_DS
         G3_Color(GX_RGB(8, 31, 15));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         G3_Vtx(rects[i].topLeft.x, rects[i].topLeft.y, rects[i].topLeft.z);
+        #ifdef PLATFORM_DS
         G3_Color(GX_RGB(8, 31, 15));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         G3_Vtx(rects[i].topRight.x, rects[i].topRight.y, rects[i].topRight.z);
+        #ifdef PLATFORM_DS
         G3_Color(GX_RGB(8, 31, 15));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         G3_Vtx(rects[i].bottomRight.x, rects[i].bottomRight.y, rects[i].bottomRight.z);
+        #ifdef PLATFORM_DS
         G3_Color(GX_RGB(8, 31, 15));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         G3_Vtx(rects[i].bottomLeft.x, rects[i].bottomLeft.y, rects[i].bottomLeft.z);
     }
 

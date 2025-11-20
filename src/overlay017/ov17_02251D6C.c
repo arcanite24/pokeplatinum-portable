@@ -821,15 +821,27 @@ static void ov17_022529C8(SysTask *param0, void *param1)
 
     switch (v0->unk_10) {
     case 0:
+        #ifdef PLATFORM_DS
         BrightnessController_StartTransition(90, 16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), BRIGHTNESS_BOTH_SCREENS);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         Sound_StopBGM(SEQ_CO_FANFA, 90);
         v0->unk_10++;
         break;
     case 1:
         if ((BrightnessController_IsTransitionComplete(BRIGHTNESS_BOTH_SCREENS) == TRUE) && (Sound_IsFadeActive() == FALSE)) {
             ov17_02251020(v0->unk_00);
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(16);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GXS_SetMasterBrightness(16);
+            #else
+            // TODO: Port GXS_SetMasterBrightness to PAL
+            #endif
             v0->unk_10++;
         }
         break;

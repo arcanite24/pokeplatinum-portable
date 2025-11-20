@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV16_0226DE44_H
 #define POKEPLATINUM_OV16_0226DE44_H
 
+#include "platform/platform_types.h"
+
 #include "battle/struct_ov16_0226DEEC_decl.h"
 
 #include "palette.h"

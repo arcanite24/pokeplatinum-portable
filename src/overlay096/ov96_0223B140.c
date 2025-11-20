@@ -334,7 +334,11 @@ void ov96_0223B530(void)
 
 void WorldExchange_SetProfile(const WorldExchangeTrainer *param0, WorldExchangeTrainerError *param1)
 {
+    #ifdef PLATFORM_DS
     OS_GetMacAddress((u8 *)param0->macAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     memcpy(Unk_ov96_0223DDE0.unk_14, param0, sizeof(WorldExchangeTrainer));
     Unk_ov96_0223DDE0.unk_108 = (u8 *)param1;

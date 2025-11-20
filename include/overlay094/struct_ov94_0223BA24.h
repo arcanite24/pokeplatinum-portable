@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV94_0223BA24_H
 #define POKEPLATINUM_STRUCT_OV94_0223BA24_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     s16 species;
     s8 gender;

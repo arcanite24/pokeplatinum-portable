@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV66_022324F0_H
 #define POKEPLATINUM_STRUCT_OV66_022324F0_H
 
+#include "platform/platform_types.h"
+
 #include <ppwlobby/ppw_lobby.h>
 
 typedef void (*UnkFuncPtr_ov66_0222DDF0_1)(s32, const void *, void *, BOOL);

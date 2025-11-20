@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV96_0223B140_H
 #define POKEPLATINUM_OV96_0223B140_H
 
+#include "platform/platform_types.h"
+
 #include "overlay096/struct_ov96_0223B450.h"
 #include "overlay096/struct_ov96_0223B450_sub1.h"
 #include "overlay096/struct_world_exchange_trainer.h"

@@ -28,8 +28,16 @@
 #include "unk_02014A84.h"
 #include "unk_0209747C.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay20);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay75);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int heapID;
@@ -292,20 +300,36 @@ static int sub_020979A8(ApplicationManager *appMan, int *param1)
     UnkStruct_02097944 *v0 = ApplicationManager_Data(appMan);
     UnkStruct_02097728 *v1 = (UnkStruct_02097728 *)ApplicationManager_Args(appMan);
 
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay75);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay20);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     static const ApplicationManagerTemplate v2 = {
         ov75_021D0D80,
         ov75_021D0DF8,
         ov75_021D0E10,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay75),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
     static const ApplicationManagerTemplate v3 = {
         ov20_021D0D80,
         ov20_021D0DF8,
         ov20_021D0EA8,
+        #ifdef PLATFORM_DS
         FS_OVERLAY_ID(overlay20),
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
     };
 
     switch (*param1) {

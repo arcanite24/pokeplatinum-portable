@@ -50,7 +50,15 @@ enum RenderResult RenderText(TextPrinter *printer)
 
     switch (printer->state) {
     case RENDER_STATE_HANDLE_CHAR:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if ((JOY_HELD(PAD_BUTTON_A | PAD_BUTTON_B) && substruct->speedUp) || SPEED_UP_ON_TOUCH_HOLD) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             printer->delayCounter = 0;
 
             if (printer->textSpeedBottom != 0) {
@@ -62,7 +70,15 @@ enum RenderResult RenderText(TextPrinter *printer)
             printer->delayCounter--;
 
             if (sRenderControlFlags.canABSpeedUpPrint
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port PAD_BUTTON_A to PAL
+                #endif
                 && (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || SPEED_UP_ON_TOUCH_PRESS)) {
+                #else
+                // TODO: Port PAD_BUTTON_B to PAL
+                #endif
                 substruct->speedUp = TRUE;
                 printer->delayCounter = 0;
             }
@@ -383,7 +399,15 @@ void TextPrinter_ClearScrollArrow(TextPrinter *printer)
 
 static BOOL TextPrinter_Continue(TextPrinter *printer)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         || (gSystem.touchPressed && sRenderControlFlags.speedUpOnTouch)) {
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         sRenderControlFlags.waitBattle = TRUE;

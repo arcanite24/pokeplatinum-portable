@@ -38,14 +38,22 @@ static UnkStruct_ov82_0223B164 *sub_02099604(int param0, SaveData *saveData, int
 
 static void sub_0209964C(FieldSystem *fieldSystem, UnkStruct_ov82_0223B164 *param1)
 {
+    #ifdef PLATFORM_DS
     FS_EXTERN_OVERLAY(overlay82);
+    #else
+    // TODO: Port FS_EXTERN_OVERLAY to PAL
+    #endif
 
     {
         ApplicationManagerTemplate v0 = {
             ov82_0223B164,
             ov82_0223B1D4,
             ov82_0223B24C,
+            #ifdef PLATFORM_DS
             FS_OVERLAY_ID(overlay82)
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         };
 
         FieldSystem_StartChildProcess(fieldSystem, &v0, param1);

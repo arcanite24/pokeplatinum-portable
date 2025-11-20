@@ -92,7 +92,11 @@ static void ov5_021F47DC(UnkStruct_021F47DC *param0)
         ov5_021DFB00(param0->unk_00, &param0->unk_04[v0], 0, Unk_ov5_0220079C[v0], 0);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlFogEnableFlagAll(param0->unk_04[0].unk_0C, 0);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlFogEnableFlagAll to PAL
+    #endif
 
     for (v0 = 0; v0 < 1; v0++) {
         ov5_021DFB24(param0->unk_00, &param0->unk_B8[v0], 0, Unk_ov5_02200750[v0], 0);

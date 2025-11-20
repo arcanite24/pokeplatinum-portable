@@ -131,10 +131,18 @@ static void Task_DrawAppScreen(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -162,8 +170,20 @@ static void Task_DrawAppScreen(SysTask *task, void *taskMan)
     SetupMonIconSprites(graphics, graphics->partyData);
     StartMonIconBounceTask(graphics);
 
+    #ifdef PLATFORM_DS
     dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     EndTask(taskMan);
 }
 
@@ -247,7 +267,11 @@ static void SetupItemSprites(PartyStatusGraphics *graphics, const PartyStatus *p
 
     Graphics_LoadObjectTiles(NARC_INDEX_GRAPHIC__POKETCH, 109, DS_SCREEN_SUB, 0, 0, TRUE, HEAP_ID_POKETCH_APP);
 
+    #ifdef PLATFORM_DS
     animData.flip = NNS_G2D_RENDERERFLIP_NONE;
+    #else
+    // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+    #endif
     animData.oamPriority = 2;
     animData.priority = 0;
     animData.hasAffineTransform = FALSE;
@@ -272,7 +296,11 @@ static void SetupMonIconSprites(PartyStatusGraphics *graphics, const PartyStatus
         NNSG2dCharacterData *charData;
 
         animData.animIdx = 0;
+        #ifdef PLATFORM_DS
         animData.flip = NNS_G2D_RENDERERFLIP_NONE;
+        #else
+        // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+        #endif
         animData.oamPriority = 2;
         animData.priority = 1;
         animData.hasAffineTransform = TRUE;
@@ -280,9 +308,17 @@ static void SetupMonIconSprites(PartyStatusGraphics *graphics, const PartyStatus
         for (int slot = 0; slot < partyData->partyCount; slot++) {
             NARC_ReadFromMember(narc, partyData->mons[slot].iconSpriteIndex, 0, 640, graphics->iconSpriteBuffer);
 
+            #ifdef PLATFORM_DS
             NNS_G2dGetUnpackedCharacterData(graphics->iconSpriteBuffer, &charData);
+            #else
+            // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+            #endif
             DC_FlushRange(charData->pRawData, POKE_ICON_TILE_COUNT * TILE_SIZE_4BPP);
+            #ifdef PLATFORM_DS
             GXS_LoadOBJ(charData->pRawData, 8 * TILE_SIZE_4BPP + (POKE_ICON_TILE_COUNT * TILE_SIZE_4BPP) * slot, POKE_ICON_TILE_COUNT * TILE_SIZE_4BPP);
+            #else
+            // TODO: Port GXS_LoadOBJ to PAL
+            #endif
 
             animData.translation.x = sMonPosition[slot].x << FX32_SHIFT;
             animData.translation.y = sMonPosition[slot].y << FX32_SHIFT;

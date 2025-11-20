@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV17_02252AB0_H
 #define POKEPLATINUM_OV17_02252AB0_H
 
+#include "platform/platform_types.h"
+
 #include "overlay017/struct_ov17_02252B48_decl.h"
 
 #include "palette.h"

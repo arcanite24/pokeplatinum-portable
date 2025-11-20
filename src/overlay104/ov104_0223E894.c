@@ -159,9 +159,17 @@ static void ov104_0223E8D8(SysTask *param0, void *param1)
 void ov104_0223E9CC(int param0, int param1)
 {
     if (param0 == 1) {
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(param1);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_SetMasterBrightness(param1);
+        #else
+        // TODO: Port GXS_SetMasterBrightness to PAL
+        #endif
     }
 }
 

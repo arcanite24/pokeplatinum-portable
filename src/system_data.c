@@ -30,10 +30,22 @@ void SystemData_Init(SystemData *systemData)
 {
     OSOwnerInfo ownerInfo;
 
+    #ifdef PLATFORM_DS
     systemData->rtcOffset = OS_GetOwnerRtcOffset();
+    #else
+    // TODO: Port OS_GetOwnerRtcOffset to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(systemData->macAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_GetOwnerInfo(&ownerInfo);
+    #else
+    // TODO: Port OS_GetOwnerInfo to PAL
+    #endif
     systemData->ownerBirthMonth = ownerInfo.birthday.month;
     systemData->ownerBirthDayOfMonth = ownerInfo.birthday.day;
 }
@@ -41,7 +53,11 @@ void SystemData_Init(SystemData *systemData)
 BOOL SystemData_MatchesCurrentSystem(const SystemData *systemData)
 {
     u8 currMacAddress[6];
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(currMacAddress);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     for (int i = 0; i < 6; i++) {
         if (systemData->macAddress[i] != currMacAddress[i]) {
@@ -54,7 +70,11 @@ BOOL SystemData_MatchesCurrentSystem(const SystemData *systemData)
 
 BOOL SystemData_MatchesCurrentRTCOffset(const SystemData *systemData)
 {
+    #ifdef PLATFORM_DS
     return OS_GetOwnerRtcOffset() == systemData->rtcOffset;
+    #else
+    // TODO: Port OS_GetOwnerRtcOffset to PAL
+    #endif
 }
 
 u8 SystemData_GetOwnerBirthMonth(const SystemData *systemData)

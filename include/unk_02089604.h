@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02089604_H
 #define POKEPLATINUM_UNK_02089604_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02089688.h"
 
 #include "touch_screen.h"

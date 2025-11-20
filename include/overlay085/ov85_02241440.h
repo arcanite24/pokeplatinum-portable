@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV85_02241440_H
 #define POKEPLATINUM_OV85_02241440_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 int ov85_02241440(ApplicationManager *appMan, int *param1);

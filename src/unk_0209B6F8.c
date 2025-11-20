@@ -30,9 +30,21 @@
 
 #include "constdata/const_020F8BE0.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay63);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay104);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay105);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct UnkStruct_0209B75C_t {
     UnkStruct_ov104_02230BE4 *unk_00;
@@ -118,7 +130,11 @@ int sub_0209B75C(ApplicationManager *appMan, int *param1)
         }
 
         if (ov104_0222E6A8(v0->unk_14) == 1) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 *param1 = 2;
             }
         }
@@ -228,16 +244,40 @@ static void sub_0209B8E8(UnkStruct_0209B75C *param0)
 
 static void sub_0209B924(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay104), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay105), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_LoadByID(FS_OVERLAY_ID(overlay63), 2);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 static void sub_0209B94C(void)
 {
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay104));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay105));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Overlay_UnloadByID(FS_OVERLAY_ID(overlay63));
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 }
 
 UnkStruct_ov104_02230BE4 *sub_0209B970(UnkStruct_0209B75C *param0)

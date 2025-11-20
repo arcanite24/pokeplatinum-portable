@@ -791,11 +791,27 @@ static void ov70_02269540(UnkStruct_ov70_02269204 *param0, NARC *param1, u32 hea
 
     for (v0 = 0; v0 < 15; v0++) {
         param0->unk_10550[v0].data = LoadMemberFromOpenNARC(param1, 129 + v0, 0, heapID, 0);
+        #ifdef PLATFORM_DS
         param0->unk_10550[v0].set = NNS_G3dGetMdlSet(param0->unk_10550[v0].data);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param0->unk_10550[v0].model = NNS_G3dGetMdlByIdx(param0->unk_10550[v0].set, 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
         param0->unk_10550[v0].texture = NULL;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlEmiAll to PAL
+        #endif
         NNS_G3dMdlSetMdlEmiAll(param0->unk_10550[v0].model, GX_RGB(31, 31, 31));
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     }
 }
 
@@ -826,14 +842,38 @@ static void ov70_02269608(UnkStruct_ov70_02269204 *param0)
     NNSG3dResTex *v4;
 
     for (v0 = 0; v0 < 39; v0++) {
+        #ifdef PLATFORM_DS
         v4 = NNS_G3dGetTex(param0->unk_10640[v0]);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         NNS_G3dTexReleaseTexKey(v4, &v1, &v2);
+        #else
+        // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(v1);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(v2);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         v3 = NNS_G3dPlttReleasePlttKey(v4);
+        #else
+        // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreePlttVram(v3);
+        #else
+        // TODO: Port NNS_GfdFreePlttVram to PAL
+        #endif
         Heap_Free(param0->unk_10640[v0]);
     }
 }
@@ -846,7 +886,11 @@ static void ov70_0226965C(UnkStruct_ov70_02269204 *param0, NARC *param1, u32 par
         for (v1 = 0; v1 < 2; v1++) {
             if (Unk_ov70_0226E5A4[v0].unk_02[v1] != 17) {
                 if (param0->unk_106DC[Unk_ov70_0226E5A4[v0].unk_02[v1]].data == NULL) {
+                    #ifdef PLATFORM_DS
                     param0->unk_10550[Unk_ov70_0226E5A4[v0].unk_00].texture = NNS_G3dGetTex(param0->unk_10640[Unk_ov70_0226E5A4[v0].unk_01]);
+                    #else
+                    // TODO: Port NNS_G3dGetTex to PAL
+                    #endif
                     Easy3DAnim_LoadFrom(&param0->unk_106DC[Unk_ov70_0226E5A4[v0].unk_02[v1]], &param0->unk_10550[Unk_ov70_0226E5A4[v0].unk_00], param1, 183 + Unk_ov70_0226E5A4[v0].unk_02[v1], param2, &param0->unk_1081C);
                 }
             }
@@ -1046,11 +1090,23 @@ static void ov70_02269878(UnkStruct_ov70_02269204 *param0, UnkStruct_ov70_022698
 
     v1 = param0->unk_10640[param1->unk_87C[param2]->unk_01];
     v2 = &param0->unk_10550[param1->unk_87C[param2]->unk_00];
+    #ifdef PLATFORM_DS
     v2->texture = NNS_G3dGetTex(v1);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dForceBindMdlTex(v2->model, v2->texture, 0, 0);
+    #else
+    // TODO: Port NNS_G3dForceBindMdlTex to PAL
+    #endif
     GF_ASSERT(v0);
 
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dForceBindMdlPltt(v2->model, v2->texture, 0, 0);
+    #else
+    // TODO: Port NNS_G3dForceBindMdlPltt to PAL
+    #endif
     GF_ASSERT(v0);
 
     for (v4 = 0; v4 < 2; v4++) {
@@ -1063,7 +1119,11 @@ static void ov70_02269878(UnkStruct_ov70_02269204 *param0, UnkStruct_ov70_022698
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlPolygonIDAll(v2->model, param1->unk_04);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlPolygonIDAll to PAL
+    #endif
     Easy3DObject_Draw(&param1->unk_0C[param2]);
 
     for (v4 = 0; v4 < 2; v4++) {
@@ -1075,8 +1135,16 @@ static void ov70_02269878(UnkStruct_ov70_02269204 *param0, UnkStruct_ov70_022698
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dReleaseMdlTex(v2->model);
+    #else
+    // TODO: Port NNS_G3dReleaseMdlTex to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dReleaseMdlPltt(v2->model);
+    #else
+    // TODO: Port NNS_G3dReleaseMdlPltt to PAL
+    #endif
 
     v2->texture = NULL;
 }
@@ -1666,11 +1734,19 @@ static BOOL ov70_0226A6C8(UnkStruct_ov70_02269204 *param0, UnkStruct_ov70_022698
 
                     if (param1->unk_954.val2.unk_04[v4] == 0) {
                         Easy3DObject_SetVisible(&param1->unk_0C[v2], 0);
+                        #ifdef PLATFORM_DS
                         NNS_G3dMdlSetMdlAlphaAll(param0->unk_10550[param1->unk_87C[v2]->unk_00].model, 31);
+                        #else
+                        // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+                        #endif
                     } else {
                         param1->unk_954.val2.unk_04[v4]--;
                         v3 = (param1->unk_954.val2.unk_04[v4] * 20) / 8;
+                        #ifdef PLATFORM_DS
                         NNS_G3dMdlSetMdlAlphaAll(param0->unk_10550[param1->unk_87C[v2]->unk_00].model, v3);
+                        #else
+                        // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+                        #endif
                         v1 = 0;
                     }
                 }
@@ -1921,19 +1997,35 @@ static BOOL ov70_0226AC24(UnkStruct_ov70_02269204 *param0, UnkStruct_ov70_022698
     if (param1->unk_08 == ov70_0225CCAC(param0->unk_04)) {
         u32 v4 = 4;
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_UP) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             v4 = 0;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             v4 = 1;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             v4 = 3;
         }
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
             v4 = 2;
         }
 

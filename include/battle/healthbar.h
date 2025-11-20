@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV16_02266F1C_H
 #define POKEPLATINUM_OV16_02266F1C_H
 
+#include "platform/platform_types.h"
+
 #include "battle/struct_ov16_022674C4.h"
 
 #include "narc.h"

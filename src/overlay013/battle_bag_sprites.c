@@ -93,7 +93,11 @@ void BattleBagSprites_InitializeSprites(BattleBag *battleBag)
     InitializeCursor(battleBag);
     InitializeCatchTutorialCursor(battleBag);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void InitializeSpriteManager(BattleBag *battleBag)
@@ -113,8 +117,16 @@ static void LoadSpriteData(BattleBag *battleBag)
     SpriteSystem *spriteSystem = BattleSystem_GetSpriteSystem(battleBag->context->battleSystem);
 
     for (u32 i = 0; i < BATTLE_POCKET_ITEMS_PER_PAGE; i++) {
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadCharResObjFromOpenNarc(spriteSystem, battleBag->spriteManager, narc, Item_FileID(ITEM_MASTER_BALL, ITEM_FILE_TYPE_ICON), FALSE, NNS_G2D_VRAM_TYPE_2DSUB, POCKET_SLOT_1_RESOURCE_ID + i);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         SpriteSystem_LoadPaletteBufferFromOpenNarc(battleBag->palette, PLTTBUF_SUB_OBJ, spriteSystem, battleBag->spriteManager, narc, Item_FileID(ITEM_MASTER_BALL, ITEM_FILE_TYPE_PALETTE), FALSE, 1, NNS_G2D_VRAM_TYPE_2DSUB, POCKET_SLOT_1_RESOURCE_ID + i);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     SpriteSystem_LoadCellResObjFromOpenNarc(spriteSystem, battleBag->spriteManager, narc, Item_IconNCERFile(), FALSE, POCKET_SLOT_1_RESOURCE_ID);
@@ -144,7 +156,11 @@ static ManagedSprite *CreatePocketItemSprite(BattleBag *battleBag, u32 slotIndex
     template.animIdx = 0;
     template.priority = sPocketItemSpriteResourcesAndPriority[slotIndex].priority;
     template.plttIdx = 0;
+    #ifdef PLATFORM_DS
     template.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     template.resources[SPRITE_RESOURCE_CHAR] = sPocketItemSpriteResourcesAndPriority[slotIndex].charResID;
     template.resources[SPRITE_RESOURCE_PLTT] = sPocketItemSpriteResourcesAndPriority[slotIndex].plttResID;
     template.resources[SPRITE_RESOURCE_CELL] = sPocketItemSpriteResourcesAndPriority[slotIndex].cellResID;

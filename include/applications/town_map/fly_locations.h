@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_TOWN_MAP_FLY_DESTINATIONS_H
 #define POKEPLATINUM_APPLICATIONS_TOWN_MAP_FLY_DESTINATIONS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/map_headers.h"
 
 #include "applications/town_map/defs.h"

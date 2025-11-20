@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BOX_APP_MANAGER_H
 #define POKEPLATINUM_BOX_APP_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_boxes_decl.h"
 
 #include "applications/naming_screen.h"

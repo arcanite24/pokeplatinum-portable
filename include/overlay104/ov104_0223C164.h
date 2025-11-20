@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0223C164_H
 #define POKEPLATINUM_OV104_0223C164_H
 
+#include "platform/platform_types.h"
+
 #include "overlay104/struct_ov104_0223C23C_decl.h"
 
 #include "bg_window.h"

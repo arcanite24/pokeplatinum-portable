@@ -28,7 +28,11 @@ static const ApplicationManagerTemplate Unk_020ED4CC = {
     ov66_0222DCE0,
     ov66_0222DD6C,
     ov66_0222DD90,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay66)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 void sub_0205749C(FieldTask *param0, BOOL param1)

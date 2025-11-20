@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV20_021D5044_H
 #define POKEPLATINUM_OV20_021D5044_H
 
+#include "platform/platform_types.h"
+
 #include "strbuf.h"
 
 u32 ov20_021D5044(void);

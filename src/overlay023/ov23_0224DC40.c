@@ -615,7 +615,11 @@ static void ov23_0224E2D8(SysTask *param0, void *param1)
         break;
     case 7:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if ((PAD_BUTTON_A)&gSystem.pressedKeys) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v0->unk_37 = 4;
             }
         }
@@ -652,7 +656,11 @@ static void ov23_0224E2D8(SysTask *param0, void *param1)
         break;
     case 15:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if ((PAD_BUTTON_A)&gSystem.pressedKeys) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v0->unk_37 = 14;
             }
         }
@@ -801,7 +809,11 @@ static void ov23_0224E2D8(SysTask *param0, void *param1)
         break;
     case 37:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v0->unk_37 = 38;
             }
         }
@@ -1075,7 +1087,11 @@ static void ov23_0224EC50(SysTask *param0, void *param1)
     case 2:
         v0->unk_2E = 12;
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             ov23_0224DC40(v0, 8);
             v0->unk_34 = 8;
         } else if (v0->unk_35 == 5) {
@@ -1103,7 +1119,11 @@ static void ov23_0224EC50(SysTask *param0, void *param1)
         break;
     case 9:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if ((PAD_BUTTON_A)&gSystem.pressedKeys) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 v0->unk_34 = 4;
             }
         }
@@ -1161,7 +1181,11 @@ static void ov23_0224EC50(SysTask *param0, void *param1)
         break;
     case 21:
         if (UndergroundTextPrinter_IsPrinterActive(CommManUnderground_GetCommonTextPrinter()) == FALSE) {
+            #ifdef PLATFORM_DS
             if ((PAD_BUTTON_A)&gSystem.pressedKeys) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 ov23_0224DC40(v0, 15);
                 v0->unk_34 = 15;
             }

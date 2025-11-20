@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_02253598_H
 #define POKEPLATINUM_OV23_02253598_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/underground.h"
 #include "struct_defs/underground_record.h"
 

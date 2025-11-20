@@ -14,6 +14,8 @@
 
 #define MAX_SPHERE_SIZE 99
 
+#include "platform/platform_types.h"
+
 enum SphereTypes {
     SPHERE_NONE = 0,
     PRISM_SPHERE,

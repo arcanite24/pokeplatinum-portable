@@ -315,7 +315,11 @@ static int ov21_021DF8C4(void *graphics, PokedexGraphicsManager *graphicsMan, co
         }
         break;
     case 3:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         return 1;
     default:
         break;
@@ -515,12 +519,20 @@ static void ov21_021DFD1C(UnkStruct_ov21_021DFFF8 *param0, UnkStruct_ov21_021DF8
     PokedexGraphicData *v0 = param1->unk_00;
     NARC *v1 = PokedexGraphics_GetNARC(param1->unk_00);
 
+    #ifdef PLATFORM_DS
     param0->unk_10[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v1, form_display_box_NCGR_lz, TRUE, form_display_box_NCGR_lz + 14000, NNS_G2D_VRAM_TYPE_2DMAIN, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0->unk_10[0]);
     SpriteResource_ReleaseData(param0->unk_10[0]);
 
+    #ifdef PLATFORM_DS
     param0->unk_10[1] = SpriteResourceCollection_AddPaletteFrom(v0->spriteResourceCollection[1], v1, form_display_box_NCLR, FALSE, form_display_box_NCLR + 14000, NNS_G2D_VRAM_TYPE_2DMAIN, 1, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param0->unk_10[1]);
     SpriteResource_ReleaseData(param0->unk_10[1]);
@@ -554,7 +566,11 @@ static void ov21_021DFE0C(UnkStruct_ov21_021DFFF8 *param0, UnkStruct_ov21_021DF8
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 32;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = param3;
     v1.position.x = 0;
     v1.position.y = 0;
@@ -605,9 +621,17 @@ static void ov21_021DFF38(UnkStruct_ov21_021DFFF8 *param0, UnkStruct_ov21_021DF8
 
     if (ov21_021E2A54(param2->unk_08)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), GX_BLEND_PLANEMASK_BG3, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&param1->unk_00->blendMain, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), GX_BLEND_PLANEMASK_BG3, 0);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
         }
     }
 
@@ -642,13 +666,25 @@ static void ov21_021DFFF8(UnkStruct_ov21_021DFFF8 *param0)
     int v0;
 
     for (v0 = 0; v0 < 4; v0++) {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(param0->unk_00[v0], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(param0->unk_BC, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 
     for (v0 = 0; v0 < 2; v0++) {
+        #ifdef PLATFORM_DS
         sub_02012AF0(param0->unk_20[v0]->fontOAM, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 }
 
@@ -657,13 +693,25 @@ static void ov21_021E0038(UnkStruct_ov21_021DFFF8 *param0)
     int v0;
 
     for (v0 = 0; v0 < 4; v0++) {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(param0->unk_00[v0], GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(param0->unk_BC, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 
     for (v0 = 0; v0 < 2; v0++) {
+        #ifdef PLATFORM_DS
         sub_02012AF0(param0->unk_20[v0]->fontOAM, GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     }
 }
 
@@ -1059,10 +1107,18 @@ static void ov21_021E09A4(UnkStruct_ov21_021DFFF8 *param0, UnkStruct_ov21_021DF8
     displayBox.y = 40;
     displayBox.spriteResourcePriority = 3;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     displayBox.heapID = param3;
 
+    #ifdef PLATFORM_DS
     v3 = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v0 = PokedexTextManager_NewWindow(v2->textMan, 16, 2);
 
     PokedexTextManager_DisplayMessageTopRight(v2->textMan, v0, TEXT_BANK_POKEDEX, entryID);

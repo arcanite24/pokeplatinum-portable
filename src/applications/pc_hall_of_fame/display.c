@@ -94,7 +94,11 @@ PCHallOfFameApp *PCHallOfFame_InitApp(PCHallOfFameMan *pcHallOfFameMan, const PC
         pcHallOfFameApp->pcHallOfFameScreen = pcHallOfFameScreen;
         pcHallOfFameApp->bgConfig = BgConfig_New(HEAP_ID_PC_HALL_OF_FAME);
 
+        #ifdef PLATFORM_DS
         NNS_G2dInitOamManagerModule();
+        #else
+        // TODO: Port NNS_G2dInitOamManagerModule to PAL
+        #endif
         RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, 61);
 
         pcHallOfFameApp->spriteList = SpriteList_InitRendering(64, &pcHallOfFameApp->g2dRenderer, HEAP_ID_PC_HALL_OF_FAME);
@@ -137,7 +141,15 @@ static void ov87_021D11AC(void *param0)
     SpriteList_Update(pcHallOfFameApp->spriteList);
     RenderOam_Transfer();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 BOOL PCHallOfFame_DoTransition(PCHallOfFameApp *pcHallOfFameApp, int transition)
@@ -201,13 +213,21 @@ static BOOL PCHallOfFame_HighlightCurrentPokemon(PCHallOfFameApp *pcHallOfFameAp
 
     for (i = 0; i < pcHallOfFameScreen->pokemonCount; i++) {
         if (i == pcHallOfFameScreen->pokemonIndex) {
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(pcHallOfFameApp->sprites[i], GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
             Sprite_SetPriority(pcHallOfFameApp->sprites[i], 0);
             Sound_SetUsingDefaultChatotCry(TRUE);
 
             Sound_PlayPokemonCry(pcHallOfFameScreen->pokemon[i].species, pcHallOfFameScreen->pokemon[i].form);
         } else {
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(pcHallOfFameApp->sprites[i], GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
             Sprite_SetPriority(pcHallOfFameApp->sprites[i], i + 1);
         }
     }
@@ -250,22 +270,78 @@ static BOOL PCHallOfFame_LoadCurrentTextState(PCHallOfFameApp *pcHallOfFameApp, 
 static void ov87_021D139C(PCHallOfFameApp *pcHallOfFameApp)
 {
     static const UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
     static const GraphicsModes v1 = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_3D,
+        #else
+        // TODO: Port GX_BG0_AS_3D to PAL
+        #endif
     };
     static const BgTemplate v2 = {
         .x = 0,
@@ -273,10 +349,18 @@ static void ov87_021D139C(PCHallOfFameApp *pcHallOfFameApp)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 1,
         .mosaic = FALSE,
@@ -287,10 +371,18 @@ static void ov87_021D139C(PCHallOfFameApp *pcHallOfFameApp)
         .bufferSize = 0,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0xf800,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 2,
         .mosaic = FALSE,
@@ -298,7 +390,15 @@ static void ov87_021D139C(PCHallOfFameApp *pcHallOfFameApp)
     u32 v4;
 
     GXLayers_SetBanks(&v0);
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetDispSelect to PAL
+    #endif
     GX_SetDispSelect(GX_DISP_SELECT_MAIN_SUB);
+    #else
+    // TODO: Port GX_DISP_SELECT_MAIN_SUB to PAL
+    #endif
 
     SetAllGraphicsModes(&v1);
     Bg_InitFromTemplate(pcHallOfFameApp->bgConfig, BG_LAYER_MAIN_1, &v2, 0);
@@ -317,8 +417,24 @@ static void ov87_021D139C(PCHallOfFameApp *pcHallOfFameApp)
     Window_DrawStandardFrame(&(pcHallOfFameApp->windows[1]), 0, v4, 2);
     Bg_CopyTilemapBufferToVRAM(pcHallOfFameApp->bgConfig, 1);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG1, 8, 8);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov87_021D14B8(PCHallOfFameApp *pcHallOfFameApp)
@@ -501,17 +617,45 @@ static void ov87_021D18A0(PCHallOfFameApp *pcHallOfFameApp, NNSG2dCellDataBank *
     v2.list = pcHallOfFameApp->spriteList;
     v2.resourceData = &v1;
     v2.position.z = 0;
+    #ifdef PLATFORM_DS
     v2.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v2.heapID = HEAP_ID_PC_HALL_OF_FAME;
 
     v7 = Graphics_GetCharData(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 76, 0, &v5, HEAP_ID_PC_HALL_OF_FAME);
     v8 = Graphics_GetPlttData(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, 75, &v6, HEAP_ID_PC_HALL_OF_FAME);
 
     for (i = 0; i < MAX_PARTY_SIZE; i++) {
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v3);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G2dInitImagePaletteProxy(&v4);
+        #else
+        // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadImage1DMapping to PAL
+        #endif
         NNS_G2dLoadImage1DMapping(v5, i * 3200, NNS_G2D_VRAM_TYPE_2DMAIN, &v3);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dLoadPalette to PAL
+        #endif
         NNS_G2dLoadPalette(v6, i * 0x20, NNS_G2D_VRAM_TYPE_2DMAIN, &v4);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = spriteCoordinates[i].x << FX32_SHIFT;
         v2.position.y = spriteCoordinates[i].y << FX32_SHIFT;
@@ -541,16 +685,28 @@ static void PCHallOfFame_DrawAllPokemon(PCHallOfFameApp *pcHallOfFameApp)
         CharacterSprite_LoadPokemonSpriteRegion(spriteTemplate.narcID, spriteTemplate.character, HEAP_ID_PC_HALL_OF_FAME, &tileRegion, pcHallOfFameApp->unk_200, pcHallOfFameScreen->pokemon[i].personality, FALSE, FACE_FRONT, pcHallOfFameScreen->pokemon[i].species);
 
         DC_FlushRange(pcHallOfFameApp->unk_200, sizeof(pcHallOfFameApp->unk_200));
+        #ifdef PLATFORM_DS
         GX_LoadOBJ(pcHallOfFameApp->unk_200, 3200 * i, 3200);
+        #else
+        // TODO: Port GX_LoadOBJ to PAL
+        #endif
 
         Graphics_LoadPalette(spriteTemplate.narcID, spriteTemplate.palette, PAL_LOAD_MAIN_OBJ, i * 0x20, 0x20, HEAP_ID_PC_HALL_OF_FAME);
 
         if (i == pcHallOfFameScreen->pokemonIndex) {
             Sound_SetUsingDefaultChatotCry(TRUE);
             Sound_PlayPokemonCry(pcHallOfFameScreen->pokemon[i].species, pcHallOfFameScreen->pokemon[i].form);
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(pcHallOfFameApp->sprites[i], GX_OAM_MODE_NORMAL);
+            #else
+            // TODO: Port GX_OAM_MODE_NORMAL to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             Sprite_SetExplicitOAMMode(pcHallOfFameApp->sprites[i], GX_OAM_MODE_XLU);
+            #else
+            // TODO: Port GX_OAM_MODE_XLU to PAL
+            #endif
         }
 
         Sprite_SetDrawFlag(pcHallOfFameApp->sprites[i], TRUE);

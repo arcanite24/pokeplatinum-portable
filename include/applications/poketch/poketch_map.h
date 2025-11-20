@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_MAP_H
 #define POKEPLATINUM_POKETCH_MAP_H
 
+#include "platform/platform_types.h"
+
 #include "generated/maps.h"
 
 void PoketchMap_GetPositionOnMap(u32 playerX, u32 playerY, u32 *mapX, u32 *mapY);

@@ -202,11 +202,27 @@ static void ov20_021D4A24(UnkStruct_ov20_021D4AD4 *param0, NARC *param1)
     NNSG2dImagePaletteProxy v0;
     NNSG2dImageProxy v1;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImagePaletteProxy(&v0);
+    #else
+    // TODO: Port NNS_G2dInitImagePaletteProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&v1);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Graphics_LoadPartialPaletteFromOpenNARC(param1, 25, NNS_G2D_VRAM_TYPE_2DSUB, 0, 35, &v0);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMappingFromOpenNARC(param1, 24, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DSUB, 0, 35, &v1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     ov20_021D4AF8(&(param0->unk_1C), param1, 22, 23);
 
@@ -266,7 +282,11 @@ static Sprite *ov20_021D4B40(UnkStruct_ov20_021D4AD4 *param0, NNSG2dImageProxy *
     v1.position.y = (param5 + 192) * FX32_ONE;
     v1.position.z = 0;
     v1.priority = param7;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v1.heapID = HEAP_ID_35;
 
     v2 = SpriteList_Add(&v1);

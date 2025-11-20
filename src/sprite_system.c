@@ -20,7 +20,11 @@
 #include "sprite_util.h"
 #include "system.h"
 
+#ifdef PLATFORM_DS
 static Sprite *CreateSpriteFromResourceHeader(SpriteSystem *spriteSys, SpriteManager *spriteMan, int resourceHeaderID, s16 x, s16 y, s16 z, u16 animIdx, int priority, int plttIdx, enum NNS_G2D_VRAM_TYPE vramType, int param10, int param11, int param12, int param13);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 static BOOL LoadResObjInternal(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, int compressed, int type, int resourceID);
 static BOOL LoadResObjFromNarcInternal(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int type, int resourceID);
 static BOOL RegisterLoadedResource(SpriteResourceList *resourceList, SpriteResource *resource);
@@ -93,7 +97,11 @@ BOOL SpriteSystem_Init(SpriteSystem *spriteSys, const RenderOamTemplate *oamTemp
     charTransferTemplate.heapID = spriteSys->heapID;
     CharTransfer_InitWithVramModes(&charTransferTemplate, transferTemplate->modeMain, transferTemplate->modeSub);
     PlttTransfer_Init(plttCapacity, spriteSys->heapID);
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     if (spriteSys->inUse == TRUE) {
         RenderOam_Init(oamTemplate->mainOamStart, oamTemplate->mainOamCount, oamTemplate->mainAffineOamStart, oamTemplate->mainAffineOamCount, oamTemplate->subOamStart, oamTemplate->subOamCount, oamTemplate->subAffineOamStart, oamTemplate->subAffineOamCount, spriteSys->heapID);
@@ -271,7 +279,11 @@ Sprite *SpriteSystem_NewSpriteFromResourceHeader(SpriteSystem *spriteSys, Sprite
         template->dummy24);
 }
 
+#ifdef PLATFORM_DS
 static Sprite *CreateSpriteFromResourceHeader(SpriteSystem *spriteSys, SpriteManager *spriteMan, int resourceHeaderID, s16 x, s16 y, s16 z, u16 animIdx, int priority, int plttIdx, enum NNS_G2D_VRAM_TYPE vramType, int param10, int param11, int param12, int param13)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     AffineSpriteListTemplate template;
 
@@ -281,7 +293,11 @@ static Sprite *CreateSpriteFromResourceHeader(SpriteSystem *spriteSys, SpriteMan
     template.position.y = FX32_CONST(y);
     template.position.z = FX32_CONST(z);
 
+    #ifdef PLATFORM_DS
     if (vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         template.position.y += (192 << FX32_SHIFT);
     }
 
@@ -337,7 +353,11 @@ BOOL SpriteSystem_InitManagerWithCapacities(SpriteSystem *spriteSys, SpriteManag
     return TRUE;
 }
 
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_CHAR], resourceID) == FALSE) {
         return FALSE;
@@ -360,7 +380,11 @@ BOOL SpriteSystem_LoadCharResObj(SpriteSystem *spriteSys, SpriteManager *spriteM
     return (resource == NULL) ? FALSE : TRUE;
 }
 
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_CHAR], resourceID) == FALSE) {
         return FALSE;
@@ -383,7 +407,11 @@ BOOL SpriteSystem_LoadCharResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteMana
     return (resource == NULL) ? FALSE : TRUE;
 }
 
+#ifdef PLATFORM_DS
 s8 SpriteSystem_LoadPlttResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_PLTT], resourceID) == FALSE) {
         return -1;
@@ -408,7 +436,11 @@ s8 SpriteSystem_LoadPlttResObj(SpriteSystem *spriteSys, SpriteManager *spriteMan
     return -1;
 }
 
+#ifdef PLATFORM_DS
 s8 SpriteSystem_LoadPlttResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_PLTT], resourceID) == FALSE) {
         return -1;
@@ -434,7 +466,11 @@ s8 SpriteSystem_LoadPlttResObjFromOpenNarc(SpriteSystem *spriteSys, SpriteManage
     return -1;
 }
 
+#ifdef PLATFORM_DS
 u8 SpriteSystem_LoadPaletteBuffer(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     int paletteOffset = SpriteSystem_LoadPlttResObj(spriteSys, spriteMan, narcID, memberIdx, compressed, paletteIdx, vramType, resourceID);
     if (paletteOffset != -1) {
@@ -444,7 +480,11 @@ u8 SpriteSystem_LoadPaletteBuffer(PaletteData *paletteData, enum PaletteBufferID
     return paletteOffset;
 }
 
+#ifdef PLATFORM_DS
 u8 SpriteSystem_LoadPaletteBufferFromOpenNarc(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, int paletteIdx, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     int paletteOffset = SpriteSystem_LoadPlttResObjFromOpenNarc(spriteSys, spriteMan, narc, memberIdx, compressed, paletteIdx, vramType, resourceID);
     if (paletteOffset != -1) {
@@ -542,7 +582,11 @@ ManagedSprite *SpriteSystem_NewSprite(SpriteSystem *spriteSys, SpriteManager *sp
     innerTemplate.position.y = FX32_CONST(template->y);
     innerTemplate.position.z = FX32_CONST(template->z);
 
+    #ifdef PLATFORM_DS
     if (template->vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         innerTemplate.position.y += (192 << FX32_SHIFT);
     }
 
@@ -573,7 +617,11 @@ const NNSG2dImagePaletteProxy *SpriteManager_FindPlttResourceProxy(SpriteManager
     return SpriteTransfer_GetPaletteProxy(resource, NULL);
 }
 
+#ifdef PLATFORM_DS
 u32 SpriteManager_FindPlttResourceOffset(SpriteManager *spriteMan, int resourceID, enum NNS_G2D_VRAM_TYPE vramType)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteResource *resource = SpriteResourceCollection_Find(spriteMan->ownedResources[SPRITE_RESOURCE_PLTT], resourceID);
     return SpriteTransfer_GetPlttOffset(resource, vramType);
@@ -907,7 +955,11 @@ void Sprite_SetPositionXY(Sprite *sprite, s16 x, s16 y)
     VecFx32 position;
     position.x = x * FX32_ONE;
     position.y = y * FX32_ONE;
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         position.y += (192 << FX32_SHIFT);
     }
     position.z = 0;
@@ -925,7 +977,11 @@ void Sprite_SetPositionXYWithSubscreenOffset(Sprite *sprite, s16 x, s16 y, fx32 
     VecFx32 position;
     position.x = x * FX32_ONE;
     position.y = y * FX32_ONE;
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         position.y += offset;
     }
     position.z = 0;
@@ -942,7 +998,11 @@ void Sprite_GetPositionXY(Sprite *sprite, s16 *outX, s16 *outY)
 {
     const VecFx32 *position = Sprite_GetPosition(sprite);
     *outX = position->x / FX32_ONE;
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         *outY = (position->y - (192 << FX32_SHIFT)) / FX32_ONE;
     } else {
         *outY = position->y / FX32_ONE;
@@ -958,7 +1018,11 @@ void ManagedSprite_GetPositionXYWithSubscreenOffset(Sprite *sprite, s16 *outX, s
 {
     const VecFx32 *position = Sprite_GetPosition(sprite);
     *outX = position->x / FX32_ONE;
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         *outY = (position->y - offset) / FX32_ONE;
     } else {
         *outY = position->y / FX32_ONE;
@@ -1014,7 +1078,11 @@ void ManagedSprite_GetPositionFxXY(ManagedSprite *managedSprite, fx32 *outX, fx3
 
 void ManagedSprite_SetPositionFxXYWithSubscreenOffset(ManagedSprite *managedSprite, fx32 x, fx32 y, fx32 offset)
 {
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(managedSprite->sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         ManagedSprite_SetPositionFxXY(managedSprite, x, y + offset);
     } else {
         ManagedSprite_SetPositionFxXY(managedSprite, x, y);
@@ -1024,7 +1092,11 @@ void ManagedSprite_SetPositionFxXYWithSubscreenOffset(ManagedSprite *managedSpri
 void ManagedSprite_GetPositionFxXYWithSubscreenOffset(ManagedSprite *managedSprite, fx32 *outX, fx32 *outY, fx32 offset)
 {
     ManagedSprite_GetPositionFxXY(managedSprite, outX, outY);
+    #ifdef PLATFORM_DS
     if (Sprite_GetVRamType(managedSprite->sprite) == NNS_G2D_VRAM_TYPE_2DSUB) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
         *outY = *outY - offset;
     }
 }
@@ -1138,7 +1210,11 @@ u32 ManagedSprite_GetUserAttrForCurrentAnimFrame(ManagedSprite *managedSprite)
     return Sprite_GetUserAttrForCurrentAnimFrame(managedSprite->sprite);
 }
 
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_CHAR], resourceID) == FALSE) {
         return FALSE;
@@ -1161,7 +1237,11 @@ BOOL SpriteSystem_LoadCharResObjWithHardwareMappingType(SpriteSystem *spriteSys,
     return (resource == NULL) ? FALSE : TRUE;
 }
 
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, enum NarcID narcID, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_CHAR], resourceID) == FALSE) {
         return FALSE;
@@ -1184,7 +1264,11 @@ BOOL SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(SpriteSystem *sprit
     return (resource == NULL) ? FALSE : TRUE;
 }
 
+#ifdef PLATFORM_DS
 BOOL SpriteSystem_LoadCharResObjFromOpenNarcWithHardwareMappingType(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, int memberIdx, BOOL compressed, enum NNS_G2D_VRAM_TYPE vramType, int resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     if (SpriteResourceCollection_IsIDUnused(spriteMan->ownedResources[SPRITE_RESOURCE_CHAR], resourceID) == FALSE) {
         return FALSE;

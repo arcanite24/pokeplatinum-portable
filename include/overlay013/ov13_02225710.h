@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV13_02225710_H
 #define POKEPLATINUM_OV13_02225710_H
 
+#include "platform/platform_types.h"
+
 #include "overlay013/battle_party.h"
 
 void ov13_02225710(BattleParty *param0, u16 *param1);

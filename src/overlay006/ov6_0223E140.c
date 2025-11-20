@@ -349,16 +349,56 @@ static u32 ov6_0223E1AC(const UnkStruct_ov6_0223E140 *param0)
 static void ov6_0223E1B0(void)
 {
     UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_32_FG,
+        #else
+        // TODO: Port GX_VRAM_BG_32_FG to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_32_H,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_32_H to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJ_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_01_AB,
+        #else
+        // TODO: Port GX_VRAM_TEX_01_AB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_0123_E
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_0123_E to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v0);
@@ -368,17 +408,37 @@ static void ov6_0223E1D0(BgConfig *param0)
 {
     {
         GraphicsModes v0 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v0);
     }
 
     GXLayers_EngineAToggleLayers(
+        #ifdef PLATFORM_DS
         GX_PLANEMASK_BG0, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
 
     {
         BgTemplate v1 = {
@@ -387,10 +447,18 @@ static void ov6_0223E1D0(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x4000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -441,7 +509,11 @@ static void ov6_0223E2A4(BgConfig *param0)
 static void ov6_0223E2AC(BgConfig *param0)
 {
     ov5_021D1434(param0);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 }
 
 static MotionBlur *ov6_0223E2BC(int param0, int param1)
@@ -450,12 +522,32 @@ static MotionBlur *ov6_0223E2BC(int param0, int param1)
 
     {
         MotionBlurParams motionBlurParams = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_VRAM_C,
+            #else
+            // TODO: Port GX_DISPMODE_VRAM_C to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D,
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
             GX_CAPTURE_SIZE_256x192,
+            #ifdef PLATFORM_DS
             GX_CAPTURE_MODE_AB,
+            #else
+            // TODO: Port GX_CAPTURE_MODE_AB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_CAPTURE_SRCA_2D3D,
+            #else
+            // TODO: Port GX_CAPTURE_SRCA_2D3D to PAL
+            #endif
             GX_CAPTURE_SRCB_VRAM_0x00000,
             GX_CAPTURE_DEST_VRAM_C_0x00000,
             0,
@@ -481,7 +573,11 @@ static void ov6_0223E2FC(SysTask *param0, void *param1)
 {
     UnkStruct_ov6_0223E140 *v0 = param1;
 
+    #ifdef PLATFORM_DS
     MotionBlur_Delete(&v0->motionBlur, GX_DISPMODE_GRAPHICS, GX_BGMODE_0, GX_BG0_AS_3D);
+    #else
+    // TODO: Port GX_BG0_AS_3D to PAL
+    #endif
     SysTask_Done(param0);
 }
 
@@ -1077,7 +1173,11 @@ static void ov6_0223EB4C(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
 
     HeapExp_FndInitAllocator(&v0->unk_C0, HEAP_ID_FIELD1, 32);
     ov6_0223EA98(v0);
+    #ifdef PLATFORM_DS
     GX_SetMasterBrightness(v0->unk_0C);
+    #else
+    // TODO: Port GX_SetMasterBrightness to PAL
+    #endif
 
     v0->unk_00 = 0;
 }
@@ -1311,7 +1411,11 @@ static BOOL ov6_0223EE5C(UnkStruct_ov6_0223EA98 *param0)
         if (param0->unk_D0 >= 4) {
             if (param0->unk_0C < 16) {
                 param0->unk_0C += 2;
+                #ifdef PLATFORM_DS
                 GX_SetMasterBrightness(param0->unk_0C);
+                #else
+                // TODO: Port GX_SetMasterBrightness to PAL
+                #endif
             }
         }
 
@@ -1324,7 +1428,11 @@ static BOOL ov6_0223EE5C(UnkStruct_ov6_0223EA98 *param0)
     case 14:
         if (param0->unk_0C < 16) {
             param0->unk_0C += 2;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(param0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1335,7 +1443,11 @@ static BOOL ov6_0223EE5C(UnkStruct_ov6_0223EA98 *param0)
     case 15:
         if (param0->unk_0C > 0) {
             param0->unk_0C -= 1;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(param0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1353,7 +1465,11 @@ static BOOL ov6_0223EE5C(UnkStruct_ov6_0223EA98 *param0)
     case 17:
         if (param0->unk_0C < 16) {
             param0->unk_0C += 2;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(param0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1380,7 +1496,11 @@ static BOOL ov6_0223EE5C(UnkStruct_ov6_0223EA98 *param0)
 
         if (param0->unk_0C > 0) {
             param0->unk_0C -= 1;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(param0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
         }
 
         param0->unk_DC += (CalcCosineDegrees_Wraparound((param0->unk_D0 + 1) * (180 / 32)) * 8);
@@ -1591,7 +1711,11 @@ static void ov6_0223FAF8(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
 
         if (v0->unk_0C > 0) {
             v0->unk_0C -= 1;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(v0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1618,7 +1742,11 @@ static void ov6_0223FAF8(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
             if (v3[v0->unk_10] < v0->unk_20) {
                 if (v0->unk_0C != 16) {
                     v0->unk_0C += 2;
+                    #ifdef PLATFORM_DS
                     GX_SetMasterBrightness(v0->unk_0C);
+                    #else
+                    // TODO: Port GX_SetMasterBrightness to PAL
+                    #endif
                 } else {
                     v0->unk_20 = 0;
                 }
@@ -1628,7 +1756,11 @@ static void ov6_0223FAF8(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
     case 2:
         if (v0->unk_0C != 16) {
             v0->unk_0C += 2;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(v0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1653,7 +1785,11 @@ static void ov6_0223FAF8(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
 
         if (v0->unk_0C > 0) {
             v0->unk_0C -= 1;
+            #ifdef PLATFORM_DS
             GX_SetMasterBrightness(v0->unk_0C);
+            #else
+            // TODO: Port GX_SetMasterBrightness to PAL
+            #endif
             break;
         }
 
@@ -1664,9 +1800,17 @@ static void ov6_0223FAF8(UnkStruct_ov5_021D1BEC *param0, FieldSystem *fieldSyste
     if (v0->unk_10 != 3) {
         G3_Identity();
         Easy3DAnim_UpdateLooped(&v0->unk_AC, FX32_ONE);
+        #ifdef PLATFORM_DS
         NNS_G3dGePushMtx();
+        #else
+        // TODO: Port NNS_G3dGePushMtx to PAL
+        #endif
         Easy3DObject_Draw(&v0->unk_24);
+        #ifdef PLATFORM_DS
         NNS_G3dGePopMtx(1);
+        #else
+        // TODO: Port NNS_G3dGePopMtx to PAL
+        #endif
     }
 }
 
@@ -1978,7 +2122,11 @@ void ov6_02240000(UnkStruct_ov6_02240000 *param0, u32 param1, u32 param2, u32 pa
     param0->unk_18 = param3;
     param0->unk_14 = param1;
 
+    #ifdef PLATFORM_DS
     GX_SetMasterBrightness(param0->unk_00.unk_00);
+    #else
+    // TODO: Port GX_SetMasterBrightness to PAL
+    #endif
 
     param0->unk_20 = SysTask_ExecuteAfterVBlank(ov6_02240064, param0, 1024);
     Sound_PlayEffect(SEQ_SE_DP_CLIMAX06);
@@ -1992,7 +2140,11 @@ int ov6_02240060(const UnkStruct_ov6_02240000 *param0)
 static void ov6_02240064(SysTask *param0, void *param1)
 {
     UnkStruct_ov6_02240000 *v0 = param1;
+    #ifdef PLATFORM_DS
     GX_SetMasterBrightness(v0->unk_00.unk_00);
+    #else
+    // TODO: Port GX_SetMasterBrightness to PAL
+    #endif
 }
 
 UnkStruct_ov6_022400A8 *ov6_02240074(FieldSystem *fieldSystem)
@@ -2020,13 +2172,21 @@ void ov6_022400C4(UnkStruct_ov6_022400A8 *param0)
     }
 
     G3_Identity();
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     {
         ov6_0223FDBC(&param0->unk_40.unk_00);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 }
 
 UnkStruct_ov6_022401B8 *ov6_02240104(u32 heapID, FieldSystem *fieldSystem)
@@ -2051,7 +2211,19 @@ UnkStruct_ov6_022401B8 *ov6_02240104(u32 heapID, FieldSystem *fieldSystem)
         v0->unk_34.unk_00 = 0;
         v0->unk_34.unk_04 = 31;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG0, v0->unk_34.unk_00, v0->unk_34.unk_04);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
     }
 
     return v0;
@@ -2159,12 +2331,20 @@ static BOOL ov6_02240364(UnkStruct_ov6_022401B8 *param0, int param1, int param2)
     BOOL v1[2] = { 0, 0 };
     UnkStruct_ov6_02240260 *v2 = &param0->unk_34;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         v2->unk_00++;
         v2->unk_00 %= 32;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (v2->unk_00) {
             v2->unk_00--;
         } else {
@@ -2172,12 +2352,20 @@ static BOOL ov6_02240364(UnkStruct_ov6_022401B8 *param0, int param1, int param2)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         v2->unk_04++;
         v2->unk_04 %= 32;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (v2->unk_04) {
             v2->unk_04--;
         } else {
@@ -2352,7 +2540,11 @@ static BOOL ov6_02240364(UnkStruct_ov6_022401B8 *param0, int param1, int param2)
         break;
     }
 
+    #ifdef PLATFORM_DS
     G2_ChangeBlendAlpha(v2->unk_00, v2->unk_04);
+    #else
+    // TODO: Port G2_ChangeBlendAlpha to PAL
+    #endif
 
     if (v1[0] && v1[1]) {
         v0 = 1;
@@ -2689,10 +2881,26 @@ static const AreaLightTemplate Unk_ov6_02248F30[3] = {
         8,
         0xD,
         {
+            #ifdef PLATFORM_DS
             GX_RGB(13, 11, 11),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(0, 0, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(10, 3, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(31, 31, 31),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         },
         {
             { -2022, -3561, 93 },
@@ -2700,19 +2908,51 @@ static const AreaLightTemplate Unk_ov6_02248F30[3] = {
             { 0, 0, 4096 },
             { 0, 0, 4096 },
         },
+        #ifdef PLATFORM_DS
         GX_RGB(13, 13, 14),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(13, 12, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(13, 11, 14),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(11, 9, 10),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     },
     {
         16,
         0xD,
         {
+            #ifdef PLATFORM_DS
             GX_RGB(11, 9, 9),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(0, 0, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(10, 3, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(31, 31, 31),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         },
         {
             { -2022, -3561, 93 },
@@ -2720,19 +2960,51 @@ static const AreaLightTemplate Unk_ov6_02248F30[3] = {
             { 0, 0, 4096 },
             { 0, 0, 4096 },
         },
+        #ifdef PLATFORM_DS
         GX_RGB(11, 11, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(13, 12, 12),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(13, 11, 14),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(11, 9, 10),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     },
     {
         24,
         0xD,
         {
+            #ifdef PLATFORM_DS
             GX_RGB(9, 8, 8),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(0, 0, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(10, 3, 0),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_RGB(31, 31, 31),
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         },
         {
             { -2022, -3561, 93 },
@@ -2740,10 +3012,26 @@ static const AreaLightTemplate Unk_ov6_02248F30[3] = {
             { 0, 0, 4096 },
             { 0, 0, 4096 },
         },
+        #ifdef PLATFORM_DS
         GX_RGB(10, 9, 9),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(11, 10, 10),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(13, 11, 14),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_RGB(11, 9, 10),
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
     },
 };
 

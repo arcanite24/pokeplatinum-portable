@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKETCH_MARKING_MAP_GRAPHICS_H
 #define POKEPLATINUM_POKETCH_MARKING_MAP_GRAPHICS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/hidden_locations.h"
 #include "generated/maps.h"
 #include "generated/roaming_slots.h"

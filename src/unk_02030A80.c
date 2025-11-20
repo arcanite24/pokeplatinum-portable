@@ -50,7 +50,11 @@ void sub_02030AA0(UnkStruct_02030A80 *param0, SaveData *saveData)
     int v7;
     OSOwnerInfo v8;
 
+    #ifdef PLATFORM_DS
     OS_GetOwnerInfo(&v8);
+    #else
+    // TODO: Port OS_GetOwnerInfo to PAL
+    #endif
 
     MiscSaveBlock_FavoriteMon(v3, &v4, &v5, &v6);
     MI_CpuClear8(param0, sizeof(UnkStruct_02030A80));

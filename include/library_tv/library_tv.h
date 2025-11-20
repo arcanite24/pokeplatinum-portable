@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_LIBRARY_TV_H
 #define POKEPLATINUM_LIBRARY_TV_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL LibraryTV_Init(ApplicationManager *appMan, int *state);

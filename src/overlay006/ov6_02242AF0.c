@@ -201,7 +201,15 @@ static BOOL ov6_02242C5C(FieldTask *taskMan)
         v4 = MapPropManager_FindLoadedPropByModelID(fieldSystem->mapPropManager, MAP_PROP_MODEL_GREAT_MARSH_TRAIN);
         v5 = MapProp_GetRenderObj(v4);
         v3 = AreaDataManager_GetMapPropModelFile(MAP_PROP_MODEL_GREAT_MARSH_TRAIN, fieldSystem->areaDataManager);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
         v2 = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(*v3), 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
 
         MapPropOneShotAnimationManager_LoadPropAnimations(fieldSystem->mapPropAnimMan, fieldSystem->mapPropOneShotAnimMan, 16, MAP_PROP_MODEL_GREAT_MARSH_TRAIN, v5, v2, AreaDataManager_GetMapPropTexture(fieldSystem->areaDataManager), 1, -1, 0);
         MapPropOneShotAnimationManager_PlayAnimation(fieldSystem->mapPropOneShotAnimMan, 16, 0);

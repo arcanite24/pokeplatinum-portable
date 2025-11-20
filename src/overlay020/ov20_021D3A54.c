@@ -88,11 +88,47 @@ void ov20_021D3A98(UnkStruct_ov20_021D3E0C *param0, NARC *param1)
     Bg_SetOffset(v0, BG_LAYER_MAIN_1, 3, 2);
     ov20_021D3E0C(param0);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
     G2_SetBlendBrightness(GX_BLEND_PLANEMASK_BG1, -10);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWnd0InsidePlane to PAL
+    #endif
     G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_ALL, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_ALL to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetWndOutsidePlane to PAL
+    #endif
     G2_SetWndOutsidePlane(GX_WND_PLANEMASK_ALL ^ GX_WND_PLANEMASK_BG1, 1);
+    #else
+    // TODO: Port GX_WND_PLANEMASK_BG1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2_SetWnd0Position(0, 0, 255, 160);
+    #else
+    // TODO: Port G2_SetWnd0Position to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetVisibleWnd to PAL
+    #endif
     GX_SetVisibleWnd(GX_WNDMASK_W0);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 
     Bg_CopyTilemapBufferToVRAM(v0, 1);
 }
@@ -227,7 +263,11 @@ static void ov20_021D3E0C(UnkStruct_ov20_021D3E0C *param0)
     SpriteResourcesHeader v0;
 
     ov20_021D2E0C(param0->unk_00, &v0, 0, 1);
+    #ifdef PLATFORM_DS
     param0->unk_5C = ov20_021D2E50(param0->unk_00, &v0, 48, 54, 2, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     Sprite_SetAnim(param0->unk_5C, 4);
     Sprite_SetDrawFlag(param0->unk_5C, FALSE);
 }
@@ -283,7 +323,11 @@ void ov20_021D3E74(UnkStruct_ov20_021D3E0C *param0, u32 param1)
 void ov20_021D3EF8(UnkStruct_ov20_021D3E0C *param0)
 {
     param0->unk_14 = 0;
+    #ifdef PLATFORM_DS
     ov20_021D4FB0(&(param0->unk_1C), GX_BLEND_PLANEMASK_BG1, -10, 0, 16);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
 }
 
 BOOL ov20_021D3F10(UnkStruct_ov20_021D3E0C *param0)
@@ -313,7 +357,11 @@ BOOL ov20_021D3F84(UnkStruct_ov20_021D3E0C *param0)
     switch (param0->unk_14) {
     case 0:
         if (ov20_021D4E8C(&(param0->unk_3C))) {
+            #ifdef PLATFORM_DS
             ov20_021D4FB0(&(param0->unk_1C), GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+            #endif
             param0->unk_14++;
         }
         break;
@@ -331,7 +379,11 @@ void ov20_021D3FD0(UnkStruct_ov20_021D3E0C *param0)
 
 void ov20_021D3FE0(UnkStruct_ov20_021D3E0C *param0)
 {
+    #ifdef PLATFORM_DS
     ov20_021D4FB0(&(param0->unk_1C), GX_BLEND_PLANEMASK_BG1, 0, -10, 16);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
 }
 
 BOOL ov20_021D3FF8(UnkStruct_ov20_021D3E0C *param0)
@@ -341,7 +393,11 @@ BOOL ov20_021D3FF8(UnkStruct_ov20_021D3E0C *param0)
 
 void ov20_021D4004(UnkStruct_ov20_021D3E0C *param0)
 {
+    #ifdef PLATFORM_DS
     ov20_021D4F1C(&param0->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 124, 0, (6 * 2));
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
 }
 
 BOOL ov20_021D4020(UnkStruct_ov20_021D3E0C *param0)
@@ -356,9 +412,25 @@ BOOL ov20_021D4020(UnkStruct_ov20_021D3E0C *param0)
 
 void ov20_021D403C(UnkStruct_ov20_021D3E0C *param0)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+    #endif
     G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 16);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
     Bg_ToggleLayer(BG_LAYER_MAIN_1, 1);
+    #ifdef PLATFORM_DS
     ov20_021D4F1C(&param0->unk_1C, GX_BLEND_PLANEMASK_BG1, GX_BLEND_ALL, 0, 124, (6 * 2));
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
 }
 
 BOOL ov20_021D4078(UnkStruct_ov20_021D3E0C *param0)

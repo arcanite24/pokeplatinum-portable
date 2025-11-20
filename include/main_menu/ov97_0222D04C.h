@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_0222D04C_H
 #define POKEPLATINUM_MAIN_MENU_0222D04C_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/mystery_gift_app.h"
 
 #include "savedata.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_HEADER_DATA_H
 #define POKEPLATINUM_MAP_HEADER_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #include "field/field_system_decl.h"

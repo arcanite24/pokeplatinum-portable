@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_SPECIAL_ENCOUNTER_H
 #define POKEPLATINUM_STRUCT_SPECIAL_ENCOUNTER_H
 
+#include "platform/platform_types.h"
+
 #include "generated/roaming_slots.h"
 
 #include "struct_defs/radar_chain_records.h"

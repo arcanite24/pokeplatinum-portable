@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0207E060_H
 #define POKEPLATINUM_UNK_0207E060_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0207E060_decl.h"
 
 #include "trainer_info.h"

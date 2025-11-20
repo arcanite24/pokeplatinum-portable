@@ -67,8 +67,16 @@ int ov96_0223B6A0(ApplicationManager *appMan, int *param1)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
 
         Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_68, 0x50000);
 
@@ -79,10 +87,26 @@ int ov96_0223B6A0(ApplicationManager *appMan, int *param1)
 
         {
             GraphicsModes v1 = {
+                #ifdef PLATFORM_DS
                 GX_DISPMODE_GRAPHICS,
+                #else
+                // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_BGMODE_0,
+                #else
+                // TODO: Port GX_BGMODE_0 to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_BGMODE_0,
+                #else
+                // TODO: Port GX_BGMODE_0 to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_BG0_AS_2D,
+                #else
+                // TODO: Port GX_BG0_AS_2D to PAL
+                #endif
             };
 
             SetAllGraphicsModes(&v1);
@@ -99,7 +123,11 @@ int ov96_0223B6A0(ApplicationManager *appMan, int *param1)
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_SUB_52, SEQ_NONE, 0);
 
         v0->unk_24 = Heap_Alloc(HEAP_ID_68, 0x20000 + 32);
+        #ifdef PLATFORM_DS
         v0->unk_28 = NNS_FndCreateExpHeap((void *)(((u32)v0->unk_24 + 31) / 32 * 32), 0x20000);
+        #else
+        // TODO: Port NNS_FndCreateExpHeap to PAL
+        #endif
 
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_11, SEQ_WIFILOBBY, 1);
 
@@ -198,22 +226,70 @@ static void ov96_0223B940(void *param0)
 
     inline_ov61_0222C1FC(&v0->unk_FF8);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static void ov96_0223B960(void)
 {
     UnkStruct_02099F80 v0 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v0);
@@ -252,7 +328,11 @@ static void ov96_0223B9D0(UnkStruct_ov96_0223BF40 *param0)
     int v0;
     NARC *v1 = NARC_ctor(NARC_INDEX_GRAPHIC__WORLDTRADE, HEAP_ID_68);
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 126, 0, 32, 0, 126, 0, 32, 68);
 
     param0->unk_BF4 = SpriteList_InitRendering(10, &param0->unk_BF8, HEAP_ID_68);
@@ -263,8 +343,16 @@ static void ov96_0223B9D0(UnkStruct_ov96_0223BF40 *param0)
         param0->unk_D84[v0] = SpriteResourceCollection_New(2, v0, HEAP_ID_68);
     }
 
+    #ifdef PLATFORM_DS
     param0->unk_D94[0][0] = SpriteResourceCollection_AddTilesFrom(param0->unk_D84[0], v1, 35, 1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_68);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_D94[0][1] = SpriteResourceCollection_AddPaletteFrom(param0->unk_D84[1], v1, 9, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 3, HEAP_ID_68);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     param0->unk_D94[0][2] = SpriteResourceCollection_AddFrom(param0->unk_D84[2], v1, 36, 1, 0, 2, HEAP_ID_68);
     param0->unk_D94[0][3] = SpriteResourceCollection_AddFrom(param0->unk_D84[3], v1, 37, 1, 0, 3, HEAP_ID_68);
 
@@ -301,7 +389,11 @@ static void ov96_0223BB0C(UnkStruct_ov96_0223BF40 *param0)
     {
         AffineSpriteListTemplate v1;
 
+        #ifdef PLATFORM_DS
         ov96_0223BAE0(&v1, param0, &param0->unk_DC4, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         for (v0 = 0; v0 < 2; v0++) {
             v1.position.x = FX32_ONE * Unk_ov96_0223DA80[v0][0];
@@ -312,8 +404,16 @@ static void ov96_0223BB0C(UnkStruct_ov96_0223BF40 *param0)
             Sprite_SetDrawFlag(param0->unk_E30[v0], FALSE);
         }
     }
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     sub_02039734();
 }
 
@@ -350,10 +450,22 @@ static void *ov96_0223BC04(DWCAllocType param0, u32 param1, int param2)
     void *v0;
     OSIntrMode v1;
 
+    #ifdef PLATFORM_DS
     v1 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v0 = NNS_FndAllocFromExpHeapEx(Unk_ov96_0223DEF0, param1, param2);
+    #else
+    // TODO: Port NNS_FndAllocFromExpHeapEx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v1);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 
     if (v0 == NULL) {
         (void)0;
@@ -371,10 +483,22 @@ static void ov96_0223BC2C(DWCAllocType param0, void *param1, u32 param2)
         return;
     }
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_FndFreeToExpHeap(Unk_ov96_0223DEF0, param1);
+    #else
+    // TODO: Port NNS_FndFreeToExpHeap to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
 }
 
 int ov96_0223BC50(void)

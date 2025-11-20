@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0207DA28_H
 #define POKEPLATINUM_UNK_0207DA28_H
 
+#include "platform/platform_types.h"
+
 #include "field_task.h"
 
 void sub_0207DDC0(FieldTask *param0);

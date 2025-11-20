@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_JOURNAL_H
 #define POKEPLATINUM_JOURNAL_H
 
+#include "platform/platform_types.h"
+
 #include "play_time.h"
 #include "savedata.h"
 #include "trainer_info.h"

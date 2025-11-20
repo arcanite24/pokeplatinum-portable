@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DATA_FIELD_HIDDEN_ITEMS_H
 #define POKEPLATINUM_DATA_FIELD_HIDDEN_ITEMS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/items.h"
 
 typedef struct HiddenItem {

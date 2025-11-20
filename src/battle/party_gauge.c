@@ -101,7 +101,11 @@ static const SpriteTemplate sArrowTemplate = {
     .animIdx = 0,
     .priority = 10,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         PARTY_GAUGE_CHAR_RES_ID,
         PARTY_GAUGE_PLTT_RES_ID,
@@ -121,7 +125,11 @@ static const SpriteTemplate sPokeballTemplate = {
     .animIdx = 0,
     .priority = 8,
     .plttIdx = 0,
+    #ifdef PLATFORM_DS
     .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     .resources = {
         PARTY_GAUGE_CHAR_RES_ID,
         PARTY_GAUGE_PLTT_RES_ID,
@@ -205,8 +213,16 @@ void PartyGauge_LoadGraphics(SpriteSystem *spriteSys, SpriteManager *spriteMan, 
 {
     NARC *narc = NARC_ctor(NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ, HEAP_ID_BATTLE);
 
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, spriteMan, narc, PARTY_GAUGE_NCLR, FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, PARTY_GAUGE_PLTT_RES_ID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     SpriteSystem_LoadCharResObjFromOpenNarc(spriteSys, spriteMan, narc, PARTY_GAUGE_NCGR_BIN, TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, PARTY_GAUGE_CHAR_RES_ID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     SpriteSystem_LoadCellResObjFromOpenNarc(spriteSys, spriteMan, narc, PARTY_GAUGE_NCER_BIN, TRUE, PARTY_GAUGE_CELL_RES_ID);
     SpriteSystem_LoadAnimResObjFromOpenNarc(spriteSys, spriteMan, narc, PARTY_GAUGE_NANR_BIN, TRUE, PARTY_GAUGE_ANIM_RES_ID);
 
@@ -407,10 +423,26 @@ static void HideArrowTask(SysTask *task, void *data)
         ManagedSprite_GetPositionXY(arrow->managedSprite, &x, &y);
         arrow->x = x << 8;
 
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(arrow->managedSprite, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         arrow->alpha = 16 << 8;
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_NONE to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_NONE, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, (arrow->alpha >> 8), 16 - (arrow->alpha >> 8));
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         arrow->state++;
         // fall-through
     case HIDE_ARROW_DELAY:
@@ -440,7 +472,11 @@ static void HideArrowTask(SysTask *task, void *data)
             arrow->state++;
         }
 
+        #ifdef PLATFORM_DS
         G2_ChangeBlendAlpha(arrow->alpha >> 8, 16 - (arrow->alpha >> 8));
+        #else
+        // TODO: Port G2_ChangeBlendAlpha to PAL
+        #endif
         break;
 
     default:
@@ -699,7 +735,11 @@ static void HidePokeballsStartOfBattleTask(SysTask *task, void *data)
         ManagedSprite_GetPositionXY(pokeballs->managedSprite, &x, &y);
         pokeballs->xStart = x << 8;
 
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(pokeballs->managedSprite, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         pokeballs->state++;
         // fall-through
     case HIDE_POKEBALLS_DELAY:
@@ -748,7 +788,11 @@ static void HidePokeballsMidBattleTask(SysTask *task, void *data)
 
     switch (pokeballs->state) {
     case HIDE_POKEBALLS_INIT:
+        #ifdef PLATFORM_DS
         ManagedSprite_SetExplicitOamMode(pokeballs->managedSprite, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
         pokeballs->state++;
         // fall-through
     case HIDE_POKEBALLS_DELAY:

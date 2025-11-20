@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_0223E140_H
 #define POKEPLATINUM_OV23_0223E140_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/math.h>
 #endif

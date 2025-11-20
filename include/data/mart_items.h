@@ -1,3 +1,5 @@
+#include "platform/platform_types.h"
+
 #include "constants/items.h"
 #include "constants/seals.h"
 #include "generated/mart_decor_id.h"

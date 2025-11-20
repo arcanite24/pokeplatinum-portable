@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BOX_MENU_H
 #define POKEPLATINUM_STRUCT_BOX_MENU_H
 
+#include "platform/platform_types.h"
+
 enum BoxMenuItem {
     BOX_MENU_NAVIGATION_NONE = -3,
     BOX_MENU_NAVIGATION_UP_DOWN,

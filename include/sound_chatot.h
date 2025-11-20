@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SOUND_CHATOT_H
 #define POKEPLATINUM_SOUND_CHATOT_H
 
+#include "platform/platform_types.h"
+
 #include "constants/sound.h"
 
 #include "struct_defs/chatot_cry.h"

@@ -81,15 +81,39 @@ static void InitOamManager(int mainOamStart, int mainOamCount, int mainAffineOam
     GF_ASSERT(sOamManager);
 
     sOamManager->heapID = heapID;
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetNewOamManagerInstance to PAL
+    #endif
     GF_ASSERT(NNS_G2dGetNewOamManagerInstance(&sOamManager->mainScreenOam, mainOamStart, mainOamCount, mainAffineOamStart, mainAffineOamCount, NNS_G2D_OAMTYPE_MAIN));
+    #else
+    // TODO: Port NNS_G2D_OAMTYPE_MAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G2dGetNewOamManagerInstance to PAL
+    #endif
     GF_ASSERT(NNS_G2dGetNewOamManagerInstance(&sOamManager->subScreenOam, subOamStart, subOamCount, subAffineOamStart, subAffineOamCount, NNS_G2D_OAMTYPE_SUB));
+    #else
+    // TODO: Port NNS_G2D_OAMTYPE_SUB to PAL
+    #endif
 }
 
 void RenderOam_Transfer(void)
 {
     if (sOamManager) {
+        #ifdef PLATFORM_DS
         NNS_G2dApplyAndResetOamManagerBuffer(&sOamManager->mainScreenOam);
+        #else
+        // TODO: Port NNS_G2dApplyAndResetOamManagerBuffer to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G2dApplyAndResetOamManagerBuffer(&sOamManager->subScreenOam);
+        #else
+        // TODO: Port NNS_G2dApplyAndResetOamManagerBuffer to PAL
+        #endif
     }
 }
 
@@ -105,7 +129,11 @@ void RenderOam_Free(void)
 void RenderOam_InitSurface(NNSG2dRenderSurface *surface, NNSG2dViewRect *viewRect, NNSG2dSurfaceType surfaceType, NNSG2dRendererInstance *renderer)
 {
     GF_ASSERT(sOamManager);
+    #ifdef PLATFORM_DS
     if (surfaceType == NNS_G2D_SURFACETYPE_MAIN2D) {
+    #else
+    // TODO: Port NNS_G2D_SURFACETYPE_MAIN2D to PAL
+    #endif
         InitRenderSurface(surface, viewRect, AddToMainOamManager, AddAffineToMainOamManager, IsObjectInView, surfaceType, renderer);
     } else {
         InitRenderSurface(surface, viewRect, AddToSubOamManager, AddAffineToSubOamManager, IsObjectInView, surfaceType, renderer);
@@ -138,28 +166,52 @@ void RenderOam_ClearSub(enum HeapID heapID)
 
 static BOOL AddToMainOamManager(const GXOamAttr *oam, u16 affineIdx, BOOL unused)
 {
+    #ifdef PLATFORM_DS
     BOOL result = NNS_G2dEntryOamManagerOamWithAffineIdx(&sOamManager->mainScreenOam, oam, affineIdx);
+    #else
+    // TODO: Port NNS_G2dEntryOamManagerOamWithAffineIdx to PAL
+    #endif
     GF_ASSERT(result);
     return result;
 }
 
 static BOOL AddToSubOamManager(const GXOamAttr *oam, u16 affineIdx, BOOL unused)
 {
+    #ifdef PLATFORM_DS
     BOOL result = NNS_G2dEntryOamManagerOamWithAffineIdx(&sOamManager->subScreenOam, oam, affineIdx);
+    #else
+    // TODO: Port NNS_G2dEntryOamManagerOamWithAffineIdx to PAL
+    #endif
     GF_ASSERT(result);
     return result;
 }
 
 static u16 AddAffineToMainOamManager(const MtxFx22 *affineTransform)
 {
+    #ifdef PLATFORM_DS
     u16 result = NNS_G2dEntryOamManagerAffine(&sOamManager->mainScreenOam, affineTransform);
+    #else
+    // TODO: Port NNS_G2dEntryOamManagerAffine to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(result != NNS_G2D_OAM_AFFINE_IDX_NONE);
+    #else
+    // TODO: Port NNS_G2D_OAM_AFFINE_IDX_NONE to PAL
+    #endif
     return result;
 }
 
 static u16 AddAffineToSubOamManager(const MtxFx22 *affineTransform)
 {
+    #ifdef PLATFORM_DS
     u16 result = NNS_G2dEntryOamManagerAffine(&sOamManager->subScreenOam, affineTransform);
+    #else
+    // TODO: Port NNS_G2dEntryOamManagerAffine to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GF_ASSERT(result != NNS_G2D_OAM_AFFINE_IDX_NONE);
+    #else
+    // TODO: Port NNS_G2D_OAM_AFFINE_IDX_NONE to PAL
+    #endif
     return result;
 }

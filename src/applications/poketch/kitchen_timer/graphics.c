@@ -79,7 +79,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_HAND_LEFT] = {
             .translation = { FX32_CONST(48), FX32_CONST(56) },
             .animIdx = ANIM_HAND_LEFT_UP,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 1,
             .hasAffineTransform = FALSE,
@@ -87,7 +91,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_HAND_RIGHT] = {
             .translation = { FX32_CONST(176), FX32_CONST(56) },
             .animIdx = ANIM_HAND_RIGHT_UP,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 1,
             .hasAffineTransform = FALSE,
@@ -95,7 +103,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_START_BUTTON] = {
             .translation = { FX32_CONST(48), FX32_CONST(160) },
             .animIdx = ANIM_START_BUTTON_UP,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -103,7 +115,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_STOP_BUTTON] = {
             .translation = { FX32_CONST(112), FX32_CONST(160) },
             .animIdx = ANIM_STOP_BUTTON_UP,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -111,7 +127,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_RESET_BUTTON] = {
             .translation = { FX32_CONST(176), FX32_CONST(160) },
             .animIdx = ANIM_RESET_BUTTON_UP,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -119,7 +139,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_TENS_UP] = {
             .translation = { FX32_CONST(80), FX32_CONST(88) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -127,7 +151,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_ONES_UP] = {
             .translation = { FX32_CONST(96), FX32_CONST(88) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -135,7 +163,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_TENS_UP] = {
             .translation = { FX32_CONST(128), FX32_CONST(88) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -143,7 +175,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_ONES_UP] = {
             .translation = { FX32_CONST(144), FX32_CONST(88) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -151,7 +187,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_TENS_DOWN] = {
             .translation = { FX32_CONST(80), FX32_CONST(136) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_V,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_V to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -159,7 +199,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_ONES_DOWN] = {
             .translation = { FX32_CONST(96), FX32_CONST(136) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_V,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_V to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -167,7 +211,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_TENS_DOWN] = {
             .translation = { FX32_CONST(128), FX32_CONST(136) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_V,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_V to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -175,7 +223,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_ONES_DOWN] = {
             .translation = { FX32_CONST(144), FX32_CONST(136) },
             .animIdx = ANIM_ARROW_BUTTON,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_V,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_V to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -183,7 +235,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_TENS_DIGIT] = {
             .translation = { FX32_CONST(80), FX32_CONST(112) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -191,7 +247,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_MINUTES_ONES_DIGIT] = {
             .translation = { FX32_CONST(96), FX32_CONST(112) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -199,7 +259,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_TENS_DIGIT] = {
             .translation = { FX32_CONST(128), FX32_CONST(112) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -207,7 +271,11 @@ static void SetupSprites(KitchenTimerGraphics *graphics, const KitchenTimerDispl
         [SPRITE_SECONDS_ONES_DIGIT] = {
             .translation = { FX32_CONST(144), FX32_CONST(112) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -289,10 +357,18 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -306,8 +382,20 @@ static void Task_DrawBackground(SysTask *task, void *taskMan)
     PoketchGraphics_LoadActivePalette(0, 0);
     Bg_CopyTilemapBufferToVRAM(graphics->bgConfig, BG_LAYER_SUB_2);
 
+    #ifdef PLATFORM_DS
     GXSDispCnt dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 
     switch (graphics->timerData->handPositions) {
     case 2:

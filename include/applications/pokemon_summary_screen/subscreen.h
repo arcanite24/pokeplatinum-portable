@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_SUMMARY_SCREEN_SUBSCREEN_H
 #define POKEPLATINUM_POKEMON_SUMMARY_SCREEN_SUBSCREEN_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pokemon_summary_screen/main.h"
 
 enum SummaryButtonState {

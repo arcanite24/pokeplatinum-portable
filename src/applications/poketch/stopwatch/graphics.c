@@ -185,10 +185,18 @@ static void Task_DrawAppScreen(SysTask *task, void *taskMan)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = FALSE,
@@ -217,8 +225,20 @@ static void Task_DrawAppScreen(SysTask *task, void *taskMan)
         PoketchStopwatchGraphics_StartTask(graphics, STOPWATCH_GRAPHICS_UPDATE);
     }
 
+    #ifdef PLATFORM_DS
     dispCnt = GXS_GetDispCnt();
+    #else
+    // TODO: Port GXS_GetDispCnt to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetVisiblePlane to PAL
+    #endif
     GXS_SetVisiblePlane(dispCnt.visiblePlane | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     EndTask(taskMan);
 }
@@ -237,7 +257,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(32), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -245,7 +269,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(32 + 16), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -253,7 +281,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(80), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -261,7 +293,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(80 + 16), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -269,7 +305,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(128), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -277,7 +317,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(128 + 16), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -285,7 +329,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(176), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -293,7 +341,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(176 + 16), FX32_CONST(40) },
             .animIdx = 0,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 0,
             .hasAffineTransform = FALSE,
@@ -301,7 +353,11 @@ static void SetupSprites(PoketchStopwatchGraphics *graphics, const TimerState *t
         {
             .translation = { FX32_CONST(112), FX32_CONST(96) },
             .animIdx = 10,
+            #ifdef PLATFORM_DS
             .flip = NNS_G2D_RENDERERFLIP_NONE,
+            #else
+            // TODO: Port NNS_G2D_RENDERERFLIP_NONE to PAL
+            #endif
             .oamPriority = 2,
             .priority = 2,
             .hasAffineTransform = FALSE,
@@ -537,7 +593,11 @@ static void UpdateButtonTiles(BgConfig *bgConfig, enum ButtonTileGroup buttonTil
     for (y = 0; y < BUTTON_HEIGHT_TILES; y++) {
         for (x = 0; x < BUTTON_WIDTH_TILES; x++) {
             tilemapBuffer[x] = buttonStartTile + x;
+            #ifdef PLATFORM_DS
             tilemapBuffer[BUTTON_WIDTH_TILES * 2 - 1 - x] = ((buttonStartTile + x) | GX_SCRFMT_TEXT_HF_MASK);
+            #else
+            // TODO: Port GX_SCRFMT_TEXT_HF_MASK to PAL
+            #endif
         }
 
         tilemapBuffer += 32;

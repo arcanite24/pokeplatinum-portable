@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCRIPT_MANAGER_H
 #define POKEPLATINUM_SCRIPT_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "constants/init_script_types.h"
 
 #include "struct_decls/struct_02061AB4_decl.h"

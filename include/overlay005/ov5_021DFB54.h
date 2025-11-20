@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021DFB54_H
 #define POKEPLATINUM_OV5_021DFB54_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0205E884_decl.h"
 
 #include "field/field_system_decl.h"

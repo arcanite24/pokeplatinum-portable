@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0203061C_H
 #define POKEPLATINUM_UNK_0203061C_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/battle_frontier.h"
 
 #include "savedata.h"

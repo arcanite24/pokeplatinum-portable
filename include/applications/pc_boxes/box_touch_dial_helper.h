@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BOX_TOUCH_DIAL_HELPER_H
 #define POKEPLATINUM_STRUCT_BOX_TOUCH_DIAL_HELPER_H
 
+#include "platform/platform_types.h"
+
 enum TouchDials {
     TOUCH_DIALS_NONE,
     TOUCH_DIALS_BOX_JUMP,

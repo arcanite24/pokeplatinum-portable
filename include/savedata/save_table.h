@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SAVEDATA_LOAD_HELPERS_H
 #define POKEPLATINUM_SAVEDATA_LOAD_HELPERS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/savedata/save_table.h"
 
 #include "struct_decls/pc_boxes_decl.h"

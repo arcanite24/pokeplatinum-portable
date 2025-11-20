@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV59_021D2A2C_H
 #define POKEPLATINUM_OV59_021D2A2C_H
 
+#include "platform/platform_types.h"
+
 #include "record_mixed_rng.h"
 
 u32 ov59_021D2A2C(RecordMixedRNG *param0);

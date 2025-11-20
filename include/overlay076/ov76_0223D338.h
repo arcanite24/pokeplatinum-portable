@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV76_0223D338_H
 #define POKEPLATINUM_OV76_0223D338_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/seal_case.h"
 
 #include "overlay076/struct_ov76_0223DE00.h"

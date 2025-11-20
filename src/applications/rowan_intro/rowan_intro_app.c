@@ -48,7 +48,11 @@
 
 #include "res/text/bank/rowan_intro.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_start);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 enum RowanIntroState {
     RI_STATE_FIRST_FADE_BLACK_START = 0,
@@ -299,14 +303,22 @@ const ApplicationManagerTemplate sDummyApplicationManagerTemplate = {
     .init = RowanIntro_Init,
     .main = RowanIntro_Main,
     .exit = RowanIntro_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 static const ApplicationManagerTemplate sTvApplicationTemplate = {
     .init = RowanIntroTv_Init,
     .main = RowanIntroTv_Main,
     .exit = RowanIntroTv_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 BOOL RowanIntro_Init(ApplicationManager *appMan, int *unusedState)
@@ -354,8 +366,16 @@ BOOL RowanIntro_Main(ApplicationManager *appMan, int *state)
         GXLayers_DisableEngineALayers();
         GXLayers_DisableEngineBLayers();
 
+        #ifdef PLATFORM_DS
         GX_SetVisiblePlane(0);
+        #else
+        // TODO: Port GX_SetVisiblePlane to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXS_SetVisiblePlane(0);
+        #else
+        // TODO: Port GXS_SetVisiblePlane to PAL
+        #endif
         SetAutorepeat(4, 8);
 
         RowanIntro_InitGraphics(manager);
@@ -451,7 +471,11 @@ BOOL RowanIntro_Exit(ApplicationManager *appMan, int *unusedState)
     NamingScreenArgs_Free(manager->rivalNamingScreenArgs);
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(heapID);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(game_start), &gGameStartNewSaveAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 
     return TRUE;
 }
@@ -496,16 +520,56 @@ static void RowanIntro_InitGraphics(RowanIntro *manager)
 {
     {
         UnkStruct_02099F80 banks = {
+            #ifdef PLATFORM_DS
             .unk_00 = GX_VRAM_BG_128_B,
+            #else
+            // TODO: Port GX_VRAM_BG_128_B to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_04 = GX_VRAM_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_08 = GX_VRAM_SUB_BG_128_C,
+            #else
+            // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_0C = GX_VRAM_SUB_BGEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_10 = GX_VRAM_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_14 = GX_VRAM_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_18 = GX_VRAM_SUB_OBJ_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJ_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_1C = GX_VRAM_SUB_OBJEXTPLTT_NONE,
+            #else
+            // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_20 = GX_VRAM_TEX_NONE,
+            #else
+            // TODO: Port GX_VRAM_TEX_NONE to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .unk_24 = GX_VRAM_TEXPLTT_NONE
+            #else
+            // TODO: Port GX_VRAM_TEXPLTT_NONE to PAL
+            #endif
         };
 
         GXLayers_SetBanks(&banks);
@@ -517,10 +581,26 @@ static void RowanIntro_InitGraphics(RowanIntro *manager)
 
     {
         GraphicsModes graphicsModes = {
+            #ifdef PLATFORM_DS
             .displayMode = GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .mainBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .subBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bg0As2DOr3D = GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&graphicsModes);
@@ -532,8 +612,16 @@ static void RowanIntro_InitGraphics(RowanIntro *manager)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -602,8 +690,16 @@ static void RowanIntro_InitGraphics(RowanIntro *manager)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -731,27 +827,51 @@ static BOOL RowanIntro_FadeBgLayer(
     switch (bgLayer) {
     default:
     case BG_LAYER_MAIN_0:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG0;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         isSubLayer = FALSE;
         break;
     case BG_LAYER_MAIN_1:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG1;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         isSubLayer = FALSE;
         break;
     case BG_LAYER_MAIN_2:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG2;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         isSubLayer = FALSE;
         break;
     case BG_LAYER_SUB_0:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG0;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         isSubLayer = TRUE;
         break;
     case BG_LAYER_SUB_1:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG1;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         isSubLayer = TRUE;
         break;
     case BG_LAYER_SUB_2:
+        #ifdef PLATFORM_DS
         blendPlaneMask = GX_BLEND_PLANEMASK_BG2;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         isSubLayer = TRUE;
         break;
     }
@@ -764,15 +884,35 @@ static BOOL RowanIntro_FadeBgLayer(
             manager->fadeBgLayerState = FBL_STATE_FADE_IN;
 
             if (isSubLayer == FALSE) {
+                #ifdef PLATFORM_DS
                 G2_SetBlendAlpha(
+                #else
+                // TODO: Port G2_SetBlendAlpha to PAL
+                #endif
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             } else {
                 G2S_SetBlendAlpha(
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             }
@@ -790,15 +930,35 @@ static BOOL RowanIntro_FadeBgLayer(
             manager->fadeBgLayerCurAlphaInv--;
 
             if (isSubLayer == FALSE) {
+                #ifdef PLATFORM_DS
                 G2_SetBlendAlpha(
+                #else
+                // TODO: Port G2_SetBlendAlpha to PAL
+                #endif
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             } else {
                 G2S_SetBlendAlpha(
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             }
@@ -812,15 +972,35 @@ static BOOL RowanIntro_FadeBgLayer(
             manager->fadeBgLayerCurAlphaInv++;
 
             if (isSubLayer == FALSE) {
+                #ifdef PLATFORM_DS
                 G2_SetBlendAlpha(
+                #else
+                // TODO: Port G2_SetBlendAlpha to PAL
+                #endif
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             } else {
                 G2S_SetBlendAlpha(
                     blendPlaneMask,
+                    #ifdef PLATFORM_DS
+                    #ifdef PLATFORM_DS
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+                    #endif
                     GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+                    #else
+                    // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+                    #endif
                     manager->fadeBgLayerCurAlpha,
                     manager->fadeBgLayerCurAlphaInv);
             }
@@ -830,7 +1010,11 @@ static BOOL RowanIntro_FadeBgLayer(
         }
         break;
     case FBL_STATE_END:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         G2S_BlendNone();
         manager->fadeBgLayerState = FBL_STATE_INIT;
         isFinished = TRUE;
@@ -1036,7 +1220,11 @@ static BOOL RowanIntro_DisplayMessage(RowanIntro *manager, u32 textID, BOOL endE
         }
         break;
     case DM_STATE_END:
+        #ifdef PLATFORM_DS
         if (endEarly || ((gSystem.pressedKeys & PAD_BUTTON_A) == PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             Window_Remove(&manager->textWindow);
             manager->displayMessageState = DM_STATE_INIT;
             isFinished = TRUE;
@@ -1243,7 +1431,11 @@ static BOOL RowanIntro_DisplayTextBlock(
         }
         break;
     case DTB_STATE_WAIT_FOR_INPUT:
+        #ifdef PLATFORM_DS
         if (((gSystem.pressedKeys & PAD_BUTTON_A) == PAD_BUTTON_A) || ((gSystem.pressedKeys & PAD_BUTTON_B) == PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             manager->displayTextBlockState = DTB_STATE_FADE_OUT_TEXT;
         }
@@ -1727,7 +1919,19 @@ static void RowanIntro_AnimateAvatarRun(RowanIntro *manager)
             manager->maleRunAnimUpdateCounter = 4;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG2 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG2, GX_BLEND_PLANEMASK_BG3, 6, 10);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
 
         {
             int maleSpriteNARCIndices[] = { 9, 10, 11, 12 };
@@ -1750,7 +1954,19 @@ static void RowanIntro_AnimateAvatarRun(RowanIntro *manager)
             manager->femaleRunAnimUpdateCounter = 4;
         }
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG1 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG1, GX_BLEND_PLANEMASK_BG3, 6, 10);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
 
         {
             int femaleSpriteNARCIndices[] = { 14, 15, 16, 17 };
@@ -1769,7 +1985,11 @@ static void RowanIntro_AnimateAvatarRun(RowanIntro *manager)
 
 static void RowanIntro_ResetBlending(RowanIntro *manager)
 {
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 }
 
 static void RowanIntro_ResetAnimationCounters(RowanIntro *manager)
@@ -2480,27 +2700,59 @@ static BOOL RowanIntro_Run(RowanIntro *manager)
             1,
             16,
             0,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             BRIGHTNESS_MAIN_SCREEN);
         BrightnessController_StartTransition(
             1,
             16,
             0,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             BRIGHTNESS_SUB_SCREEN);
         manager->state = RI_STATE_PKBL_ANIM_FLASH_1;
         break;
     case RI_STATE_PKBL_ANIM_FLASH_1:
         if ((BrightnessController_IsTransitionComplete(BRIGHTNESS_MAIN_SCREEN) == TRUE) && (BrightnessController_IsTransitionComplete(BRIGHTNESS_SUB_SCREEN) == TRUE)) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, 0, 16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(1, 0, 16, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_SUB_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             manager->state = RI_STATE_PKBL_ANIM_FLASH_2;
         }
         break;
     case RI_STATE_PKBL_ANIM_FLASH_2:
         if ((BrightnessController_IsTransitionComplete(BRIGHTNESS_MAIN_SCREEN) == TRUE) && (BrightnessController_IsTransitionComplete(BRIGHTNESS_SUB_SCREEN) == TRUE)) {
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(4, 16, 0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_MAIN_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             BrightnessController_StartTransition(4, 16, 0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3, BRIGHTNESS_SUB_SCREEN);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             manager->state = RI_STATE_PKBL_ANIM_FLASH_3;
         }
         break;
@@ -2520,13 +2772,29 @@ static BOOL RowanIntro_Run(RowanIntro *manager)
             16,
             0,
             16,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG3,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             BRIGHTNESS_MAIN_SCREEN);
         BrightnessController_StartTransition(
             16,
             0,
             16,
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+            #endif
             GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+            #endif
             BRIGHTNESS_SUB_SCREEN);
         manager->state = RI_STATE_PKBL_ANIM_MV_PKM_UP_AND_FLASH_END;
         break;
@@ -2610,7 +2878,11 @@ static BOOL RowanIntro_Run(RowanIntro *manager)
         }
         break;
     case RI_STATE_GENDR_CHOICE:
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & PAD_BUTTON_A) == PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             manager->fadeBgLayerCurAlpha = 6;
             manager->fadeBgLayerCurAlphaInv = 10;
             manager->fadeBgLayerState = FBL_STATE_FADE_OUT;
@@ -2623,7 +2895,11 @@ static BOOL RowanIntro_Run(RowanIntro *manager)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if ((gSystem.pressedKeys & PAD_KEY_LEFT) == PAD_KEY_LEFT || (gSystem.pressedKeys & PAD_KEY_RIGHT) == PAD_KEY_RIGHT) {
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
             if (manager->playerGender == GENDER_MALE) {
                 manager->playerGender = GENDER_FEMALE;
             } else {

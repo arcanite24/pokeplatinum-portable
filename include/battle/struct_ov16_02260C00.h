@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV16_02260C00_H
 #define POKEPLATINUM_STRUCT_OV16_02260C00_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     u16 moveIDs[4];
     u8 unk_08[4];

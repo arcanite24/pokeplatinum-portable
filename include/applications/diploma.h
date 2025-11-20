@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_DIPLOMA_H
 #define POKEPLATINUM_APPLICATIONS_DIPLOMA_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 #include "savedata.h"
 

@@ -163,10 +163,26 @@ static void ov94_0223FC08(BgConfig *param0)
 {
     {
         GraphicsModes v0 = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_2D
+            #else
+            // TODO: Port GX_BG0_AS_2D to PAL
+            #endif
         };
 
         SetAllGraphicsModes(&v0);
@@ -179,10 +195,18 @@ static void ov94_0223FC08(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -199,10 +223,18 @@ static void ov94_0223FC08(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -218,10 +250,18 @@ static void ov94_0223FC08(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe800,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -238,10 +278,18 @@ static void ov94_0223FC08(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -258,10 +306,18 @@ static void ov94_0223FC08(BgConfig *param0)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_256,
+            #else
+            // TODO: Port GX_BG_COLORMODE_256 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xe000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -272,8 +328,16 @@ static void ov94_0223FC08(BgConfig *param0)
 
     Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_62);
     Bg_ClearTilesRange(4, 32, 0, HEAP_ID_62);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov94_0223FD20(BgConfig *param0)
@@ -346,7 +410,11 @@ static void ov94_0223FE24(GTSApplicationState *param0)
     int v0;
     AffineSpriteListTemplate v1;
 
+    #ifdef PLATFORM_DS
     GTSApplication_InitAffineTemplate(&v1, param0, &param0->cursorSpriteResourceHeader, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     v1.position.x = FX32_ONE * Unk_ov94_02245ED4[param0->unk_112][0];
     v1.position.y = FX32_ONE * Unk_ov94_02245ED4[param0->unk_112][1];
@@ -537,11 +605,19 @@ static int ov94_022402BC(GTSApplicationState *param0)
     ov94_022404F0(param0);
 
     if (param0->screenArgument == SCREEN_ARGUMENT_5) { // from main menu
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             GTSApplication_SetNextScreenWithArgument(param0, GTS_SCREEN_MAIN_MENU, SCREEN_ARGUMENT_0);
             param0->currentScreenInstruction = 2;
             Sound_PlayEffect(SEQ_SE_CONFIRM);
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (param0->unk_112 == 30) {
                 GTSApplication_SetNextScreenWithArgument(param0, GTS_SCREEN_MAIN_MENU, SCREEN_ARGUMENT_0);
                 param0->currentScreenInstruction = 2;
@@ -570,11 +646,19 @@ static int ov94_022402BC(GTSApplicationState *param0)
             }
         }
     } else if (param0->screenArgument == SCREEN_ARGUMENT_6) {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_B) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             GTSApplication_SetNextScreenWithArgument(param0, GTS_SCREEN_SEARCH_LISTING, SCREEN_ARGUMENT_0);
             param0->currentScreenInstruction = 2;
             Sound_PlayEffect(SEQ_SE_CONFIRM);
+        #ifdef PLATFORM_DS
         } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             if (param0->unk_112 == 30) {
                 GTSApplication_SetNextScreenWithArgument(param0, GTS_SCREEN_SEARCH_LISTING, SCREEN_ARGUMENT_0);
                 param0->currentScreenInstruction = 2;
@@ -616,13 +700,29 @@ static void ov94_022404F0(GTSApplicationState *param0)
 {
     int v0 = 0, v1 = 0, v2 = 0;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         v1 = 1;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         v1 = 2;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         v1 = 3;
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         v1 = 4;
     }
 
@@ -690,7 +790,11 @@ static int ov94_022405DC(GTSApplicationState *param0)
 
     Window_DrawStandardFrame(&param0->unk_F9C[0], 1, 1 + (18 + 12), 11);
 
+    #ifdef PLATFORM_DS
     param0->unk_10D4 = Menu_NewAndCopyToVRAM(&v0, 9, 0, 0, 62, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
     param0->currentScreenInstruction = 8;
 
     return 3;
@@ -782,7 +886,11 @@ static int ov94_02240830(GTSApplicationState *param0)
     Window_FillTilemap(v0.window, 0xf0f);
     Window_DrawStandardFrame(&param0->unk_F9C[0], 1, 1 + (18 + 12), 11);
 
+    #ifdef PLATFORM_DS
     param0->unk_10D4 = Menu_NewAndCopyToVRAM(&v0, 9, 0, 0, 62, PAD_BUTTON_B);
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
     param0->currentScreenInstruction = 10;
 
     return 3;
@@ -1020,7 +1128,11 @@ void *ov94_02240DD0(NARC *param0, u32 param1, NNSG2dCharacterData **param2, u32 
     void *v0 = NARC_AllocAndReadWholeMember(param0, param1, param3);
 
     if (v0 != NULL) {
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(v0, param2) == 0) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
             Heap_Free(v0);
             return NULL;
         }
@@ -1060,7 +1172,11 @@ static void ov94_02240E5C(void *param0)
     for (v1 = 0; v1 < 30; v1++, v2++) {
         if (v2->sprite) {
             DC_FlushRange(v2->unk_0C, (4 * 4) * 0x20);
+            #ifdef PLATFORM_DS
             GX_LoadOBJ(v2->unk_0C, v2->unk_00, (4 * 4) * 0x20);
+            #else
+            // TODO: Port GX_LoadOBJ to PAL
+            #endif
 
             Sprite_SetExplicitPalette(v2->sprite, v2->paletteIndex);
         }

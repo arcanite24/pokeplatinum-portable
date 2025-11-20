@@ -334,15 +334,39 @@ BOOL ChooseStarter_Init(ApplicationManager *appMan, int *param1)
 
     GraphicsModes bglHeader;
     app->bgl = BgConfig_New(HEAP_ID_CHOOSE_STARTER_APP);
+    #ifdef PLATFORM_DS
     bglHeader.displayMode = GX_DISPMODE_GRAPHICS;
+    #else
+    // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+    #endif
+    #ifdef PLATFORM_DS
     bglHeader.mainBgMode = GX_BGMODE_0;
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     bglHeader.subBgMode = GX_BGMODE_1;
+    #else
+    // TODO: Port GX_BGMODE_1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     bglHeader.bg0As2DOr3D = GX_BG0_AS_3D;
+    #else
+    // TODO: Port GX_BG0_AS_3D to PAL
+    #endif
     SetAllGraphicsModes(&bglHeader);
 
     SetupBGL(app->bgl, HEAP_ID_CHOOSE_STARTER_APP);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG1 to PAL
+    #endif
 
     MakeMessageWindow(app, HEAP_ID_CHOOSE_STARTER_APP);
     MakeConfirmationWindow(app, HEAP_ID_CHOOSE_STARTER_APP);
@@ -382,7 +406,11 @@ BOOL ChooseStarter_Main(ApplicationManager *appMan, int *state)
     switch (*state) {
     case CHOOSE_STARTER_MAIN_FADE_IN:
         StartFadeIn(app);
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(&palette, 0, sizeof(u16));
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
         (*state)++;
         break;
 
@@ -503,16 +531,56 @@ static void ov78_021D10DC(void)
 static void SetupVRAMBank(void)
 {
     UnkStruct_02099F80 banks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_B,
+        #else
+        // TODO: Port GX_VRAM_BG_128_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_80_EF,
+        #else
+        // TODO: Port GX_VRAM_OBJ_80_EF to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_A,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_0_G
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_0_G to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&banks);
@@ -520,7 +588,11 @@ static void SetupVRAMBank(void)
 
 static void SetupOAM(enum HeapID heapID)
 {
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
 
     RenderOam_Init(OAM_MAIN_START, OAM_MAIN_END, OAM_AFFINE_MAIN_START, OAM_AFFINE_MAIN_END, OAM_SUB_START, OAM_SUB_END, OAM_AFFINE_SUB_START, OAM_AFFINE_SUB_END, heapID);
 
@@ -531,7 +603,11 @@ static void SetupOAM(enum HeapID heapID)
         heapID,
     };
 
+    #ifdef PLATFORM_DS
     CharTransfer_InitWithVramModes(&v0, GX_OBJVRAMMODE_CHAR_1D_128K, GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
 
     PlttTransfer_Init(32, heapID);
     CharTransfer_ClearBuffers();
@@ -540,10 +616,18 @@ static void SetupOAM(enum HeapID heapID)
 
 static void Setup3D(ChooseStarterApp *app)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dInit();
+    #else
+    // TODO: Port NNS_G3dInit to PAL
+    #endif
 
     G3X_InitMtxStack();
+    #ifdef PLATFORM_DS
     G3X_SetShading(GX_SHADING_TOON);
+    #else
+    // TODO: Port GX_SHADING_TOON to PAL
+    #endif
     G3X_AntiAlias(TRUE);
     G3X_AlphaTest(FALSE, 0);
     G3X_AlphaBlend(TRUE);
@@ -556,22 +640,50 @@ static void Setup3D(ChooseStarterApp *app)
     G3X_SetEdgeColorTable(app->edgeMarkings);
     G3X_SetClearColor(COLOR_TRANSPARENT, 0, TRANSPARENT_DEPTH, TRANSPARENT_POLYGON_ID, FALSE);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SORTMODE_AUTO to PAL
+    #endif
     G3_SwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_W);
+    #else
+    // TODO: Port GX_BUFFERMODE_W to PAL
+    #endif
     G3_ViewPort(VIEWPORT_LOWER_LEFT_X, VIEWPORT_LOWER_LEFT_Y, VIEWPORT_UPPER_RIGHT_X, VIEWPORT_UPPER_RIGHT_Y);
 
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmTexVramManager(1, TRUE);
+    #else
+    // TODO: Port NNS_GfdInitFrmTexVramManager to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdInitFrmPlttVramManager(0x4000, TRUE);
+    #else
+    // TODO: Port NNS_GfdInitFrmPlttVramManager to PAL
+    #endif
 }
 
 static void ov78_021D1218(void)
 {
+    #ifdef PLATFORM_DS
     NNS_GfdResetFrmTexVramState();
+    #else
+    // TODO: Port NNS_GfdResetFrmTexVramState to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdResetFrmPlttVramState();
+    #else
+    // TODO: Port NNS_GfdResetFrmPlttVramState to PAL
+    #endif
 }
 
 static void SetupBGL(BgConfig *bgl, enum HeapID heapID)
 {
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(1);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
 
     {
         BgTemplate header = {
@@ -580,10 +692,18 @@ static void SetupBGL(BgConfig *bgl, enum HeapID heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0000,
             .charBase = GX_BG_CHARBASE_0x04000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -601,10 +721,18 @@ static void SetupBGL(BgConfig *bgl, enum HeapID heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0800,
             .charBase = GX_BG_CHARBASE_0x0c000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -622,10 +750,18 @@ static void SetupBGL(BgConfig *bgl, enum HeapID heapID)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x1000,
             .charBase = GX_BG_CHARBASE_0x14000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE,
@@ -667,10 +803,26 @@ static void MakeSprite(ChooseStarterApp *app, enum HeapID heapID)
 {
     app->spriteManager = PokemonSpriteManager_New(heapID);
 
+    #ifdef PLATFORM_DS
     NNSGfdTexKey texture = NNS_GfdAllocTexVram(POKEMON_SPRITE_CHAR_SIZE, FALSE, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNSGfdPlttKey palette = NNS_GfdAllocPlttVram(POKEMON_SPRITE_PLTT_SIZE, FALSE, NNS_GFD_ALLOC_FROM_LOW);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_FROM_LOW to PAL
+    #endif
+    #ifdef PLATFORM_DS
     PokemonSpriteManager_SetCharBaseAddrAndSize(app->spriteManager, NNS_GfdGetTexKeyAddr(texture), NNS_GfdGetTexKeySize(texture));
+    #else
+    // TODO: Port NNS_GfdGetTexKeySize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     PokemonSpriteManager_SetPlttBaseAddrAndSize(app->spriteManager, NNS_GfdGetPlttKeyAddr(palette), NNS_GfdGetPlttKeySize(palette));
+    #else
+    // TODO: Port NNS_GfdGetPlttKeySize to PAL
+    #endif
 
     MakePokemonSprite(&app->sprites[0], app, STARTER_OPTION_0);
     MakePokemonSprite(&app->sprites[1], app, STARTER_OPTION_1);
@@ -737,8 +889,16 @@ static void MakeCellActors(ChooseStarterApp *param0, int heapID)
     param0->unk_24C[2] = SpriteResourceCollection_New(2, 2, heapID);
     param0->unk_24C[3] = SpriteResourceCollection_New(2, 3, heapID);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov78_021D1594(ChooseStarterApp *param0)
@@ -770,24 +930,56 @@ static void ov78_021D1604(ChooseStarter3DGraphics *param0, int param1, enum Heap
 static void ov78_021D1630(ChooseStarter3DGraphics *param0, int param1, enum HeapID heapID)
 {
     param0->unk_54 = LoadMemberFromNARC(NARC_INDEX_GRAPHIC__EV_POKESELECT, param1, 0, heapID, 0);
+    #ifdef PLATFORM_DS
     param0->unk_58 = NNS_G3dGetMdlSet(param0->unk_54);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_5C = NNS_G3dGetMdlByIdx(param0->unk_58, 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_60 = NNS_G3dGetTex(param0->unk_54);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     Easy3D_UploadTextureToVRAM(param0->unk_60);
     Easy3D_BindTextureToResource(param0->unk_54, param0->unk_60);
 
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(&param0->unk_00, param0->unk_5C);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 }
 
 static void ov78_021D1694(ChooseStarter3DGraphics *param0, int param1, enum HeapID heapID, NNSFndAllocator *param3)
 {
     param0->unk_64 = LoadMemberFromNARC(NARC_INDEX_GRAPHIC__EV_POKESELECT, param1, 0, heapID, 0);
+    #ifdef PLATFORM_DS
     param0->unk_68 = NNS_G3dGetAnmByIdx(param0->unk_64, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_6C = NNS_G3dAllocAnmObj(param3, param0->unk_68, param0->unk_5C);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(param0->unk_6C, param0->unk_68, param0->unk_5C, param0->unk_60);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(&param0->unk_00, param0->unk_6C);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
 }
 
 static void ov78_021D16D8(ChooseStarter3DGraphics *param0, NNSFndAllocator *param1)
@@ -797,7 +989,11 @@ static void ov78_021D16D8(ChooseStarter3DGraphics *param0, NNSFndAllocator *para
     }
 
     if (param0->unk_64) {
+        #ifdef PLATFORM_DS
         NNS_G3dFreeAnmObj(param1, param0->unk_6C);
+        #else
+        // TODO: Port NNS_G3dFreeAnmObj to PAL
+        #endif
         Heap_Free(param0->unk_64);
     }
 
@@ -850,7 +1046,11 @@ static void ov78_021D17CC(ChooseStarter3DGraphics *param0, u16 param1, u16 param
 
 static BOOL ov78_021D17E4(ChooseStarter3DGraphics *param0)
 {
+    #ifdef PLATFORM_DS
     fx32 v0 = NNS_G3dAnmObjGetNumFrame(param0->unk_6C);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
     BOOL v1;
 
     if ((param0->unk_70 + FX32_ONE) < v0) {
@@ -861,23 +1061,39 @@ static BOOL ov78_021D17E4(ChooseStarter3DGraphics *param0)
         v1 = 1;
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(param0->unk_6C, param0->unk_70);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 
     return v1;
 }
 
 static void ov78_021D180C(ChooseStarter3DGraphics *param0)
 {
+    #ifdef PLATFORM_DS
     fx32 v0 = NNS_G3dAnmObjGetNumFrame(param0->unk_6C);
+    #else
+    // TODO: Port NNS_G3dAnmObjGetNumFrame to PAL
+    #endif
 
     param0->unk_70 = (param0->unk_70 + FX32_ONE) % v0;
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(param0->unk_6C, param0->unk_70);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 }
 
 static void ov78_021D182C(ChooseStarter3DGraphics *param0, fx32 param1)
 {
     param0->unk_70 = param1;
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(param0->unk_6C, param1);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 }
 
 static void Make3DObjects(ChooseStarterApp *param0, enum HeapID heapID)
@@ -916,10 +1132,38 @@ static void ov78_021D192C(ChooseStarterApp *param0)
 {
     int v0;
 
+    #ifdef PLATFORM_DS
     NNS_G3dGlbLightVector(0, 0, -FX32_ONE, 0);
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(0, GX_RGB(31, 31, 31));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorDiffAmb to PAL
+    #endif
     NNS_G3dGlbMaterialColorDiffAmb(GX_RGB(31, 31, 31), GX_RGB(31, 31, 31), 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorSpecEmi to PAL
+    #endif
     NNS_G3dGlbMaterialColorSpecEmi(GX_RGB(31, 31, 31), GX_RGB(31, 31, 31), 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     for (v0 = 0; v0 < 6; v0++) {
         ov78_021D1708(&param0->unk_2C4[v0]);
@@ -942,7 +1186,11 @@ static BOOL IsSelectionMade(ChooseStarterApp *param0, int param1)
     case 3:
         ov78_021D1C58(param0);
 
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             ov78_021D1C98(param0, 1);
 
             Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -967,7 +1215,19 @@ static void UpdateGraphics(ChooseStarterApp *param0, int heapID)
         param0->unk_08 = 1;
         param0->unk_0C = 36;
         ov78_021D1C98(param0, 1);
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG3 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG3, GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ, 10, 16 - 10);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_OBJ to PAL
+        #endif
         break;
     case 1:
         param0->unk_0C--;
@@ -994,7 +1254,11 @@ static void UpdateGraphics(ChooseStarterApp *param0, int heapID)
         ov78_021D1E44(param0, heapID);
         break;
     case 5:
+        #ifdef PLATFORM_DS
         G2_BlendNone();
+        #else
+        // TODO: Port G2_BlendNone to PAL
+        #endif
         break;
     default:
         break;
@@ -1005,27 +1269,55 @@ static void DrawScene(ChooseStarterApp *param0)
 {
     G3_ResetG3X();
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     {
+        #ifdef PLATFORM_DS
         NNS_G3dGeFlushBuffer();
+        #else
+        // TODO: Port NNS_G3dGeFlushBuffer to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G2dSetupSoftwareSpriteCamera();
+        #else
+        // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+        #endif
 
         PokemonSpriteManager_DrawSprites(param0->spriteManager);
         SoftwareSpriteManager_DrawVisible(param0->spriteDisplay);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
 
     {
         Camera_ComputeViewMatrix();
         ov78_021D192C(param0);
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+    #else
+    // TODO: Port GX_BUFFERMODE_Z to PAL
+    #endif
     SpriteList_Update(param0->unk_248);
 }
 
@@ -1116,14 +1408,22 @@ static void SetSelectionMatrixObjects(ChooseStarterApp *param0)
 
 static void ov78_021D1C58(ChooseStarterApp *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         if (param0->cursorPosition - 1 >= 0) {
             param0->cursorPosition -= 1;
             Sound_PlayEffect(SEQ_SE_CONFIRM);
         }
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         if (param0->cursorPosition + 1 < 3) {
             param0->cursorPosition += 1;
             Sound_PlayEffect(SEQ_SE_CONFIRM);
@@ -1147,7 +1447,11 @@ static void ov78_021D1CA8(ChooseStarterApp *param0, int heapID)
     switch (param0->unk_04) {
     case 0:
         ov78_021D213C(&param0->unk_10, param0->camera, &param0->unk_64C);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         param0->unk_04++;
         break;
     case 1:
@@ -1411,12 +1715,20 @@ static BOOL ov78_021D2200(ChooseStarterCameraMovement *param0)
 
 static void MakeCursorOAM(ChooseStarterApp *param0, ChooseStarterCursor *param1, int param2)
 {
+    #ifdef PLATFORM_DS
     param1->unk_04[0] = SpriteResourceCollection_AddTiles(param0->unk_24C[0], 82, 10, 0, 10, NNS_G2D_VRAM_TYPE_2DMAIN, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param1->unk_04[0]);
     SpriteResource_ReleaseData(param1->unk_04[0]);
 
+    #ifdef PLATFORM_DS
     param1->unk_04[1] = SpriteResourceCollection_AddPalette(param0->unk_24C[1], 82, 11, 0, 11, NNS_G2D_VRAM_TYPE_2DMAIN, 1, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(param1->unk_04[1]);
     SpriteResource_ReleaseData(param1->unk_04[1]);
@@ -1446,7 +1758,11 @@ static void AttachCursorCellActor(ChooseStarterApp *param0, ChooseStarterCursor 
     v1.list = param0->unk_248;
     v1.resourceData = &v0;
     v1.priority = 32;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = param2;
 
     v1.position.x = 0;

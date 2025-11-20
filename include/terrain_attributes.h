@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TERRAIN_ATTRIBUTES_H
 #define POKEPLATINUM_TERRAIN_ATTRIBUTES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/types.h>
 #else

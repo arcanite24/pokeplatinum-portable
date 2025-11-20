@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PC_BOXES_H
 #define POKEPLATINUM_PC_BOXES_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/pc_boxes_decl.h"
 
 #include "pokemon.h"

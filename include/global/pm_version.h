@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_PM_VERSION_H
 #define POKEPLATINUM_PM_VERSION_H
 
+#include "platform/platform_types.h"
+
 #include "generated/versions.h"
 
 #define JAPANESE 1

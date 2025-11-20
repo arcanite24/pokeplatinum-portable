@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV6_022426AC_H
 #define POKEPLATINUM_OV6_022426AC_H
 
+#include "platform/platform_types.h"
+
 #include "pokemon_sprite.h"
 #include "sprite.h"
 #include "sprite_resource.h"

@@ -507,8 +507,16 @@ static BOOL ov62_02235A80(UnkStruct_0208C06C *param0)
         PaletteData_BlendMulti(param0->unk_14.unk_14, 1, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
         break;
     case 2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         ov62_022317CC(param0, param0->unk_14.unk_48);
         PaletteData_BlendMulti(param0->unk_14.unk_14, 2, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
         PaletteData_BlendMulti(param0->unk_14.unk_14, 0, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
@@ -517,8 +525,16 @@ static BOOL ov62_02235A80(UnkStruct_0208C06C *param0)
         param0->unk_08++;
         break;
     case 3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         param0->unk_08++;
         break;
     case 4:
@@ -560,8 +576,16 @@ static BOOL ov62_02235C70(UnkStruct_0208C06C *param0)
         PaletteData_BlendMulti(param0->unk_14.unk_14, 1, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
         break;
     case 2:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         ov62_022317CC(param0, param0->unk_14.unk_48);
         PaletteData_BlendMulti(param0->unk_14.unk_14, 2, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
         PaletteData_BlendMulti(param0->unk_14.unk_14, 0, 0xFFFF, param0->unk_14.unk_40, param0->unk_14.unk_44);
@@ -570,8 +594,16 @@ static BOOL ov62_02235C70(UnkStruct_0208C06C *param0)
         param0->unk_08++;
         break;
     case 3:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_OBJ to PAL
+        #endif
         param0->unk_08++;
         break;
     case 4:

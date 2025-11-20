@@ -1134,9 +1134,17 @@ void ov16_0223EF8C(BattleSystem *battleSystem)
     MI_CpuCopy32((void *)(HW_BG_VRAM + 0x10000), battleSystem->unk_21C, 0x10000);
     MI_CpuCopy32(PaletteData_GetUnfadedBuffer(battleSystem->paletteSys, 0), battleSystem->unk_220, HW_BG_PLTT_SIZE);
 
+    #ifdef PLATFORM_DS
     v7 = G2_GetOBJCharPtr();
+    #else
+    // TODO: Port G2_GetOBJCharPtr to PAL
+    #endif
     v0 = Sprite_GetImageProxy(battleSystem->unk_17C[1].unk_00->sprite);
+    #ifdef PLATFORM_DS
     v7 += v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN];
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (v2 = 20; v2 < 20 + 8; v2++) {
         for (v1 = 16; v1 < 32; v1++) {
@@ -1165,9 +1173,17 @@ void ov16_0223EF8C(BattleSystem *battleSystem)
         }
     }
 
+    #ifdef PLATFORM_DS
     v7 = G2_GetOBJCharPtr();
+    #else
+    // TODO: Port G2_GetOBJCharPtr to PAL
+    #endif
     v0 = Sprite_GetImageProxy(battleSystem->unk_17C[0].unk_00->sprite);
+    #ifdef PLATFORM_DS
     v7 += v0->vramLocation.baseAddrOfVram[NNS_G2D_VRAM_TYPE_2DMAIN];
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     for (v6 = 0; v6 < 0x40 * 32; v6++) {
         if (v6 & 1) {
@@ -1721,7 +1737,11 @@ BOOL BattleSystem_CaughtSpecies(BattleSystem *battleSys, int species)
 
 void Battle_SetDefaultBlend(void)
 {
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 }
 
 u8 ov16_0223F9FC(BattleSystem *battleSys, int trainerID, int param2, enum TrainerMessageType msgType, int param4)

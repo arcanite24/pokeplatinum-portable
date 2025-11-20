@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02030A80_H
 #define POKEPLATINUM_UNK_02030A80_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_02030A80_decl.h"
 #include "struct_defs/sentence.h"
 

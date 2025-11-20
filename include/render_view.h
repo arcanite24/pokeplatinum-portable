@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RENDER_VIEW_H
 #define POKEPLATINUM_RENDER_VIEW_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

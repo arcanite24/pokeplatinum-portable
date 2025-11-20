@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV70_02260A70_H
 #define POKEPLATINUM_OV70_02260A70_H
 
+#include "platform/platform_types.h"
+
 #include "overlay070/struct_ov70_0225CC54_decl.h"
 #include "overlay070/struct_ov70_02260AD4_decl.h"
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_POKEMON_H
 #define POKEPLATINUM_STRUCT_POKEMON_H
 
+#include "platform/platform_types.h"
+
 #include "constants/moves.h"
 #include "constants/string.h"
 

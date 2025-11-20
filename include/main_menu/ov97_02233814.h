@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_02233814_H
 #define POKEPLATINUM_MAIN_MENU_02233814_H
 
+#include "platform/platform_types.h"
+
 BOOL ov97_02233814(const void *param0, u32 param1, u16 param2);
 BOOL ov97_02233854(void);
 BOOL ov97_02233870(void);

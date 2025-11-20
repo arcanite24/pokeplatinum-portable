@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0204FA34_H
 #define POKEPLATINUM_UNK_0204FA34_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0203026C_decl.h"
 
 #include "savedata.h"

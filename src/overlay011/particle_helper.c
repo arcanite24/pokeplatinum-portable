@@ -57,7 +57,11 @@ void ParticleHelper_DrawParticleSystems(void)
     int drawn = ParticleSystem_DrawAll();
     if (drawn > 0) {
         G3_ResetG3X();
+        #ifdef PLATFORM_DS
         NNS_G2dSetupSoftwareSpriteCamera();
+        #else
+        // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+        #endif
     }
 
     ParticleSystem_UpdateAll();
@@ -65,14 +69,30 @@ void ParticleHelper_DrawParticleSystems(void)
 
 static u32 ParticleHelper_AllocTexVram(u32 size, BOOL is4x4comp)
 {
+    #ifdef PLATFORM_DS
     NNSGfdTexKey texKey = NNS_GfdAllocTexVram(size, is4x4comp, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
     ParticleSystem_RegisterTextureKey(texKey);
+    #ifdef PLATFORM_DS
     return NNS_GfdGetTexKeyAddr(texKey);
+    #else
+    // TODO: Port NNS_GfdGetTexKeyAddr to PAL
+    #endif
 }
 
 static u32 ParticleHelper_AllocPalVram(u32 size, BOOL is4pal)
 {
+    #ifdef PLATFORM_DS
     NNSGfdPlttKey palKey = NNS_GfdAllocPlttVram(size, is4pal, 0);
+    #else
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    #endif
     ParticleSystem_RegisterPaletteKey(palKey);
+    #ifdef PLATFORM_DS
     return NNS_GfdGetPlttKeyAddr(palKey);
+    #else
+    // TODO: Port NNS_GfdGetPlttKeyAddr to PAL
+    #endif
 }

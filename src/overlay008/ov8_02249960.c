@@ -1610,8 +1610,16 @@ void CanalaveGym_DynamicMapFeaturesInit(FieldSystem *fieldSystem)
 
     Camera_SetClipping(FX32_ONE * 100, FX32_ONE * 1700, fieldSystem->camera);
 
+    #ifdef PLATFORM_DS
     ov5_021D57FC(fieldSystem->unk_48, 0xffffffff, 1, GX_FOGBLEND_COLOR_ALPHA, GX_FOGSLOPE_0x0200, 0x76a0);
+    #else
+    // TODO: Port GX_FOGBLEND_COLOR_ALPHA to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov5_021D5834(fieldSystem->unk_48, 0xffffffff, GX_RGB(0, 0, 0), 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     {
         int v7;
@@ -2816,7 +2824,11 @@ static BOOL ov8_0224B3D4(FieldTask *param0)
 
         v2->unk_00++;
     case 12:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             int v9 = Player_GetXPos(fieldSystem->playerAvatar);
             int v10 = Player_GetZPos(fieldSystem->playerAvatar);
 
@@ -3794,7 +3806,11 @@ static void ov8_0224C3B4(UnkStruct_ov8_0224C444 *param0)
     }
 
     ov5_021D57FC(v1, 0xffffffff, 1, 0, v0->unk_04, 0);
+    #ifdef PLATFORM_DS
     ov5_021D5834(v1, 0xffffffff, GX_RGB(v0->unk_08, v0->unk_09, v0->unk_0A), v0->unk_0B);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     ov5_021D585C(v1, v0->unk_0C);
 }
 

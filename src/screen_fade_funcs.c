@@ -506,8 +506,16 @@ BOOL sub_0200F980(ScreenFade *param0)
             { 0, 0, 255, 192 },
             { 0, 0, 0, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -529,8 +537,16 @@ BOOL sub_0200F9AC(ScreenFade *param0)
             { 0, 0, 0, 192 },
             { 0, 0, 255, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -660,8 +676,16 @@ BOOL sub_0200FAC0(ScreenFade *param0)
             { 0, 0, 255, 192 },
             { 128, 0, 128, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -684,8 +708,16 @@ BOOL sub_0200FAEC(ScreenFade *param0)
             { 128, 0, 128, 192 },
             { 0, 0, 255, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -707,16 +739,32 @@ BOOL sub_0200FB18(ScreenFade *param0)
             { 128, 0, 128, 192 },
             { 0, 0, 128, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
             1
         };
         static const UnkStruct_0200F980 v1 = {
             { 128, 0, 128, 192 },
             { 128, 0, 255, 192 },
             1,
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
             1
         };
 
@@ -739,16 +787,32 @@ BOOL sub_0200FB4C(ScreenFade *param0)
             { 0, 0, 128, 192 },
             { 128, 0, 128, 192 },
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
             0
         };
         static const UnkStruct_0200F980 v1 = {
             { 128, 0, 255, 192 },
             { 128, 0, 128, 192 },
             1,
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
             0
         };
 
@@ -773,8 +837,16 @@ BOOL sub_0200FB7C(ScreenFade *param0)
             128,
             96,
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -799,8 +871,16 @@ BOOL sub_0200FBA8(ScreenFade *param0)
             128,
             96,
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -825,8 +905,16 @@ BOOL sub_0200FBD4(ScreenFade *param0)
             128,
             288,
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -851,8 +939,16 @@ BOOL sub_0200FC00(ScreenFade *param0)
             128,
             288,
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -875,8 +971,16 @@ BOOL sub_0200FC2C(ScreenFade *param0)
             ((0xffff * 90) / 360),
             0,
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -899,8 +1003,16 @@ BOOL sub_0200FC58(ScreenFade *param0)
             0,
             ((0xffff * 90) / 360),
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -920,7 +1032,11 @@ BOOL sub_0200FC84(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 0, 0, 255, 192 }, { 128, 96, 128, 96 }, 0, GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 1
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -939,7 +1055,11 @@ BOOL sub_0200FCB0(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 128, 96, 128, 96 }, { 0, 0, 255, 192 }, 0, GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 0
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -958,7 +1078,11 @@ BOOL sub_0200FCDC(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 128, 96, 128, 96 }, { 0, 0, 255, 192 }, 0, GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 1
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -977,7 +1101,11 @@ BOOL sub_0200FD08(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 0, 0, 255, 192 }, { 128, 96, 128, 96 }, 0, GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 0
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -999,8 +1127,16 @@ BOOL sub_0200FD34(ScreenFade *param0)
             ((0xffff * 90) / 360),
             ((0xffff * 0) / 360),
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             1
         };
 
@@ -1022,8 +1158,16 @@ BOOL sub_0200FD60(ScreenFade *param0)
             ((0xffff * 0) / 360),
             ((0xffff * 90) / 360),
             0,
+            #ifdef PLATFORM_DS
             GX_BLEND_ALL,
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BLEND_PLANEMASK_BD,
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
             0
         };
 
@@ -1060,8 +1204,16 @@ BOOL sub_0200FD8C(ScreenFade *param0)
         v2.unk_04 = v1;
         v2.unk_08 = 4;
         v2.unk_0A = 0;
+        #ifdef PLATFORM_DS
         v2.unk_0C = GX_BLEND_ALL;
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v2.unk_0D = GX_BLEND_PLANEMASK_BD;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v2.unk_0E = 1;
 
         SetScreenBackgroundColor(param0->color);
@@ -1090,8 +1242,16 @@ BOOL sub_0200FDE0(ScreenFade *param0)
         v2.unk_04 = v1;
         v2.unk_08 = 4;
         v2.unk_0A = 0;
+        #ifdef PLATFORM_DS
         v2.unk_0C = GX_BLEND_ALL;
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v2.unk_0D = GX_BLEND_PLANEMASK_BD;
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
         v2.unk_0E = 0;
 
         SetScreenBackgroundColor(param0->color);
@@ -1159,7 +1319,11 @@ BOOL sub_0200FEA4(ScreenFade *param0)
 {
     if (param0->state == 0) {
         UnkStruct_0200FEA4 v0 = {
+            #ifdef PLATFORM_DS
             ((0 * 0xffff) / 360), ((179 * 0xffff) / 360), GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 1
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1177,7 +1341,11 @@ BOOL sub_0200FEEC(ScreenFade *param0)
 {
     if (param0->state == 0) {
         UnkStruct_0200FEA4 v0 = {
+            #ifdef PLATFORM_DS
             ((0 * 0xffff) / 360), ((179 * 0xffff) / 360), GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 0
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1195,7 +1363,11 @@ BOOL sub_0200FF30(ScreenFade *param0)
 {
     if (param0->state == 0) {
         UnkStruct_0200FF30 v0 = {
+            #ifdef PLATFORM_DS
             ((0 * 0xffff) / 360), ((45 * 0xffff) / 360), GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 1
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1213,7 +1385,11 @@ BOOL sub_0200FF78(ScreenFade *param0)
 {
     if (param0->state == 0) {
         UnkStruct_0200FF30 v0 = {
+            #ifdef PLATFORM_DS
             ((0 * 0xffff) / 360), ((45 * 0xffff) / 360), GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 0
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1231,7 +1407,11 @@ BOOL sub_0200FFBC(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200FB7C v0 = {
+            #ifdef PLATFORM_DS
             512, 0, 128, -80, 0, GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 1
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1249,7 +1429,11 @@ BOOL sub_0200FFE8(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200FB7C v0 = {
+            #ifdef PLATFORM_DS
             0, 512, 128, -80, 0, GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 0
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1267,7 +1451,11 @@ BOOL sub_02010014(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 0, 0, 0, 192 }, { 0, 0, 255, 192 }, 0, GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 1
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1285,7 +1473,11 @@ BOOL sub_02010040(ScreenFade *param0)
 {
     if (param0->state == 0) {
         static const UnkStruct_0200F980 v0 = {
+            #ifdef PLATFORM_DS
             { 0, 0, 255, 192 }, { 0, 0, 0, 192 }, 0, GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 0
+            #else
+            // TODO: Port GX_BLEND_ALL to PAL
+            #endif
         };
 
         SetScreenBackgroundColor(param0->color);
@@ -1311,8 +1503,16 @@ BOOL sub_0201006C(ScreenFade *param0)
                 { 0, 94, 255, 98 },
                 { 128, 96, 128, 96 },
                 0,
+                #ifdef PLATFORM_DS
                 GX_BLEND_ALL,
+                #else
+                // TODO: Port GX_BLEND_ALL to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_BLEND_PLANEMASK_BD,
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+                #endif
                 1,
             },
             {
@@ -1348,8 +1548,16 @@ BOOL sub_020100A8(ScreenFade *param0)
                 { 128, 96, 128, 96 },
                 { 0, 94, 255, 98 },
                 0,
+                #ifdef PLATFORM_DS
                 GX_BLEND_ALL,
+                #else
+                // TODO: Port GX_BLEND_ALL to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 GX_BLEND_PLANEMASK_BD,
+                #else
+                // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+                #endif
                 0,
             },
             {
@@ -1580,21 +1788,45 @@ static inline void inline_0201035C_sub(int param0, int param1, int param2, int p
 {
     if (param4 == 0) {
         if (param5 == 0) {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 G2_SetWnd0Position(param0, param1, param2, param3);
+                #else
+                // TODO: Port G2_SetWnd0Position to PAL
+                #endif
             }
         } else {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
                 G2S_SetWnd0Position(param0, param1, param2, param3);
             }
         }
     } else {
         if (param5 == 0) {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 G2_SetWnd1Position(param0, param1, param2, param3);
+                #else
+                // TODO: Port G2_SetWnd1Position to PAL
+                #endif
             }
         } else {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
                 G2S_SetWnd1Position(param0, param1, param2, param3);
             }
         }
@@ -1615,7 +1847,11 @@ static void sub_0201035C(void *param0)
 
     GF_ASSERT(param0);
 
+    #ifdef PLATFORM_DS
     v1 = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     if (v1 < 192) {
         v1++;
@@ -1693,12 +1929,28 @@ static void sub_02010624(SysTask *param0, void *param1)
 static void sub_02010658(int param0, HardwareWindowSettings *param1, int param2)
 {
     if (param0 == 0) {
+        #ifdef PLATFORM_DS
         RequestVisibleHardwareWindows(param1, GX_WNDMASK_NONE, param2);
+        #else
+        // TODO: Port GX_WNDMASK_NONE to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         RequestVisibleHardwareWindows(param1, GX_WNDMASK_W0, param2);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         RequestHardwareWindowMaskInsidePlane(param1, GX_BLEND_ALL, 0, 0, param2);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
         RequestHardwareWindowDimensions(param1, 0, 0, 0, 0, 0, param2);
+        #ifdef PLATFORM_DS
         RequestHardwareWindowMaskOutsidePlane(param1, GX_BLEND_PLANEMASK_BD, 0, param2);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
     }
 }
 
@@ -1770,11 +2022,23 @@ static void sub_020107AC(SysTask *param0, void *param1)
 static inline void inline_020107D8_sub(int param0, BOOL param1, int param2)
 {
     if (param2 == 0) {
+        #ifdef PLATFORM_DS
         if (GX_IsHBlank()) {
+        #else
+        // TODO: Port GX_IsHBlank to PAL
+        #endif
+            #ifdef PLATFORM_DS
             G2_SetWndOutsidePlane(param0, param1);
+            #else
+            // TODO: Port G2_SetWndOutsidePlane to PAL
+            #endif
         }
     } else {
+        #ifdef PLATFORM_DS
         if (GX_IsHBlank()) {
+        #else
+        // TODO: Port GX_IsHBlank to PAL
+        #endif
             G2S_SetWndOutsidePlane(param0, param1);
         }
     }
@@ -1784,21 +2048,45 @@ static inline void inline_020107D8_sub_1(int param0, BOOL param1, int param4, in
 {
     if (param4 == 0) {
         if (param3 == 0) {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 G2_SetWnd0InsidePlane(param0, param1);
+                #else
+                // TODO: Port G2_SetWnd0InsidePlane to PAL
+                #endif
             }
         } else {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
                 G2S_SetWnd0InsidePlane(param0, param1);
             }
         }
     } else {
         if (param3 == 0) {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 G2_SetWnd1InsidePlane(param0, param1);
+                #else
+                // TODO: Port G2_SetWnd1InsidePlane to PAL
+                #endif
             }
         } else {
+            #ifdef PLATFORM_DS
             if (GX_IsHBlank()) {
+            #else
+            // TODO: Port GX_IsHBlank to PAL
+            #endif
                 G2S_SetWnd1InsidePlane(param0, param1);
             }
         }
@@ -1810,11 +2098,27 @@ static inline void inline_020107D8(UnkStruct_0201076C *param0, int param1, int p
     UnkStruct_02012174 *v0 = &param0->unk_00[param2];
 
     if (v0->unk_C0[param1] == 0) {
+        #ifdef PLATFORM_DS
         inline_020107D8_sub(GX_BLEND_ALL, 1, param0->unk_309);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
+        #ifdef PLATFORM_DS
         inline_020107D8_sub_1(GX_BLEND_PLANEMASK_BD, 1, v0->unk_180, param0->unk_309);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         inline_020107D8_sub(GX_BLEND_PLANEMASK_BD, 1, param0->unk_309);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
+        #ifdef PLATFORM_DS
         inline_020107D8_sub_1(GX_BLEND_ALL, 1, v0->unk_180, param0->unk_309);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
     }
 }
 
@@ -1826,7 +2130,11 @@ static void sub_020107D8(void *param0)
 
     GF_ASSERT(param0);
 
+    #ifdef PLATFORM_DS
     v1 = GX_GetVCount();
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 
     if (v1 < 192) {
         v1++;
@@ -1855,9 +2163,17 @@ static void sub_02010CF4(ScreenFade *param0, const UnkStruct_0200F980 *param1)
     sub_02010E48(v0, param1, param0->steps, param0->framesPerStep, param0->screen, param0->hwSettings);
 
     if (param1->unk_08 == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param0->hwSettings, GX_WNDMASK_W0, v0->unk_30, v0->unk_44);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param0->hwSettings, GX_WNDMASK_W1, v0->unk_30, v0->unk_44);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     param0->state++;
@@ -1907,7 +2223,11 @@ static void sub_02010D94(ScreenFade *param0, const UnkStruct_0200F980 *param1, c
 
     sub_02010E48(&v0->unk_00, param1, param0->steps, param0->framesPerStep, param0->screen, param0->hwSettings);
     sub_02010E48(&v0->unk_4C, param2, param0->steps, param0->framesPerStep, param0->screen, param0->hwSettings);
+    #ifdef PLATFORM_DS
     sub_02010710(param0->hwSettings, GX_WNDMASK_W0 | GX_WNDMASK_W1, param0->screen, v0->unk_00.unk_44);
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
 
     param0->state++;
 }
@@ -2055,9 +2375,17 @@ static void sub_02010FC0(UnkStruct_0201109C *param0, const UnkStruct_0200FB7C *p
     sub_020106A8(param5, param1->unk_09, param1->unk_0A, param1->unk_08, param4, v1->unk_300[0][0], 0, v1->unk_300[1][0], 192, param0->unk_2C);
 
     if (param1->unk_08 == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W0, param4, param0->unk_2C);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W1, param4, param0->unk_2C);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     RequestEnableScreenHBlank(param0->unk_34, &param0->unk_00, sub_0201035C, param4, heapID);
@@ -2215,9 +2543,17 @@ static void sub_02011298(UnkStruct_02011360 *param0, const UnkStruct_0200FC2C *p
     sub_020106A8(param5, param1->unk_05, param1->unk_06, param1->unk_04, param4, v0->unk_300[0][0], 0, v0->unk_300[1][0], 192, param0->unk_20);
 
     if (param1->unk_04 == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W0, param4, param0->unk_20);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W1, param4, param0->unk_20);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     RequestEnableScreenHBlank(param0->unk_28, &param0->unk_00, sub_0201035C, param4, heapID);
@@ -2329,9 +2665,17 @@ static void sub_02011494(UnkStruct_02011568 *param0, const UnkStruct_0200FD34 *p
     sub_020106A8(param5, param1->unk_05, param1->unk_06, param1->unk_04, param4, v1->unk_300[0][96], 0, v1->unk_300[1][96], 192, param0->unk_24);
 
     if (param1->unk_04 == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W0, param4, param0->unk_24);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W1, param4, param0->unk_24);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     RequestEnableScreenHBlank(param0->unk_2C, &param0->unk_00, sub_0201035C, param4, heapID);
@@ -2483,9 +2827,17 @@ static void sub_02011738(UnkStruct_0201184C *param0, const UnkStruct_02011738 *p
     sub_020106A8(param5, param1->unk_0C, param1->unk_0D, param1->unk_0A, param4, v1->unk_300[0][0], 0, v1->unk_300[1][0], 192, param0->unk_20);
 
     if (param1->unk_0A == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param0->unk_24, GX_WNDMASK_W0, param4, param0->unk_20);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param0->unk_24, GX_WNDMASK_W1, param4, param0->unk_20);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     RequestEnableScreenHBlank(param0->unk_28, &param0->unk_00, sub_0201035C, param4, heapID);
@@ -2635,7 +2987,11 @@ static void sub_02011A00(UnkStruct_02011AFC *param0, UnkStruct_0200FEA4 *param1,
 
     sub_020106A8(param5, param1->unk_04, param1->unk_05, 0, param4, v0->unk_300[0][0], 0, v0->unk_300[1][0], 192, param0->unk_28);
     sub_020106A8(param5, param1->unk_04, param1->unk_05, 1, param4, v1->unk_300[0][0], 0, v1->unk_300[1][0], 192, param0->unk_28);
+    #ifdef PLATFORM_DS
     sub_02010710(param5, GX_WNDMASK_W0 | GX_WNDMASK_W1, param4, param0->unk_28);
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
     RequestEnableScreenHBlank(param0->unk_34, &param0->unk_00, sub_0201035C, param4, heapID);
 }
 
@@ -2809,7 +3165,11 @@ static void sub_02011D34(UnkStruct_02011E04 *param0, UnkStruct_0200FF30 *param1,
 
     sub_020106A8(param5, param1->unk_04, param1->unk_05, 0, param4, 0, 0, 255, 192, param0->unk_28);
     sub_020106A8(param5, param1->unk_04, param1->unk_05, 1, param4, 0, 0, 255, 192, param0->unk_28);
+    #ifdef PLATFORM_DS
     sub_02010710(param5, GX_WNDMASK_W0 | GX_WNDMASK_W1, param4, param0->unk_28);
+    #else
+    // TODO: Port GX_WNDMASK_W1 to PAL
+    #endif
     RequestEnableScreenHBlank(param0->unk_34, &param0->unk_00, sub_0201035C, param4, heapID);
 }
 
@@ -2960,12 +3320,24 @@ static void sub_02011FE8(UnkStruct_020120D4 *param0, UnkStruct_0200FE6C *param1,
     sub_02010784(param6, &param0->unk_00, heapID);
 
     if (param1->unk_06 == 1) {
+        #ifdef PLATFORM_DS
         sub_020106A8(param5, GX_BLEND_PLANEMASK_BD, GX_BLEND_ALL, 0, param4, 0, 0, 0, 0, param1->unk_06);
+        #else
+        // TODO: Port GX_BLEND_ALL to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_020106A8(param5, GX_BLEND_ALL, GX_BLEND_PLANEMASK_BD, 0, param4, 0, 0, 0, 0, param1->unk_06);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     sub_02010710(param5, GX_WNDMASK_W0, param4, param0->unk_324);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
 }
 
 static BOOL sub_020120D4(UnkStruct_020120D4 *param0)
@@ -3117,9 +3489,17 @@ static void sub_02012290(UnkStruct_02012290 *param0, UnkStruct_0201006C *param1,
     sub_02010E48(&param0->unk_00, &param1->unk_00, v0, param3, param4, param5);
 
     if (param1->unk_00.unk_08 == 0) {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W0, param4, param1->unk_00.unk_0B);
+        #else
+        // TODO: Port GX_WNDMASK_W0 to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         sub_02010710(param5, GX_WNDMASK_W1, param4, param1->unk_00.unk_0B);
+        #else
+        // TODO: Port GX_WNDMASK_W1 to PAL
+        #endif
     }
 
     param0->unk_385 = 0;
@@ -3186,9 +3566,17 @@ static BOOL sub_020123F4(UnkStruct_02012290 *param0, ScreenFade *param1)
             sub_02010E48(&param0->unk_00, &param0->unk_380->unk_00, param0->unk_384, param1->framesPerStep, param1->screen, param1->hwSettings);
 
             if (param0->unk_380->unk_00.unk_08 == 0) {
+                #ifdef PLATFORM_DS
                 sub_02010710(param1->hwSettings, GX_WNDMASK_W0, param1->screen, param0->unk_380->unk_00.unk_0B);
+                #else
+                // TODO: Port GX_WNDMASK_W0 to PAL
+                #endif
             } else {
+                #ifdef PLATFORM_DS
                 sub_02010710(param1->hwSettings, GX_WNDMASK_W1, param1->screen, param0->unk_380->unk_00.unk_0B);
+                #else
+                // TODO: Port GX_WNDMASK_W1 to PAL
+                #endif
             }
         }
         break;

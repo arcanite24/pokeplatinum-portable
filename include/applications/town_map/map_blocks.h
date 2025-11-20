@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_APPLICATIONS_TOWN_MAP_MAP_BLOCKS_H
 #define POKEPLATINUM_APPLICATIONS_TOWN_MAP_MAP_BLOCKS_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #include "applications/town_map/defs.h"

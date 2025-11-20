@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0205C980_H
 #define POKEPLATINUM_UNK_0205C980_H
 
+#include "platform/platform_types.h"
+
 #include "string_template.h"
 
 void TrainerInfo_LoadAppearanceVariants(u32 trainerId, int trainerGender, StringTemplate *stringTemplate);

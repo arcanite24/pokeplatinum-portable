@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINER_CARD_H
 #define POKEPLATINUM_TRAINER_CARD_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "field/field_system_decl.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV16_0223DF00_H
 #define POKEPLATINUM_OV16_0223DF00_H
 
+#include "platform/platform_types.h"
+
 #include "constants/rtc.h"
 #include "generated/trainer_message_types.h"
 

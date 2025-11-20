@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV109_021D3D50_H
 #define POKEPLATINUM_OV109_021D3D50_H
 
+#include "platform/platform_types.h"
+
 #include "overlay109/struct_ov109_021D5140_decl.h"
 
 #include "overlay_manager.h"

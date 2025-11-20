@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02030CEC_H
 #define POKEPLATINUM_STRUCT_02030CEC_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     char unk_00[51];
     u8 padding_33[1];

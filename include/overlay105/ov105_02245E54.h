@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV105_02245E54_H
 #define POKEPLATINUM_OV105_02245E54_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

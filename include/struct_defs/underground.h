@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_UNDERGROUND_H
 #define POKEPLATINUM_STRUCT_UNDERGROUND_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "struct_defs/struct_02029894.h"

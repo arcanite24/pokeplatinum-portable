@@ -47,21 +47,33 @@ const ApplicationManagerTemplate gGameStartRowanIntroAppTemplate = {
     .init = GameStartRowanIntro_Init,
     .main = GameStartRowanIntro_Main,
     .exit = GameStartRowanIntro_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate gGameStartNewSaveAppTemplate = {
     .init = GameStartNewSave_Init,
     .main = GameStartNewSave_Main,
     .exit = GameStartNewSave_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate gGameStartLoadSaveAppTemplate = {
     .init = GameStartLoadSave_Init,
     .main = GameStartLoadSave_Main,
     .exit = GameStartLoadSave_Exit,
+    #ifdef PLATFORM_DS
     .overlayID = FS_OVERLAY_ID_NONE,
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };
 
 static BOOL GameStartRowanIntro_Init(ApplicationManager *appMan, int *state)
@@ -81,7 +93,11 @@ static BOOL GameStartRowanIntro_Main(ApplicationManager *appMan, int *state)
 static int GameStartRowanIntro_Exit(ApplicationManager *appMan, int *state)
 {
     Heap_Destroy(HEAP_ID_GAME_START);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID_NONE, &gRowanIntroAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
     return TRUE;
 }
 
@@ -103,7 +119,11 @@ static int GameStartNewSave_Main(ApplicationManager *appMan, int *state)
 static int GameStartNewSave_Exit(ApplicationManager *appMan, int *state)
 {
     Heap_Destroy(HEAP_ID_GAME_START);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID_NONE, &gFieldSystemNewGameTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
     return TRUE;
 }
 
@@ -135,7 +155,11 @@ static int GameStartLoadSave_Main(ApplicationManager *appMan, int *state)
 static int GameStartLoadSave_Exit(ApplicationManager *appMan, int *state)
 {
     Heap_Destroy(HEAP_ID_GAME_START);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID_NONE, &gFieldSystemContinueTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
     return TRUE;
 }
 
@@ -174,7 +198,11 @@ static void InitializeNewSave(enum HeapID heapID, SaveData *saveData, BOOL setTr
 static void TryLoadingSave(int unused, SaveData *saveData)
 {
     if (!SaveData_Load(saveData)) {
+        #ifdef PLATFORM_DS
         OS_ResetSystem(RESET_CLEAN);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
     }
 }
 

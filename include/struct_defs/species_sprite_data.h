@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SPECIES_SPRITE_DATA_H
 #define POKEPLATINUM_SPECIES_SPRITE_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/sprite_animation_frame.h"
 
 #define MAX_FACES 2

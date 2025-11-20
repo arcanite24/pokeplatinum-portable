@@ -76,15 +76,55 @@ void ov100_021D47A0(UnkStruct_ov100_021D46C8 *param0)
     VecFx32 v1 = { -2043, -3548, 110 };
 
     VEC_Normalize(&v0, &v0);
+    #ifdef PLATFORM_DS
     NNS_G3dGlbLightVector(0, v0.x, v0.y, v0.z);
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(0, GX_RGB(31, 31, 31));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     VEC_Normalize(&v1, &v1);
+    #ifdef PLATFORM_DS
     NNS_G3dGlbLightVector(1, v1.x, v1.y, v1.z);
+    #else
+    // TODO: Port NNS_G3dGlbLightVector to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbLightColor to PAL
+    #endif
     NNS_G3dGlbLightColor(1, GX_RGB(23, 23, 25));
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorDiffAmb to PAL
+    #endif
     NNS_G3dGlbMaterialColorDiffAmb(GX_RGB(16, 16, 16), GX_RGB(14, 14, 14), 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_G3dGlbMaterialColorSpecEmi to PAL
+    #endif
     NNS_G3dGlbMaterialColorSpecEmi(GX_RGB(20, 20, 20), GX_RGB(16, 16, 16), 0);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 }
 
 void ov100_021D4844(UnkStruct_ov100_021D46C8 *param0)
@@ -186,9 +226,17 @@ void ov100_021D49B4(UnkStruct_ov100_021D49B4 *param0)
         }
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dGePushMtx();
+    #else
+    // TODO: Port NNS_G3dGePushMtx to PAL
+    #endif
     Easy3DObject_Draw(&param0->unk_00);
+    #ifdef PLATFORM_DS
     NNS_G3dGePopMtx(1);
+    #else
+    // TODO: Port NNS_G3dGePopMtx to PAL
+    #endif
 }
 
 void ov100_021D4A84(UnkStruct_ov100_021D49B4 *param0)
@@ -342,6 +390,18 @@ void ov100_021D4DC8(int param0)
 void ov100_021D4DD8(UnkStruct_ov100_021D4DD8 *param0, int param1)
 {
     param0->unk_0C.unk_50.unk_03 = param1;
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port G2_SetBlendBrightness to PAL
+    #endif
     G2_SetBlendBrightness((GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), param0->unk_0C.unk_50.unk_03);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
+    #ifdef PLATFORM_DS
     G2S_SetBlendBrightness((GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD), param0->unk_0C.unk_50.unk_03);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }

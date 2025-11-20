@@ -3,6 +3,8 @@
 
 #ifndef PLATFORM_DS
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #include "nns_types.h"
 #else
 #include "nitro/hw/common/lcd.h"

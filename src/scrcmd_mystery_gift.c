@@ -191,7 +191,11 @@ static void GivePokemon(FieldSystem *fieldSystem, GiftData *dummy)
     int metLocation = Pokemon_GetValue(pokemon, MON_DATA_EGG_LOCATION, NULL);
     u32 giftPersonality = Pokemon_GetValue(pokemon, MON_DATA_PERSONALITY, NULL);
     u32 giftOtID = Pokemon_GetValue(pokemon, MON_DATA_OT_ID, NULL);
+    #ifdef PLATFORM_DS
     u32 personality = ARNG_Next(OS_GetTick());
+    #else
+    // TODO: Port OS_GetTick to PAL
+    #endif
 
     if (giftPersonality == RANDOMIZE_PERSONALITY) {
         (void)0;

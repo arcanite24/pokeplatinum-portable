@@ -213,7 +213,11 @@ BOOL sub_02049EC4(u16 param0, SaveData *saveData, u8 param2)
 
 void sub_02049F8C(void)
 {
+    #ifdef PLATFORM_DS
     OS_ResetSystem(0);
+    #else
+    // TODO: Port OS_ResetSystem to PAL
+    #endif
 }
 
 void sub_02049F98(UnkStruct_0202D060 *param0)

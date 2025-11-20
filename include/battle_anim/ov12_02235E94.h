@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV12_02235E94_H
 #define POKEPLATINUM_OV12_02235E94_H
 
+#include "platform/platform_types.h"
+
 #include "battle_anim/struct_ball_rotation_decl.h"
 #include "battle_anim/struct_ov12_02235FE0_decl.h"
 #include "battle_anim/struct_ov12_02236030.h"

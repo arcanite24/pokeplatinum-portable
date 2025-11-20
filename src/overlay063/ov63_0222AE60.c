@@ -448,10 +448,22 @@ UnkStruct_ov63_0222BB38 *ov63_0222B0C0(UnkStruct_ov63_0222AE60 *param0, const Un
     v1.priority = param1->unk_04;
     v1.heapID = param3;
 
+    #ifdef PLATFORM_DS
     if ((param0->unk_10[v2].unk_0C == NNS_G2D_VRAM_TYPE_MAX) || (param0->unk_10[v2].unk_0C == NNS_G2D_VRAM_TYPE_2DMAIN)) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
     }
 
     v0->unk_04 = SpriteList_AddAffine(&v1);
@@ -481,10 +493,22 @@ UnkStruct_ov63_0222BB38 *ov63_0222B0C0(UnkStruct_ov63_0222AE60 *param0, const Un
         v1.priority = param0->unk_227C;
         v1.heapID = param3;
 
+        #ifdef PLATFORM_DS
         if ((param0->unk_10[v2].unk_0C == NNS_G2D_VRAM_TYPE_MAX) || (param0->unk_10[v2].unk_0C == NNS_G2D_VRAM_TYPE_2DMAIN)) {
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
+            #ifdef PLATFORM_DS
             v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
         }
 
         v0->unk_08 = SpriteList_AddAffine(&v1);
@@ -1120,14 +1144,30 @@ static void ov63_0222BC80(UnkStruct_ov63_0222AE60 *param0, SpriteResource *param
     u32 v1[2];
 
     v0 = SpriteResource_GetPaletteFade(param1);
+    #ifdef PLATFORM_DS
     v1[0] = SpriteTransfer_GetPlttOffset(param1, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v1[1] = SpriteTransfer_GetPlttOffset(param1, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (v1[0] != (NNS_G2D_VRAM_ADDR_NOT_INITIALIZED)) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_ADDR_NOT_INITIALIZED to PAL
+    #endif
         PaletteData_LoadBuffer(param0->unk_04, v0->pRawData, 2, v1[0] * 16, param2 * 32);
     }
 
+    #ifdef PLATFORM_DS
     if (v1[1] != (NNS_G2D_VRAM_ADDR_NOT_INITIALIZED)) {
+    #else
+    // TODO: Port NNS_G2D_VRAM_ADDR_NOT_INITIALIZED to PAL
+    #endif
         PaletteData_LoadBuffer(param0->unk_04, v0->pRawData, 3, v1[1] * 16, param2 * 32);
     }
 }

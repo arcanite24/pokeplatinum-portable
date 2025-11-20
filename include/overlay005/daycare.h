@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DAYCARE_H
 #define POKEPLATINUM_DAYCARE_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/daycare.h"
 
 #include "field/field_system_decl.h"

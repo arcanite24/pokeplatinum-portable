@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BATTLE_MON_H
 #define POKEPLATINUM_BATTLE_MON_H
 
+#include "platform/platform_types.h"
+
 #include "constants/moves.h"
 #include "constants/pokemon.h"
 #include "constants/string.h"

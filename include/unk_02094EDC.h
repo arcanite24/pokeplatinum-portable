@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02094EDC_H
 #define POKEPLATINUM_UNK_02094EDC_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02095C48.h"
 
 #include "battle/pokemon_sprite_data.h"

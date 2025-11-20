@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_SCRIPT_MESSAGE_H
 #define POKEPLATINUM_OV5_SCRIPT_MESSAGE_H
 
+#include "platform/platform_types.h"
+
 #include "field_script_context.h"
 #include "message.h"
 #include "string_template.h"

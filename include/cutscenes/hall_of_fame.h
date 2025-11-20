@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HALL_OF_FAME_H
 #define POKEPLATINUM_HALL_OF_FAME_H
 
+#include "platform/platform_types.h"
+
 #include "overlay_manager.h"
 
 BOOL HallOfFameManager_Init(ApplicationManager *appMan, int *state);

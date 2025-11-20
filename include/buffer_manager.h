@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BUFFER_MANAGER_H
 #define POKEPLATINUM_BUFFER_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #define BUFFER_MANAGER_MODE_SINGLE 0

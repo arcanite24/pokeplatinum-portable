@@ -141,11 +141,31 @@ void ov77_021D5564(UnkStruct_ov77_021D5564 *param0)
     int i;
     const int heapID = HEAP_ID_76;
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GX_SetOBJVRamModeChar to PAL
+    #endif
     GX_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port GXS_SetOBJVRamModeChar to PAL
+    #endif
     GXS_SetOBJVRamModeChar(GX_OBJVRAMMODE_CHAR_1D_32K);
+    #else
+    // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+    #endif
 
     ov77_021D54B0();
+    #ifdef PLATFORM_DS
     NNS_G2dInitOamManagerModule();
+    #else
+    // TODO: Port NNS_G2dInitOamManagerModule to PAL
+    #endif
     RenderOam_Init(0, 128, 0, 32, 0, 128, 0, 32, heapID);
 
     param0->unk_00 = SpriteList_InitRendering(((3 + 1 + 1 + 2 + 4) + 6 + 16), &param0->unk_04, heapID);
@@ -155,28 +175,116 @@ void ov77_021D5564(UnkStruct_ov77_021D5564 *param0)
         param0->unk_190[i] = SpriteResourceCollection_New(Unk_ov77_021D7914[i], i, heapID);
     }
 
+    #ifdef PLATFORM_DS
     param0->unk_1A0[0][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 46, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[1][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 46, 0, 1, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[2][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 50, 0, 2, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[3][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 87, 0, 3, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[4][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 22, 0, 4, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[5][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 23, 0, 5, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[6][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 91, 0, 6, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[7][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 83, 0, 7, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[8][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 83, 0, 8, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[9][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 54, 0, 9, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[10][0] = SpriteResourceCollection_AddTiles(param0->unk_190[0], 128, 54, 0, 10, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[0][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 49, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[1][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 49, 0, 1, NNS_G2D_VRAM_TYPE_2DSUB, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[2][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 53, 0, 2, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[3][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 90, 0, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[4][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 20, 0, 4, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[5][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 21, 0, 5, NNS_G2D_VRAM_TYPE_2DSUB, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[6][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 94, 0, 6, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[7][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 86, 0, 7, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[8][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 86, 0, 8, NNS_G2D_VRAM_TYPE_2DSUB, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[9][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 57, 0, 9, NNS_G2D_VRAM_TYPE_2DMAIN, 3, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     param0->unk_1A0[10][1] = SpriteResourceCollection_AddPalette(param0->unk_190[1], 128, 57, 0, 10, NNS_G2D_VRAM_TYPE_2DSUB, 3, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     param0->unk_1A0[0][2] = SpriteResourceCollection_Add(param0->unk_190[2], 128, 48, 0, 0, 2, heapID);
     param0->unk_1A0[1][2] = SpriteResourceCollection_Add(param0->unk_190[2], 128, 48, 0, 1, 2, heapID);
     param0->unk_1A0[2][2] = SpriteResourceCollection_Add(param0->unk_190[2], 128, 51, 0, 2, 2, heapID);
@@ -205,7 +313,11 @@ void ov77_021D5564(UnkStruct_ov77_021D5564 *param0)
         SpriteTransfer_RequestPlttFreeSpace(param0->unk_1A0[i][1]);
     }
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 void ov77_021D5BAC(UnkStruct_ov77_021D5564 *param0)
@@ -269,7 +381,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
     };
 
     {
+        #ifdef PLATFORM_DS
         ov77_021D54E8(0, param0, 0, &v2, &param0->unk_294[0], 1, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * (128 - 48);
         v2.position.y = FX32_ONE * (14 * 8);
@@ -278,7 +394,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[0], 0);
         Sprite_SetDrawFlag(param0->unk_250[0], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(1, param0, 0, &v2, &param0->unk_294[2], 1, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         v2.position.x = FX32_ONE * (128 - 48);
         v2.position.y = FX32_ONE * (14 * 8) + (192 << FX32_SHIFT);
@@ -287,7 +407,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[1], 0);
         Sprite_SetDrawFlag(param0->unk_250[1], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(2, param0, 0, &v2, &param0->unk_294[1], 1, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * (128 + 48);
         v2.position.y = FX32_ONE * (14 * 8);
@@ -296,7 +420,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[2], 0);
         Sprite_SetDrawFlag(param0->unk_250[2], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(3, param0, 0, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * -64;
         v2.position.y = FX32_ONE * (14 * 8);
@@ -305,7 +433,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[3], 1);
         Sprite_SetDrawFlag(param0->unk_250[3], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(6, param0, 0, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * (256 + 64);
         v2.position.y = FX32_ONE * (14 * 8);
@@ -314,7 +446,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[10], 1);
         Sprite_SetDrawFlag(param0->unk_250[10], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(7, param0, 1, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * 128;
         v2.position.y = FX32_ONE * (12 * 8);
@@ -324,7 +460,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetDrawFlag(param0->unk_250[11], FALSE);
         Sprite_SetAffineOverwriteMode(param0->unk_250[11], 1);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(8, param0, 1, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         v2.position.x = FX32_ONE * 128;
         v2.position.y = FX32_ONE * (12 * 8) + (192 << FX32_SHIFT);
@@ -334,7 +474,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetDrawFlag(param0->unk_250[12], FALSE);
         Sprite_SetAffineOverwriteMode(param0->unk_250[12], 1);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(9, param0, 3, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         v2.position.x = FX32_ONE * 128;
         v2.position.y = FX32_ONE * (0xd * 8);
@@ -348,7 +492,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetAnimateFlag(param0->unk_250[14], 1);
         Sprite_SetDrawFlag(param0->unk_250[14], FALSE);
 
+        #ifdef PLATFORM_DS
         ov77_021D54E8(10, param0, 3, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         v2.position.x = FX32_ONE * 128;
         v2.position.y = FX32_ONE * (0xd * 8) + (192 << FX32_SHIFT);
@@ -363,7 +511,11 @@ void ov77_021D5C3C(UnkStruct_ov77_021D5564 *param0)
         Sprite_SetDrawFlag(param0->unk_250[16], FALSE);
 
         for (v0 = 0; v0 < 6; v0++) {
+            #ifdef PLATFORM_DS
             ov77_021D54E8(4, param0, 0, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
             v2.position.x = FX32_ONE * v4[v0];
             v2.position.y = FX32_ONE * v5[v0];
@@ -383,7 +535,11 @@ void ov77_021D5FB4(UnkStruct_ov77_021D5564 *param0, UnkStruct_ov77_021D6734 *par
     Sprite **v3;
 
     {
+        #ifdef PLATFORM_DS
         ov77_021D54E8(5, param0, 0, &v2, &v1, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         for (v0 = 0; v0 < 16; v0++) {
             v3 = ov77_021D6794(param1, v0);

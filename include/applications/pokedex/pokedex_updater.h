@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEX_UPDATER_H
 #define POKEPLATINUM_POKEDEX_UPDATER_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pokedex/pokedex_data_manager.h"
 #include "applications/pokedex/pokedex_graphics_manager.h"
 

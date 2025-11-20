@@ -94,7 +94,11 @@ u8 sub_0208C15C(s16 *param0, u16 param1)
 {
     s16 v0 = *param0;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         *param0 += 1;
 
         if (*param0 > param1) {
@@ -108,7 +112,11 @@ u8 sub_0208C15C(s16 *param0, u16 param1)
         return 1;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         *param0 -= 1;
 
         if (*param0 <= 0) {
@@ -122,7 +130,11 @@ u8 sub_0208C15C(s16 *param0, u16 param1)
         return 2;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         *param0 -= 10;
 
         if (*param0 <= 0) {
@@ -136,7 +148,11 @@ u8 sub_0208C15C(s16 *param0, u16 param1)
         return 2;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         *param0 += 10;
 
         if (*param0 > param1) {
@@ -168,7 +184,11 @@ void App_LoadGraphicMember(BgConfig *bgConfig, int heapID, NARC *narc, int unuse
 
     switch (memberType) {
     case GRAPHICSMEMBER_TILES:
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(dest, &ppCharData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
 
         if (memberSize == 0) {
             memberSize = ppCharData->szByte;
@@ -177,7 +197,11 @@ void App_LoadGraphicMember(BgConfig *bgConfig, int heapID, NARC *narc, int unuse
         Bg_LoadTiles(bgConfig, bgLayer, ppCharData->pRawData, memberSize, offset);
         break;
     case GRAPHICSMEMBER_TILEMAP:
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedScreenData(dest, &ppScrData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
 
         if (memberSize == 0) {
             memberSize = ppScrData->szByte;
@@ -190,7 +214,11 @@ void App_LoadGraphicMember(BgConfig *bgConfig, int heapID, NARC *narc, int unuse
         Bg_CopyTilemapBufferRangeToVRAM(bgConfig, bgLayer, ppScrData->rawData, memberSize, offset);
         break;
     case GRAPHICSMEMBER_PALETTE:
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedPaletteData(dest, &ppPltData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
 
         if (memberSize == 0) {
             memberSize = ppPltData->szByte;
@@ -208,7 +236,11 @@ void *App_LoadScreenData(NARC *narc, enum NarcID unused, int memberIdx, NNSG2dSc
     void *file = Heap_Alloc(heapID, size);
 
     NARC_ReadWholeMember(narc, memberIdx, file);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(file, dst);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     return file;
 }

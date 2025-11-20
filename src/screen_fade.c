@@ -192,7 +192,11 @@ void FinishScreenFade(void)
 
 void ResetVisibleHardwareWindows(enum DSScreen screen)
 {
+    #ifdef PLATFORM_DS
     SetVisibleHardwareWindows(GX_WNDMASK_NONE, screen);
+    #else
+    // TODO: Port GX_WNDMASK_NONE to PAL
+    #endif
 }
 
 void ResetScreenMasterBrightness(enum DSScreen screen)
@@ -241,29 +245,65 @@ void SetupScreenFadeRegisters(enum DSScreen screen, u16 color)
     }
 
     if (screen == DS_SCREEN_MAIN) {
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt((void *)&color, 0, sizeof(u16));
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_LoadBGPltt((void *)&color, 0, sizeof(u16));
+        #else
+        // TODO: Port GXS_LoadBGPltt to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     RequestVisibleHardwareWindows(&sScreenFadeManager.hwSettings, GX_WNDMASK_W0, screen);
+    #else
+    // TODO: Port GX_WNDMASK_W0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     RequestHardwareWindowMaskInsidePlane(&sScreenFadeManager.hwSettings, GX_BLEND_ALL, 0, 0, screen);
+    #else
+    // TODO: Port GX_BLEND_ALL to PAL
+    #endif
     RequestHardwareWindowDimensions(&sScreenFadeManager.hwSettings, 0, 0, 0, 0, 0, screen);
+    #ifdef PLATFORM_DS
     RequestHardwareWindowMaskOutsidePlane(&sScreenFadeManager.hwSettings, GX_BLEND_PLANEMASK_BD, 0, screen);
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
 }
 
 void SetScreenBackgroundColor(u16 color)
 {
+    #ifdef PLATFORM_DS
     GX_LoadBGPltt((void *)&color, 0, sizeof(u16));
+    #else
+    // TODO: Port GX_LoadBGPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadBGPltt((void *)&color, 0, sizeof(u16));
+    #else
+    // TODO: Port GXS_LoadBGPltt to PAL
+    #endif
 }
 
 void SetScreenMasterBrightness(enum DSScreen screen, int brightness)
 {
     if (screen == DS_SCREEN_MAIN) {
+        #ifdef PLATFORM_DS
         GX_SetMasterBrightness(brightness);
+        #else
+        // TODO: Port GX_SetMasterBrightness to PAL
+        #endif
     } else {
+        #ifdef PLATFORM_DS
         GXS_SetMasterBrightness(brightness);
+        #else
+        // TODO: Port GXS_SetMasterBrightness to PAL
+        #endif
     }
 }
 

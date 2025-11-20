@@ -44,7 +44,11 @@
 #include "unk_02033200.h"
 #include "unk_020393C8.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     u16 unk_00;
@@ -486,7 +490,11 @@ static u8 Unk_ov97_0223E53C[42] = {
 static UnkStruct_ov97_02232E38 Unk_ov97_0223E0A4 = {
     0x16,
     0x1,
+    #ifdef PLATFORM_DS
     OS_LANGUAGE_JAPANESE,
+    #else
+    // TODO: Port OS_LANGUAGE_JAPANESE to PAL
+    #endif
     0x15,
     Unk_ov97_0223F190,
     Unk_ov97_0223F180
@@ -511,22 +519,78 @@ static void ov97_0222C254(UnkStruct_ov97_0222C388 *param0)
 {
     int v0;
     UnkStruct_02099F80 v1 = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
     GraphicsModes v2 = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&v1);
@@ -572,7 +636,11 @@ static BOOL ov97_0222C404(UnkStruct_ov97_0222C388 *param0)
         MainMenuUtil_ShowWindowAtPos(param0->unk_04, &v0, 5, 4, 2);
         return 1;
     } else {
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Window_EraseStandardFrame(&param0->unk_18, 0);
             Window_Remove(&param0->unk_18);
             return 0;
@@ -630,7 +698,11 @@ static void ov97_0222C578(UnkStruct_ov97_0222C388 *param0)
     MainMenuWindow_SetTextOffsets(&param0->unk_F0, 0, Font_GetAttribute(FONT_SYSTEM, FONTATTR_MAX_LETTER_HEIGHT));
     MainMenuUtil_ShowWindowAtPos(param0->unk_04, &param0->unk_F0, -1, -1, 68);
 
+    #ifdef PLATFORM_DS
     OS_GetMacAddress(v4);
+    #else
+    // TODO: Port OS_GetMacAddress to PAL
+    #endif
 
     v5 = ov97_022335A8(v4);
     ov97_022335EC(v5.unk_00.val2, &v0, &v1);
@@ -726,7 +798,11 @@ static int ov97_0222C78C(ApplicationManager *appMan, int *param1)
         }
         break;
     case UnkEnum_ov97_0222C78C_03:
+        #ifdef PLATFORM_DS
         if ((Text_IsPrinterActive(v0->unk_317C) == 0) && gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             MainMenuUtil_SetFadeToWhite(1);
             MainMenuUtil_StartScreenFadeToState(0, UnkEnum_ov97_0222C78C_12, param1, UnkEnum_ov97_0222C78C_13);
         }
@@ -745,8 +821,16 @@ static int ov97_0222C78C(ApplicationManager *appMan, int *param1)
     case UnkEnum_ov97_0222C78C_05:
         ov97_0222C388(v0);
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG1, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
 
         WonderCardsApp_ShowWondercard(v0->unk_04, &v0->unk_3180, HEAP_ID_85);
         MainMenuUtil_StartScreenFadeToState(1, UnkEnum_ov97_0222C78C_06, param1, UnkEnum_ov97_0222C78C_13);
@@ -758,7 +842,11 @@ static int ov97_0222C78C(ApplicationManager *appMan, int *param1)
         }
         break;
     case UnkEnum_ov97_0222C78C_11:
+        #ifdef PLATFORM_DS
         OS_ResetSystem(0);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C78C_12:
         ov97_0222C688(appMan);
@@ -777,7 +865,11 @@ static int ov97_0222C78C(ApplicationManager *appMan, int *param1)
 static int ov97_0222C948(ApplicationManager *appMan, int *param1)
 {
     Heap_Destroy(HEAP_ID_91);
+    #ifdef PLATFORM_DS
     EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
     ApplicationManager_FreeData(appMan);
     Heap_Destroy(HEAP_ID_85);
 
@@ -827,7 +919,11 @@ static void ov97_0222C974(UnkStruct_ov97_0222C388 *param0)
     StringTemplate_Free(v2);
     MessageLoader_Free(v3);
     MysteryGift_TrySavePgt(param0->unk_3174, &v4->pgt, 3);
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
     MainMenuUtil_LoadGiftSprite(param0->unk_04, v4);
 }
@@ -905,7 +1001,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
             *v3 = UnkEnum_ov97_0222C6F8_04;
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 0, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_04:
         if (ov97_0223316C(param0->unk_164)) {
@@ -914,10 +1014,18 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
             param0->unk_160 = 1800;
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 0, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_07:
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 0, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
 
         if (ov97_02233388()) {
             *v3 = UnkEnum_ov97_0222C6F8_29;
@@ -933,17 +1041,29 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
         *v3 = UnkEnum_ov97_0222C6F8_30;
         break;
     case UnkEnum_ov97_0222C6F8_30:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             *v3 = UnkEnum_ov97_0222C6F8_08;
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 1, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_08:
         ov97_02233268();
         *v3 = UnkEnum_ov97_0222C6F8_09;
         param0->unk_160 = 1800;
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 1, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_09:
         if (ov97_022332F4()) {
@@ -957,7 +1077,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
             return 1;
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 1, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_10:
         if (ov97_022332F4()) {
@@ -967,7 +1091,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
             *v3 = UnkEnum_ov97_0222C6F8_11;
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 1, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_11:
         ov97_022332C8(Unk_ov97_0223E53C, 42, 1);
@@ -981,7 +1109,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
             MainMenuUtil_ShowWindowAtPos(param0->unk_04, &param0->unk_48, 2, 19, 71);
         }
 
+        #ifdef PLATFORM_DS
         ov97_0222CAB4(param0, v3, 1, PAD_BUTTON_B);
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
         break;
     case UnkEnum_ov97_0222C6F8_13:
         if (--param0->unk_160 == 0) {
@@ -995,7 +1127,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
     case UnkEnum_ov97_0222C6F8_14:
         if (MainMenuUtil_SaveState() == 1) {
             *v3 = UnkEnum_ov97_0222C6F8_15;
+            #ifdef PLATFORM_DS
             param0->unk_160 = 6 + (OS_GetTickLo() % 54);
+            #else
+            // TODO: Port OS_GetTickLo to PAL
+            #endif
         }
         break;
     case UnkEnum_ov97_0222C6F8_15:
@@ -1071,7 +1207,11 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
                 param0->unk_148 = 0;
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 *v3 = UnkEnum_ov97_0222C6F8_27;
                 return 4;
             }
@@ -1098,8 +1238,16 @@ int ov97_0222CB10(UnkStruct_ov97_0222C388 *param0)
                 param0->unk_148 = 0;
             }
 
+            #ifdef PLATFORM_DS
             if (gSystem.pressedKeys & PAD_BUTTON_A) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
+                #ifdef PLATFORM_DS
                 OS_ResetSystem(0);
+                #else
+                // TODO: Port OS_ResetSystem to PAL
+                #endif
             }
         }
         break;

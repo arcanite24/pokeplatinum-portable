@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RIBBON_H
 #define POKEPLATINUM_RIBBON_H
 
+#include "platform/platform_types.h"
+
 #include "generated/ribbons.h"
 
 #include "pokedex.h"

@@ -27,7 +27,11 @@
 #include "unk_0203D1B8.h"
 #include "unk_0209BDF8.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay109);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct {
     int unk_00;
@@ -182,12 +186,20 @@ static const ApplicationManagerTemplate Unk_020F94FC = {
     ov109_021D3D50,
     ov109_021D3EB0,
     ov109_021D3F9C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay109)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static const ApplicationManagerTemplate Unk_020F950C = {
     ov109_021D0D80,
     ov109_021D0F2C,
     ov109_021D0EB4,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay109)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV5_021EDFBC_H
 #define POKEPLATINUM_STRUCT_OV5_021EDFBC_H
 
+#include "platform/platform_types.h"
+
 #include "resource_collection.h"
 
 typedef struct {

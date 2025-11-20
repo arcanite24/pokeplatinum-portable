@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIN_MENU_0223635C_H
 #define POKEPLATINUM_STRUCT_MAIN_MENU_0223635C_H
 
+#include "platform/platform_types.h"
+
 #include "constants/gba/global.h"
 
 // These fields are present at the beginning of RSE's and FRLG's SaveBlock2

@@ -516,7 +516,15 @@ static u8 BattleBagTask_AwaitingTextFinish(BattleBag *battleBag)
 
 static u8 BattleBagTask_AwaitingInput(BattleBag *battleBag)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || TouchScreen_Tapped() == TRUE) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return battleBag->queuedState;
     }
 
@@ -632,10 +640,26 @@ static void InitializeBackground(BattleBag *battleBag)
 {
     {
         GraphicsModes graphicsMode = {
+            #ifdef PLATFORM_DS
             .displayMode = GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .mainBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .subBgMode = GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             .bg0As2DOr3D = GX_BG0_AS_3D,
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
 
         SetScreenGraphicsModes(&graphicsMode, DS_SCREEN_SUB);
@@ -648,10 +672,18 @@ static void InitializeBackground(BattleBag *battleBag)
             .bufferSize = 0x2000,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_512x512,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xd000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE
@@ -667,10 +699,18 @@ static void InitializeBackground(BattleBag *battleBag)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf800,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE
@@ -687,10 +727,18 @@ static void InitializeBackground(BattleBag *battleBag)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0xf000,
             .charBase = GX_BG_CHARBASE_0x00000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE
@@ -708,7 +756,11 @@ static void InitializeBackground(BattleBag *battleBag)
 
 static void CleanupBackground(BgConfig *background)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_FreeTilemapBuffer(background, BG_LAYER_SUB_0);
     Bg_FreeTilemapBuffer(background, BG_LAYER_SUB_1);
     Bg_FreeTilemapBuffer(background, BG_LAYER_SUB_2);
@@ -724,7 +776,11 @@ static void LoadGraphicsData(BattleBag *battleBag)
     NNSG2dScreenData *screenData;
 
     void *buffer = NARC_AllocAndReadWholeMember(narc, 1, battleBag->context->heapID);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(buffer, &screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
     BattleBagButtons_InitializeButtonData(battleBag, (u16 *)screenData->rawData);
     Heap_Free(buffer);
 

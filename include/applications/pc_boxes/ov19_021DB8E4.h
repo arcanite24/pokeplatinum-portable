@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV19_021DB8E4_H
 #define POKEPLATINUM_OV19_021DB8E4_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else
@@ -24,7 +26,11 @@ BOOL ov19_021DBB68(UnkStruct_ov19_021DBA9C *param0);
 void ov19_021DBB70(UnkStruct_ov19_021DBA9C *param0);
 void ov19_021DBB94(UnkStruct_ov19_021DBA9C *param0);
 BOOL ov19_021DBBA0(UnkStruct_ov19_021DBA9C *param0);
+#ifdef PLATFORM_DS
 void ov19_021DBBA8(UnkStruct_ov19_021DBA9C *param0, u32 param1, u32 param2, NNS_G2D_VRAM_TYPE param3, NNSG2dImageProxy *param4);
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 NNSG2dCellDataBank *ov19_021DBD3C(UnkStruct_ov19_021DBA9C *param0);
 void ov19_021DC29C(UnkStruct_ov19_021DBA9C *param0);
 BOOL ov19_021DC364(UnkStruct_ov19_021DBA9C *param0);

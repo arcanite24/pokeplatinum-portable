@@ -44,10 +44,26 @@ void PokedexGraphics_Init(PokedexGraphicData *pokedexGraphicData, enum HeapID he
     pokedexGraphicData->pokedexGraphics = NARC_ctor(NARC_INDEX_RESOURCE__ENG__ZUKAN__ZUKAN, heapID);
     pokedexGraphicData->bgConfig = BgConfig_New(heapID);
 
+    #ifdef PLATFORM_DS
     graphicsModes.displayMode = GX_DISPMODE_GRAPHICS;
+    #else
+    // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+    #endif
+    #ifdef PLATFORM_DS
     graphicsModes.mainBgMode = GX_BGMODE_0;
+    #else
+    // TODO: Port GX_BGMODE_0 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     graphicsModes.subBgMode = GX_BGMODE_1;
+    #else
+    // TODO: Port GX_BGMODE_1 to PAL
+    #endif
+    #ifdef PLATFORM_DS
     graphicsModes.bg0As2DOr3D = GX_BG0_AS_3D;
+    #else
+    // TODO: Port GX_BG0_AS_3D to PAL
+    #endif
 
     SetAllGraphicsModes(&graphicsModes);
 
@@ -60,8 +76,16 @@ void PokedexGraphics_Init(PokedexGraphicData *pokedexGraphicData, enum HeapID he
     pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_CELL] = SpriteResourceCollection_New(32, SPRITE_RESOURCE_CELL, heapID);
     pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_ANIM] = SpriteResourceCollection_New(32, SPRITE_RESOURCE_ANIM, heapID);
 
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 
     textManTemplate.spriteList = pokedexGraphicData->spriteList;
     textManTemplate.bgConfig = pokedexGraphicData->bgConfig;
@@ -107,7 +131,11 @@ void PokemonGraphics_UpdateSprites(PokedexGraphicData *pokedexGraphicData)
 {
     SpriteList_Update(pokedexGraphicData->spriteList);
 
+    #ifdef PLATFORM_DS
     NNS_G2dSetupSoftwareSpriteCamera();
+    #else
+    // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+    #endif
 
     PokemonSpriteManager_DrawSprites(pokedexGraphicData->spriteMan);
     SoftwareSpriteManager_DrawVisible(pokedexGraphicData->unk_164);
@@ -266,7 +294,11 @@ void PokedexGraphics_InitBlendTransition(PokedexBlendTransition *blendTransition
 {
     blendTransition->isSubscreen = isSubscreen;
     blendTransition->plane1 = plane1;
+    #ifdef PLATFORM_DS
     blendTransition->plane2 = plane2 | GX_BLEND_PLANEMASK_BD;
+    #else
+    // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+    #endif
     blendTransition->startBackgroundBrightness = startBackgroundBrightness;
     blendTransition->deltaBackgroundBrightness = endBackgroundBrightness - startBackgroundBrightness;
     blendTransition->startSpriteBrightness = startSpriteBrightness;
@@ -282,7 +314,11 @@ BOOL PokedexGraphics_TakeBlendTransitionStep(PokedexBlendTransition *blendTransi
         int brightness = PokedexGraphics_BlendScreen(blendTransition);
 
         if (blendTransition->isSubscreen == FALSE) {
+            #ifdef PLATFORM_DS
             G2_SetBlendBrightnessExt(blendTransition->plane1, blendTransition->plane2, ev1, 0, brightness);
+            #else
+            // TODO: Port G2_SetBlendBrightnessExt to PAL
+            #endif
         } else {
             G2S_SetBlendBrightnessExt(blendTransition->plane1, blendTransition->plane2, ev1, 0, brightness);
         }
@@ -453,7 +489,11 @@ u32 PokedexGraphics_LoadGraphicNarcCharacterData(PokedexGraphicData *pokedexGrap
     if (graphicFile != NULL) {
         NNSG2dCharacterData *charData;
 
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(graphicFile, &charData)) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
             if (size == 0) {
                 size = charData->szByte;
             }
@@ -485,7 +525,11 @@ void PokedexGraphics_LoadGraphicNarcPaletteData(PokedexGraphicData *pokedexGraph
     if (graphicFile != NULL) {
         NNSG2dPaletteData *paletteData;
 
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedPaletteData(graphicFile, &paletteData)) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
             if (szByte == 0) {
                 szByte = paletteData->szByte;
             }
@@ -503,7 +547,11 @@ void *PokedexGraphics_GetGraphicNarcTilemapData(PokedexGraphicData *pokedexGraph
     void *graphicFile = LoadGraphicsFile(pokedexGraphicData, memberIndex, isCompressed, heapID);
 
     if (graphicFile != NULL) {
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedScreenData(graphicFile, screenData) == FALSE) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
             Heap_Free(graphicFile);
             return NULL;
         }
@@ -517,7 +565,11 @@ void *PokedexGraphics_GetGraphicNarcPaletteData(PokedexGraphicData *pokedexGraph
     void *graphicFile = LoadGraphicsFile(pokedexGraphicData, memberIndex, FALSE, heapID);
 
     if (graphicFile != NULL) {
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedPaletteData(graphicFile, paletteData) == FALSE) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
             Heap_Free(graphicFile);
             return NULL;
         }
@@ -531,7 +583,11 @@ void *PokedexGraphics_GetGraphicNarcCharacterData(PokedexGraphicData *pokedexGra
     void *graphicFile = LoadGraphicsFile(pokedexGraphicData, memberIndex, isCompressed, heapID);
 
     if (graphicFile != NULL) {
+        #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(graphicFile, characterData) == FALSE) {
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
             Heap_Free(graphicFile);
             return NULL;
         }
@@ -548,10 +604,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x0000,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = 0
@@ -567,10 +631,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x0800,
         .charBase = GX_BG_CHARBASE_0x0c000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = 0
@@ -581,7 +653,11 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
     Bg_ClearTilemap(bgConfig, BG_LAYER_MAIN_2);
 
     Bg_SetPriority(BG_LAYER_MAIN_0, 2);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG0 to PAL
+    #endif
 
     BgTemplate bgT2 = {
         .x = 0,
@@ -589,10 +665,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x1000,
         .charBase = GX_BG_CHARBASE_0x14000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 3,
         .areaOver = 0,
         .mosaic = 0
@@ -608,10 +692,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x0000,
         .charBase = GX_BG_CHARBASE_0x04000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0,
         .areaOver = 0,
         .mosaic = 0
@@ -627,10 +719,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x800,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x1000,
         .charBase = GX_BG_CHARBASE_0x08000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 2,
         .areaOver = 0,
         .mosaic = 0
@@ -646,10 +746,18 @@ static void InitBackgrounds(BgConfig *bgConfig, enum HeapID heapID)
         .bufferSize = 0x400,
         .baseTile = 0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_256,
+        #else
+        // TODO: Port GX_BG_COLORMODE_256 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x0800,
         .charBase = GX_BG_CHARBASE_0x10000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 1,
         .areaOver = 0,
         .mosaic = 0
@@ -686,11 +794,27 @@ static void NewPokemonSprite(PokedexGraphicData *pokedexGraphicData, enum HeapID
 {
     pokedexGraphicData->spriteMan = PokemonSpriteManager_New(heapID);
 
+    #ifdef PLATFORM_DS
     NNSGfdTexKey texKey = NNS_GfdAllocTexVram(0x8000, 0, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNSGfdPlttKey plttKey = NNS_GfdAllocPlttVram(0x80, 0, NNS_GFD_ALLOC_FROM_LOW);
+    #else
+    // TODO: Port NNS_GFD_ALLOC_FROM_LOW to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     PokemonSpriteManager_SetCharBaseAddrAndSize(pokedexGraphicData->spriteMan, NNS_GfdGetTexKeyAddr(texKey), NNS_GfdGetTexKeySize(texKey));
+    #else
+    // TODO: Port NNS_GfdGetTexKeySize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     PokemonSpriteManager_SetPlttBaseAddrAndSize(pokedexGraphicData->spriteMan, NNS_GfdGetPlttKeyAddr(plttKey), NNS_GfdGetPlttKeySize(plttKey));
+    #else
+    // TODO: Port NNS_GfdGetPlttKeySize to PAL
+    #endif
 
     for (int spriteResourceType = 0; spriteResourceType < MAX_SPRITE_RESOURCE_GEN4; spriteResourceType++) {
         pokedexGraphicData->pokemonSprite[spriteResourceType] = NULL;
@@ -726,12 +850,20 @@ static void InitSpeciesLabelGraphics(PokedexGraphicData *pokedexGraphicData, enu
     PokedexSpeciesLabel *pokedexSpeciesLabel = &pokedexGraphicData->pokedexSpeciesLabel;
     NARC *pokedexGraphicsNARC = PokedexGraphics_GetNARC(pokedexGraphicData);
 
+    #ifdef PLATFORM_DS
     pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_CHAR], pokedexGraphicsNARC, name_tag_NCGR_lz, TRUE, 3000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_PLTT], pokedexGraphicsNARC, buttons_NCLR, FALSE, 3000, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT]);
@@ -742,12 +874,20 @@ static void InitSpeciesLabelGraphics(PokedexGraphicData *pokedexGraphicData, enu
 
 void PokedexGraphics_InitSpeciesLabelGraphics(PokedexSpeciesLabel *pokedexSpeciesLabel, SpriteResourceCollection **spriteResourceCollection, enum HeapID heapID, NARC *narc)
 {
+    #ifdef PLATFORM_DS
     pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(spriteResourceCollection[SPRITE_RESOURCE_CHAR], narc, name_tag_NCGR_lz, TRUE, 3000, NNS_G2D_VRAM_TYPE_2DMAIN, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(spriteResourceCollection[SPRITE_RESOURCE_PLTT], narc, buttons_NCLR, FALSE, 3000, NNS_G2D_VRAM_TYPE_2DMAIN, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(pokedexSpeciesLabel->spriteResource[SPRITE_RESOURCE_PLTT]);
@@ -790,7 +930,11 @@ static void InitSpeciesLabel(PokedexGraphicData *pokedexGraphicData, enum HeapID
     spriteListTemplate.list = pokedexGraphicData->spriteList;
     spriteListTemplate.resourceData = &spriteResourcesHeader;
     spriteListTemplate.priority = 0;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteListTemplate.heapID = heapID;
     spriteListTemplate.position.x = 0;
     spriteListTemplate.position.y = 0;
@@ -837,7 +981,11 @@ void PokedexGraphics_NewSpeciesLabel(PokedexSpeciesLabel *pokedexSpeciesLabel, S
     spriteListTemplate.list = spriteList;
     spriteListTemplate.resourceData = &spriteResourcesHeader;
     spriteListTemplate.priority = 0;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     spriteListTemplate.heapID = heapID;
     spriteListTemplate.position.x = 0;
     spriteListTemplate.position.y = 0;
@@ -894,12 +1042,20 @@ static void InitCursorGraphics(PokedexGraphicData *pokedexGraphicData, enum Heap
     PokedexCursorGraphics *pokedexCursorGraphics = &pokedexGraphicData->cursorGraphics;
     NARC *pokedexGraphicsNARC = PokedexGraphics_GetNARC(pokedexGraphicData);
 
+    #ifdef PLATFORM_DS
     pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_CHAR], pokedexGraphicsNARC, cursor_NCGR_lz, TRUE, 12000, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_CHAR]);
 
+    #ifdef PLATFORM_DS
     pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_PLTT] = SpriteResourceCollection_AddPaletteFrom(pokedexGraphicData->spriteResourceCollection[SPRITE_RESOURCE_PLTT], pokedexGraphicsNARC, cursor_NCLR, FALSE, 12000, NNS_G2D_VRAM_TYPE_2DSUB, 1, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestPlttFreeSpace(pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_PLTT]);
     SpriteResource_ReleaseData(pokedexCursorGraphics->spriteResource[SPRITE_RESOURCE_PLTT]);
@@ -932,7 +1088,11 @@ static void InitCursor(PokedexGraphicData *pokedexGraphicData, enum HeapID heapI
     spriteListTemplate.list = pokedexGraphicData->spriteList;
     spriteListTemplate.resourceData = &resourceData;
     spriteListTemplate.priority = 0;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     spriteListTemplate.heapID = heapID;
     spriteListTemplate.position.y = (192 << FX32_SHIFT) + (100 * FX32_ONE);
     spriteListTemplate.position.x = (100 * FX32_ONE);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_SPRITE_H
 #define POKEPLATINUM_POKEMON_SPRITE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

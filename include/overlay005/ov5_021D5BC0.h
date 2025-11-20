@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV5_021D5BC0_H
 #define POKEPLATINUM_OV5_021D5BC0_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 void FieldSystem_InitBottomScreen(FieldSystem *fieldSystem);

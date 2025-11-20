@@ -111,17 +111,29 @@ enum NarcID TypeIcon_GetNARC(void)
     return NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ;
 }
 
+#ifdef PLATFORM_DS
 void TypeIcon_LoadChar(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, enum PokemonType moveType, u32 resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteSystem_LoadCharResObj(spriteSys, spriteMan, TypeIcon_GetNARC(), TypeIcon_GetChar(moveType), TRUE, vramType, resourceID);
 }
 
+#ifdef PLATFORM_DS
 void TypeIcon_LoadPlttSrc(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, u32 resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteSystem_LoadPlttResObj(spriteSys, spriteMan, TypeIcon_GetNARC(), TypeIcon_GetPlttSrc(), FALSE, PLTT_3, vramType, resourceID);
 }
 
+#ifdef PLATFORM_DS
 void TypeIcon_LoadPltt(PaletteData *paletteData, enum PaletteBufferID bufferID, SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, u32 resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteSystem_LoadPaletteBuffer(paletteData, bufferID, spriteSys, spriteMan, TypeIcon_GetNARC(), TypeIcon_GetPlttSrc(), FALSE, PLTT_3, vramType, resourceID);
 }
@@ -182,7 +194,11 @@ enum NarcID CategoryIcon_GetNARC(void)
     return NARC_INDEX_BATTLE__GRAPHIC__PL_BATT_OBJ;
 }
 
+#ifdef PLATFORM_DS
 void CategoryIcon_LoadChar(SpriteSystem *spriteSys, SpriteManager *spriteMan, NNS_G2D_VRAM_TYPE vramType, enum MoveClass moveCat, u32 resourceID)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteSystem_LoadCharResObj(spriteSys, spriteMan, CategoryIcon_GetNARC(), CategoryIcon_GetChar(moveCat), TRUE, vramType, resourceID);
 }

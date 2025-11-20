@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RENDER_WINDOW_H
 #define POKEPLATINUM_RENDER_WINDOW_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 #include "generated/signpost_types.h"
 

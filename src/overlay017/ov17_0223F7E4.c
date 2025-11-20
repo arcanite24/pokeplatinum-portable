@@ -351,10 +351,18 @@ static const BgTemplate Unk_ov17_02253448[] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x6000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -365,10 +373,18 @@ static const BgTemplate Unk_ov17_02253448[] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x6800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -379,10 +395,18 @@ static const BgTemplate Unk_ov17_02253448[] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7000,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -393,10 +417,18 @@ static const BgTemplate Unk_ov17_02253448[] = {
         .bufferSize = 0x800,
         .baseTile = 0x0,
         .screenSize = BG_SCREEN_SIZE_256x256,
+        #ifdef PLATFORM_DS
         .colorMode = GX_BG_COLORMODE_16,
+        #else
+        // TODO: Port GX_BG_COLORMODE_16 to PAL
+        #endif
         .screenBase = GX_BG_SCRBASE_0x7800,
         .charBase = GX_BG_CHARBASE_0x00000,
+        #ifdef PLATFORM_DS
         .bgExtPltt = GX_BG_EXTPLTT_01,
+        #else
+        // TODO: Port GX_BG_EXTPLTT_01 to PAL
+        #endif
         .priority = 0x0,
         .areaOver = 0x0,
         .mosaic = FALSE,
@@ -519,7 +551,11 @@ static const SpriteTemplate Unk_ov17_02253354 = {
     0x0,
     0x64,
     0x0,
+    #ifdef PLATFORM_DS
     NNS_G2D_VRAM_TYPE_2DSUB,
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     { 0x80F6, 0x80EF, 0x80F4, 0x80F4, 0xFFFFFFFF, 0xFFFFFFFF },
     0x1,
     0x0
@@ -1014,8 +1050,16 @@ static void ov17_02240138(UnkStruct_ov17_0223F7E4 *param0, UnkStruct_ov17_022401
         v1 = param10->unk_00;
     }
 
+    #ifdef PLATFORM_DS
     v3 = sub_02012898(&v1, NNS_G2D_VRAM_TYPE_2DSUB, HEAP_ID_21);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     CharTransfer_AllocRange(v3, 1, NNS_G2D_VRAM_TYPE_2DSUB, &v2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     if (param9 == 1) {
         param7 -= v7 / 2;
@@ -1033,7 +1077,11 @@ static void ov17_02240138(UnkStruct_ov17_0223F7E4 *param0, UnkStruct_ov17_022401
     v0.unk_1C = param8;
     v0.unk_20 = 0;
     v0.unk_24 = 100;
+    #ifdef PLATFORM_DS
     v0.unk_28 = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v0.heapID = HEAP_ID_21;
 
     v4 = sub_020127E8(&v0);
@@ -1571,7 +1619,11 @@ static int ov17_02240C90(UnkStruct_ov17_0223F7E4 *param0)
     }
 
     if (v0->unk_00 == 0) {
+        #ifdef PLATFORM_DS
         if ((param0->unk_304 == 1) || (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B | PAD_BUTTON_X | PAD_BUTTON_Y | PAD_KEY_RIGHT | PAD_KEY_LEFT | PAD_KEY_UP | PAD_KEY_DOWN))) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             if (param0->unk_304 == 0) {
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
             }
@@ -1627,16 +1679,40 @@ static int ov17_02240D04(UnkStruct_ov17_0223F7E4 *param0, int param1)
     v1 = ov17_02241004(v0, 2, 2, v5[0]);
 
     switch (v1) {
+    #ifdef PLATFORM_DS
     case PAD_KEY_UP:
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_DOWN:
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_LEFT:
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_RIGHT:
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         v3 = Unk_ov17_0225323C[v0->unk_01][v0->unk_02];
         ov17_02252C78(param0->unk_2FC, v2->unk_14[v3].rect.left + 8, v2->unk_14[v3].rect.right - 8, v2->unk_14[v3].rect.top + 8, v2->unk_14[v3].rect.bottom - 8, (192 + 80) << FX32_SHIFT);
         break;
+    #ifdef PLATFORM_DS
     case PAD_BUTTON_A:
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return Unk_ov17_0225323C[v0->unk_01][v0->unk_02];
+    #ifdef PLATFORM_DS
     case PAD_BUTTON_B:
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         break;
     }
 
@@ -1684,16 +1760,40 @@ static int ov17_02240EA4(UnkStruct_ov17_0223F7E4 *param0, int param1)
     v1 = ov17_02241004(v0, 3, 2, v5[0]);
 
     switch (v1) {
+    #ifdef PLATFORM_DS
     case PAD_KEY_UP:
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_DOWN:
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_LEFT:
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
+    #ifdef PLATFORM_DS
     case PAD_KEY_RIGHT:
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         v3 = Unk_ov17_02253240[v0->unk_01][v0->unk_02];
         ov17_02252C78(param0->unk_2FC, v2->unk_14[v3].rect.left + 8, v2->unk_14[v3].rect.right - 8, v2->unk_14[v3].rect.top + 8, v2->unk_14[v3].rect.bottom - 8, (192 + 80) << FX32_SHIFT);
         break;
+    #ifdef PLATFORM_DS
     case PAD_BUTTON_A:
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return Unk_ov17_02253240[v0->unk_01][v0->unk_02];
+    #ifdef PLATFORM_DS
     case PAD_BUTTON_B:
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return 3;
     }
 
@@ -1730,7 +1830,11 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
     v1 = param0->unk_02;
     v0 = param0->unk_01;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         param0->unk_01--;
 
         if (param0->unk_01 < 0) {
@@ -1748,8 +1852,16 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
             }
         }
 
+        #ifdef PLATFORM_DS
         v2 = PAD_KEY_UP;
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         param0->unk_01++;
 
         if (param0->unk_01 >= param2) {
@@ -1767,8 +1879,16 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
             }
         }
 
+        #ifdef PLATFORM_DS
         v2 = PAD_KEY_DOWN;
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_LEFT) {
+    #else
+    // TODO: Port PAD_KEY_LEFT to PAL
+    #endif
         param0->unk_02--;
 
         if (param0->unk_02 < 0) {
@@ -1786,8 +1906,16 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
             }
         }
 
+        #ifdef PLATFORM_DS
         v2 = PAD_KEY_LEFT;
+        #else
+        // TODO: Port PAD_KEY_LEFT to PAL
+        #endif
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_KEY_RIGHT) {
+    #else
+    // TODO: Port PAD_KEY_RIGHT to PAL
+    #endif
         param0->unk_02++;
 
         if (param0->unk_02 >= param1) {
@@ -1805,11 +1933,31 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
             }
         }
 
+        #ifdef PLATFORM_DS
         v2 = PAD_KEY_RIGHT;
+        #else
+        // TODO: Port PAD_KEY_RIGHT to PAL
+        #endif
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v2 = PAD_BUTTON_A;
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
+    #ifdef PLATFORM_DS
     } else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
+        #ifdef PLATFORM_DS
         v2 = PAD_BUTTON_B;
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
     } else {
         return 0;
     }
@@ -1829,7 +1977,11 @@ static u32 ov17_02241004(UnkStruct_ov17_02241004 *param0, int param1, int param2
     if ((param0->unk_02 != v1) || (param0->unk_01 != v0)) {
         Sound_PlayEffect(SEQ_SE_CONFIRM);
     } else {
+        #ifdef PLATFORM_DS
         if (v2 & PAD_KEY) {
+        #else
+        // TODO: Port PAD_KEY to PAL
+        #endif
             return 0;
         }
     }

@@ -58,13 +58,37 @@
 #include "res/text/bank/main_menu_options.h"
 #include "res/text/bank/unk_0695.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_start);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(main_menu);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay98);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
+#ifdef PLATFORM_DS
 #define BACKGROUND_COLOR          GX_RGB(12, 12, 31)
+#else
+// TODO: Port GX_RGB to PAL
+#endif
+#ifdef PLATFORM_DS
 #define UNFOCUSED_OPTION_BG_COLOR GX_RGB(26, 26, 26)
+#else
+// TODO: Port GX_RGB to PAL
+#endif
 
 #define COLORS_LIST_END 0
 
@@ -349,7 +373,15 @@ static BOOL ShowWFCUserInfoErasedMsg(MainMenuAppData *appData)
             }
         }
     } else {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             Window_EraseStandardFrame(&appData->wfcUserInfoErasedWindow, FALSE);
             Window_Remove(&appData->wfcUserInfoErasedWindow);
@@ -523,9 +555,21 @@ static BOOL ShowAlerts(MainMenuAppData *appData)
         MainMenuUtil_ShowWindowAtPos(appData->bgConfig, &window, alertTemplate->x, alertTemplate->y, alertTemplate->textEntryID);
 
         Bg_ChangeTilemapRectPalette(appData->bgConfig, BG_LAYER_MAIN_1, Window_GetXPos(window.window), Window_GetYPos(window.window), Window_GetWidth(window.window), Window_GetHeight(window.window), PLTT_0);
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
 
         appData->alertsDelay = 30;
         appData->alertsState = MAIN_MENU_ALERTS_STATE_WAIT_DISMISS;
@@ -534,7 +578,15 @@ static BOOL ShowAlerts(MainMenuAppData *appData)
         if (appData->alertsDelay) {
             appData->alertsDelay--;
         } else {
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
             if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 Window_Remove(&appData->alertWindow);
                 appData->alertsState = MAIN_MENU_ALERTS_STATE_HIDE_ALERT;
                 appData->alertDismissKeys = gSystem.pressedKeys;
@@ -543,9 +595,21 @@ static BOOL ShowAlerts(MainMenuAppData *appData)
         }
         break;
     case MAIN_MENU_ALERTS_STATE_HIDE_ALERT:
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG0, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, TRUE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG1, FALSE);
+        #else
+        // TODO: Port GX_PLANEMASK_BG1 to PAL
+        #endif
         appData->alertsState = MAIN_MENU_ALERTS_STATE_WAIT;
         break;
     }
@@ -583,37 +647,105 @@ static void DoScrollStep(MainMenuAppData *appData)
 static void InitMainMenuGraphics(MainMenuAppData *appData)
 {
     UnkStruct_02099F80 vramBanks = {
+        #ifdef PLATFORM_DS
         GX_VRAM_BG_128_A,
+        #else
+        // TODO: Port GX_VRAM_BG_128_A to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BG_128_C,
+        #else
+        // TODO: Port GX_VRAM_SUB_BG_128_C to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_BGEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_BGEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJ_64_E,
+        #else
+        // TODO: Port GX_VRAM_OBJ_64_E to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJ_16_I,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJ_16_I to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_SUB_OBJEXTPLTT_NONE,
+        #else
+        // TODO: Port GX_VRAM_SUB_OBJEXTPLTT_NONE to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEX_0_B,
+        #else
+        // TODO: Port GX_VRAM_TEX_0_B to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_VRAM_TEXPLTT_01_FG
+        #else
+        // TODO: Port GX_VRAM_TEXPLTT_01_FG to PAL
+        #endif
     };
     GraphicsModes graphicsModes = {
+        #ifdef PLATFORM_DS
         GX_DISPMODE_GRAPHICS,
+        #else
+        // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BGMODE_0,
+        #else
+        // TODO: Port GX_BGMODE_0 to PAL
+        #endif
+        #ifdef PLATFORM_DS
         GX_BG0_AS_2D
+        #else
+        // TODO: Port GX_BG0_AS_2D to PAL
+        #endif
     };
 
     GXLayers_SetBanks(&vramBanks);
     SetAllGraphicsModes(&graphicsModes);
 
     MainMenuUtil_InitBGLayer(appData->bgConfig, BG_LAYER_MAIN_0, BG_SCREEN_SIZE_256x512, GX_BG_SCRBASE_0xf000 * 0x800, GX_BG_CHARBASE_0x00000 * 0x4000);
+    #ifdef PLATFORM_DS
     G2_SetBG0Priority(2);
+    #else
+    // TODO: Port G2_SetBG0Priority to PAL
+    #endif
     Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_MAIN_MENU);
 
     MainMenuUtil_InitBGLayer(appData->bgConfig, BG_LAYER_MAIN_1, BG_SCREEN_SIZE_256x256, GX_BG_SCRBASE_0xd800 * 0x800, GX_BG_CHARBASE_0x08000 * 0x4000);
+    #ifdef PLATFORM_DS
     G2_SetBG1Priority(1);
+    #else
+    // TODO: Port G2_SetBG1Priority to PAL
+    #endif
     Bg_ClearTilesRange(BG_LAYER_MAIN_1, 32, 0, HEAP_ID_MAIN_MENU);
 
     MainMenuUtil_InitBGLayer(appData->bgConfig, BG_LAYER_MAIN_2, BG_SCREEN_SIZE_256x512, GX_BG_SCRBASE_0xe000 * 0x800, GX_BG_CHARBASE_0x00000 * 0x4000);
+    #ifdef PLATFORM_DS
     G2_SetBG2Priority(0);
+    #else
+    // TODO: Port G2_SetBG2Priority to PAL
+    #endif
     Bg_ClearTilesRange(BG_LAYER_MAIN_2, 32, 0, HEAP_ID_MAIN_MENU);
 
     Text_ResetAllPrinters();
@@ -1062,36 +1194,156 @@ static void FreeApplicationResources(ApplicationManager *appMan)
 
 // clang-format off
 static GXRgb sFocusedOptionBorderColors[] = {
+    #ifdef PLATFORM_DS
     GX_RGB( 1, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 3, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 5, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 7, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 9, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(11, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(13, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(15, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(17, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(19, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(21, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(23, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(25, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(27, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(29, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(31, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(29, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(27, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(25, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(23, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(21, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(19, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(17, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(15, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(13, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB(11, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 9, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 7, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 5, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_RGB( 3, 28, 20),
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
     COLORS_LIST_END
 };
 // clang-format on
@@ -1113,7 +1365,15 @@ static void MainMenuVBlankCallback(void *data)
     RenderOam_Transfer();
     Bg_RunScheduledUpdates((BgConfig *)data);
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_SetIrqCheckFlag to PAL
+    #endif
     OS_SetIrqCheckFlag(OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 }
 
 static BOOL MainMenu_Init(ApplicationManager *appMan, int *unused)
@@ -1208,8 +1468,20 @@ static BOOL MainMenu_Main(ApplicationManager *appMan, int *state)
         appData->wirelessCheckState = MAIN_MENU_WIRELESS_CHECK_START;
         break;
     case MAIN_MENU_STATE_SELECT_OPTION:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
         if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
+            #ifdef PLATFORM_DS
             if (JOY_NEW(PAD_BUTTON_A)) {
+            #else
+            // TODO: Port PAD_BUTTON_A to PAL
+            #endif
                 Sound_PlayEffect(SEQ_SE_CONFIRM);
                 appData->nextApplication = appData->optionApps[appData->focusedOption];
 
@@ -1252,11 +1524,19 @@ static BOOL MainMenu_Main(ApplicationManager *appMan, int *state)
             break;
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_KEY_UP)) {
+        #else
+        // TODO: Port PAD_KEY_UP to PAL
+        #endif
             FocusNextOption(appData, DIRECTION_UP);
         }
 
+        #ifdef PLATFORM_DS
         if (JOY_NEW(PAD_KEY_DOWN)) {
+        #else
+        // TODO: Port PAD_KEY_DOWN to PAL
+        #endif
             FocusNextOption(appData, DIRECTION_DOWN);
         }
 
@@ -1271,7 +1551,11 @@ static BOOL MainMenu_Main(ApplicationManager *appMan, int *state)
         break;
     case MAIN_MENU_STATE_CONFIRM_NEW_GAME:
         if (appData->alertsState == MAIN_MENU_ALERTS_STATE_WAIT) {
+            #ifdef PLATFORM_DS
             if (appData->alertDismissKeys & PAD_BUTTON_B) {
+            #else
+            // TODO: Port PAD_BUTTON_B to PAL
+            #endif
                 *state = MAIN_MENU_STATE_SELECT_OPTION;
             } else {
                 MainMenuUtil_StartScreenFadeToState(FADE_TYPE_BRIGHTNESS_OUT, MAIN_MENU_STATE_EXIT, state, MAIN_MENU_STATE_WAIT_SCREEN_TRANSITION);
@@ -1307,33 +1591,65 @@ static void EnqueueNextApplication(MainMenuAppData *appData)
 {
     switch (appData->nextApplication) {
     case NEXT_APP_LOAD_SAVE:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(game_start), &gGameStartLoadSaveAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_GAME_INTRO:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(game_start), &gGameStartRowanIntroAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_MYSTERY_GIFT:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(main_menu), &gMysteryGiftAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_GBA_MIGRATION:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(main_menu), &gGBAMigratorAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_RANGER_LINK:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(main_menu), &gRangerLinkAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_WII_CONNECTION:
         RebootAndLoadROM("data/eoo.dat");
         break;
     case NEXT_APP_WFC_SETTINGS:
         Sound_StopWaveOutAndSequences();
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID_NONE, &gRebootIntoWFCSettingsAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
         break;
     case NEXT_APP_WII_MSG_SETTINGS:
         Sound_StopWaveOutAndSequences();
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(overlay98), &gWiiMessageAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     case NEXT_APP_TITLE_SCREEN:
+        #ifdef PLATFORM_DS
         EnqueueApplication(FS_OVERLAY_ID(game_opening), &gTitleScreenAppTemplate);
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         break;
     }
 }
@@ -1356,5 +1672,9 @@ const ApplicationManagerTemplate gMainMenuAppTemplate = {
     MainMenu_Init,
     MainMenu_Main,
     MainMenu_Exit,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID_NONE
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
 };

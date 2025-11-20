@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIN_MENU_022335A8_H
 #define POKEPLATINUM_STRUCT_MAIN_MENU_022335A8_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     union {
         u8 val1[4];

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0203D1B8_H
 #define POKEPLATINUM_UNK_0203D1B8_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 #include "generated/items.h"
 #include "generated/pokemon_contest_types.h"

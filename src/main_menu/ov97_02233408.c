@@ -259,7 +259,15 @@ u32 ov97_02233614(void)
 
 static u32 ov97_02233618()
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_GetTick to PAL
+    #endif
     return ((u32)(OS_GetTick() + GX_GetVCount()) & 0xFFFFFFFE) + 1;
+    #else
+    // TODO: Port GX_GetVCount to PAL
+    #endif
 }
 
 static u32 ov97_02233630(u32 param0, u32 param1, void *param2)

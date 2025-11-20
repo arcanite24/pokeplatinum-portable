@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020711C8_H
 #define POKEPLATINUM_UNK_020711C8_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_020711C8.h"
 
 #include "savedata.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MOVE_REMINDER_DATA_H
 #define POKEPLATINUM_MOVE_REMINDER_DATA_H
 
+#include "platform/platform_types.h"
+
 #include "game_options.h"
 #include "pokemon.h"
 #include "trainer_info.h"

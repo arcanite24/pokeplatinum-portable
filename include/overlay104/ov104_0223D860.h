@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV104_0223D860_H
 #define POKEPLATINUM_OV104_0223D860_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_0209B75C_decl.h"
 
 void ov104_0223D860(UnkStruct_0209B75C *param0, u16 param1, u8 param2, s16 param3[], int param4);

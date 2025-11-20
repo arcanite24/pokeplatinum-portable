@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020985E4_H
 #define POKEPLATINUM_UNK_020985E4_H
 
+#include "platform/platform_types.h"
+
 #include "field_task.h"
 #include "savedata.h"
 

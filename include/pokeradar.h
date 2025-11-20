@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKERADAR_H
 #define POKEPLATINUM_POKERADAR_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #include "field_task.h"

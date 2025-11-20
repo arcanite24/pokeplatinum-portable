@@ -591,18 +591,34 @@ static void ov19_021DF5D0(UnkStruct_ov19_021DEC04 *param0, NARC *param1)
     param0->unk_64 = Graphics_GetAnimBankFromOpenNARC(param1, 136, 1, &(param0->unk_68), HEAP_ID_BOX_GRAPHICS);
 
     Graphics_LoadPaletteFromOpenNARC(param1, 137, 5, 0, 0x20 * 3, HEAP_ID_BOX_GRAPHICS);
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&v1);
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v3 = Graphics_LoadImageMappingFromOpenNARC(param1, 134, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DSUB, 0, 10, &v1);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     ov19_021D783C(&v2, &v1, ov19_021D77D0(param0->unk_04), param0->unk_60, param0->unk_68, 1);
 
     for (v4 = 0; v4 < 2; v4++) {
+        #ifdef PLATFORM_DS
         param0->unk_28[v4] = ov19_021D785C(param0->unk_10, &v2, v0[v4].unk_00, v0[v4].unk_02, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
 
         Sprite_SetExplicitPalette(param0->unk_28[v4], v4);
         Sprite_SetAnim(param0->unk_28[v4], 0);
 
         for (v5 = 0; v5 < 5; v5++) {
+            #ifdef PLATFORM_DS
             param0->unk_34[v4][v5] = ov19_021D785C(param0->unk_10, &v2, 0, 0, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+            #endif
             Sprite_SetAnim(param0->unk_34[v4][v5], 5 + v4);
             Sprite_SetExplicitPalette(param0->unk_34[v4][v5], v4);
             Sprite_SetDrawFlag(param0->unk_34[v4][v5], FALSE);
@@ -610,7 +626,11 @@ static void ov19_021DF5D0(UnkStruct_ov19_021DEC04 *param0, NARC *param1)
     }
 
     Sprite_SetFlipMode(param0->unk_28[1], 1);
+    #ifdef PLATFORM_DS
     param0->unk_30 = ov19_021D785C(param0->unk_10, &v2, 128, 176 + 384, 0, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     Sprite_SetAnim(param0->unk_30, 3);
     Sprite_SetExplicitPalette(param0->unk_30, 2);
     param0->unk_380 = SysTask_Start(ov19_021DF930, param0, 1);
@@ -634,10 +654,30 @@ static void ov19_021DF730(UnkStruct_ov19_021DEC04 *param0, u32 param1)
 
     for (int i = 0; i < 2; i++) {
         param0->unk_18[i] = param1 + (i * (4 * 4) * 0x20);
+        #ifdef PLATFORM_DS
         NNS_G2dInitImageProxy(&v1);
+        #else
+        // TODO: Port NNS_G2dInitImageProxy to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_G2dSetImageLocation to PAL
+        #endif
         NNS_G2dSetImageLocation(&v1, NNS_G2D_VRAM_TYPE_2DSUB, param0->unk_18[i]);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v1.attr.mappingType = GXS_GetOBJVRamModeChar();
+        #else
+        // TODO: Port GXS_GetOBJVRamModeChar to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param0->unk_20[i] = ov19_021D785C(param0->unk_10, &v2, v0[i].unk_00, v0[i].unk_02, 1 - i, NNS_G2D_VRAM_TYPE_2DSUB);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+        #endif
         Sprite_SetDrawFlag(param0->unk_20[i], FALSE);
     }
 }
@@ -677,9 +717,17 @@ static void ov19_021DF834(UnkStruct_ov19_021DEC04 *param0)
 
         ov19_021DA744(param0->unk_14, param0->unk_E8, BoxPokemon_IconSpriteIndex(boxMon), sizeof(param0->unk_E8));
 
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(param0->unk_E8, &v4);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
         DC_FlushRange(v4->pRawData, (4 * 4) * 0x20);
+        #ifdef PLATFORM_DS
         GXS_LoadOBJ(v4->pRawData, param0->unk_18[compareMonSlot], (4 * 4) * 0x20);
+        #else
+        // TODO: Port GXS_LoadOBJ to PAL
+        #endif
 
         Sprite_SetExplicitPalette(v2, v5);
         Sprite_SetDrawFlag(v2, TRUE);

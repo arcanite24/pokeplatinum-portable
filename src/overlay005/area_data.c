@@ -69,10 +69,18 @@ void AreaDataManager_Load(AreaDataManager *areaDataManager)
     areaDataManager->mapTexture = NULL;
     areaDataManager->mapTextureFile = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_FIELDDATA__AREADATA__AREA_MAP_TEX__MAP_TEX_SET, areaDataManager->areaData.mapTextureArchiveID, HEAP_ID_FIELD1);
     areaDataManager->mapPropTextureFile = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_FIELDDATA__AREADATA__AREA_BUILD_MODEL__AREABM_TEXSET, areaDataManager->areaData.mapPropArchivesID, HEAP_ID_FIELD1);
+    #ifdef PLATFORM_DS
     areaDataManager->mapTexture = NNS_G3dGetTex((NNSG3dResFileHeader *)areaDataManager->mapTextureFile);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     if (loadData->mapPropModelIDsCount != 0) {
+        #ifdef PLATFORM_DS
         areaDataManager->mapPropTexture = NNS_G3dGetTex((NNSG3dResFileHeader *)areaDataManager->mapPropTextureFile);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
     } else {
         areaDataManager->mapPropTexture = NULL;
     }
@@ -107,7 +115,11 @@ void AreaDataManager_Load(AreaDataManager *areaDataManager)
         areaDataManager->mapPropModelFiles[mapPropModelID] = NARC_AllocAndReadWholeMember(narc, mapPropModelID, HEAP_ID_FIELD1);
 
         if (mapPropModelID < mapPropModelAnimeListNARCFileCount) {
+            #ifdef PLATFORM_DS
             NNSG3dResMdl *mapPropModel = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(areaDataManager->mapPropModelFiles[mapPropModelID]), 0);
+            #else
+            // TODO: Port NNS_G3dGetMdlSet to PAL
+            #endif
             MapPropAnimationManager_LoadPropAnimations(mapPropModelID, mapPropModel, areaDataManager->mapPropTexture, loadData->mapPropAnimMan);
         }
 
@@ -118,7 +130,11 @@ void AreaDataManager_Load(AreaDataManager *areaDataManager)
     // Make sure the dummy box ("dmybox00") model is always loaded
     if (areaDataManager->mapPropModelFiles[0] == NULL) {
         areaDataManager->mapPropModelFiles[0] = NARC_AllocAndReadWholeMember(narc, 0, HEAP_ID_FIELD1);
+        #ifdef PLATFORM_DS
         NNSG3dResTex *texture = NNS_G3dGetTex(areaDataManager->mapPropModelFiles[0]);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
 
         if (texture != NULL) {
             BOOL res = Easy3D_UploadTextureToVRAM(texture);

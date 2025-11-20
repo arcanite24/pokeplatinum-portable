@@ -253,16 +253,40 @@ void TextureResourceManager_RemoveTexture(TextureResourceManager *texMgr, Textur
         ResourceCollection_Remove(texMgr->resources, texResource->resource);
     }
 
+    #ifdef PLATFORM_DS
     if (texResource->texKey != NNS_GFD_ALLOC_ERROR_TEXKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(NNS_GfdFreeTexVram(texResource->texKey) == 0);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (texResource->tex4x4Key != NNS_GFD_ALLOC_ERROR_TEXKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(NNS_GfdFreeTexVram(texResource->tex4x4Key) == 0);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
     }
 
+    #ifdef PLATFORM_DS
     if (texResource->paletteKey != NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         GF_ASSERT(NNS_GfdFreePlttVram(texResource->paletteKey) == 0);
+        #else
+        // TODO: Port NNS_GfdFreePlttVram to PAL
+        #endif
     }
 
     TextureResource_Init(texResource);
@@ -320,7 +344,11 @@ void TextureResource_UploadToVRam(TextureResource *texResource)
     GF_ASSERT(texResource);
     GF_ASSERT(texResource->texDataDiscarded == FALSE);
 
+    #ifdef PLATFORM_DS
     if (texResource->paletteKey == NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
         GF_ASSERT(FALSE);
         return;
     }
@@ -375,7 +403,11 @@ void TextureResource_AllocVRam(TextureResource *texResource)
     GF_ASSERT(texResource);
     GF_ASSERT(texResource->texDataDiscarded == FALSE);
 
+    #ifdef PLATFORM_DS
     if (texResource->paletteKey != NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
         GF_ASSERT(FALSE);
         return;
     }
@@ -421,9 +453,21 @@ static TextureResource *TextureResourceManager_AllocTexture(const TextureResourc
 static void TextureResource_Init(TextureResource *texResource)
 {
     texResource->resource = NULL;
+    #ifdef PLATFORM_DS
     texResource->texKey = NNS_GFD_ALLOC_ERROR_TEXKEY;
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     texResource->tex4x4Key = NNS_GFD_ALLOC_ERROR_TEXKEY;
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
+    #ifdef PLATFORM_DS
     texResource->paletteKey = NNS_GFD_ALLOC_ERROR_PLTTKEY;
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
     texResource->texDataDiscarded = 0;
     texResource->textureData = NULL;
     texResource->texDataDiscarded = 0;
@@ -431,7 +475,11 @@ static void TextureResource_Init(TextureResource *texResource)
 
 static NNSG3dResTex *TextureResource_GetTexRes(const TextureResource *texResource)
 {
+    #ifdef PLATFORM_DS
     return NNS_G3dGetTex(Resource_GetData(texResource->resource));
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 }
 
 static NNSG3dResTex *TextureResource_GetTexResWithData(const TextureResource *texResource)
@@ -440,25 +488,57 @@ static NNSG3dResTex *TextureResource_GetTexResWithData(const TextureResource *te
         ? Resource_GetData(texResource->resource)
         : texResource->textureData;
 
+    #ifdef PLATFORM_DS
     return NNS_G3dGetTex(texData);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 }
 
 static void TexRes_AllocVRam(const NNSG3dResTex *texRes, NNSGfdTexKey *texKey, NNSGfdTexKey *tex4x4Key, NNSGfdPlttKey *paletteKey)
 {
+    #ifdef PLATFORM_DS
     u32 texSize = NNS_G3dTexGetRequiredSize(texRes);
+    #else
+    // TODO: Port NNS_G3dTexGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     u32 tex4x4Size = NNS_G3dTex4x4GetRequiredSize(texRes);
+    #else
+    // TODO: Port NNS_G3dTex4x4GetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     u32 paletteSize = NNS_G3dPlttGetRequiredSize(texRes);
+    #else
+    // TODO: Port NNS_G3dPlttGetRequiredSize to PAL
+    #endif
 
     if (texSize != 0) {
+        #ifdef PLATFORM_DS
         *texKey = NNS_GfdAllocTexVram(texSize, FALSE, 0);
+        #else
+        // TODO: Port NNS_GfdAllocTexVram to PAL
+        #endif
     }
 
     if (tex4x4Size != 0) {
+        #ifdef PLATFORM_DS
         *tex4x4Key = NNS_GfdAllocTexVram(tex4x4Size, TRUE, 0);
+        #else
+        // TODO: Port NNS_GfdAllocTexVram to PAL
+        #endif
     }
 
     if (paletteSize != 0) {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port NNS_GfdAllocPlttVram to PAL
+        #endif
         *paletteKey = NNS_GfdAllocPlttVram(paletteSize, texRes->tex4x4Info.flag & NNS_G3D_RESPLTT_USEPLTT4, 0);
+        #else
+        // TODO: Port NNS_G3D_RESPLTT_USEPLTT4 to PAL
+        #endif
     }
 }
 
@@ -468,14 +548,30 @@ static void TexRes_UploadToVRam(NNSG3dResTex *texRes, TextureResource *texResour
 
     DC_FlushRange(texRes, texRes->header.size);
 
+    #ifdef PLATFORM_DS
     NNS_G3dTexLoad(texRes, TRUE);
+    #else
+    // TODO: Port NNS_G3dTexLoad to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dPlttLoad(texRes, TRUE);
+    #else
+    // TODO: Port NNS_G3dPlttLoad to PAL
+    #endif
 }
 
 static void TexRes_AssignVRamKeys(NNSG3dResTex *texRes, NNSGfdTexKey texKey, NNSGfdTexKey tex4x4Key, NNSGfdPlttKey paletteKey)
 {
+    #ifdef PLATFORM_DS
     NNS_G3dTexSetTexKey(texRes, texKey, tex4x4Key);
+    #else
+    // TODO: Port NNS_G3dTexSetTexKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dPlttSetPlttKey(texRes, paletteKey);
+    #else
+    // TODO: Port NNS_G3dPlttSetPlttKey to PAL
+    #endif
 }
 
 static void TexRes_ReleaseVRamKeys(NNSG3dResTex *texRes)
@@ -483,8 +579,16 @@ static void TexRes_ReleaseVRamKeys(NNSG3dResTex *texRes)
     NNSGfdTexKey texKey;
     NNSGfdTexKey tex4x4Key;
 
+    #ifdef PLATFORM_DS
     NNS_G3dTexReleaseTexKey(texRes, &texKey, &tex4x4Key);
+    #else
+    // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dPlttReleasePlttKey(texRes);
+    #else
+    // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+    #endif
 }
 
 // Duplicates a texture resource without the actual texture data
@@ -500,7 +604,11 @@ static void *CreateStrippedTexture(void *resFile, enum HeapID heapID)
 // Calculates the size of a texture resource without the actual texture data
 static u32 GetStrippedTextureResourceSize(const void *resFile)
 {
+    #ifdef PLATFORM_DS
     NNSG3dResTex *texture = NNS_G3dGetTex(resFile);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
     GF_ASSERT(texture);
 
     u8 *texData = (u8 *)texture + texture->texInfo.ofsTex;

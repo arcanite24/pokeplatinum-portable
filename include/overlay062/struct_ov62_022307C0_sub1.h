@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV62_022307C0_SUB1_H
 #define POKEPLATINUM_STRUCT_OV62_022307C0_SUB1_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/font_oam.h"
 #include "struct_decls/struct_02012B20_decl.h"
 

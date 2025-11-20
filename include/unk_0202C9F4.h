@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_0202C9F4_H
 #define POKEPLATINUM_UNK_0202C9F4_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/seal_case.h"
 
 #include "savedata.h"

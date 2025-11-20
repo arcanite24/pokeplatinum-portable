@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV62_0222F2C0_H
 #define POKEPLATINUM_OV62_0222F2C0_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0208C06C.h"
 
 void ov62_0222F2C0(UnkStruct_0208C06C *param0);

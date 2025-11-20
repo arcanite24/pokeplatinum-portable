@@ -284,8 +284,16 @@ static void ov5_021F2014(OverworldAnimManager *param0, void *param1)
 
         OverworldAnimManager_GetPosition(param0, &v1);
 
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseMdlAlpha(v0->unk_14->unk_0C);
+        #else
+        // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlAlphaAll(v0->unk_14->unk_0C, v0->unk_0C);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+        #endif
 
         sub_02073BB4(v0->unk_18, &v1);
     }

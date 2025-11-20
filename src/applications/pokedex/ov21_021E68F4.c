@@ -351,8 +351,16 @@ static void ov21_021E6C60(UnkStruct_ov21_021E6C60 *param0)
     int v0;
 
     for (v0 = 0; v0 < 2; v0++) {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(param0->unk_00[v0], GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
+        #ifdef PLATFORM_DS
         sub_02012AF0(param0->unk_08[v0]->fontOAM, GX_OAM_MODE_XLU);
+        #else
+        // TODO: Port GX_OAM_MODE_XLU to PAL
+        #endif
     }
 }
 
@@ -361,8 +369,16 @@ static void ov21_021E6C88(UnkStruct_ov21_021E6C60 *param0)
     int v0;
 
     for (v0 = 0; v0 < 2; v0++) {
+        #ifdef PLATFORM_DS
         Sprite_SetExplicitOAMMode(param0->unk_00[v0], GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
+        #ifdef PLATFORM_DS
         sub_02012AF0(param0->unk_08[v0]->fontOAM, GX_OAM_MODE_NORMAL);
+        #else
+        // TODO: Port GX_OAM_MODE_NORMAL to PAL
+        #endif
     }
 }
 
@@ -372,9 +388,17 @@ static void ov21_021E6CB0(UnkStruct_ov21_021E6C60 *param0, PokedexGraphicData **
 
     if (ov21_021E33A4(param2->unk_0C)) {
         if (param3) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendSub, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 1);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendSub, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 1);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -529,7 +553,11 @@ static void ov21_021E6F58(UnkStruct_ov21_021E6C60 *param0, PokedexGraphicData **
     PokedexGraphicData *v0 = *param1;
     NARC *v1 = PokedexGraphics_GetNARC(*param1);
 
+    #ifdef PLATFORM_DS
     param0->unk_10[0] = SpriteResourceCollection_AddTilesFrom(v0->spriteResourceCollection[0], v1, size_buttons_pressed_NCGR_lz, TRUE, size_buttons_pressed_NCGR_lz + 9000, NNS_G2D_VRAM_TYPE_2DSUB, param2);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(param0->unk_10[0]);
     SpriteResource_ReleaseData(param0->unk_10[0]);
@@ -560,7 +588,11 @@ static void ov21_021E700C(UnkStruct_ov21_021E6C60 *param0, PokedexGraphicData **
     v1.list = v2->spriteList;
     v1.resourceData = &v0;
     v1.priority = 31;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v1.heapID = param2;
 
     v1.position.x = 68 << FX32_SHIFT;
@@ -607,10 +639,18 @@ static void ov21_021E70D4(UnkStruct_ov21_021E6C60 *param0, PokedexGraphicData **
     displayBox.y = -8;
     displayBox.spriteResourcePriority = 2;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     displayBox.heapID = param2;
 
+    #ifdef PLATFORM_DS
     v4 = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v0 = PokedexTextManager_NewWindow(v3->textMan, 12, 2);
     v5 = PokedexTextManager_DisplayMessage(v3->textMan, v0, TEXT_BANK_POKEDEX, pl_msg_pokedex_heightcheck_button, 0, 0);
 
@@ -690,7 +730,11 @@ static void ov21_021E71D0(PokedexGraphicData **param0, Sprite *param1, PokedexTe
 
         *param10 = PokedexGraphics_GetGraphicNarcPaletteData(*param0, v4, &v1, heapID);
 
+        #ifdef PLATFORM_DS
         v2 = VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_SUB, param5 * 32, v1->pRawData, 32);
+        #else
+        // TODO: Port NNS_GFD_DST_2D_BG_PLTT_SUB to PAL
+        #endif
         GF_ASSERT(v2);
     }
 }
@@ -718,7 +762,11 @@ static void ov21_021E728C(UnkStruct_ov21_021E6C60 *param0, PokedexGraphicData **
 
 static void ov21_021E72E8(UnkStruct_ov21_021E6DAC *param0, UnkStruct_ov21_021E6A20 *param1)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         if (param1->unk_04 == 1) {
             param1->unk_04 = 0;
             *param1->unk_00 |= (1 << 0);

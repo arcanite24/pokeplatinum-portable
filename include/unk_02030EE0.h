@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02030EE0_H
 #define POKEPLATINUM_UNK_02030EE0_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/wm.h>
 #else

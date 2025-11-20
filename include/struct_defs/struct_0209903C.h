@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0209903C_H
 #define POKEPLATINUM_STRUCT_0209903C_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_0209903C_sub1.h"
 
 #include "sprite.h"

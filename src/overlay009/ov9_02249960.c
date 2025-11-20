@@ -1602,10 +1602,18 @@ static void ov9_02249F50(DistWorldSystem *param0)
         int v0;
 
         for (v0 = 0; v0 < 8; v0++) {
+            #ifdef PLATFORM_DS
             param0->unk_1EB0[v0] = GX_RGB(4, 4, 4);
+            #else
+            // TODO: Port GX_RGB to PAL
+            #endif
         }
 
+        #ifdef PLATFORM_DS
         param0->unk_1EB0[1] = GX_RGB(4, 3, 7);
+        #else
+        // TODO: Port GX_RGB to PAL
+        #endif
         G3X_SetEdgeColorTable(param0->unk_1EB0);
     }
 }
@@ -1780,7 +1788,11 @@ static void ov9_0224A1E4(DistWorldSystem *param0, int param1)
     HeapExp_FndInitAllocator(&v0->unk_10, HEAP_ID_FIELD1, 4);
 
     v0->unk_08 = ov5_021DF5C0(param0->fieldSystem->unk_40, 197, 1);
+    #ifdef PLATFORM_DS
     v0->unk_0C = NNS_G3dGetAnmByIdx(v0->unk_08, 0);
+    #else
+    // TODO: Port NNS_G3dGetAnmByIdx to PAL
+    #endif
 }
 
 static void ov9_0224A228(UnkStruct_ov9_0224A228 *param0, UnkStruct_ov9_0224A294 *param1, UnkStruct_020216E0 *param2)
@@ -1792,10 +1804,22 @@ static void ov9_0224A228(UnkStruct_ov9_0224A228 *param0, UnkStruct_ov9_0224A294 
     GF_ASSERT(param1->unk_10 == NULL);
 
     param1->unk_1C = param2;
+    #ifdef PLATFORM_DS
     param1->unk_10 = NNS_G3dAllocAnmObj(&param0->unk_10, param0->unk_0C, v0);
+    #else
+    // TODO: Port NNS_G3dAllocAnmObj to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjInit(param1->unk_10, param0->unk_0C, v0, v1);
+    #else
+    // TODO: Port NNS_G3dAnmObjInit to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjAddAnmObj(v2, param1->unk_10);
+    #else
+    // TODO: Port NNS_G3dRenderObjAddAnmObj to PAL
+    #endif
 
     sub_02021444(param2, ov9_0224A4C8, param1);
 
@@ -1807,7 +1831,11 @@ static void ov9_0224A228(UnkStruct_ov9_0224A228 *param0, UnkStruct_ov9_0224A294 
 static void ov9_0224A294(UnkStruct_ov9_0224A228 *param0, UnkStruct_ov9_0224A294 *param1)
 {
     if (param1->unk_10 != NULL) {
+        #ifdef PLATFORM_DS
         NNS_G3dFreeAnmObj(&param0->unk_10, param1->unk_10);
+        #else
+        // TODO: Port NNS_G3dFreeAnmObj to PAL
+        #endif
         param1->unk_10 = NULL;
     }
 }
@@ -1992,7 +2020,11 @@ static void ov9_0224A49C(DistWorldSystem *param0)
 static void ov9_0224A4C8(UnkStruct_020216E0 *param0, void *param1)
 {
     UnkStruct_ov9_0224A294 *v0 = param1;
+    #ifdef PLATFORM_DS
     NNS_G3dAnmObjSetFrame(v0->unk_10, v0->unk_0C);
+    #else
+    // TODO: Port NNS_G3dAnmObjSetFrame to PAL
+    #endif
 }
 
 static void ov9_0224A4D0(DistWorldSystem *param0, MapObject *param1, int param2, int param3)
@@ -2617,7 +2649,11 @@ static void ov9_0224ADC0(DistWorldSystem *param0)
         NNSG2dPaletteData *v2;
 
         v1 = NARC_AllocAndReadWholeMember(param0->unk_10, 1, 4);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedPaletteData(v1, &v2);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+        #endif
         Bg_LoadPalette(2, v2->pRawData, 32, 32 * 0);
 
         {
@@ -2641,7 +2677,11 @@ static void ov9_0224ADC0(DistWorldSystem *param0)
         NNSG2dCharacterData *v7;
 
         v6 = NARC_AllocAndReadWholeMember(param0->unk_10, 0, 4);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(v6, &v7);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
 
         Bg_LoadTiles(param0->fieldSystem->bgConfig, 2, v7->pRawData, v7->szByte, 0);
         Heap_Free(v6);
@@ -2652,7 +2692,11 @@ static void ov9_0224ADC0(DistWorldSystem *param0)
         NNSG2dScreenData *v9;
 
         v8 = NARC_AllocAndReadWholeMember(param0->unk_10, 2, 4);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedScreenData(v8, &v9);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
 
         Bg_CopyTilemapBufferRangeToVRAM(param0->fieldSystem->bgConfig, 2, (void *)v9->rawData, v9->szByte, 0);
         Bg_LoadTilemapBuffer(param0->fieldSystem->bgConfig, 2, (void *)v9->rawData, v9->szByte);
@@ -2661,23 +2705,59 @@ static void ov9_0224ADC0(DistWorldSystem *param0)
     }
 
     {
+        #ifdef PLATFORM_DS
         G2_SetBG0Priority(2);
+        #else
+        // TODO: Port G2_SetBG0Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG1Priority(1);
+        #else
+        // TODO: Port G2_SetBG1Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG2Priority(3);
+        #else
+        // TODO: Port G2_SetBG2Priority to PAL
+        #endif
+        #ifdef PLATFORM_DS
         G2_SetBG3Priority(0);
+        #else
+        // TODO: Port G2_SetBG3Priority to PAL
+        #endif
     }
 
     {
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port G2_SetBlendAlpha to PAL
+        #endif
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BG0 to PAL
+        #endif
         G2_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 0, 16);
+        #else
+        // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+        #endif
     }
 
     GXLayers_EngineAToggleLayers(2, 1);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
 }
 
 static void ov9_0224AED8(DistWorldSystem *param0)
 {
+    #ifdef PLATFORM_DS
     G2_BlendNone();
+    #else
+    // TODO: Port G2_BlendNone to PAL
+    #endif
 }
 
 static void ov9_0224AEE4(DistWorldSystem *param0, UnkStruct_ov9_0224B064 *param1, NARC *param2)
@@ -2693,11 +2773,19 @@ static void ov9_0224AEE4(DistWorldSystem *param0, UnkStruct_ov9_0224B064 *param1
         int v0;
 
         for (v0 = 0; v0 < 7; v0++) {
+            #ifdef PLATFORM_DS
             param1->unk_1A0[v0] = SpriteResourceCollection_AddTilesFrom(param1->unk_190, param2, Unk_ov9_02251E58[v0], 0, ((v0) + 0xff), NNS_G2D_VRAM_TYPE_2DMAIN, HEAP_ID_FIELD1);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             SpriteTransfer_RequestCharAtEnd(param1->unk_1A0[v0]);
         }
 
+        #ifdef PLATFORM_DS
         param1->unk_1BC[0] = SpriteResourceCollection_AddPaletteFrom(param1->unk_194, param2, Unk_ov9_02251210[0], 0, (0 + 0xff), NNS_G2D_VRAM_TYPE_2DMAIN, 5, HEAP_ID_FIELD1);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         {
             NNSG2dPaletteData *v1;
@@ -2794,7 +2882,11 @@ static Sprite *ov9_0224B130(UnkStruct_ov9_0224B064 *param0, const VecFx32 *param
     v1.resourceData = &v0;
     v1.position = *param1;
     v1.priority = param7;
+    #ifdef PLATFORM_DS
     v1.vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     v1.heapID = HEAP_ID_FIELD1;
 
     v2 = SpriteList_Add(&v1);
@@ -2912,8 +3004,16 @@ static void ov9_0224B3A8(DistWorldSystem *param0)
 {
     UnkStruct_ov5_021D57D8 *v0 = param0->fieldSystem->unk_48;
 
+    #ifdef PLATFORM_DS
     ov5_021D57FC(v0, 0xffffffff, 1, GX_FOGBLEND_COLOR_ALPHA, 6, 0x7600);
+    #else
+    // TODO: Port GX_FOGBLEND_COLOR_ALPHA to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov5_021D5834(v0, 0xffffffff, (GX_RGB(0, 0, 0)), 16);
+    #else
+    // TODO: Port GX_RGB to PAL
+    #endif
 
     {
         int v1 = 0;
@@ -5573,12 +5673,24 @@ static void ov9_0224DA64(DistWorldSystem *param0, int param1, int param2, int pa
     int v1 = v0->unk_00;
     UnkStruct_ov9_0224D744 *v2 = &param0->unk_3A4;
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlUseMdlAlpha(v2->unk_00[v1].unk_04.unk_0C);
+    #else
+    // TODO: Port NNS_G3dMdlUseMdlAlpha to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlAlphaAll(v2->unk_00[v1].unk_04.unk_0C, param2);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlAlphaAll to PAL
+    #endif
 
     if (param3 != -1) {
         param3 &= 0x3f;
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlPolygonIDAll(v2->unk_00[v1].unk_04.unk_0C, param3);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlPolygonIDAll to PAL
+        #endif
     }
 }
 
@@ -5596,7 +5708,11 @@ static void ov9_0224DAB8(DistWorldSystem *param0, int param1, int param2)
     GF_ASSERT(v2->unk_00[v1].unk_00 < 25);
     param2 &= 0x3f;
 
+    #ifdef PLATFORM_DS
     NNS_G3dMdlSetMdlPolygonIDAll(v2->unk_00[v1].unk_04.unk_0C, param2);
+    #else
+    // TODO: Port NNS_G3dMdlSetMdlPolygonIDAll to PAL
+    #endif
 }
 
 static BOOL ov9_0224DAEC(int param0)
@@ -7834,10 +7950,22 @@ static void ov9_0224F804(DistWorldSystem *param0)
             v2 = &param0->unk_1A8;
             v3 = v2->unk_1BC[0];
             v4 = SpriteTransfer_GetPaletteProxy(v3, NULL);
+            #ifdef PLATFORM_DS
+            #ifdef PLATFORM_DS
+            #else
+            // TODO: Port NNS_G2dGetImagePaletteLocation to PAL
+            #endif
             v1 = NNS_G2dGetImagePaletteLocation(v4, NNS_G2D_VRAM_TYPE_2DMAIN);
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
 
             DC_FlushRange((void *)v0->unk_E8, 32 * 5);
+            #ifdef PLATFORM_DS
             GX_LoadOBJPltt(v0->unk_E8, v1, 32 * 5);
+            #else
+            // TODO: Port GX_LoadOBJPltt to PAL
+            #endif
         }
 
         v0->unk_04 = 0;
@@ -8785,9 +8913,17 @@ void ov9_02250780(FieldSystem *fieldSystem)
         TextureResourceManager *v3 = ov5_021EDCB0(v2);
         TextureResource *v4 = TextureResourceManager_FindTextureResource(v3, 0xe6);
         NNSGfdPlttKey v5 = TextureResource_GetPaletteKey(v4);
+        #ifdef PLATFORM_DS
         u32 v6 = NNS_GfdGetPlttKeyAddr(v5);
+        #else
+        // TODO: Port NNS_GfdGetPlttKeyAddr to PAL
+        #endif
 
+        #ifdef PLATFORM_DS
         VramTransfer_Request(NNS_GFD_DST_3D_TEX_PLTT, v6, v1->unk_1C, 32);
+        #else
+        // TODO: Port NNS_GFD_DST_3D_TEX_PLTT to PAL
+        #endif
     }
 }
 

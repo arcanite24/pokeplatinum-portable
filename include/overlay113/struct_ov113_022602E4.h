@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV113_022602E4_H
 #define POKEPLATINUM_STRUCT_OV113_022602E4_H
 
+#include "platform/platform_types.h"
+
 typedef struct {
     fx32 unk_00;
     s16 unk_04;

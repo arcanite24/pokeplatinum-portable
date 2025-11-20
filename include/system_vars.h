@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SYSTEM_VARS_H
 #define POKEPLATINUM_SYSTEM_VARS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/distribution_events.h"
 #include "generated/hidden_locations.h"
 

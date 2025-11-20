@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_MAIL_H
 #define POKEPLATINUM_STRUCT_MAIL_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "struct_defs/sentence.h"

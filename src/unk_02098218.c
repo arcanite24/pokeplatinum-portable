@@ -47,7 +47,11 @@
 
 #include "constdata/const_020F67FC.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay119);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static int sub_02098218(ApplicationManager *appMan, int *param1);
 static int sub_02098304(ApplicationManager *appMan, int *param1);
@@ -57,7 +61,11 @@ const ApplicationManagerTemplate Unk_020F67FC = {
     sub_02098218,
     sub_02098304,
     sub_02098388,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay119)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static int sub_02098218(ApplicationManager *appMan, int *param1)

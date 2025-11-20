@@ -40,8 +40,16 @@
 
 #define RESET_COMBO (PAD_BUTTON_START | PAD_BUTTON_SELECT | PAD_BUTTON_L | PAD_BUTTON_R)
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_start);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 typedef struct Application {
     FSOverlayID currOverlayID;
@@ -96,17 +104,29 @@ void NitroMain(void)
     if (SaveData_BackupExists(sApplication.args.saveData) == FALSE) {
         sub_0209A74C(HEAP_ID_SYSTEM);
     } else {
+        #ifdef PLATFORM_DS
         switch (OS_GetResetParameter()) {
+        #else
+        // TODO: Port OS_GetResetParameter to PAL
+        #endif
         case RESET_CLEAN:
             sApplication.args.error = FALSE;
+            #ifdef PLATFORM_DS
             EnqueueApplication(FS_OVERLAY_ID(game_opening), &gOpeningCutsceneAppTemplate);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             break;
 
         case RESET_ERROR:
             SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);
             SetScreenColorBrightness(DS_SCREEN_SUB, COLOR_BLACK);
             sApplication.args.error = TRUE;
+            #ifdef PLATFORM_DS
             EnqueueApplication(FS_OVERLAY_ID(game_start), &gGameStartLoadSaveAppTemplate);
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
             break;
 
         default:
@@ -154,7 +174,15 @@ void NitroMain(void)
 
             if (!gSystem.frameCounter) {
 #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #ifdef PLATFORM_DS
+                #else
+                // TODO: Port OS_WaitIrq to PAL
+                #endif
                 OS_WaitIrq(TRUE, OS_IE_V_BLANK);
+                #else
+                // TODO: Port OS_IE_V_BLANK to PAL
+                #endif
 #endif
                 gSystem.vblankCounter++;
             }
@@ -165,7 +193,15 @@ void NitroMain(void)
         sub_020241CC();
         SysTaskManager_ExecuteTasks(gSystem.printTaskMgr);
 
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port OS_WaitIrq to PAL
+        #endif
         OS_WaitIrq(TRUE, OS_IE_V_BLANK);
+        #else
+        // TODO: Port OS_IE_V_BLANK to PAL
+        #endif
 
         gSystem.vblankCounter++;
         gSystem.frameCounter = 0;
@@ -184,9 +220,17 @@ void NitroMain(void)
 
 static void InitApplication()
 {
+    #ifdef PLATFORM_DS
     sApplication.currOverlayID = FS_OVERLAY_ID_NONE;
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
     sApplication.currApplication = NULL;
+    #ifdef PLATFORM_DS
     sApplication.nextOverlayID = FS_OVERLAY_ID_NONE;
+    #else
+    // TODO: Port FS_OVERLAY_ID_NONE to PAL
+    #endif
     sApplication.nextApplication = NULL;
 }
 
@@ -197,13 +241,21 @@ static void RunApplication(void)
             return;
         }
 
+        #ifdef PLATFORM_DS
         if (sApplication.nextOverlayID != FS_OVERLAY_ID_NONE) {
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
             Overlay_LoadByID(sApplication.nextOverlayID, OVERLAY_LOAD_NORMAL);
         }
 
         sApplication.currOverlayID = sApplication.nextOverlayID;
         sApplication.currApplication = ApplicationManager_New(sApplication.nextApplication, &sApplication.args, HEAP_ID_SYSTEM);
+        #ifdef PLATFORM_DS
         sApplication.nextOverlayID = FS_OVERLAY_ID_NONE;
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
         sApplication.nextApplication = NULL;
     }
 
@@ -211,7 +263,11 @@ static void RunApplication(void)
         ApplicationManager_Free(sApplication.currApplication);
         sApplication.currApplication = NULL;
 
+        #ifdef PLATFORM_DS
         if (sApplication.currOverlayID != FS_OVERLAY_ID_NONE) {
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
             Overlay_UnloadByID(sApplication.currOverlayID);
         }
     }
@@ -229,7 +285,15 @@ static void WaitFrame(void)
 {
     CommSys_Update();
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port OS_WaitIrq to PAL
+    #endif
     OS_WaitIrq(TRUE, OS_IE_V_BLANK);
+    #else
+    // TODO: Port OS_IE_V_BLANK to PAL
+    #endif
 
     gSystem.vblankCounter++;
     gSystem.frameCounter = 0;
@@ -242,7 +306,11 @@ static void WaitFrame(void)
 static void TrySystemReset(enum OSResetParameter resetParam)
 {
     if (sub_02038AB8() && CARD_TryWaitBackupAsync() == TRUE) {
+        #ifdef PLATFORM_DS
         OS_ResetSystem(resetParam);
+        #else
+        // TODO: Port OS_ResetSystem to PAL
+        #endif
     }
 
     WaitFrame();
@@ -310,7 +378,11 @@ static void HeapCanaryFailed(int resetParam, int param1)
         HandleConsoleFold();
         ReadKeypadAndTouchpad();
 
+        #ifdef PLATFORM_DS
         if (elapsed >= 30 && gSystem.pressedKeys & PAD_BUTTON_A) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             break;
         }
 
@@ -341,7 +413,11 @@ void HandleConsoleFold(void)
     PMBackLightSwitch top, bottom;
     PMWakeUpTrigger trigger;
 
+    #ifdef PLATFORM_DS
     if (PAD_DetectFold()) {
+    #else
+    // TODO: Port PAD_DetectFold to PAL
+    #endif
         if (gSystem.inhibitSleep == 0) {
             BeforeSleep();
 
@@ -360,7 +436,11 @@ sleep_again:
 
             if (CARD_IsPulledOut()) {
                 PM_ForceToPowerOff();
+            #ifdef PLATFORM_DS
             } else if (PAD_DetectFold()) {
+            #else
+            // TODO: Port PAD_DetectFold to PAL
+            #endif
                 // Woke up because the cartridge got pulled out
                 gIgnoreCartridgeForWake = TRUE;
                 goto sleep_again;

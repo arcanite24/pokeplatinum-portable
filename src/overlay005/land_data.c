@@ -770,8 +770,16 @@ void LandDataManager_Tick(FieldSystem *fieldSystem, LandDataManager *landDataMan
             }
 
             if (activeLazyLoader->loadSlots[activeLazyLoader->nextIndexToLoad - 1]->valid == TRUE) {
+                #ifdef PLATFORM_DS
                 NNSG3dResMdlSet *mapModelSet = NNS_G3dGetMdlSet(activeLazyLoader->loadSlots[activeLazyLoader->nextIndexToLoad - 1]->mapModelFile);
+                #else
+                // TODO: Port NNS_G3dGetMdlSet to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 NNSG3dResMdl *mapModel = NNS_G3dGetMdlByIdx(mapModelSet, 0);
+                #else
+                // TODO: Port NNS_G3dGetMdlByIdx to PAL
+                #endif
 
                 if (AreaDataManager_IsOutdoorsLighting(landDataMan->areaDataMan) == TRUE) {
                     AreaLight_UseGlobalModelAttributes(mapModel);
@@ -1652,8 +1660,16 @@ void LandDataManager_End(LandDataManager *landDataMan)
 {
     ClearUnusedSystemCache();
 
+    #ifdef PLATFORM_DS
     NNS_GfdResetLnkTexVramState();
+    #else
+    // TODO: Port NNS_GfdResetLnkTexVramState to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_GfdResetLnkPlttVramState();
+    #else
+    // TODO: Port NNS_GfdResetLnkPlttVramState to PAL
+    #endif
 
     for (u8 i = 0; i < MAP_LAZY_LOADER_MANAGER_COUNT; i++) {
         MapLazyLoader_KillTasks(&landDataMan->mapLazyLoaderMan[i].loader);
@@ -1928,15 +1944,27 @@ static void LandDataManager_LazyLoadMapModelTask(SysTask *sysTask, void *sysTask
     }
 
     case MAP_MODEL_LOADER_SUBTASK_INIT_RENDER_OBJ: {
+        #ifdef PLATFORM_DS
         NNSG3dResMdlSet *mapModelSet = NNS_G3dGetMdlSet(*ctx->mapModelFile);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
         NNSG3dResMdl *mapModel;
 
         GF_ASSERT(mapModelSet->dict.numEntry == 1);
 
+        #ifdef PLATFORM_DS
         mapModel = NNS_G3dGetMdlByIdx(mapModelSet, 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
         GF_ASSERT(mapModel);
 
+        #ifdef PLATFORM_DS
         NNS_G3dRenderObjInit(ctx->mapRenderObj, mapModel);
+        #else
+        // TODO: Port NNS_G3dRenderObjInit to PAL
+        #endif
 
         *ctx->loadedMapValid = TRUE;
         ctx->currentSubTask = MAP_MODEL_LOADER_SUBTASK_END_TASK;
@@ -1983,13 +2011,25 @@ NNSG3dResMdl *LandDataManager_LoadMapModel(NARC *landDataNARC, const int mapMode
         }
     }
 
+    #ifdef PLATFORM_DS
     NNSG3dResMdlSet *mapResMdlSet = NNS_G3dGetMdlSet(*mapModelFile);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
 
     GF_ASSERT(mapResMdlSet->dict.numEntry == 1);
+    #ifdef PLATFORM_DS
     NNSG3dResMdl *mapModel = NNS_G3dGetMdlByIdx(NNS_G3dGetMdlSet(*mapModelFile), 0);
+    #else
+    // TODO: Port NNS_G3dGetMdlSet to PAL
+    #endif
 
     GF_ASSERT(mapModel);
+    #ifdef PLATFORM_DS
     NNS_G3dRenderObjInit(mapRenderObj, mapModel);
+    #else
+    // TODO: Port NNS_G3dRenderObjInit to PAL
+    #endif
 
     return mapModel;
 }
@@ -2390,8 +2430,16 @@ void LandDataManager_DistortionWorldTick(FieldSystem *fieldSystem, LandDataManag
             }
 
             if (activeLazyLoader->loadSlots[activeLazyLoader->nextIndexToLoad - 1]->valid == TRUE) {
+                #ifdef PLATFORM_DS
                 NNSG3dResMdlSet *mapModelSet = NNS_G3dGetMdlSet(activeLazyLoader->loadSlots[activeLazyLoader->nextIndexToLoad - 1]->mapModelFile);
+                #else
+                // TODO: Port NNS_G3dGetMdlSet to PAL
+                #endif
+                #ifdef PLATFORM_DS
                 NNSG3dResMdl *mapModel = NNS_G3dGetMdlByIdx(mapModelSet, 0);
+                #else
+                // TODO: Port NNS_G3dGetMdlByIdx to PAL
+                #endif
 
                 if (AreaDataManager_IsOutdoorsLighting(landDataMan->areaDataMan) == TRUE) {
                     AreaLight_UseGlobalModelAttributes(mapModel);

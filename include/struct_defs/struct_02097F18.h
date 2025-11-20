@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_02097F18_H
 #define POKEPLATINUM_STRUCT_02097F18_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/seal_case.h"
 
 #include "game_options.h"

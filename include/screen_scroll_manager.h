@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SCREEN_SCROLL_MANAGER_H
 #define POKEPLATINUM_SCREEN_SCROLL_MANAGER_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 
 #include "sys_task_manager.h"

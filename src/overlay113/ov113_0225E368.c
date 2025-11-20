@@ -518,8 +518,16 @@ void ov113_0225E65C(UnkStruct_ov113_0225EB20 *param0, int param1)
         if (*v1 != NULL) {
             DC_FlushRange(*v1, (*v1)->header.size);
 
+            #ifdef PLATFORM_DS
             NNS_G3dTexLoad(*v1, 1);
+            #else
+            // TODO: Port NNS_G3dTexLoad to PAL
+            #endif
+            #ifdef PLATFORM_DS
             NNS_G3dPlttLoad(*v1, 1);
+            #else
+            // TODO: Port NNS_G3dPlttLoad to PAL
+            #endif
 
             *v1 = NULL;
         }
@@ -574,9 +582,21 @@ static BOOL ov113_0225E774(UnkStruct_ov113_0225EB20 *param0, Easy3DModel *param1
 
         GF_ASSERT(param1->data);
 
+        #ifdef PLATFORM_DS
         param1->set = NNS_G3dGetMdlSet(param1->data);
+        #else
+        // TODO: Port NNS_G3dGetMdlSet to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param1->model = NNS_G3dGetMdlByIdx(param1->set, 0);
+        #else
+        // TODO: Port NNS_G3dGetMdlByIdx to PAL
+        #endif
+        #ifdef PLATFORM_DS
         param1->texture = NNS_G3dGetTex(param1->data);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
 
         if (param1->texture) {
             ov113_0225E920(param1->texture, param2, param3, param4, param5);
@@ -588,11 +608,31 @@ static BOOL ov113_0225E774(UnkStruct_ov113_0225EB20 *param0, Easy3DModel *param1
                 NNSG3dPlttKey v3;
 
                 if (v0 == 1) {
+                    #ifdef PLATFORM_DS
                     NNS_G3dTexReleaseTexKey(param1->texture, &v1, &v2);
+                    #else
+                    // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+                    #endif
+                    #ifdef PLATFORM_DS
                     NNS_GfdFreeTexVram(v1);
+                    #else
+                    // TODO: Port NNS_GfdFreeTexVram to PAL
+                    #endif
+                    #ifdef PLATFORM_DS
                     NNS_GfdFreeTexVram(v2);
+                    #else
+                    // TODO: Port NNS_GfdFreeTexVram to PAL
+                    #endif
+                    #ifdef PLATFORM_DS
                     v3 = NNS_G3dPlttReleasePlttKey(param1->texture);
+                    #else
+                    // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+                    #endif
+                    #ifdef PLATFORM_DS
                     NNS_GfdFreePlttVram(v3);
+                    #else
+                    // TODO: Port NNS_GfdFreePlttVram to PAL
+                    #endif
                 }
 
                 if (param1->data) {
@@ -644,23 +684,63 @@ static BOOL ov113_0225E8B0(NNSG3dResTex *param0)
 
     param0->texInfo.vramKey = 0;
 
+    #ifdef PLATFORM_DS
     v0 = NNS_G3dTexGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dTexGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v1 = NNS_G3dPlttGetRequiredSize(param0);
+    #else
+    // TODO: Port NNS_G3dPlttGetRequiredSize to PAL
+    #endif
+    #ifdef PLATFORM_DS
     v2 = NNS_GfdAllocTexVram(v0, 0, 0);
+    #else
+    // TODO: Port NNS_GfdAllocTexVram to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (v2 == NNS_GFD_ALLOC_ERROR_TEXKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_TEXKEY to PAL
+    #endif
         return 0;
     }
 
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    #endif
     v3 = NNS_GfdAllocPlttVram(v1, param0->tex4x4Info.flag & NNS_G3D_RESPLTT_USEPLTT4, 0);
+    #else
+    // TODO: Port NNS_G3D_RESPLTT_USEPLTT4 to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     if (v3 == NNS_GFD_ALLOC_ERROR_PLTTKEY) {
+    #else
+    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
+    #endif
+        #ifdef PLATFORM_DS
         NNS_GfdFreeTexVram(v2);
+        #else
+        // TODO: Port NNS_GfdFreeTexVram to PAL
+        #endif
         return 0;
     }
 
+    #ifdef PLATFORM_DS
     NNS_G3dTexSetTexKey(param0, v2, 0);
+    #else
+    // TODO: Port NNS_G3dTexSetTexKey to PAL
+    #endif
+    #ifdef PLATFORM_DS
     NNS_G3dPlttSetPlttKey(param0, v3);
+    #else
+    // TODO: Port NNS_G3dPlttSetPlttKey to PAL
+    #endif
 
     return 1;
 }
@@ -675,10 +755,18 @@ static void ov113_0225E920(NNSG3dResTex *param0, NARC *param1, NARC *param2, con
 
     if (v4 == 1) {
         v2 = LoadMemberFromOpenNARC(param2, 3 + param3->unk_02, 1, HEAP_ID_118, 1);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(v2, &v3);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
     } else {
         v2 = LoadMemberFromOpenNARC(param1, 16, 0, HEAP_ID_118, 1);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedCharacterData(v2, &v3);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+        #endif
     }
 
     MI_CpuClear16(v1, (16 * 16 / 4));
@@ -1085,9 +1173,21 @@ static void ov113_0225EFFC(UnkStruct_ov113_0225EB20 *param0, UnkStruct_ov113_022
     UnkStruct_ov113_0225EF78 *v0 = &param1->unk_94.val2;
 
     if (v0->unk_09 != 0xff) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, v0->unk_09, v0->unk_00 >> 8, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbPolygonID(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbPolygonID to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     }
 
     Easy3DObject_Draw(&param1->unk_1C);
@@ -1398,9 +1498,21 @@ static void ov113_0225F680(UnkStruct_ov113_0225EB20 *param0, UnkStruct_ov113_022
     int v1;
 
     if (v0->unk_16C != 0xff) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, v0->unk_16C, 8, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbPolygonID(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbPolygonID to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     }
 
     for (v1 = 0; v1 < 3; v1++) {
@@ -1408,9 +1520,21 @@ static void ov113_0225F680(UnkStruct_ov113_0225EB20 *param0, UnkStruct_ov113_022
     }
 
     if (v0->unk_16C != 0xff) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, v0->unk_16C, 31, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbPolygonID(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbPolygonID to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     }
 
     Easy3DObject_Draw(&param1->unk_1C);
@@ -1581,9 +1705,21 @@ static void ov113_0225FA24(UnkStruct_ov113_0225EB20 *param0, UnkStruct_ov113_022
     int v1;
 
     if (v0->unk_F6 != 0xff) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, v0->unk_F6, v0->unk_F4 >> 8, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbPolygonID(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbPolygonID to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     }
 
     for (v1 = 0; v1 < 2; v1++) {
@@ -1679,9 +1815,21 @@ static void ov113_0225FC44(UnkStruct_ov113_0225EB20 *param0, UnkStruct_ov113_022
     int v1;
 
     if (v0->unk_F6 != 0xff) {
+        #ifdef PLATFORM_DS
         NNS_G3dGlbPolygonAttr(0, 0, 0, v0->unk_F6, v0->unk_F4 >> 8, 0);
+        #else
+        // TODO: Port NNS_G3dGlbPolygonAttr to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbPolygonID(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbPolygonID to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dMdlUseGlbAlpha(param1->unk_0C.model);
+        #else
+        // TODO: Port NNS_G3dMdlUseGlbAlpha to PAL
+        #endif
     }
 
     for (v1 = 0; v1 < 2; v1++) {

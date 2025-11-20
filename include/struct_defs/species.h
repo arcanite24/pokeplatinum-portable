@@ -13,6 +13,8 @@
 #define LEARNSET_ALL_SLOTS_FILLED   0xFFFF
 #define LEARNSET_SENTINEL_ENTRY     0xFFFF
 
+#include "platform/platform_types.h"
+
 typedef struct SpeciesBaseStats {
     u8 hp;
     u8 attack;

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV104_0223BA10_H
 #define POKEPLATINUM_STRUCT_OV104_0223BA10_H
 
+#include "platform/platform_types.h"
+
 #include "struct_decls/struct_020302DC_decl.h"
 
 #include "overlay104/frontier_data_transfer.h"

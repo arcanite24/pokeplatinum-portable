@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_020655F4_H
 #define POKEPLATINUM_UNK_020655F4_H
 
+#include "platform/platform_types.h"
+
 #include "generated/movement_actions.h"
 
 #include "struct_decls/struct_02061AB4_decl.h"

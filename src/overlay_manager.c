@@ -63,7 +63,11 @@ BOOL ApplicationManager_Exec(ApplicationManager *appMan)
 {
     switch (appMan->execState) {
     case OVERLAY_EXEC_LOAD:
+        #ifdef PLATFORM_DS
         if (appMan->template.overlayID != FS_OVERLAY_ID_NONE) {
+        #else
+        // TODO: Port FS_OVERLAY_ID_NONE to PAL
+        #endif
             Overlay_LoadByID(appMan->template.overlayID, 2);
         }
 
@@ -85,7 +89,11 @@ BOOL ApplicationManager_Exec(ApplicationManager *appMan)
 
     case OVERLAY_EXEC_EXIT:
         if (appMan->template.exit(appMan, &appMan->procState) == TRUE) {
+            #ifdef PLATFORM_DS
             if (appMan->template.overlayID != FS_OVERLAY_ID_NONE) {
+            #else
+            // TODO: Port FS_OVERLAY_ID_NONE to PAL
+            #endif
                 Overlay_UnloadByID(appMan->template.overlayID);
             }
 

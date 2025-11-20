@@ -115,9 +115,17 @@ int ov22_0225B738(ApplicationManager *appMan, int *param1)
 
     {
         G3_ResetG3X();
+        #ifdef PLATFORM_DS
         NNS_G2dSetupSoftwareSpriteCamera();
+        #else
+        // TODO: Port NNS_G2dSetupSoftwareSpriteCamera to PAL
+        #endif
         ov22_0225AFF8(v0->unk_10);
+        #ifdef PLATFORM_DS
         G3_RequestSwapBuffers(GX_SORTMODE_AUTO, GX_BUFFERMODE_Z);
+        #else
+        // TODO: Port GX_BUFFERMODE_Z to PAL
+        #endif
     }
 
     ov22_0225562C(&v0->unk_14);
@@ -136,7 +144,11 @@ int ov22_0225B738(ApplicationManager *appMan, int *param1)
         }
         break;
     case 3:
+        #ifdef PLATFORM_DS
         if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             (*param1)++;
         }
         break;
@@ -216,12 +228,24 @@ static void ov22_0225B910(UnkStruct_ov22_0225B85C *param0)
 
 static void ov22_0225B964(UnkStruct_ov22_0225B85C *param0)
 {
+    #ifdef PLATFORM_DS
     ov22_02255248(&param0->unk_14, param0->unk_14.unk_5C, 233, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
+    #ifdef PLATFORM_DS
     ov22_02255268(&param0->unk_14, param0->unk_14.unk_5C, 234, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 6, 1000);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov22_0225528C(&param0->unk_14, param0->unk_14.unk_5C, 232, 0, 1000);
     ov22_022552A8(&param0->unk_14, param0->unk_14.unk_5C, 231, 0, 1000);
 
+    #ifdef PLATFORM_DS
     param0->unk_1FC = ov22_022551E4(&param0->unk_14, 1000, 0, 144, 100, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
 
     Sprite_SetExplicitPriority(param0->unk_1FC, 1);
 }

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CONST_OV104_0223F63C_H
 #define POKEPLATINUM_CONST_OV104_0223F63C_H
 
+#include "platform/platform_types.h"
+
 extern const u32 Unk_ov104_0223F63C;
 
 #endif // POKEPLATINUM_CONST_OV104_0223F63C_H

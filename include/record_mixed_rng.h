@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_RECORD_MIXED_RNG_H
 #define POKEPLATINUM_RECORD_MIXED_RNG_H
 
+#include "platform/platform_types.h"
+
 #include "constants/string.h"
 
 #include "charcode.h"

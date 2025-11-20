@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV100_021D49B4_H
 #define POKEPLATINUM_STRUCT_OV100_021D49B4_H
 
+#include "platform/platform_types.h"
+
 #include "overlay100/struct_ov100_021D54D0.h"
 
 #include "easy3d_object.h"

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_02233408_H
 #define POKEPLATINUM_MAIN_MENU_02233408_H
 
+#include "platform/platform_types.h"
+
 #include <nitro/wm.h>
 
 #include "main_menu/struct_ov97_0223222C.h"

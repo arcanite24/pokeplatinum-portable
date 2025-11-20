@@ -38,13 +38,25 @@ void ov70_0225C730(void **param0, NARC *param1, u32 param2, u32 heapID)
     v1 = LoadMemberFromOpenNARC(param1, param2, 0, heapID, 1);
 
     {
+        #ifdef PLATFORM_DS
         v5 = NNS_G3dGetTex(v1);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
         Easy3D_UploadTextureToVRAM(v5);
     }
 
     {
+        #ifdef PLATFORM_DS
         NNS_G3dTexReleaseTexKey(v5, &v2, &v3);
+        #else
+        // TODO: Port NNS_G3dTexReleaseTexKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         v4 = NNS_G3dPlttReleasePlttKey(v5);
+        #else
+        // TODO: Port NNS_G3dPlttReleasePlttKey to PAL
+        #endif
     }
 
     {
@@ -54,9 +66,21 @@ void ov70_0225C730(void **param0, NARC *param1, u32 param2, u32 heapID)
     }
 
     {
+        #ifdef PLATFORM_DS
         v5 = NNS_G3dGetTex(*param0);
+        #else
+        // TODO: Port NNS_G3dGetTex to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dTexSetTexKey(v5, v2, v3);
+        #else
+        // TODO: Port NNS_G3dTexSetTexKey to PAL
+        #endif
+        #ifdef PLATFORM_DS
         NNS_G3dPlttSetPlttKey(v5, v4);
+        #else
+        // TODO: Port NNS_G3dPlttSetPlttKey to PAL
+        #endif
     }
 
     Heap_Free(v1);

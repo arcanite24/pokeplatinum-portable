@@ -14,10 +14,22 @@ void ov18_0221F800(int heapID)
 
     WirelessDriver_Init();
 
+    #ifdef PLATFORM_DS
     OS_InitTick();
+    #else
+    // TODO: Port OS_InitTick to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_InitAlarm();
+    #else
+    // TODO: Port OS_InitAlarm to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0 = OS_DisableInterrupts();
+    #else
+    // TODO: Port OS_DisableInterrupts to PAL
+    #endif
     DWC_SetAuthServer(DWC_CONNECTINET_AUTH_RELEASE);
     v1 = Heap_Alloc(heapID, DWC_UTILITY_WORK_SIZE);
 
@@ -25,6 +37,14 @@ void ov18_0221F800(int heapID)
 
     Heap_Free(v1);
 
+    #ifdef PLATFORM_DS
     OS_RestoreInterrupts(v0);
+    #else
+    // TODO: Port OS_RestoreInterrupts to PAL
+    #endif
+    #ifdef PLATFORM_DS
     OS_EnableIrq();
+    #else
+    // TODO: Port OS_EnableIrq to PAL
+    #endif
 }

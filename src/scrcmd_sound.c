@@ -220,7 +220,11 @@ BOOL ScrCmd_SetInitialVolumeForSequence(ScriptContext *ctx)
 
 BOOL ScrCmd_SetScene22(ScriptContext *ctx)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_22, SEQ_PL_TOWN02, 1);
     } else {
         Sound_SetSceneAndPlayBGM(SOUND_SCENE_22, SEQ_PL_TOWN02, 1);

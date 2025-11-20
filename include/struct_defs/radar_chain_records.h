@@ -3,6 +3,8 @@
 
 #define NUM_RADAR_RECORDS 3
 
+#include "platform/platform_types.h"
+
 typedef struct ChainRecord {
     u16 species;
     u16 chainCount;

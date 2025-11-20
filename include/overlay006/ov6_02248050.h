@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV6_02248050_H
 #define POKEPLATINUM_OV6_02248050_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 #include "overlay005/struct_ov5_021D1BEC_decl.h"
 

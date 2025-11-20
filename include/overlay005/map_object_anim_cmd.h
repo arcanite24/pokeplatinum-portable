@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAP_OBJECT_ANIM_CMD_H
 #define POKEPLATINUM_MAP_OBJECT_ANIM_CMD_H
 
+#include "platform/platform_types.h"
+
 typedef struct MapObjectAnimCmd {
     u16 movementAction;
     u16 count;

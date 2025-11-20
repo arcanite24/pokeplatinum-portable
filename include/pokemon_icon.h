@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEMON_ICON_H
 #define POKEPLATINUM_POKEMON_ICON_H
 
+#include "platform/platform_types.h"
+
 #include "pokemon.h"
 
 enum PokemonIconAnim {

@@ -973,7 +973,15 @@ static u8 BattlePartyTask_AwaitingTextFinish(BattleParty *battleParty)
 
 static u8 BattlePartyTask_AwaitingInput(BattleParty *battleParty)
 {
+    #ifdef PLATFORM_DS
+    #ifdef PLATFORM_DS
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
     if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B) || TouchScreen_Tapped() == TRUE) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         return battleParty->queuedState;
     }
 
@@ -1136,10 +1144,26 @@ static void InitializeBackground(BattleParty *battleParty)
 {
     {
         GraphicsModes graphicsMode = {
+            #ifdef PLATFORM_DS
             GX_DISPMODE_GRAPHICS,
+            #else
+            // TODO: Port GX_DISPMODE_GRAPHICS to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BGMODE_0,
+            #else
+            // TODO: Port GX_BGMODE_0 to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_BG0_AS_3D,
+            #else
+            // TODO: Port GX_BG0_AS_3D to PAL
+            #endif
         };
 
         SetScreenGraphicsModes(&graphicsMode, DS_SCREEN_SUB);
@@ -1152,10 +1176,18 @@ static void InitializeBackground(BattleParty *battleParty)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0000,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 3,
             .areaOver = 0,
             .mosaic = FALSE
@@ -1171,10 +1203,18 @@ static void InitializeBackground(BattleParty *battleParty)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x0800,
             .charBase = GX_BG_CHARBASE_0x08000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_23,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_23 to PAL
+            #endif
             .priority = 2,
             .areaOver = 0,
             .mosaic = FALSE
@@ -1190,10 +1230,18 @@ static void InitializeBackground(BattleParty *battleParty)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x1000,
             .charBase = GX_BG_CHARBASE_0x10000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 1,
             .areaOver = 0,
             .mosaic = FALSE
@@ -1210,10 +1258,18 @@ static void InitializeBackground(BattleParty *battleParty)
             .bufferSize = 0x800,
             .baseTile = 0,
             .screenSize = BG_SCREEN_SIZE_256x256,
+            #ifdef PLATFORM_DS
             .colorMode = GX_BG_COLORMODE_16,
+            #else
+            // TODO: Port GX_BG_COLORMODE_16 to PAL
+            #endif
             .screenBase = GX_BG_SCRBASE_0x1800,
             .charBase = GX_BG_CHARBASE_0x18000,
+            #ifdef PLATFORM_DS
             .bgExtPltt = GX_BG_EXTPLTT_01,
+            #else
+            // TODO: Port GX_BG_EXTPLTT_01 to PAL
+            #endif
             .priority = 0,
             .areaOver = 0,
             .mosaic = FALSE
@@ -1231,7 +1287,11 @@ static void InitializeBackground(BattleParty *battleParty)
 
 static void CleanupBackground(BgConfig *battleParty)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_BG0 | GX_PLANEMASK_BG1 | GX_PLANEMASK_BG2 | GX_PLANEMASK_BG3 | GX_PLANEMASK_OBJ, FALSE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     Bg_FreeTilemapBuffer(battleParty, BG_LAYER_SUB_0);
     Bg_FreeTilemapBuffer(battleParty, BG_LAYER_SUB_1);
     Bg_FreeTilemapBuffer(battleParty, BG_LAYER_SUB_2);
@@ -1245,12 +1305,20 @@ static void LoadGraphicsData(BattleParty *battleParty)
 
     NNSG2dScreenData *screenData;
     void *buffer = NARC_AllocAndReadWholeMember(narc, 20, battleParty->context->heapID);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(buffer, &screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
     ov13_02225710(battleParty, (u16 *)screenData->rawData);
     Heap_Free(buffer);
 
     buffer = NARC_AllocAndReadWholeMember(narc, 21, battleParty->context->heapID);
+    #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedScreenData(buffer, &screenData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+    #endif
 
     ov13_02225A3C(battleParty, (u16 *)screenData->rawData);
     Heap_Free(buffer);
@@ -1682,7 +1750,11 @@ static void DrawScreenBackground(BattleParty *battleParty, enum BattlePartyScree
 
     for (u32 i = 0; i < 2; i++) {
         buffer = NARC_AllocAndReadWholeMemberByIndexPair(NARC_INDEX_BATTLE__GRAPHIC__PL_B_PLIST_GRA, ScreenBackgroundDataMemberIndexes[screen][i], battleParty->context->heapID);
+        #ifdef PLATFORM_DS
         NNS_G2dGetUnpackedScreenData(buffer, &screenData);
+        #else
+        // TODO: Port NNS_G2dGetUnpackedScreenData to PAL
+        #endif
         Bg_LoadToTilemapRect(battleParty->background, BG_LAYER_SUB_2 + i, (u16 *)screenData->rawData, 0, 0, 32, 24);
         Bg_ScheduleTilemapTransfer(battleParty->background, BG_LAYER_SUB_2 + i);
         Heap_Free(buffer);

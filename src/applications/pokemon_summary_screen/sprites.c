@@ -128,7 +128,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_MEMO] = {
         .resourceHeaderID = 1,
@@ -138,7 +142,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 1,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_SKILLS] = {
         .resourceHeaderID = 1,
@@ -148,7 +156,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 2,
         .priority = 1,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_BATTLE_MOVES] = {
         .resourceHeaderID = 1,
@@ -158,7 +170,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 3,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_CONDITION] = {
         .resourceHeaderID = 1,
@@ -168,7 +184,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 4,
         .priority = 1,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_CONTEST_MOVES] = {
         .resourceHeaderID = 1,
@@ -178,7 +198,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 5,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_RIBBONS] = {
         .resourceHeaderID = 1,
@@ -188,7 +212,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 6,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_TAB_EXIT] = {
         .resourceHeaderID = 1,
@@ -198,7 +226,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 7,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CAUGHT_BALL] = {
         .resourceHeaderID = 0,
@@ -208,7 +240,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 12,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_SELECTOR_1] = {
         .resourceHeaderID = 2,
@@ -218,7 +254,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 1,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_SELECTOR_2] = {
         .resourceHeaderID = 2,
@@ -228,7 +268,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MON_TYPE_ICON_1] = {
         .resourceHeaderID = 3,
@@ -238,7 +282,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MON_TYPE_ICON_2] = {
         .resourceHeaderID = 4,
@@ -248,7 +296,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_TYPE_ICON_1] = {
         .resourceHeaderID = 5,
@@ -258,7 +310,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_TYPE_ICON_2] = {
         .resourceHeaderID = 6,
@@ -268,7 +324,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_TYPE_ICON_3] = {
         .resourceHeaderID = 7,
@@ -278,7 +338,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_TYPE_ICON_4] = {
         .resourceHeaderID = 8,
@@ -288,7 +352,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_TYPE_ICON_5] = {
         .resourceHeaderID = 9,
@@ -298,7 +366,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MOVE_CATEGORY_ICON] = {
         .resourceHeaderID = 10,
@@ -308,7 +380,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MON_ICON] = {
         .resourceHeaderID = 11,
@@ -318,7 +394,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 4,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_STATUS_ICON] = {
         .resourceHeaderID = 12,
@@ -328,7 +408,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 6,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_PAGE_ARROW_LEFT] = {
         .resourceHeaderID = 14,
@@ -338,7 +422,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_PAGE_ARROW_RIGHT] = {
         .resourceHeaderID = 14,
@@ -348,7 +436,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_CIRCLE] = {
         .resourceHeaderID = 18,
@@ -358,7 +450,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_TRIANGLE] = {
         .resourceHeaderID = 19,
@@ -368,7 +464,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_SQUARE] = {
         .resourceHeaderID = 20,
@@ -378,7 +478,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_HEART] = {
         .resourceHeaderID = 21,
@@ -388,7 +492,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_STAR] = {
         .resourceHeaderID = 22,
@@ -398,7 +506,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_MARKING_DIAMOND] = {
         .resourceHeaderID = 23,
@@ -408,7 +520,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_1] = {
         .resourceHeaderID = 13,
@@ -418,7 +534,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_2] = {
         .resourceHeaderID = 13,
@@ -428,7 +548,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_3] = {
         .resourceHeaderID = 13,
@@ -438,7 +562,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_4] = {
         .resourceHeaderID = 13,
@@ -448,7 +576,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_5] = {
         .resourceHeaderID = 13,
@@ -458,7 +590,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_6] = {
         .resourceHeaderID = 13,
@@ -468,7 +604,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_7] = {
         .resourceHeaderID = 13,
@@ -478,7 +618,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_8] = {
         .resourceHeaderID = 13,
@@ -488,7 +632,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_9] = {
         .resourceHeaderID = 13,
@@ -498,7 +646,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_10] = {
         .resourceHeaderID = 13,
@@ -508,7 +660,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_11] = {
         .resourceHeaderID = 13,
@@ -518,7 +674,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHEEN_12] = {
         .resourceHeaderID = 13,
@@ -528,7 +688,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_BUTTON_TAP_CIRCLE] = {
         .resourceHeaderID = 15,
@@ -538,7 +702,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_ARROW_COOL] = {
         .resourceHeaderID = 16,
@@ -548,7 +716,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_ARROW_BEAUTY] = {
         .resourceHeaderID = 16,
@@ -558,7 +730,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_ARROW_CUTE] = {
         .resourceHeaderID = 16,
@@ -568,7 +744,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_ARROW_SMART] = {
         .resourceHeaderID = 16,
@@ -578,7 +758,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_ARROW_TOUGH] = {
         .resourceHeaderID = 16,
@@ -588,7 +772,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_A_BUTTON] = {
         .resourceHeaderID = 17,
@@ -598,7 +786,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONTEST_STAT_DOT_COOL] = {
         .resourceHeaderID = 25,
@@ -608,7 +800,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONTEST_STAT_DOT_BEAUTY] = {
         .resourceHeaderID = 25,
@@ -618,7 +814,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONTEST_STAT_DOT_CUTE] = {
         .resourceHeaderID = 25,
@@ -628,7 +828,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 3,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONTEST_STAT_DOT_SMART] = {
         .resourceHeaderID = 25,
@@ -638,7 +842,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 2,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONTEST_STAT_DOT_TOUGH] = {
         .resourceHeaderID = 25,
@@ -648,7 +856,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 4,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_SHINY_ICON] = {
         .resourceHeaderID = 24,
@@ -658,7 +870,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_POKERUS_CURED_ICON] = {
         .resourceHeaderID = 24,
@@ -668,7 +884,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_1] = {
         .resourceHeaderID = 26,
@@ -678,7 +898,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_2] = {
         .resourceHeaderID = 27,
@@ -688,7 +912,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_3] = {
         .resourceHeaderID = 28,
@@ -698,7 +926,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_4] = {
         .resourceHeaderID = 29,
@@ -708,7 +940,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_5] = {
         .resourceHeaderID = 30,
@@ -718,7 +954,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_6] = {
         .resourceHeaderID = 31,
@@ -728,7 +968,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_7] = {
         .resourceHeaderID = 32,
@@ -738,7 +982,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_8] = {
         .resourceHeaderID = 33,
@@ -748,7 +996,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_9] = {
         .resourceHeaderID = 34,
@@ -758,7 +1010,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_10] = {
         .resourceHeaderID = 35,
@@ -768,7 +1024,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_11] = {
         .resourceHeaderID = 36,
@@ -778,7 +1038,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_12] = {
         .resourceHeaderID = 37,
@@ -788,7 +1052,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 0,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_CURSOR] = {
         .resourceHeaderID = 38,
@@ -798,7 +1066,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_ARROW_UP] = {
         .resourceHeaderID = 39,
@@ -808,7 +1080,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 1,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_ARROW_DOWN] = {
         .resourceHeaderID = 39,
@@ -818,7 +1094,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_RIBBON_FLASH] = {
         .resourceHeaderID = 40,
@@ -828,7 +1108,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_FLASH_COOL] = {
         .resourceHeaderID = 41,
@@ -838,7 +1122,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_FLASH_BEAUTY] = {
         .resourceHeaderID = 41,
@@ -848,7 +1136,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_FLASH_CUTE] = {
         .resourceHeaderID = 41,
@@ -858,7 +1150,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_FLASH_SMART] = {
         .resourceHeaderID = 41,
@@ -868,7 +1164,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_CONDITION_FLASH_TOUGH] = {
         .resourceHeaderID = 41,
@@ -878,7 +1178,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 2,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
     [SUMMARY_SPRITE_POKERUS_ICON] = {
         .resourceHeaderID = 42,
@@ -888,7 +1192,11 @@ static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = 
         .animIdx = 0,
         .priority = 0,
         .plttIdx = 1,
+        #ifdef PLATFORM_DS
         .vramType = NNS_G2D_VRAM_TYPE_2DMAIN,
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
     },
 };
 
@@ -914,8 +1222,16 @@ static const u8 sBallIDToPaletteNum[] = {
 
 void PokemonSummaryScreen_InitSpriteResources(PokemonSummaryScreen *summaryScreen)
 {
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXLayers_EngineBToggleLayers(GX_PLANEMASK_OBJ, TRUE);
+    #else
+    // TODO: Port GX_PLANEMASK_OBJ to PAL
+    #endif
     VramTransfer_New(32, HEAP_ID_POKEMON_SUMMARY_SCREEN);
 
     summaryScreen->spriteSys = SpriteSystem_Alloc(HEAP_ID_POKEMON_SUMMARY_SCREEN);
@@ -936,8 +1252,16 @@ void PokemonSummaryScreen_InitSpriteResources(PokemonSummaryScreen *summaryScree
         .maxTasks = 77,
         .sizeMain = 1024,
         .sizeSub = 1024,
+        #ifdef PLATFORM_DS
         .modeMain = GX_OBJVRAMMODE_CHAR_1D_32K,
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
+        #ifdef PLATFORM_DS
         .modeSub = GX_OBJVRAMMODE_CHAR_1D_32K
+        #else
+        // TODO: Port GX_OBJVRAMMODE_CHAR_1D_32K to PAL
+        #endif
     };
 
     SpriteSystem_Init(summaryScreen->spriteSys, &renderOamTemplate, &charTransferTemplate, 32);

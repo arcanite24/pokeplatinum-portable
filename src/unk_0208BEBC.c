@@ -25,7 +25,11 @@
 #include "constdata/const_020F3050.h"
 #include "constdata/const_020F3060.h"
 
+#ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(overlay62);
+#else
+// TODO: Port FS_EXTERN_OVERLAY to PAL
+#endif
 
 static int sub_0208BF38(ApplicationManager *appMan, int *param1);
 static int sub_0208BF44(ApplicationManager *appMan, int *param1);
@@ -37,14 +41,22 @@ const ApplicationManagerTemplate Unk_020F3050 = {
     sub_0208BF38,
     sub_0208BF50,
     sub_0208BF6C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay62)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 const ApplicationManagerTemplate Unk_020F3060 = {
     sub_0208BF44,
     sub_0208BF50,
     sub_0208BF6C,
+    #ifdef PLATFORM_DS
     FS_OVERLAY_ID(overlay62)
+    #else
+    // TODO: Port FS_OVERLAY_ID to PAL
+    #endif
 };
 
 static int sub_0208BEBC(ApplicationManager *appMan, int *param1, int param2)
@@ -130,7 +142,11 @@ static int sub_0208BF6C(ApplicationManager *appMan, int *param1)
     default:
         ov62_0222F514(v0);
         Heap_Destroy(HEAP_ID_102);
+        #ifdef PLATFORM_DS
         Overlay_UnloadByID(FS_OVERLAY_ID(overlay62));
+        #else
+        // TODO: Port FS_OVERLAY_ID to PAL
+        #endif
         gSystem.whichScreenIs3D = DS_SCREEN_MAIN;
         GXLayers_SwapDisplay();
 

@@ -51,14 +51,22 @@ static void ov62_02234A10(UnkStruct_0208C06C *param0)
     Text_AddPrinterWithParamsAndColor(v2, FONT_SYSTEM, v0, v1, 0, TEXT_SPEED_NO_TRANSFER, TEXT_COLOR(1, 14, 0), NULL);
     Strbuf_Free(v0);
     Window_ScheduleCopyToVRAM(v2);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 }
 
 static void ov62_02234A90(UnkStruct_0208C06C *param0)
 {
     Window_ClearAndCopyToVRAM(&param0->unk_8A4);
     Window_Remove(&param0->unk_8A4);
+    #ifdef PLATFORM_DS
     GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+    #else
+    // TODO: Port GX_PLANEMASK_BG2 to PAL
+    #endif
 }
 
 static BOOL ov62_02234AB4(UnkStruct_0208C06C *param0)

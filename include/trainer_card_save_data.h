@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINERCARD_SAVEDATA_H
 #define POKEPLATINUM_TRAINERCARD_SAVEDATA_H
 
+#include "platform/platform_types.h"
+
 #include "badges.h"
 #include "savedata.h"
 #include "trainer_card.h"

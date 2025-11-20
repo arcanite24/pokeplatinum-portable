@@ -47,9 +47,17 @@ void ov94_02243EF8(GTSApplicationState *param0, int param1)
     int v1;
 
     ov94_0224432C(param0);
+    #ifdef PLATFORM_DS
     GTSApplication_InitAffineTemplate(&v0, param0, &param0->avatarSpriteResourceHeader, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     v0.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     v0.position.x = FX32_ONE * 128;
     v0.position.y = FX32_ONE * 130 + (256 * FX32_ONE);
 
@@ -306,8 +314,16 @@ static void ov94_02244378(NNSG2dCharacterData *param0, NNSG2dPaletteData *param1
     v1 = (u8 *)param0->pRawData;
     v2 = (u8 *)param1->pRawData;
 
+    #ifdef PLATFORM_DS
     GXS_LoadOBJ(&v1[((4 * 4) * 3) * v0 * 0x20], Unk_ov94_02246314[param2], (4 * 4) * 0x20);
+    #else
+    // TODO: Port GXS_LoadOBJ to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GXS_LoadOBJPltt(&v2[v0 * 32], (param2 + 2) * 32, 32);
+    #else
+    // TODO: Port GXS_LoadOBJPltt to PAL
+    #endif
 }
 
 void ov94_022443B8(GTSApplicationState *param0)

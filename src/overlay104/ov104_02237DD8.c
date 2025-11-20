@@ -617,18 +617,38 @@ void ov104_02238658(void *param0, UnkStruct_ov104_0223C4CC *param1)
             v3 = Graphics_GetPlttDataFromOpenNARC(v0, Unk_ov104_0223FBBA[v1->unk_13][2], &v2, HEAP_ID_94);
             DC_FlushRange(v2->pRawData, v2->szByte);
 
+            #ifdef PLATFORM_DS
             GX_BeginLoadBGExtPltt();
+            #else
+            // TODO: Port GX_BeginLoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_LoadBGExtPltt(v2->pRawData, 0x4000, 0x2000);
+            #else
+            // TODO: Port GX_LoadBGExtPltt to PAL
+            #endif
+            #ifdef PLATFORM_DS
             GX_EndLoadBGExtPltt();
+            #else
+            // TODO: Port GX_EndLoadBGExtPltt to PAL
+            #endif
 
             Heap_Free(v3);
         }
 
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 1);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
         Bg_ScheduleTilemapTransfer(param1->unk_00, 2);
         NARC_dtor(v0);
     } else {
+        #ifdef PLATFORM_DS
         GXLayers_EngineAToggleLayers(GX_PLANEMASK_BG2, 0);
+        #else
+        // TODO: Port GX_PLANEMASK_BG2 to PAL
+        #endif
     }
 
     return;
@@ -869,9 +889,21 @@ void ov104_02238AB4(u8 param0, u8 param1)
     BlendPalette(v2->pRawData, v5, 0x1000, param0, 0x0);
     DC_FlushRange(v5, 0x1000 * 2);
 
+    #ifdef PLATFORM_DS
     GX_BeginLoadBGExtPltt();
+    #else
+    // TODO: Port GX_BeginLoadBGExtPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_LoadBGExtPltt(v5, 0x6000, v1);
+    #else
+    // TODO: Port GX_LoadBGExtPltt to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_EndLoadBGExtPltt();
+    #else
+    // TODO: Port GX_EndLoadBGExtPltt to PAL
+    #endif
 
     NARC_dtor(v4);
     Heap_Free(v5);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_SOFTWARE_SPRITE_H
 #define POKEPLATINUM_SOFTWARE_SPRITE_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/gx.h>
 #include <nnsys.h>

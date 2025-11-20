@@ -122,7 +122,11 @@ static void UndergroundTextPrinter_SysTaskEraseMessageBoxOnAPress(SysTask *sysTa
         }
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         UndergroundTextPrinter_EraseMessageBoxWindow(textPrinter);
     }
 }

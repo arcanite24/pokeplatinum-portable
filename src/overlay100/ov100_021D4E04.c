@@ -104,7 +104,11 @@ UnkStruct_ov100_021D4F9C *ov100_021D4EBC(UnkStruct_ov100_021D4EBC *param0)
     v1->unk_04 = *param0;
     v1->unk_34 = v0;
     v1->unk_30 = 0;
+    #ifdef PLATFORM_DS
     v1->unk_00 = GX_GetBankForLCDC();
+    #else
+    // TODO: Port GX_GetBankForLCDC to PAL
+    #endif
 
     ov100_021D503C(&v1->unk_04);
     SysTask_ExecuteAfterVBlank(ov100_021D4FDC, v1, 0);
@@ -114,24 +118,56 @@ UnkStruct_ov100_021D4F9C *ov100_021D4EBC(UnkStruct_ov100_021D4EBC *param0)
 
 void ov100_021D4F0C(UnkStruct_ov100_021D4F9C **param0, GXDispMode param1, GXBGMode param2, GXBG0As param3)
 {
+    #ifdef PLATFORM_DS
     GX_SetGraphicsMode(param1, param2, param3);
+    #else
+    // TODO: Port GX_SetGraphicsMode to PAL
+    #endif
+    #ifdef PLATFORM_DS
     GX_SetBankForLCDC((*param0)->unk_00);
+    #else
+    // TODO: Port GX_SetBankForLCDC to PAL
+    #endif
 
     switch ((*param0)->unk_04.unk_00) {
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_A:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_A to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_A, HW_VRAM_A_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_B:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_B to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_B, HW_VRAM_B_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_C:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_C to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_C, HW_VRAM_C_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_D:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_D to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_D, HW_VRAM_D_SIZE);
         break;
     default:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_NONE);
+        #else
+        // TODO: Port GX_VRAM_LCDC_NONE to PAL
+        #endif
         break;
     }
 
@@ -144,7 +180,11 @@ static void ov100_021D4F9C(SysTask *param0, void *param1)
     UnkStruct_ov100_021D4F9C *v0 = param1;
 
     if (v0->unk_30) {
+        #ifdef PLATFORM_DS
         GX_SetCapture(v0->unk_04.unk_0C, v0->unk_04.unk_10, v0->unk_04.unk_14, v0->unk_04.unk_18, v0->unk_04.unk_1C, v0->unk_04.unk_20, v0->unk_04.unk_24);
+        #else
+        // TODO: Port GX_SetCapture to PAL
+        #endif
     }
 }
 
@@ -153,24 +193,84 @@ static void ov100_021D4FDC(SysTask *param0, void *param1)
     UnkStruct_ov100_021D4F9C *v0 = (UnkStruct_ov100_021D4F9C *)param1;
 
     switch (v0->unk_04.unk_00) {
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_A:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_A to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_A);
+        #else
+        // TODO: Port GX_VRAM_LCDC_A to PAL
+        #endif
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_B:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_B to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_B);
+        #else
+        // TODO: Port GX_VRAM_LCDC_B to PAL
+        #endif
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_C:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_C to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_C);
+        #else
+        // TODO: Port GX_VRAM_LCDC_C to PAL
+        #endif
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_D:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_D to PAL
+    #endif
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_D);
+        #else
+        // TODO: Port GX_VRAM_LCDC_D to PAL
+        #endif
         break;
     default:
+        #ifdef PLATFORM_DS
+        #ifdef PLATFORM_DS
+        #else
+        // TODO: Port GX_SetBankForLCDC to PAL
+        #endif
         GX_SetBankForLCDC(GX_VRAM_LCDC_NONE);
+        #else
+        // TODO: Port GX_VRAM_LCDC_NONE to PAL
+        #endif
         break;
     }
 
+    #ifdef PLATFORM_DS
     GX_SetGraphicsMode(v0->unk_04.unk_00, v0->unk_04.unk_04, v0->unk_04.unk_08);
+    #else
+    // TODO: Port GX_SetGraphicsMode to PAL
+    #endif
 
     v0->unk_30 = 1;
     SysTask_Done(param0);
@@ -179,21 +279,41 @@ static void ov100_021D4FDC(SysTask *param0, void *param1)
 static void ov100_021D503C(UnkStruct_ov100_021D4EBC *param0)
 {
     switch (param0->unk_00) {
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_A:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_A to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_A, HW_VRAM_A_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_B:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_B to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_B, HW_VRAM_B_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_C:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_C to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_C, HW_VRAM_C_SIZE);
         break;
+    #ifdef PLATFORM_DS
     case GX_DISPMODE_VRAM_D:
+    #else
+    // TODO: Port GX_DISPMODE_VRAM_D to PAL
+    #endif
         MI_CpuClearFast((void *)HW_LCDC_VRAM_D, HW_VRAM_D_SIZE);
         break;
     default:
         break;
     }
 
+    #ifdef PLATFORM_DS
     GX_SetCapture(param0->unk_0C, param0->unk_10, param0->unk_14, param0->unk_18, param0->unk_1C, 16, 0);
+    #else
+    // TODO: Port GX_SetCapture to PAL
+    #endif
 }

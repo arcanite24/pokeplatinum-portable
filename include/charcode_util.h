@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_CHARCODE_UTIL_H
 #define POKEPLATINUM_CHARCODE_UTIL_H
 
+#include "platform/platform_types.h"
+
 #include "charcode.h"
 #include "strbuf.h"
 

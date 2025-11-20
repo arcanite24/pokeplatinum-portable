@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_OV16_0225D794_H
 #define POKEPLATINUM_STRUCT_OV16_0225D794_H
 
+#include "platform/platform_types.h"
+
 #include "battle/struct_ov16_0225D840.h"
 #include "overlay013/battle_bag.h"
 

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_0203D9B8_H
 #define POKEPLATINUM_STRUCT_0203D9B8_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_020989DC.h"
 
 #include "bag.h"

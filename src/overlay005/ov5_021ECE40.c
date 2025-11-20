@@ -1394,7 +1394,11 @@ static UnkStruct_020216E0 *ov5_021EDDDC(UnkStruct_02020C44 *param0, const UnkStr
         sub_02021320(v2, 0);
         sub_02021344(v2, 0);
         sub_020213A4(v2, 0);
+        #ifdef PLATFORM_DS
         NNS_G3dMdlSetMdlFogEnableFlagAll(sub_020213F4(v2), param3);
+        #else
+        // TODO: Port NNS_G3dMdlSetMdlFogEnableFlagAll to PAL
+        #endif
         AreaLight_UseGlobalModelAttributes(sub_020213F4(v2));
     }
 
@@ -1947,7 +1951,11 @@ static UnkStruct_020216E0 *ov5_021EE454(MapObject *param0, int param1, UnkFuncPt
         v11->unk_10 = ov5_021EDCF4(v8, v7->unk_04, 0);
     }
 
+    #ifdef PLATFORM_DS
     sub_02021284(&v11->unk_28, v11->unk_08, NNS_G3dGetTex(v11->unk_10), ov5_021EDD44(v2), &v11->unk_14);
+    #else
+    // TODO: Port NNS_G3dGetTex to PAL
+    #endif
 
     {
         const VecFx32 *v8 = sub_020212C0(v10);

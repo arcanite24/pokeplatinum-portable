@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_COLORED_ARROW_H
 #define POKEPLATINUM_COLORED_ARROW_H
 
+#include "platform/platform_types.h"
+
 #include "bg_window.h"
 #include "strbuf.h"
 #include "text.h"

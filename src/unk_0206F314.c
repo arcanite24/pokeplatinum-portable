@@ -270,13 +270,21 @@ static int sub_0206F498(UnkStruct_0206F7F8 *param0)
 {
     s32 v0 = ListMenu_ProcessInput(param0->unk_C0);
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_B) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         sub_0206FF10(param0);
         return 10;
     }
 
+    #ifdef PLATFORM_DS
     if (!(gSystem.pressedKeys & PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         return 3;
     }
 
@@ -306,13 +314,21 @@ static int sub_0206F508(UnkStruct_0206F7F8 *param0)
 
 static int sub_0206F514(UnkStruct_0206F7F8 *param0)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_B | PAD_BUTTON_A)) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         sub_02070288(param0);
         return 2;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_SELECT) {
+    #else
+    // TODO: Port PAD_BUTTON_SELECT to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         sub_0206FFE4(param0);
         return 6;
@@ -325,13 +341,21 @@ static int sub_0206F554(UnkStruct_0206F7F8 *param0)
 {
     UnkStruct_0206F3A0 *v0;
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & (PAD_BUTTON_B)) {
+    #else
+    // TODO: Port PAD_BUTTON_B to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         sub_02070010(param0);
         return 5;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         Sound_PlayEffect(SEQ_SE_CONFIRM);
         param0->unk_0C = 0;
         param0->unk_328 = &(param0->unk_324[param0->unk_1F].unk_04[param0->unk_32C[param0->unk_28]]);
@@ -343,7 +367,11 @@ static int sub_0206F554(UnkStruct_0206F7F8 *param0)
         return 7;
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_UP) {
+    #else
+    // TODO: Port PAD_KEY_UP to PAL
+    #endif
         if (param0->unk_28 > 0) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             --param0->unk_28;
@@ -351,7 +379,11 @@ static int sub_0206F554(UnkStruct_0206F7F8 *param0)
         }
     }
 
+    #ifdef PLATFORM_DS
     if (gSystem.pressedKeys & PAD_KEY_DOWN) {
+    #else
+    // TODO: Port PAD_KEY_DOWN to PAL
+    #endif
         if (param0->unk_28 < (param0->unk_21 - 1)) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             ++param0->unk_28;
@@ -442,7 +474,11 @@ static int sub_0206F748(UnkStruct_0206F7F8 *param0)
         param0->unk_0C++;
         break;
     case 2:
+        #ifdef PLATFORM_DS
         if (!(gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B))) {
+        #else
+        // TODO: Port PAD_BUTTON_B to PAL
+        #endif
             break;
         }
 
@@ -619,7 +655,11 @@ static void sub_0206FCC4(UnkStruct_0206F7F8 *param0)
             0x0,
             0x0,
             0x1,
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN,
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             { 0x34D8, 0x34D8, 0x34D8, 0x34D8, 0x0, 0x0 },
             0x1,
             0x0,
@@ -631,7 +671,11 @@ static void sub_0206FCC4(UnkStruct_0206F7F8 *param0)
             0x1,
             0x1,
             0x0,
+            #ifdef PLATFORM_DS
             NNS_G2D_VRAM_TYPE_2DMAIN,
+            #else
+            // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+            #endif
             { 0x34D8, 0x34D8, 0x34D8, 0x34D8, 0x0, 0x0 },
             0x1,
             0x0,
@@ -645,10 +689,18 @@ static void sub_0206FCC4(UnkStruct_0206F7F8 *param0)
 
         v3 = NARC_ctor(NARC_INDEX_GRAPHIC__RANKING, param0->heapID);
 
+        #ifdef PLATFORM_DS
         ov5_021D32E8(&param0->unk_134, v3, 0, 0, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
         ov5_021D3374(&param0->unk_134, v3, 2, 0, 13528);
         ov5_021D339C(&param0->unk_134, v3, 3, 0, 13528);
+        #ifdef PLATFORM_DS
         ov5_021D3414(&param0->unk_134, v3, 1, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 13528);
+        #else
+        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+        #endif
 
         NARC_dtor(v3);
     }
@@ -881,7 +933,11 @@ static BOOL sub_020702D0(FieldTask *param0)
         SpriteList_Update(v1->unk_08->unk_134.unk_00);
         break;
     case 9:
+        #ifdef PLATFORM_DS
         if (!(gSystem.pressedKeys & PAD_BUTTON_A)) {
+        #else
+        // TODO: Port PAD_BUTTON_A to PAL
+        #endif
             return 0;
         }
 

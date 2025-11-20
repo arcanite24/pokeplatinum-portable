@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_STRUCT_BATTLE_SYSTEM_T_H
 #define POKEPLATINUM_STRUCT_BATTLE_SYSTEM_T_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nnsys.h>
 #else

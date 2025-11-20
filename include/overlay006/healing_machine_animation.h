@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_HEALING_MACHINE_ANIMATION_H
 #define POKEPLATINUM_HEALING_MACHINE_ANIMATION_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 
 #define HEALING_MACHINE_ANIMATION_STATE_START                    0

@@ -2,6 +2,8 @@
 #define POKEPLATINUM_BRIGHTNESS_CONTROLLER_H
 
 #include "platform/platform_types.h"
+
+#include "platform/platform_types.h"
 #include "constants/graphics.h"
 
 #define BRIGHTNESS_NO_SCREENS   (0)

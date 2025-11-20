@@ -34,11 +34,23 @@ void ov19_021DA864(UnkStruct_ov19_021DA8D8 *param0, NARC *param1)
 {
     SpriteResourcesHeader v0;
 
+    #ifdef PLATFORM_DS
     NNS_G2dInitImageProxy(&(param0->unk_18));
+    #else
+    // TODO: Port NNS_G2dInitImageProxy to PAL
+    #endif
 
+    #ifdef PLATFORM_DS
     Graphics_LoadImageMappingFromOpenNARC(param1, 9, 1, 0, 0, NNS_G2D_VRAM_TYPE_2DMAIN, 1256 * 0x20, 10, &(param0->unk_18));
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     ov19_021D783C(&v0, &(param0->unk_18), ov19_021D77D0(param0->unk_44), param0->unk_10, param0->unk_14, 2);
+    #ifdef PLATFORM_DS
     param0->unk_04 = ov19_021D785C(param0->unk_00, &v0, 183 + ov19_021D7820(param0->unk_44), 176, 44, NNS_G2D_VRAM_TYPE_2DMAIN);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
+    #endif
     Sprite_SetExplicitPalette(param0->unk_04, 1);
 }
 

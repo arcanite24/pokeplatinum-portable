@@ -342,14 +342,30 @@ static BOOL FormSubGraphicsExit(void *graphics, PokedexGraphicsManager *graphics
 
 static void SetSpriteOAMModesXLU(FormSubGraphics *formSubGraphics)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(formSubGraphics->buttonSprite, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(formSubGraphics->buttonText->fontOAM, GX_OAM_MODE_XLU);
+    #else
+    // TODO: Port GX_OAM_MODE_XLU to PAL
+    #endif
 }
 
 static void SetSpriteOAMModesNormal(FormSubGraphics *formSubGraphics)
 {
+    #ifdef PLATFORM_DS
     Sprite_SetExplicitOAMMode(formSubGraphics->buttonSprite, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
+    #ifdef PLATFORM_DS
     sub_02012AF0(formSubGraphics->buttonText->fontOAM, GX_OAM_MODE_NORMAL);
+    #else
+    // TODO: Port GX_OAM_MODE_NORMAL to PAL
+    #endif
 }
 
 static void InitBlendTransition(FormSubGraphics *formSubGraphics, PokedexGraphicData **param1, const FormSubData *formSubData, BOOL isEntering)
@@ -358,9 +374,17 @@ static void InitBlendTransition(FormSubGraphics *formSubGraphics, PokedexGraphic
 
     if (ov21_021E33A4(formSubData->subScreen)) {
         if (isEntering) {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendSub, 1, -16, 0, 0, 16, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 1);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         } else {
+            #ifdef PLATFORM_DS
             PokedexGraphics_InitBlendTransition(&(*param1)->blendSub, 1, 0, -16, 16, 0, (GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), (GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_BD), 1);
+            #else
+            // TODO: Port GX_BLEND_PLANEMASK_BD to PAL
+            #endif
         }
     }
 }
@@ -490,7 +514,11 @@ static void LoadButtonSprite(FormSubGraphics *formSubGraphics, PokedexGraphicDat
     PokedexGraphicData *graphicData = *pokedexGraphicData;
     NARC *narc = PokedexGraphics_GetNARC(graphicData);
 
+    #ifdef PLATFORM_DS
     formSubGraphics->buttonSpriteResource[SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTilesFrom(graphicData->spriteResourceCollection[SPRITE_RESOURCE_CHAR], narc, size_buttons_pressed_NCGR_lz, TRUE, size_buttons_pressed_NCGR_lz + FORMSUB_GRAPHIC_ID, NNS_G2D_VRAM_TYPE_2DSUB, heapID);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
 
     SpriteTransfer_RequestCharAtEnd(formSubGraphics->buttonSpriteResource[SPRITE_RESOURCE_CHAR]);
     SpriteResource_ReleaseData(formSubGraphics->buttonSpriteResource[SPRITE_RESOURCE_CHAR]);
@@ -520,7 +548,11 @@ static void AnimateSprites(FormSubGraphics *formSubGraphics, PokedexGraphicData 
     spriteListTemplate.list = graphicData->spriteList;
     spriteListTemplate.resourceData = &spriteResourcesHeader;
     spriteListTemplate.priority = 31;
+    #ifdef PLATFORM_DS
     spriteListTemplate.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     spriteListTemplate.heapID = heapID;
 
     spriteListTemplate.position.x = BUTTON_X << FX32_SHIFT;
@@ -551,10 +583,18 @@ static void LoadButtonText(FormSubGraphics *formSubGraphics, PokedexGraphicData 
     displayBox.y = -8;
     displayBox.spriteResourcePriority = 2;
     displayBox.spriteListPriority = 0;
+    #ifdef PLATFORM_DS
     displayBox.vramType = NNS_G2D_VRAM_TYPE_2DSUB;
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     displayBox.heapID = heapID;
 
+    #ifdef PLATFORM_DS
     int plttOffset = PlttTransfer_GetPlttOffset(displayBox.paletteProxy, NNS_G2D_VRAM_TYPE_2DSUB);
+    #else
+    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
+    #endif
     Window *window = PokedexTextManager_NewWindow(graphicData->textMan, 16, 2);
     u32 strWidth = PokedexTextManager_DisplayMessage(graphicData->textMan, window, TEXT_BANK_POKEDEX, pl_msg_pokedex_anotherform, 0, 0);
 
@@ -614,7 +654,11 @@ static void UpdateButtonGraphics(PokedexGraphicData **graphicData, Sprite *sprit
 
         *paletteFile = PokedexGraphics_GetGraphicNarcPaletteData(*graphicData, memberIndex, &paletteData, heapID);
 
+        #ifdef PLATFORM_DS
         GF_ASSERT(VramTransfer_Request(NNS_GFD_DST_2D_BG_PLTT_SUB, destAddr * 32, paletteData->pRawData, 32));
+        #else
+        // TODO: Port NNS_GFD_DST_2D_BG_PLTT_SUB to PAL
+        #endif
     }
 }
 
@@ -636,7 +680,11 @@ static void UpdateButtonDisplay(PokedexGraphicData **graphicData, FormSubGraphic
 
 static void CheckButtonKeyHeld(FormSubPageData *formSubPageData, FormSubData *formSubData)
 {
+    #ifdef PLATFORM_DS
     if (gSystem.heldKeys & PAD_BUTTON_A) {
+    #else
+    // TODO: Port PAD_BUTTON_A to PAL
+    #endif
         formSubPageData->buttonPressed = TRUE;
     }
 }

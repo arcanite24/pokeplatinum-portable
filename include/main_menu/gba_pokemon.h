@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_MAIN_MENU_GBA_POKEMON_H
 #define POKEPLATINUM_MAIN_MENU_GBA_POKEMON_H
 
+#include "platform/platform_types.h"
+
 #include "main_menu/gba_save.h"
 
 u32 GBABoxPokemon_GetData(GBABoxPokemon *gbaBoxMon, int field, u8 *data);

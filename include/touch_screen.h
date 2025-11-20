@@ -5,6 +5,8 @@
 #define TOUCHSCREEN_USE_CIRCLE       0xfe
 #define TOUCHSCREEN_INPUT_NONE       -1
 
+#include "platform/platform_types.h"
+
 enum TouchScreenButtonState {
     TOUCH_BUTTON_NOT_PRESSED = -1,
     TOUCH_BUTTON_PRESSED,

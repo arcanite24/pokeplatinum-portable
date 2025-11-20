@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_BOX_MENU_H
 #define POKEPLATINUM_BOX_MENU_H
 
+#include "platform/platform_types.h"
+
 #include "applications/pc_boxes/box_application.h"
 
 void BoxMenu_FillYesNo(BoxApplication *boxApp, u32 menuItemIndex);

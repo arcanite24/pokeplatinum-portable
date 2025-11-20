@@ -134,7 +134,11 @@ void CharacterSprite_LoadTiledData(enum NarcID narcID, int narcIdx, enum HeapID 
     ncgrFile = NARC_AllocAndReadWholeMemberByIndexPair(narcID, narcIdx, heapID);
     GF_ASSERT(ncgrFile != NULL);
 
+    #ifdef PLATFORM_DS
     success = NNS_G2dGetUnpackedCharacterData(ncgrFile, &characterData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedCharacterData to PAL
+    #endif
     GF_ASSERT(success != FALSE);
     GF_ASSERT(characterData->W >= (x + width));
     GF_ASSERT(characterData->H >= (y + height));
@@ -246,7 +250,11 @@ void *CharacterSprite_LoadPalette(enum NarcID narcID, int paletteIndex, enum Hea
 
     returnPtr = Heap_Alloc(heapID, PALETTE_SIZE_BYTES);
     nclrFile = NARC_AllocAndReadWholeMemberByIndexPair(narcID, paletteIndex, heapID);
+    #ifdef PLATFORM_DS
     success = NNS_G2dGetUnpackedPaletteData(nclrFile, &paletteData);
+    #else
+    // TODO: Port NNS_G2dGetUnpackedPaletteData to PAL
+    #endif
 
     GF_ASSERT(success == TRUE);
     MI_CpuCopy16(paletteData->pRawData, returnPtr, PALETTE_SIZE_BYTES);

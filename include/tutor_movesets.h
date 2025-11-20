@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TUTOR_MOVESETS_H
 #define POKEPLATINUM_TUTOR_MOVESETS_H
 
+#include "platform/platform_types.h"
+
 #include "generated/moves.h"
 #include "generated/tutor_locations.h"
 

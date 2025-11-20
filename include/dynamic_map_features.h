@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DYNAMIC_MAP_FEATURES_H
 #define POKEPLATINUM_DYNAMIC_MAP_FEATURES_H
 
+#include "platform/platform_types.h"
+
 #ifdef PLATFORM_DS
 #include <nitro/fx/fx.h>
 #else

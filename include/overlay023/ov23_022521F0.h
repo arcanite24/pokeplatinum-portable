@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_OV23_022521F0_H
 #define POKEPLATINUM_OV23_022521F0_H
 
+#include "platform/platform_types.h"
+
 #include "field/field_system_decl.h"
 #include "overlay023/underground_menu.h"
 

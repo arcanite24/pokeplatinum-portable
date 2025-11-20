@@ -37,13 +37,21 @@ void sub_0206C660(FieldTask *param0)
     UnkStruct_0206C660 *v1 = FieldTask_GetEnv(param0);
 
     {
+        #ifdef PLATFORM_DS
         FS_EXTERN_OVERLAY(overlay95);
+        #else
+        // TODO: Port FS_EXTERN_OVERLAY to PAL
+        #endif
 
         static const ApplicationManagerTemplate v2 = {
             TradeSequence_Init,
             TradeSequence_Main,
             TradeSequence_Exit,
+            #ifdef PLATFORM_DS
             FS_OVERLAY_ID(overlay95),
+            #else
+            // TODO: Port FS_OVERLAY_ID to PAL
+            #endif
         };
 
         FieldTask_RunApplication(param0, &v2, &v1->unk_0C);

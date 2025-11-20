@@ -413,9 +413,17 @@ static void sub_02015EA0(SysTask *param0, void *param1)
     DC_FlushRange(v0->unk_00->pRawData, v0->unk_10);
 
     if (v0->unk_08 == 0) {
+        #ifdef PLATFORM_DS
         GX_LoadBGPltt(v0->unk_00->pRawData, v0->unk_0C, v0->unk_10);
+        #else
+        // TODO: Port GX_LoadBGPltt to PAL
+        #endif
     } else if (v0->unk_08 == 4) {
+        #ifdef PLATFORM_DS
         GXS_LoadBGPltt(v0->unk_00->pRawData, v0->unk_0C, v0->unk_10);
+        #else
+        // TODO: Port GXS_LoadBGPltt to PAL
+        #endif
     }
 
     SysTask_Done(param0);

@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_DISTRIBUTION_CARTRIDGE_H
 #define POKEPLATINUM_DISTRIBUTION_CARTRIDGE_H
 
+#include "platform/platform_types.h"
+
 #include "constants/heap.h"
 #include "platform/platform_types.h"
 

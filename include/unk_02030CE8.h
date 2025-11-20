@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNK_02030CE8_H
 #define POKEPLATINUM_UNK_02030CE8_H
 
+#include "platform/platform_types.h"
+
 #include "struct_defs/struct_02030CEC.h"
 
 #include "overlay096/struct_world_exchange_trainer.h"

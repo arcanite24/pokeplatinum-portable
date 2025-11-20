@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKEDEXENCDATA_H
 #define POKEPLATINUM_POKEDEXENCDATA_H
 
+#include "platform/platform_types.h"
+
 #include "constants/species.h"
 
 #include "heap.h"

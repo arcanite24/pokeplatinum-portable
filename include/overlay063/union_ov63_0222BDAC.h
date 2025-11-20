@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_UNION_OV63_0222BDAC_H
 #define POKEPLATINUM_UNION_OV63_0222BDAC_H
 
+#include "platform/platform_types.h"
+
 typedef union {
     u32 val1;
     struct {

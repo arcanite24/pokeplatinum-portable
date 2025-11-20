@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TRAINERCARD_BADGE_CHIMES_H
 #define POKEPLATINUM_TRAINERCARD_BADGE_CHIMES_H
 
+#include "platform/platform_types.h"
+
 #include "trainer_card_screen/trainer_card_screen_defs.h"
 
 void TrainerCard_InitBadgeChimeState(TrainerCardBadgeChimeState *badgeChimeState);

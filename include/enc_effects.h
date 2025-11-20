@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_ENC_EFFECTS_H
 #define POKEPLATINUM_ENC_EFFECTS_H
 
+#include "platform/platform_types.h"
+
 #include "field_battle_data_transfer.h"
 
 enum EncEffectCutIn {

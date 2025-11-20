@@ -51,7 +51,11 @@ BOOL ov97_02233870(void)
 
     if (v0 != WM_ERRCODE_OPERATING) {
         ov97_022337FC(v0);
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
         return 0;
     } else {
         return 1;
@@ -221,7 +225,11 @@ BOOL ov97_02233AB8(void)
 
     if (v0 != WM_ERRCODE_OPERATING) {
         ov97_022337FC(v0);
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
         return 0;
     } else {
         return 1;
@@ -236,7 +244,11 @@ BOOL ov97_02233AD8(void)
 
     if (v0 != WM_ERRCODE_OPERATING) {
         ov97_022337FC(v0);
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
         return 0;
     } else {
         return 1;
@@ -251,7 +263,11 @@ BOOL ov97_02233AF8(void)
 
     if (v0 != WM_ERRCODE_OPERATING) {
         ov97_022337FC(v0);
+        #ifdef PLATFORM_DS
         OS_Terminate();
+        #else
+        // TODO: Port OS_Terminate to PAL
+        #endif
         return 0;
     } else {
         return 1;

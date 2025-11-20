@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_TOUCH_DIAL_H
 #define POKEPLATINUM_TOUCH_DIAL_H
 
+#include "platform/platform_types.h"
+
 #include "touch_screen.h"
 
 typedef struct TouchDial {

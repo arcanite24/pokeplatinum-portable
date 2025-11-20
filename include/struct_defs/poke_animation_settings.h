@@ -1,6 +1,8 @@
 #ifndef POKEPLATINUM_POKE_ANIMATION_SETTINGS_H
 #define POKEPLATINUM_POKE_ANIMATION_SETTINGS_H
 
+#include "platform/platform_types.h"
+
 typedef struct PokeAnimationSettings {
     u16 animation;
     u16 startDelay;

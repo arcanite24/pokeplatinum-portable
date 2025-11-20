@@ -48,7 +48,11 @@ enum NarcID ov17_0224F0B8(void)
     return NARC_INDEX_CONTEST__GRAPHIC__CONTEST_OBJ;
 }
 
+#ifdef PLATFORM_DS
 void ov17_0224F0BC(SpriteSystem *param0, SpriteManager *param1, NNS_G2D_VRAM_TYPE param2, int param3, u32 param4)
+#else
+// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+#endif
 {
     SpriteSystem_LoadCharResObj(param0, param1, ov17_0224F0B8(), ov17_0224F080(param3), TRUE, param2, param4);
 }
