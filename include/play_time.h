@@ -1,6 +1,12 @@
 #ifndef POKEPLATINUM_PLAYTIME_H
 #define POKEPLATINUM_PLAYTIME_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #define SECONDS_PER_MINUTE   60
 #define MINUTES_PER_HOUR     60
 #define PLAYTIME_MAX_HOURS   999

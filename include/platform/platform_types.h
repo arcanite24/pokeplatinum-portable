@@ -9,6 +9,10 @@
  * Nintendo DS and SDL3 platforms.
  */
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stddef.h>
 #include "platform_config.h"
 
 #ifdef PLATFORM_SDL
@@ -202,7 +206,6 @@
     #define FX_RAD_TO_IDX(rad) ((int)((rad) * 65536.0 / (2 * 3.14159))) // Approximate
     
     // NitroSDK memory copy functions (SDL stubs)
-    #include <string.h>
     static inline void MI_CpuClear8(void* dest, u32 size) {
         memset(dest, 0, size);
     }
@@ -935,30 +938,49 @@
     #define GX_VRAM_OBJ_32_FG 0
     #define GX_VRAM_TEXPLTT_0123_E 0
     #define GX_VRAM_BG_256_AB 0
+    #define GX_VRAM_SUB_BG_NONE 0
+    #define GX_VRAM_BG_NONE 0
     #define GX_VRAM_OBJ_NONE 0
     #define GX_VRAM_SUB_OBJ_NONE 0
     #define GX_VRAM_TEX_NONE 0
     #define GX_VRAM_TEXPLTT_NONE 0
     
-    // GX BG Constants
     #define GX_BG0_AS_2D 0
-    #define GX_BG_CHARBASE_0x18000 0x18000
-    #define GX_BG_CHARBASE_0x14000 0x14000
-
-    // GX Display Stubs
-    static inline void GX_SetVisiblePlane(int plane) {}
-    static inline void GXS_SetVisiblePlane(int plane) {}
-    static inline void GX_DispOn(void) {}
-    static inline void GXS_DispOn(void) {}
-    static inline void GX_SetDispSelect(int select) {}
-
-    #define GX_DISP_SELECT_MAIN_SUB 0
-    #define GX_DISP_SELECT_SUB_MAIN 1
+    #define GX_BG_CHARBASE_0x18000 0
+    #define GX_BG_CHARBASE_0x14000 0
+    #define GX_BG_CHARBASE_0x20000 0
     
+    // Compiler assert macro
+    #define SDK_COMPILER_ASSERT(expr) typedef char sdk_compiler_assert_failed[(expr) ? 1 : -1]
+    
+    // Sine/cosine lookup table stubs (proper implementation would use lookup table)
+    #include <math.h>
 #endif // PLATFORM_SDL
 
-#ifndef SDK_COMPILER_ASSERT
-#define SDK_COMPILER_ASSERT(expr) extern char sdk_compiler_assert_failed[(expr) ? 1 : -1]
-#endif
+// GX Display Control Stubs
+static inline void GX_SetVisiblePlane(u32 mask) { (void)mask; }
+static inline void GXS_SetVisiblePlane(u32 mask) { (void)mask; }
+static inline void GX_DispOn(void) {}
+static inline void GXS_DispOn(void) {}
+
+    // CTRDG Stubs
+    static inline u32 CTRDG_GetAgbGameCode(void) { return 0; }
+    static inline void CTRDG_Enable(BOOL enable) { (void)enable; }
+    static inline void CTRDG_CpuCopy8(const void* src, void* dest, u32 size) { memcpy(dest, src, size); }
+    static inline void CTRDG_Init(void) {}
+    static inline BOOL CTRDG_IsAgbCartridge(void) { return FALSE; }
+    static inline u16 CTRDG_GetAgbMakerCode(void) { return 0; }
+    static inline void CTRDG_Read32(const void* src, u32* dest) { *dest = 0; }
+    static inline BOOL CTRDG_CpuCopy16(const void* src, void* dest, u32 size) { memcpy(dest, src, size); return TRUE; }
+    static inline BOOL CTRDG_IsExisting(void) { return FALSE; }
+
+    // CRYPTO Stubs
+    typedef void* (*CryptoAlloc)(u32 size);
+    typedef void (*CryptoFree)(void* ptr);
+    static inline void CRYPTO_SetAllocator(CryptoAlloc alloc, CryptoFree free) { (void)alloc; (void)free; }
+    static inline BOOL CRYPTO_VerifySignature(const void* data, u32 size, const void* signature, const void* key) { 
+        (void)data; (void)size; (void)signature; (void)key; 
+        return TRUE; 
+    }
 
 #endif // PLATFORM_TYPES_H

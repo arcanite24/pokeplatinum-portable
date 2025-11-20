@@ -1,7 +1,7 @@
 #include "item_use_functions.h"
 
-#include "nitro/types.h"
 #ifdef PLATFORM_DS
+#include "nitro/types.h"
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
@@ -39,7 +39,7 @@
 #include "heap.h"
 #include "item.h"
 #include "item_use_functions.h"
-#include "items.h"
+#include "constants/items.h"
 #include "mail.h"
 #include "map_header.h"
 #include "map_header_data.h"

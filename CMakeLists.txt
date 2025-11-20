@@ -53,6 +53,7 @@ if(BUILD_SDL_VERSION)
     
     # Exclude platform-specific files
     list(FILTER GAME_SOURCES EXCLUDE REGEX "src/platform/.*")
+    list(FILTER GAME_SOURCES EXCLUDE REGEX "src/main.c")
 
     # Exclude problematic files (NNS dependencies, etc.)
     list(FILTER GAME_SOURCES EXCLUDE REGEX "src/easy3d.*")
@@ -94,6 +95,7 @@ if(BUILD_SDL_VERSION)
     # The DS codebase uses NULL for integer 0 in many places (147+ instances)
     # This is technically questionable but harmless and pervasive
     target_compile_options(pokeplatinum_sdl PRIVATE
+        -w
         -Wno-int-conversion
     )
     

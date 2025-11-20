@@ -4,6 +4,7 @@
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
+#include "global/pm_version.h"
 #endif
 #include <string.h>
 

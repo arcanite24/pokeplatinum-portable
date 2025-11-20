@@ -2,6 +2,7 @@
 #define POKEPLATINUM_DISTRIBUTION_CARTRIDGE_H
 
 #include "constants/heap.h"
+#include "platform/platform_types.h"
 
 void DistributionCartridge_UseHeap(enum HeapID heapID);
 int DistributionCartridge_ReadLength(void);

@@ -1,9 +1,19 @@
 #ifndef POKEPLATINUM_GBA_SAVE_H
 #define POKEPLATINUM_GBA_SAVE_H
 
+#ifdef PLATFORM_DS
+#include <nitro/types.h>
+#else
+#include "platform/platform_types.h"
+#endif
+
 #include "constants/gba/global.h"
 #include "constants/gba/pokemon.h"
 #include "constants/gba/save.h"
+
+#ifndef max
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
 
 typedef struct GBAPokemonSubstruct0 {
     u16 species;
