@@ -12,7 +12,7 @@
 #define VERSION_LEAFGREEN 5
 
 // Global language setting (stub for SDL build)
-extern int gGameLanguage;
+extern const u8 gGameLanguage;
 
 // Global ignore cartridge flag
 extern int gIgnoreCartridgeForWake;

@@ -111,11 +111,14 @@ static BOOL Task_GreatMarshLookout(FieldTask *taskMan)
     case 5:
         lookout->timer++;
 
+        BOOL pressedA = 0;
         #ifdef PLATFORM_DS
-        if ((lookout->timer >= 60) || (gSystem.pressedKeys & PAD_BUTTON_A)) {
+        if (gSystem.pressedKeys & PAD_BUTTON_A) pressedA = 1;
         #else
-        // TODO: Port PAD_BUTTON_A to PAL
+        // pressedA = (PAL_Input_GetPressed() & PAD_BUTTON_A);
         #endif
+
+        if ((lookout->timer >= 60) || pressedA) {
             GreatMarshBinoculars_SetNextLocationWithCoords(lookout->numCycles, lookout->binocularsData);
             lookout->nextLocation = GreatMarshBinoculars_GetLocation(lookout->binocularsData);
             Sound_PlayEffect(SEQ_SE_DP_KASYA);

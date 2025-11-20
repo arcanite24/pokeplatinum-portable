@@ -69,6 +69,7 @@
 #include "vram_transfer.h"
 
 #include "res/text/bank/migrate_from_gba.h"
+#include "versions.h"
 
 #ifdef PLATFORM_DS
 FS_EXTERN_OVERLAY(game_opening);
@@ -661,12 +662,12 @@ static void *ov97_022341B4(u32 narcID, u32 memberIndex, NNSG2dCharacterData **pa
 
         #ifdef PLATFORM_DS
         if (NNS_G2dGetUnpackedBGCharacterData(v0, param2) == 0) {
-        #else
-        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
-        #endif
             Heap_Free(v0);
             return NULL;
         }
+        #else
+        // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
+        #endif
     }
 
     return v0;
@@ -678,6 +679,7 @@ static void ov97_022341EC(u32 memberIndex, NNSG2dCharacterData **param1, void *p
     #ifdef PLATFORM_DS
     NNS_G2dGetUnpackedBGCharacterData(param2, param1);
     #else
+
     // TODO: Port NNS_G2dGetUnpackedBGCharacterData to PAL
     #endif
 }
@@ -2011,15 +2013,9 @@ static int GBAMigrator_Init(ApplicationManager *appMan, int *state)
 
     #ifdef PLATFORM_DS
     if (OS_IsTickAvailable() == 0) {
-    #else
-    // TODO: Port OS_IsTickAvailable to PAL
-    #endif
-        #ifdef PLATFORM_DS
         OS_InitTick();
-        #else
-        // TODO: Port OS_InitTick to PAL
-        #endif
     }
+    #endif
 
     MainMenuUtil_UnsetGBACartIRQFunc();
     Unk_ov97_0223F434 = migrator->unk_E8FC;
@@ -2166,6 +2162,7 @@ static int GBAMigrator_Main(ApplicationManager *appMan, int *state)
             migrator->unk_490.unk_44 = 0;
             migrator->unk_490.messageEntryID = MigrateFromGBA_Text_MakingAdjustments;
             ov97_02233DD0(migrator, &migrator->unk_490, 0);
+            migrator->unk_E8F0.unk_00 = 0;
             migrator->unk_E8F0.unk_08 = Window_AddWaitDial(&migrator->unk_4FC, 0x3F0 - (18 + 12));
             *state = GBA_MIGRATOR_STATE_10;
             break;
@@ -2187,20 +2184,9 @@ static int GBAMigrator_Main(ApplicationManager *appMan, int *state)
         }
         break;
     case GBA_MIGRATOR_STATE_12:
-        ov97_02235158(&migrator->unk_4FC);
-        ov97_02234E7C(migrator);
-        InitBoxPokemonSprites(migrator);
-        ov97_022343A8(migrator);
-
-        SetVBlankCallback(ov97_022353CC, migrator);
-        #ifdef PLATFORM_DS
-        GXLayers_EngineAToggleLayers(GX_PLANEMASK_OBJ, 1);
-        #else
-        // TODO: Port GX_PLANEMASK_OBJ to PAL
-        #endif
-
-        PrintGBABoxMonInfo(migrator, NULL);
-        ov97_02234CC4(migrator, FADE_TYPE_BRIGHTNESS_IN, 13, state);
+        ov97_02234F88(migrator);
+        ov97_02234CC4(migrator, FADE_TYPE_BRIGHTNESS_IN, 17, state);
+        ov97_02235310(migrator);
 
         break;
     case GBA_MIGRATOR_STATE_13:

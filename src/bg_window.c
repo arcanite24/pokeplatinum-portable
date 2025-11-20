@@ -1752,20 +1752,12 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
 {
     switch (bgLayer) {
     case BG_LAYER_MAIN_0: {
-        #ifdef PLATFORM_DS
         GXBg01Control control = G2_GetBG0Control();
-        #else
-        // TODO: Port G2_GetBG0Control to PAL
-        #endif
         return control.priority;
     }
 
     case BG_LAYER_MAIN_1: {
-        #ifdef PLATFORM_DS
         GXBg01Control control = G2_GetBG1Control();
-        #else
-        // TODO: Port G2_GetBG1Control to PAL
-        #endif
         return control.priority;
     }
 
@@ -1773,59 +1765,37 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
-            #ifdef PLATFORM_DS
             GXBg23ControlText control = G2_GetBG2ControlText();
-            #else
-            // TODO: Port G2_GetBG2ControlText to PAL
-            #endif
             return control.priority;
         }
         case BG_TYPE_AFFINE: {
-            #ifdef PLATFORM_DS
             GXBg23ControlAffine control = G2_GetBG2ControlAffine();
-            #else
-            // TODO: Port G2_GetBG2ControlAffine to PAL
-            #endif
             return control.priority;
         }
         case BG_TYPE_STATIC_WITH_AFFINE: {
-            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt control = G2_GetBG2Control256x16Pltt();
-            #else
-            // TODO: Port G2_GetBG2Control256x16Pltt to PAL
-            #endif
             return control.priority;
         }
         }
+        break;
 
     case BG_LAYER_MAIN_3:
         switch (bgConfig->bgs[bgLayer].type) {
         default:
         case BG_TYPE_STATIC: {
-            #ifdef PLATFORM_DS
             GXBg23ControlText control = G2_GetBG3ControlText();
-            #else
-            // TODO: Port G2_GetBG3ControlText to PAL
-            #endif
             return control.priority;
         }
         case BG_TYPE_AFFINE: {
-            #ifdef PLATFORM_DS
             GXBg23ControlAffine control = G2_GetBG3ControlAffine();
-            #else
-            // TODO: Port G2_GetBG3ControlAffine to PAL
-            #endif
             return control.priority;
         }
         case BG_TYPE_STATIC_WITH_AFFINE: {
-            #ifdef PLATFORM_DS
             GXBg23Control256x16Pltt control = G2_GetBG3Control256x16Pltt();
-            #else
-            // TODO: Port G2_GetBG3Control256x16Pltt to PAL
-            #endif
             return control.priority;
         }
         }
+        break;
 
     case BG_LAYER_SUB_0: {
         GXBg01Control control = G2S_GetBG0Control();
@@ -1853,6 +1823,7 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
             return control.priority;
         }
         }
+        break;
 
     case BG_LAYER_SUB_3:
         switch (bgConfig->bgs[bgLayer].type) {
@@ -1870,6 +1841,7 @@ u8 Bg_GetPriority(BgConfig *bgConfig, u8 bgLayer)
             return control.priority;
         }
         }
+        break;
     }
 
     return 0;
@@ -2441,11 +2413,7 @@ void Window_BlitBitmapRectWithTransparency(Window *window, void *src, u16 srcX, 
     bmpDest.width = window->width * 8;
     bmpDest.height = window->height * 8;
 
-    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
-    #else
-    // TODO: Port GX_BG_COLORMODE_16 to PAL
-    #endif
         Bitmap_BlitRect4bpp(&bmpSrc, &bmpDest, srcX, srcY, destX, destY, destWidth, destHeight, transparent);
     } else {
         Bitmap_BlitRect8bpp(&bmpSrc, &bmpDest, srcX, srcY, destX, destY, destWidth, destHeight, transparent);
@@ -2460,11 +2428,7 @@ void Window_FillRectWithColor(Window *window, u8 color, u16 x, u16 y, u16 width,
     bmp.width = window->width * 8;
     bmp.height = window->height * 8;
 
-    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
-    #else
-    // TODO: Port GX_BG_COLORMODE_16 to PAL
-    #endif
         Bitmap_FillRect4bpp((const Bitmap *)&bmp, x, y, width, height, color);
     } else {
         Bitmap_FillRect8bpp((const Bitmap *)&bmp, x, y, width, height, color);
@@ -2644,11 +2608,7 @@ void Window_CopyGlyph(Window *window, const u8 *glyphPixels, u16 srcWidth, u16 s
 
 void Window_Scroll(Window *window, u8 direction, u8 distance, u8 fillVal)
 {
-    #ifdef PLATFORM_DS
     if (window->bgConfig->bgs[window->bgLayer].colorMode == GX_BG_COLORMODE_16) {
-    #else
-    // TODO: Port GX_BG_COLORMODE_16 to PAL
-    #endif
         ScrollWindow4bpp(window, direction, distance, fillVal);
     } else {
         ScrollWindow8bpp(window, direction, distance, fillVal);
@@ -3078,11 +3038,7 @@ u8 Bg_DoesPixelAtXYMatchVal(BgConfig *bgConfig, u8 bgLayer, u16 x, u16 y, u16 *s
     xPixelOffset = x & 7;
     yPixelOffset = y & 7;
 
-    #ifdef PLATFORM_DS
     if (bgConfig->bgs[bgLayer].colorMode == GX_BG_COLORMODE_16) {
-    #else
-    // TODO: Port GX_BG_COLORMODE_16 to PAL
-    #endif
         u16 *tilemapBuffer = bgConfig->bgs[bgLayer].tilemapBuffer;
         u8 *tile = Heap_AllocAtEnd(bgConfig->heapID, 64);
 

@@ -77,11 +77,11 @@ void MTX_Rot33Angles(MtxFx33 *outRot, u16 alpha, u16 beta, u16 gamma)
 
 void CalcLinearFov(u16 angularFov, fx32 distance, fx32 aspectRatio, fx32 *outWidth, fx32 *outHeight)
 {
-    fx32 sin = FX_SinIdx(angularFov);
-    fx32 cos = FX_CosIdx(angularFov);
-    fx32 tan = FX_Div(sin, cos);
+    fx32 sinVal = FX_SinIdx(angularFov);
+    fx32 cosVal = FX_CosIdx(angularFov);
+    fx32 tanVal = FX_Div(sinVal, cosVal);
 
-    *outHeight = FX_Mul(distance, tan);
+    *outHeight = FX_Mul(distance, tanVal);
     *outHeight = FX_Mul(*outHeight, 2 * FX32_ONE);
     *outWidth = FX_Mul(*outHeight, aspectRatio);
 }

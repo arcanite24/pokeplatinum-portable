@@ -12,7 +12,7 @@
 // Determine target platform based on build configuration
 #ifdef TARGET_NDS
     #define PLATFORM_DS
-#elif defined(TARGET_SDL)
+#elif defined(TARGET_SDL) || defined(PLATFORM_SDL)
     #ifndef PLATFORM_SDL
         #define PLATFORM_SDL
     #endif
@@ -29,6 +29,7 @@
     #include <SDL3/SDL.h>
     #include <stdbool.h>
     #include <stdint.h>
+    #include <math.h>
 #endif
 
 // Platform identification macros

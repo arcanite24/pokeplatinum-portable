@@ -23,18 +23,10 @@ See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for comprehensive SDL3 porting strat
 **MUST READ** these files for context when working on SDL3 port:
 - **[`PAL.md`](../PAL.md)** - Complete Platform Abstraction Layer documentation, architecture, implementation guidelines, and current status
 - **[`PORTING_PLAN.md`](../PORTING_PLAN.md)** - Comprehensive porting strategy with phase-by-phase implementation plan
-- **Phase Implementation Summaries** (keep up to date when working on new phases):
-  - [`PHASE1_TASK1_SUMMARY.md`](../PHASE1_TASK1_SUMMARY.md) - Foundation & build system
-  - [`PHASE2_TASK2_SUMMARY.md`](../PHASE2_TASK2_SUMMARY.md) - Graphics primitives
-  - [`PHASE2_TASK3_SUMMARY.md`](../PHASE2_TASK3_SUMMARY.md) - Background system
-  - [`PHASE2_TASK4_SUMMARY.md`](../PHASE2_TASK4_SUMMARY.md) - Sprite/OAM system
-  - [`PHASE2_TASK5_SUMMARY.md`](../PHASE2_TASK5_SUMMARY.md) - 3D graphics API
-  - [`PHASE3_SUMMARY.md`](../PHASE3_SUMMARY.md) - Input system
 
 **When implementing new PAL features:**
 1. Reference `PAL.md` for architecture and guidelines
 2. Follow existing PAL patterns from completed phases
-3. Create `PHASEX_TASKX_SUMMARY.md` documenting your implementation
 4. Update `PAL.md` with new subsystem details
 5. Update `PORTING_PLAN.md` to mark phase/task complete
 
@@ -46,6 +38,8 @@ See [`PORTING_PLAN.md`](../PORTING_PLAN.md) for comprehensive SDL3 porting strat
 ./build-sdl/pokeplatinum_sdl      # Run application
 cmake --build build-sdl           # Manual build after initial setup
 ```
+
+Don't use head or tail commands when getting the build output since you might miss some important messages.
 
 ### Code Formatting
 ```bash

@@ -4,6 +4,7 @@
 #include <nitro.h>
 #else
 #include "platform/platform_types.h"
+#include "platform/pal_input.h"
 #endif
 #include <nnsys.h>
 #include <string.h>
@@ -67,7 +68,7 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
     #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_A)) {
     #else
-    // TODO: Port PAD_BUTTON_A to PAL
+    if (PAL_Input_GetPressed() & PAL_BUTTON_A) {
     #endif
         return menu->template.choices[menu->listPos + menu->cursorPos].index;
     }
@@ -75,7 +76,7 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
     #ifdef PLATFORM_DS
     if (JOY_NEW(PAD_BUTTON_B)) {
     #else
-    // TODO: Port PAD_BUTTON_B to PAL
+    if (PAL_Input_GetPressed() & PAL_BUTTON_B) {
     #endif
         return LIST_CANCEL;
     }
@@ -83,7 +84,7 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
     #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_UP)) {
     #else
-    // TODO: Port PAD_KEY_UP to PAL
+    if (PAL_Input_GetPressed() & PAL_BUTTON_UP) {
     #endif
         if (UpdateSelectedRow(menu, TRUE, 1, FALSE) == 0) {
             menu->lastAction = LIST_MENU_ACTION_MOVE_UP;
@@ -95,7 +96,7 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
     #ifdef PLATFORM_DS
     if (JOY_REPEAT(PAD_KEY_DOWN)) {
     #else
-    // TODO: Port PAD_KEY_DOWN to PAL
+    if (PAL_Input_GetPressed() & PAL_BUTTON_DOWN) {
     #endif
         if (UpdateSelectedRow(menu, TRUE, 1, TRUE) == 0) {
             menu->lastAction = LIST_MENU_ACTION_MOVE_DOWN;
@@ -115,26 +116,20 @@ u32 ListMenu_ProcessInput(ListMenu *menu)
     case PAGER_MODE_LEFT_RIGHT_PAD:
         #ifdef PLATFORM_DS
         pageUp = JOY_REPEAT(PAD_KEY_LEFT);
-        #else
-        // TODO: Port PAD_KEY_LEFT to PAL
-        #endif
-        #ifdef PLATFORM_DS
         pageDown = JOY_REPEAT(PAD_KEY_RIGHT);
         #else
-        // TODO: Port PAD_KEY_RIGHT to PAL
+        pageUp = (PAL_Input_GetPressed() & PAL_BUTTON_LEFT) != 0;
+        pageDown = (PAL_Input_GetPressed() & PAL_BUTTON_RIGHT) != 0;
         #endif
         break;
 
     case PAGER_MODE_SHOULDER_BUTTONS:
         #ifdef PLATFORM_DS
         pageUp = JOY_REPEAT(PAD_BUTTON_L);
-        #else
-        // TODO: Port PAD_BUTTON_L to PAL
-        #endif
-        #ifdef PLATFORM_DS
         pageDown = JOY_REPEAT(PAD_BUTTON_R);
         #else
-        // TODO: Port PAD_BUTTON_R to PAL
+        pageUp = (PAL_Input_GetPressed() & PAL_BUTTON_L) != 0;
+        pageDown = (PAL_Input_GetPressed() & PAL_BUTTON_R) != 0;
         #endif
         break;
     }
@@ -198,17 +193,20 @@ u32 ListMenu_TestInput(ListMenu *menu, ListMenuTemplate *template, u16 listPos, 
     menu->dummy2C = 0;
     menu->dummy2D = 0;
 
+    u16 inputUp = 0;
+    u16 inputDown = 0;
+
     #ifdef PLATFORM_DS
-    if (input == PAD_KEY_UP) {
+    inputUp = PAD_KEY_UP;
+    inputDown = PAD_KEY_DOWN;
     #else
-    // TODO: Port PAD_KEY_UP to PAL
+    inputUp = PAL_BUTTON_UP;
+    inputDown = PAL_BUTTON_DOWN;
     #endif
+
+    if (input == inputUp) {
         UpdateSelectedRow(menu, updateCursor, 1, 0);
-    #ifdef PLATFORM_DS
-    } else if (input == PAD_KEY_DOWN) {
-    #else
-    // TODO: Port PAD_KEY_DOWN to PAL
-    #endif
+    } else if (input == inputDown) {
         UpdateSelectedRow(menu, updateCursor, 1, 1);
     }
 

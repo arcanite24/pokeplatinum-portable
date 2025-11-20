@@ -7,6 +7,7 @@
 
 #include "constants/graphics.h"
 #include "constants/narc.h"
+#include "versions.h"
 #include "generated/genders.h"
 #include "generated/string_padding_mode.h"
 #include "generated/text_banks.h"
@@ -79,16 +80,9 @@ FS_EXTERN_OVERLAY(overlay98);
 // TODO: Port FS_EXTERN_OVERLAY to PAL
 #endif
 
-#ifdef PLATFORM_DS
 #define BACKGROUND_COLOR          GX_RGB(12, 12, 31)
-#else
-// TODO: Port GX_RGB to PAL
-#endif
-#ifdef PLATFORM_DS
 #define UNFOCUSED_OPTION_BG_COLOR GX_RGB(26, 26, 26)
-#else
-// TODO: Port GX_RGB to PAL
-#endif
+
 
 #define COLORS_LIST_END 0
 
@@ -373,15 +367,14 @@ static BOOL ShowWFCUserInfoErasedMsg(MainMenuAppData *appData)
             }
         }
     } else {
+        u32 input = 0;
         #ifdef PLATFORM_DS
-        #ifdef PLATFORM_DS
+        input = JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B);
         #else
-        // TODO: Port PAD_BUTTON_A to PAL
+        input = PAL_Input_GetPressed() & (PAL_BUTTON_A | PAL_BUTTON_B);
         #endif
-        if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
-        #else
-        // TODO: Port PAD_BUTTON_B to PAL
-        #endif
+
+        if (input) {
             Sound_PlayEffect(SEQ_SE_CONFIRM);
             Window_EraseStandardFrame(&appData->wfcUserInfoErasedWindow, FALSE);
             Window_Remove(&appData->wfcUserInfoErasedWindow);
@@ -578,15 +571,14 @@ static BOOL ShowAlerts(MainMenuAppData *appData)
         if (appData->alertsDelay) {
             appData->alertsDelay--;
         } else {
+            u32 input = 0;
             #ifdef PLATFORM_DS
-            #ifdef PLATFORM_DS
+            input = JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B);
             #else
-            // TODO: Port PAD_BUTTON_A to PAL
+            input = PAL_Input_GetPressed() & (PAL_BUTTON_A | PAL_BUTTON_B);
             #endif
-            if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
-            #else
-            // TODO: Port PAD_BUTTON_B to PAL
-            #endif
+
+            if (input) {
                 Window_Remove(&appData->alertWindow);
                 appData->alertsState = MAIN_MENU_ALERTS_STATE_HIDE_ALERT;
                 appData->alertDismissKeys = gSystem.pressedKeys;
@@ -1378,7 +1370,7 @@ static void MainMenuVBlankCallback(void *data)
 
 static BOOL MainMenu_Init(ApplicationManager *appMan, int *unused)
 {
-    Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_MAIN_MENU, HEAP_SIZE_MAIN_MENU);
+    Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_MAIN_MENU, 0x20000);
 
     MainMenuAppData *appData = ApplicationManager_NewData(appMan, sizeof(MainMenuAppData), HEAP_ID_MAIN_MENU);
     memset(appData, 0, sizeof(MainMenuAppData));
@@ -1524,19 +1516,21 @@ static BOOL MainMenu_Main(ApplicationManager *appMan, int *state)
             break;
         }
 
+        u32 inputUp = 0;
+        u32 inputDown = 0;
         #ifdef PLATFORM_DS
-        if (JOY_NEW(PAD_KEY_UP)) {
+        inputUp = JOY_NEW(PAD_KEY_UP);
+        inputDown = JOY_NEW(PAD_KEY_DOWN);
         #else
-        // TODO: Port PAD_KEY_UP to PAL
+        inputUp = PAL_Input_GetPressed() & PAL_BUTTON_UP;
+        inputDown = PAL_Input_GetPressed() & PAL_BUTTON_DOWN;
         #endif
+
+        if (inputUp) {
             FocusNextOption(appData, DIRECTION_UP);
         }
 
-        #ifdef PLATFORM_DS
-        if (JOY_NEW(PAD_KEY_DOWN)) {
-        #else
-        // TODO: Port PAD_KEY_DOWN to PAL
-        #endif
+        if (inputDown) {
             FocusNextOption(appData, DIRECTION_DOWN);
         }
 

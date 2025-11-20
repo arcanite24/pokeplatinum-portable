@@ -259,12 +259,12 @@ static BOOL GetOverlayRamBounds(const FSOverlayID overlayID, u32 *start, u32 *en
 
     #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, MI_PROCESSOR_ARM9, overlayID)) {
-    #else
-    // TODO: Port FS_LoadOverlayInfo to PAL
-    #endif
         GF_ASSERT(0);
         return FALSE;
     }
+    #else
+    // TODO: Port FS_LoadOverlayInfo to PAL
+    #endif
 
     #ifdef PLATFORM_DS
     *start = (u32)FS_GetOverlayAddress(&info);
@@ -298,19 +298,19 @@ static BOOL LoadOverlayNoInit(MIProcessor proc, FSOverlayID overlayID)
 
     #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, proc, overlayID)) {
+        return FALSE;
+    }
     #else
     // TODO: Port FS_LoadOverlayInfo to PAL
     #endif
-        return FALSE;
-    }
 
     #ifdef PLATFORM_DS
     if (!FS_LoadOverlayImage(&info)) {
+        return FALSE;
+    }
     #else
     // TODO: Port FS_LoadOverlayImage to PAL
     #endif
-        return FALSE;
-    }
 
 #ifdef GDB_DEBUGGING
     LoadOverlayGDB(overlayID);
@@ -331,11 +331,11 @@ static BOOL LoadOverlayNoInitAsync(MIProcessor proc, FSOverlayID overlayID)
 
     #ifdef PLATFORM_DS
     if (!FS_LoadOverlayInfo(&info, proc, overlayID)) {
+        return FALSE;
+    }
     #else
     // TODO: Port FS_LoadOverlayInfo to PAL
     #endif
-        return FALSE;
-    }
 
 #ifdef GDB_DEBUGGING
     LoadOverlayGDB(overlayID);

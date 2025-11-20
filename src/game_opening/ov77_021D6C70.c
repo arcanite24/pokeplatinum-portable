@@ -87,22 +87,17 @@ static u32 ov77_021D6C94(u32 param0, BOOL param1)
     u32 v1;
 
     #ifdef PLATFORM_DS
-    #ifdef PLATFORM_DS
-    #else
-    // TODO: Port NNS_GfdAllocPlttVram to PAL
-    #endif
     v0 = NNS_GfdAllocPlttVram(param0, param1, NNS_GFD_ALLOC_FROM_LOW);
     #else
-    // TODO: Port NNS_GFD_ALLOC_FROM_LOW to PAL
+    // TODO: Port NNS_GfdAllocPlttVram to PAL
+    v0 = 0;
     #endif
 
     #ifdef PLATFORM_DS
     if (v0 == NNS_GFD_ALLOC_ERROR_PLTTKEY) {
-    #else
-    // TODO: Port NNS_GFD_ALLOC_ERROR_PLTTKEY to PAL
-    #endif
         GF_ASSERT(FALSE);
     }
+    #endif
 
     ParticleSystem_RegisterPaletteKey(v0);
 

@@ -97,195 +97,68 @@
     
     // Math utility macros
     #define MATH_ABS(x) ((x) < 0 ? -(x) : (x))
-    
-    // Sine/cosine lookup table stubs (proper implementation would use lookup table)
-    #include <math.h>
-    static inline fx32 FX_SinIdx(u16 idx) {
-        // DS uses 0-0xFFFF range for 0-2π
-        double angle = (idx / 65536.0) * 2.0 * M_PI;
-        return (fx32)(sin(angle) * FX32_ONE);
-    }
-    static inline fx32 FX_CosIdx(u16 idx) {
-        double angle = (idx / 65536.0) * 2.0 * M_PI;
-        return (fx32)(cos(angle) * FX32_ONE);
-    }
-    static inline fx32 FX_Sqrt(fx32 x) {
-        if (x < 0) return 0;
-        double val = (double)x / FX32_ONE;
-        return (fx32)(sqrt(val) * FX32_ONE);
-    }
-    static inline u16 FX_Atan2Idx(fx32 y, fx32 x) {
-        double fy = (double)y / FX32_ONE;
-        double fx = (double)x / FX32_ONE;
-        double angle = atan2(fy, fx);
-        if (angle < 0) angle += 2.0 * M_PI;
-        return (u16)(angle / (2.0 * M_PI) * 65536.0);
-    }
-    
-    // Fixed-point constants
-    #define FX32_CONST(x) ((fx32)((x) * FX32_ONE))
-    #define FX32_HALF     (FX32_ONE / 2)
-    
-    // Vector types (matching NitroSDK conventions)
-    typedef struct VecFx16 {
-        fx16 x;
-        fx16 y;
-        fx16 z;
-    } VecFx16;
-    
-    typedef struct VecFx32 {
-        fx32 x;
-        fx32 y;
-        fx32 z;
+    #define SDK_COMPILER_ASSERT(expr) extern char compiler_assert_##__LINE__ [(expr) ? 1 : -1]
+
+    // Vector and Matrix types
+    typedef struct {
+        fx32 x, y, z;
     } VecFx32;
-    
-    typedef struct MtxFx33 {
-        fx32 _00, _01, _02;
-        fx32 _10, _11, _12;
-        fx32 _20, _21, _22;
+
+    typedef struct {
+        fx16 x, y, z;
+    } VecFx16;
+
+    typedef struct {
+        fx32 m[3][3];
     } MtxFx33;
-    
-    typedef struct MtxFx43 {
-        fx32 _00, _01, _02;
-        fx32 _10, _11, _12;
-        fx32 _20, _21, _22;
-        fx32 _30, _31, _32;
-    } MtxFx43;
-    
-    typedef struct MtxFx22 {
-        fx32 _00, _01;
-        fx32 _10, _11;
+
+    typedef struct {
+        fx32 m[2][2];
     } MtxFx22;
-    
-    // Vector utility functions
-    static inline void VEC_Set(VecFx32* vec, fx32 x, fx32 y, fx32 z) {
-        vec->x = x;
-        vec->y = y;
-        vec->z = z;
-    }
-    static inline void VEC_Fx16Set(VecFx16* vec, fx16 x, fx16 y, fx16 z) {
-        vec->x = x;
-        vec->y = y;
-        vec->z = z;
-    }
-    
-    // Matrix utility functions
-    static inline void MTX_Identity33(MtxFx33* mtx) {
-        // Set to identity matrix (1s on diagonal, 0s elsewhere)
-        mtx->_00 = FX32_ONE; mtx->_01 = 0; mtx->_02 = 0;
-        mtx->_10 = 0; mtx->_11 = FX32_ONE; mtx->_12 = 0;
-        mtx->_20 = 0; mtx->_21 = 0; mtx->_22 = FX32_ONE;
-    }
-    
-    // Math functions
-    static inline void VEC_Normalize(const VecFx32 *src, VecFx32 *dst) {
-        // Stub: Just copy for now, or implement normalization if needed
-        *dst = *src;
-    }
 
-    static inline void MTX_RotX33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
-        // Stub
-        (void)mtx; (void)sin; (void)cos;
-    }
-
-    static inline void MTX_RotY33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
-        // Stub
-        (void)mtx; (void)sin; (void)cos;
-    }
-
-    static inline void MTX_RotZ33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
-        // Stub
-        (void)mtx; (void)sin; (void)cos;
-    }
-
-    static inline void MTX_Concat33(const MtxFx33 *a, const MtxFx33 *b, MtxFx33 *ab) {
-        // Stub
-        (void)a; (void)b; (void)ab;
-    }
-
-    #define FX_RAD_TO_IDX(rad) ((int)((rad) * 65536.0 / (2 * 3.14159))) // Approximate
-    
-    // NitroSDK memory copy functions (SDL stubs)
-    static inline void MI_CpuClear8(void* dest, u32 size) {
+    // Memory manipulation stubs
+    static inline void MI_CpuClear16(void *dest, u32 size) {
         memset(dest, 0, size);
     }
-    static inline void MI_CpuClear16(void* dest, u32 size) {
-        memset(dest, 0, size);
-    }
-    static inline void MI_CpuClear32(void* dest, u32 size) {
-        memset(dest, 0, size);
-    }
-    static inline void MI_CpuCopy8(const void* src, void* dest, u32 size) {
-        memcpy(dest, src, size);
-    }
-    static inline void MI_CpuCopy16(const void* src, void* dest, u32 size) {
-        memcpy(dest, src, size);
-    }
-    static inline void MI_CpuCopy32(const void* src, void* dest, u32 size) {
-        memcpy(dest, src, size);
-    }
-    static inline void MI_CpuFill8(void* dest, u32 data, u32 size) {
-        memset(dest, (int)(data & 0xFF), size);
-    }
-    static inline void MI_CpuFill16(void* dest, u16 data, u32 size) {
-        // Fill memory with 16-bit values
-        u16* ptr = (u16*)dest;
-        size /= 2;  // Size is in bytes, convert to u16 count
-        for (u32 i = 0; i < size; i++) {
-            ptr[i] = data;
-        }
-    }
-    static inline void MI_CpuFill32(void* dest, u32 data, u32 size) {
-        // Fill memory with 32-bit values
-        u32* ptr = (u32*)dest;
-        size /= 4;  // Size is in bytes, convert to u32 count
-        for (u32 i = 0; i < size; i++) {
-            ptr[i] = data;
-        }
-    }
-    
-    // Cache management (no-op on SDL - no separate cache)
-    static inline void DC_FlushRange(const void* addr, u32 size) {
-        (void)addr; (void)size;
-        // SDL: No cache flush needed
-    }
-    static inline void DC_StoreRange(const void* addr, u32 size) {
-        (void)addr; (void)size;
-    }
-    static inline void DC_InvalidateRange(const void* addr, u32 size) {
-        (void)addr; (void)size;
-    }
-    
-    // Fast memory operations (same as regular versions on SDL)
-    static inline void MI_CpuClearFast(void* dest, u32 size) {
-        memset(dest, 0, size);
-    }
-    static inline void MI_CpuCopyFast(const void* src, void* dest, u32 size) {
-        memcpy(dest, src, size);
-    }
-    
-    // Math coprocessor functions (DS hardware, SDL uses software impl)
-    #include <math.h>
-    static inline void CP_SetSqrt32(u32 value) {
-        // Stub: DS has hardware sqrt coprocessor, SDL uses software
-        (void)value;
-    }
-    static inline void CP_WaitSqrt(void) {
-        // Stub: DS waits for hardware, SDL is instant
-    }
-    static inline u32 CP_GetSqrtResult32(void) {
-        // Stub: Should use cached sqrt value from CP_SetSqrt32
-        // For now, return 0 (caller should cache the result properly)
-        return 0;
-    }
-    
-    // Graphics control structs (DS specific)
-    // Moved to nns_types.h
 
-    // Missing constants for BG screen sizes
+    static inline void MI_CpuCopy8(const void *src, void *dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+
+    static inline void MI_CpuCopy16(const void *src, void *dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+
+    static inline void MI_CpuCopy32(const void *src, void *dest, u32 size) {
+        memcpy(dest, src, size);
+    }
+
+    static inline void MI_CpuClear8(void *dest, u32 size) {
+        memset(dest, 0, size);
+    }
+
+    static inline void MI_CpuClearFast(void *dest, u32 size) {
+        memset(dest, 0, size);
+    }
+
+    static inline void MI_CpuFill16(void *dest, u16 data, u32 size) {
+        u16 *ptr = (u16*)dest;
+        for (u32 i = 0; i < size / 2; i++) ptr[i] = data;
+    }
+
+    static inline void DC_FlushRange(const void *startAddr, u32 nBytes) {}
+
+    static inline void MTX_Identity33(MtxFx33 *mtx) {
+        memset(mtx, 0, sizeof(MtxFx33));
+        mtx->m[0][0] = FX32_ONE;
+        mtx->m[1][1] = FX32_ONE;
+        mtx->m[2][2] = FX32_ONE;
+    }
+
+    // GX Screen Sizes
     #define GX_BG_SCRSIZE_TEXT_256x256 0
-    #define GX_BG_SCRSIZE_TEXT_256x512 1
-    #define GX_BG_SCRSIZE_TEXT_512x256 2
+    #define GX_BG_SCRSIZE_TEXT_512x256 1
+    #define GX_BG_SCRSIZE_TEXT_256x512 2
     #define GX_BG_SCRSIZE_TEXT_512x512 3
 
     #define GX_BG_SCRSIZE_AFFINE_128x128 0
@@ -298,6 +171,121 @@
     #define GX_BG_SCRSIZE_256x16PLTT_512x512 2
     #define GX_BG_SCRSIZE_256x16PLTT_1024x1024 3
 
+    // GX Screen Bases (offsets in 2KB units)
+    #define GX_BG_SCRBASE_0x0000 0
+    #define GX_BG_SCRBASE_0x0800 1
+    #define GX_BG_SCRBASE_0x1000 2
+    #define GX_BG_SCRBASE_0x1800 3
+    #define GX_BG_SCRBASE_0x2000 4
+    #define GX_BG_SCRBASE_0x2800 5
+    #define GX_BG_SCRBASE_0x3000 6
+    #define GX_BG_SCRBASE_0x3800 7
+    #define GX_BG_SCRBASE_0x4000 8
+    #define GX_BG_SCRBASE_0x4800 9
+    #define GX_BG_SCRBASE_0x5000 10
+    #define GX_BG_SCRBASE_0x5800 11
+    #define GX_BG_SCRBASE_0x6000 12
+    #define GX_BG_SCRBASE_0x6800 13
+    #define GX_BG_SCRBASE_0x7000 14
+    #define GX_BG_SCRBASE_0x7800 15
+    #define GX_BG_SCRBASE_0x8000 16
+    #define GX_BG_SCRBASE_0x8800 17
+    #define GX_BG_SCRBASE_0x9000 18
+    #define GX_BG_SCRBASE_0x9800 19
+    #define GX_BG_SCRBASE_0xa000 20
+    #define GX_BG_SCRBASE_0xa800 21
+    #define GX_BG_SCRBASE_0xb000 22
+    #define GX_BG_SCRBASE_0xb800 23
+    #define GX_BG_SCRBASE_0xc000 24
+    #define GX_BG_SCRBASE_0xc800 25
+    #define GX_BG_SCRBASE_0xd000 26
+    #define GX_BG_SCRBASE_0xd800 27
+    #define GX_BG_SCRBASE_0xe000 28
+    #define GX_BG_SCRBASE_0xe800 29
+    #define GX_BG_SCRBASE_0xf000 30
+    #define GX_BG_SCRBASE_0xf800 31
+
+    // GX Background Control Types (moved from nns_types.h)
+    #define GX_BG_COLORMODE_16 0
+    #define GX_BG_COLORMODE_256 1
+
+    typedef struct {
+        u16 priority : 2;
+        u16 charBase : 4;
+        u16 mosaic : 1;
+        u16 colorMode : 1;
+        u16 screenBase : 5;
+        u16 extPltt : 1;
+        u16 screenSize : 2;
+    } GXBg01Control;
+
+    typedef GXBg01Control GXBg23Control;
+
+    typedef struct {
+        u16 priority : 2;
+        u16 charBase : 4;
+        u16 mosaic : 1;
+        u16 colorMode : 1;
+        u16 screenBase : 5;
+        u16 overflow : 1;
+        u16 screenSize : 2;
+    } GXBg23ControlText;
+
+    typedef struct {
+        u16 priority : 2;
+        u16 charBase : 4;
+        u16 mosaic : 1;
+        u16 overflow : 1;
+        u16 screenBase : 5;
+        u16 areaOver : 1;
+        u16 screenSize : 2;
+    } GXBg23ControlAffine;
+
+    typedef GXBg23ControlAffine GXBg23Control256x16Pltt;
+
+    // Sound and TouchPad stubs
+    typedef struct {
+        u16 format;
+        u16 loop;
+        u32 rate;
+        u32 timer;
+        u32 loopStart;
+        u32 loopEnd;
+    } NNSSndWaveFormat;
+
+    typedef enum {
+        MIC_RESULT_SUCCESS = 0,
+        MIC_RESULT_BUSY,
+        MIC_RESULT_ILLEGAL_PARAMETER,
+        MIC_RESULT_ILLEGAL_STATUS
+    } MICResult;
+
+    typedef enum {
+        MIC_SAMPLING_TYPE_8BIT = 0,
+        MIC_SAMPLING_TYPE_12BIT,
+        MIC_SAMPLING_TYPE_SIGNED_8BIT,
+        MIC_SAMPLING_TYPE_SIGNED_12BIT
+    } MICSamplingType;
+
+    typedef void (*MICCallback)(MICResult result, void *arg);
+
+    typedef struct {
+        MICSamplingType type;
+        void *buffer;
+        u32 size;
+        u32 rate;
+        BOOL loop;
+        MICCallback callback;
+        void *arg;
+    } MICAutoParam;
+
+    typedef struct {
+        u16 x;
+        u16 y;
+        u16 touch;
+        u16 validity;
+    } TPData;
+    
     // Graphics hardware functions (DS specific, stub for SDL)
     static inline void G2_SetBG0Priority(int priority) {
         // Stub: DS sets background layer 0 priority
@@ -355,6 +343,25 @@
     static inline void G2S_SetBG3Offset(int hOffset, int vOffset) {}
     static inline void G2S_SetBG3Affine(const void* mtx, int centerX, int centerY, int x1, int y1) {}
     
+    // Getters (SDL stubs returning 0/empty structs)
+    static inline GXBg01Control G2_GetBG0Control(void) { GXBg01Control c = {0}; return c; }
+    static inline GXBg01Control G2_GetBG1Control(void) { GXBg01Control c = {0}; return c; }
+    static inline GXBg23ControlText G2_GetBG2ControlText(void) { GXBg23ControlText c = {0}; return c; }
+    static inline GXBg23ControlAffine G2_GetBG2ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
+    static inline GXBg23Control256x16Pltt G2_GetBG2Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
+    static inline GXBg23ControlText G2_GetBG3ControlText(void) { GXBg23ControlText c = {0}; return c; }
+    static inline GXBg23ControlAffine G2_GetBG3ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
+    static inline GXBg23Control256x16Pltt G2_GetBG3Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
+
+    static inline GXBg01Control G2S_GetBG0Control(void) { GXBg01Control c = {0}; return c; }
+    static inline GXBg01Control G2S_GetBG1Control(void) { GXBg01Control c = {0}; return c; }
+    static inline GXBg23ControlText G2S_GetBG2ControlText(void) { GXBg23ControlText c = {0}; return c; }
+    static inline GXBg23ControlAffine G2S_GetBG2ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
+    static inline GXBg23Control256x16Pltt G2S_GetBG2Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
+    static inline GXBg23ControlText G2S_GetBG3ControlText(void) { GXBg23ControlText c = {0}; return c; }
+    static inline GXBg23ControlAffine G2S_GetBG3ControlAffine(void) { GXBg23ControlAffine c = {0}; return c; }
+    static inline GXBg23Control256x16Pltt G2S_GetBG3Control256x16Pltt(void) { GXBg23Control256x16Pltt c = {0}; return c; }
+
     // GX Bank Stubs
     static inline void GX_ResetBankForBG(void) {}
     static inline void GX_ResetBankForBGExtPltt(void) {}
@@ -579,10 +586,8 @@
         return key; // Just return the key itself (already an address)
     }
     
-    static inline u32 NNS_GfdGetPlttKeyAddr(u32 key) {
-        // Stub: Get palette VRAM address from key
-        return key; // Just return the key itself (already an address)
-    }
+    #define NNS_GFD_ALLOC_ERROR_PLTTKEY ((u32)-1)
+    static inline u32 NNS_GfdGetPlttKeyAddr(u32 key) { return 0; }
     
     static inline void G2_BlendNone(void) {
         // Stub: DS 2D blend none
@@ -877,6 +882,45 @@
     #define FX16_MAX 32767
 
     #define GX_FOGSLOPE_0x1000 0
+
+    // Wireless Manager stubs
+    typedef struct {
+        u16 length;
+        u16 rssi;
+        u8 bssid[6];
+        u16 ssidLength;
+        u8 ssid[32];
+        u16 capaInfo;
+        struct {
+            u16 basic;
+            u16 support;
+        } rateSet;
+        u16 beaconPeriod;
+        u16 dtimPeriod;
+        u8 channel;
+        u8 cfpPeriod;
+        u16 cfpMaxDuration;
+    } WMBssDesc;
+
+    // Math stubs
+    typedef struct {
+        u64 x;
+        u64 mul;
+        u64 add;
+    } MATHRandContext32;
+
+    // Memory stubs
+    static inline void MI_CpuClear32(void *dest, u32 size) {
+        memset(dest, 0, size);
+    }
+
+    static inline void MI_CpuFill8(void *dest, u8 data, u32 size) {
+        memset(dest, data, size);
+    }
+    
+    static inline void MI_CpuCopyFast(const void *src, void *dest, u32 size) {
+        memcpy(dest, src, size);
+    }
     
     // GX VRAM Constants
     
@@ -885,39 +929,182 @@
     #define GX_BG_CHARBASE_0x14000 0
     #define GX_BG_CHARBASE_0x20000 0
     
-    // Compiler assert macro
-    #define SDK_COMPILER_ASSERT(expr) typedef char sdk_compiler_assert_failed[(expr) ? 1 : -1]
+    #define GX_BG_CHARBASE_0x00000 0
+    #define GX_BG_CHARBASE_0x04000 1
+    #define GX_BG_CHARBASE_0x08000 2
+    #define GX_BG_CHARBASE_0x10000 4
     
-    // Sine/cosine lookup table stubs (proper implementation would use lookup table)
-    #include <math.h>
+    #define GX_BG_SCRBASE_0x0000 0
+    #define GX_BG_SCRBASE_0x0800 1
+    #define GX_BG_SCRBASE_0x1000 2
+    #define GX_BG_SCRBASE_0x2000 4
+    #define GX_BG_SCRBASE_0x4000 8
     
-    // GX Display Control Stubs
-    static inline void GX_SetVisiblePlane(u32 mask) { (void)mask; }
-    static inline void GXS_SetVisiblePlane(u32 mask) { (void)mask; }
-    static inline void GX_DispOn(void) {}
-    static inline void GXS_DispOn(void) {}
+    #define GX_BG_SCRBASE_0x6000 12
+    
+    #define GX_BG_CHARBASE_0x0c000 3
+
+    // Hardware Addresses (Stubbed for SDL)
+    #define HW_BG_PLTT 0
+    #define HW_DB_BG_PLTT 0
+
+    // GX Polygon Attr
+    typedef struct {
+        u32 attr;
+    } GXPolygonAttrMisc;
+
+    // Math Types
+    typedef struct {
+        fx32 m[4][3];
+    } MtxFx43;
+
+    // Math Macros
+    #define FX32_CONST(x) ((fx32)((x) * 4096.0f))
+    #define FX_RAD_TO_IDX(x) ((u16)((x) * 65536.0f / (2.0f * 3.14159f)))
+    #define FX_SinIdx(x) ((fx32)(sin((x) * (2.0f * 3.14159f) / 65536.0f) * 4096.0f))
+    #define FX_CosIdx(x) ((fx32)(cos((x) * (2.0f * 3.14159f) / 65536.0f) * 4096.0f))
+    #define FX_Atan2Idx(y, x) ((u16)(atan2((double)(y), (double)(x)) * 65536.0f / (2.0f * 3.14159f)))
+    #define FX_Sqrt(x) ((fx32)(sqrt((double)(x) / 4096.0) * 4096.0))
+
+    // Math Functions
+    static inline void VEC_Normalize(const VecFx32 *a, VecFx32 *b) {
+        // Stub
+        *b = *a;
+    }
+
+    static inline void MTX_RotX33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
+        // Stub
+        MTX_Identity33(mtx);
+        (void)sin; (void)cos;
+    }
+
+    static inline void MTX_RotY33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
+        // Stub
+        MTX_Identity33(mtx);
+        (void)sin; (void)cos;
+    }
+
+    static inline void MTX_RotZ33(MtxFx33 *mtx, fx32 sin, fx32 cos) {
+        // Stub
+        MTX_Identity33(mtx);
+        (void)sin; (void)cos;
+    }
+
+    static inline void MTX_Concat33(const MtxFx33 *a, const MtxFx33 *b, MtxFx33 *ab) {
+        // Stub
+        *ab = *a;
+        (void)b;
+    }
+
+    // GX Screen Sizes
+    #define GX_BG_SCRSIZE_TEXT_256x256 0
+    #define GX_BG_SCRSIZE_TEXT_512x256 1
+    #define GX_BG_SCRSIZE_TEXT_256x512 2
+    #define GX_BG_SCRSIZE_TEXT_512x512 3
+
+    #define GX_BG_SCRSIZE_AFFINE_128x128 0
+    #define GX_BG_SCRSIZE_AFFINE_256x256 1
+    #define GX_BG_SCRSIZE_AFFINE_512x512 2
+    #define GX_BG_SCRSIZE_AFFINE_1024x1024 3
+
+    #define GX_BG_SCRSIZE_256x16PLTT_128x128 0
+    #define GX_BG_SCRSIZE_256x16PLTT_256x256 1
+    #define GX_BG_SCRSIZE_256x16PLTT_512x512 2
+    #define GX_BG_SCRSIZE_256x16PLTT_1024x1024 3
+
+    // GX Screen Bases (offsets in 2KB units)
+    #define GX_BG_SCRBASE_0x0000 0
+    #define GX_BG_SCRBASE_0x0800 1
+    #define GX_BG_SCRBASE_0x1000 2
+    #define GX_BG_SCRBASE_0x1800 3
+    #define GX_BG_SCRBASE_0x2000 4
+    #define GX_BG_SCRBASE_0x2800 5
+    #define GX_BG_SCRBASE_0x3000 6
+    #define GX_BG_SCRBASE_0x3800 7
+    #define GX_BG_SCRBASE_0x4000 8
+    #define GX_BG_SCRBASE_0x4800 9
+    #define GX_BG_SCRBASE_0x5000 10
+    #define GX_BG_SCRBASE_0x5800 11
+    #define GX_BG_SCRBASE_0x6000 12
+    #define GX_BG_SCRBASE_0x6800 13
+    #define GX_BG_SCRBASE_0x7000 14
+    #define GX_BG_SCRBASE_0x7800 15
+    #define GX_BG_SCRBASE_0x8000 16
+    #define GX_BG_SCRBASE_0x8800 17
+    #define GX_BG_SCRBASE_0x9000 18
+    #define GX_BG_SCRBASE_0x9800 19
+    #define GX_BG_SCRBASE_0xa000 20
+    #define GX_BG_SCRBASE_0xa800 21
+    #define GX_BG_SCRBASE_0xb000 22
+    #define GX_BG_SCRBASE_0xb800 23
+    #define GX_BG_SCRBASE_0xc000 24
+    #define GX_BG_SCRBASE_0xc800 25
+    #define GX_BG_SCRBASE_0xd000 26
+    #define GX_BG_SCRBASE_0xd800 27
+    #define GX_BG_SCRBASE_0xe000 28
+    #define GX_BG_SCRBASE_0xe800 29
+    #define GX_BG_SCRBASE_0xf000 30
+    #define GX_BG_SCRBASE_0xf800 31
 
     // CTRDG Stubs
     static inline u32 CTRDG_GetAgbGameCode(void) { return 0; }
     static inline void CTRDG_Enable(BOOL enable) { (void)enable; }
-    static inline void CTRDG_CpuCopy8(const void* src, void* dest, u32 size) { memcpy(dest, src, size); }
+    static inline void CTRDG_CpuCopy8(const void *src, void *dest, u32 size) { (void)src; (void)dest; (void)size; }
     static inline void CTRDG_Init(void) {}
     static inline BOOL CTRDG_IsAgbCartridge(void) { return FALSE; }
     static inline u16 CTRDG_GetAgbMakerCode(void) { return 0; }
-    static inline void CTRDG_Read32(const void* src, u32* dest) { *dest = 0; }
-    static inline BOOL CTRDG_CpuCopy16(const void* src, void* dest, u32 size) { memcpy(dest, src, size); return TRUE; }
+    static inline void CTRDG_Read32(const void *src, u32 *dest) { *dest = 0; }
+    static inline BOOL CTRDG_CpuCopy16(const void *src, void *dest, u32 size) { (void)src; (void)dest; (void)size; return FALSE; }
     static inline BOOL CTRDG_IsExisting(void) { return FALSE; }
-
-    // CRYPTO Stubs
-    typedef void* (*CryptoAlloc)(u32 size);
-    typedef void (*CryptoFree)(void* ptr);
-    static inline void CRYPTO_SetAllocator(CryptoAlloc alloc, CryptoFree free) { (void)alloc; (void)free; }
-    static inline BOOL CRYPTO_VerifySignature(const void* data, u32 size, const void* signature, const void* key) { 
-        (void)data; (void)size; (void)signature; (void)key; 
-        return TRUE; 
+    static inline void CTRDG_ReadAgbFlash(u32 sec, u32 offset, void *dest, u32 size) { (void)sec; (void)offset; (void)dest; (void)size; }
+    static inline BOOL CTRDG_IsPulledOut(void) { return FALSE; }
+    static inline void CTRDG_TerminateForPulledOut(void) {
     }
 
-#endif // PLATFORM_SDL
+    // CRYPTO Stubs
+    static inline void CRYPTO_SetAllocator(void *alloc, void *free) { (void)alloc; (void)free; }
+    static inline BOOL CRYPTO_VerifySignature(const void *data, u32 size, const void *sig, const void *key) { (void)data; (void)size; (void)sig; (void)key; return TRUE; }
+
+    // MATH/CRYPTO Stubs
+    typedef struct {
+        u16 table[256];
+    } MATHCRC16Table;
+
+    typedef struct {
+        u8 state[256];
+        u8 x, y;
+    } CRYPTORC4Context;
+
+    static inline void MATH_CRC16InitTable(MATHCRC16Table *table) {
+        (void)table;
+    }
+
+    static inline u16 MATH_CalcCRC16(const MATHCRC16Table *table, const void *data, u32 dataLength) {
+        (void)table; (void)data; (void)dataLength;
+        return 0;
+    }
+
+    static inline void CRYPTO_RC4Init(CRYPTORC4Context *context, const void *key, u32 keyLength) {
+        (void)context; (void)key; (void)keyLength;
+    }
+
+    // FX Macros
+    #define FX_F32_TO_FX32(x) ((fx32)((x) * FX32_ONE))
+
+    // Input Macros
+    #define PAD_KEY_UP      PAL_BUTTON_UP
+    #define PAD_KEY_DOWN    PAL_BUTTON_DOWN
+    #define PAD_KEY_LEFT    PAL_BUTTON_LEFT
+    #define PAD_KEY_RIGHT   PAL_BUTTON_RIGHT
+    #define PAD_BUTTON_A    PAL_BUTTON_A
+    #define PAD_BUTTON_B    PAL_BUTTON_B
+    #define PAD_BUTTON_SELECT PAL_BUTTON_SELECT
+    #define PAD_BUTTON_START  PAL_BUTTON_START
+    #define PAD_BUTTON_X    PAL_BUTTON_X
+    #define PAD_BUTTON_Y    PAL_BUTTON_Y
+    #define PAD_BUTTON_L    PAL_BUTTON_L
+    #define PAD_BUTTON_R    PAL_BUTTON_R
+#endif // PLATFORM_TYPES_H
 
 // Common macros (both platforms)
 #ifndef min
@@ -927,5 +1114,18 @@
 #ifndef max
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #endif
+
+#define PAD_BUTTON_A 0x0001
+#define PAD_BUTTON_B 0x0002
+#define PAD_BUTTON_SELECT 0x0004
+#define PAD_BUTTON_START 0x0008
+#define PAD_BUTTON_RIGHT 0x0010
+#define PAD_BUTTON_LEFT 0x0020
+#define PAD_BUTTON_UP 0x0040
+#define PAD_BUTTON_DOWN 0x0080
+#define PAD_BUTTON_R 0x0100
+#define PAD_BUTTON_L 0x0200
+#define PAD_BUTTON_X 0x0400
+#define PAD_BUTTON_Y 0x0800
 
 #endif // PLATFORM_TYPES_H

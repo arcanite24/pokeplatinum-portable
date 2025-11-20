@@ -42,10 +42,11 @@ G3DPipelineBuffers *G3DPipeline_InitEx(enum HeapID heapID, enum VramManagerType 
     #endif
 
     if (texVramManagerType == VRAM_MANAGER_TYPE_LINKED_LIST) {
+        int bufferSize;
         #ifdef PLATFORM_DS
-        int bufferSize = NNS_GfdGetLnkTexVramManagerWorkSize(128 * texVramSize);
+        bufferSize = NNS_GfdGetLnkTexVramManagerWorkSize(128 * texVramSize);
         #else
-        // TODO: Port NNS_GfdGetLnkTexVramManagerWorkSize to PAL
+        bufferSize = 1024; // Stub size
         #endif
         buffers->textureBuffer = Heap_Alloc(buffers->heapID, bufferSize);
         #ifdef PLATFORM_DS
@@ -62,10 +63,11 @@ G3DPipelineBuffers *G3DPipeline_InitEx(enum HeapID heapID, enum VramManagerType 
     }
 
     if (plttVramManagerType == VRAM_MANAGER_TYPE_LINKED_LIST) {
+        int bufferSize;
         #ifdef PLATFORM_DS
-        int bufferSize = NNS_GfdGetLnkPlttVramManagerWorkSize(256 * plttVramSize);
+        bufferSize = NNS_GfdGetLnkPlttVramManagerWorkSize(256 * plttVramSize);
         #else
-        // TODO: Port NNS_GfdGetLnkPlttVramManagerWorkSize to PAL
+        bufferSize = 1024; // Stub size
         #endif
         buffers->paletteBuffer = Heap_Alloc(buffers->heapID, bufferSize);
         #ifdef PLATFORM_DS

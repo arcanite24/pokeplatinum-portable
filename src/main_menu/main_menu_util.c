@@ -465,34 +465,27 @@ Sprite *MainMenuUtil_InitSprite(enum DSScreen screen, Sprite *sprite, int x, int
     MainMenuUtilManager *utilMan = &sMainMenuUtilManager;
 
     if (sprite == NULL) {
-        AffineSpriteListTemplate template;
+        AffineSpriteListTemplate spriteTemplate;
 
-        template.list = utilMan->spriteManager.spriteList;
-        template.resourceData = &utilMan->spriteManager.resourceHeaders[screen];
-        template.position.z = 0;
-        template.affineScale.x = FX32_ONE;
-        template.affineScale.y = FX32_ONE;
-        template.affineScale.z = FX32_ONE;
-        template.affineZRotation = 0;
-        template.position.x = FX32_ONE * x;
-        template.position.y = FX32_ONE * y;
-        template.priority = 10;
-        #ifdef PLATFORM_DS
-        template.vramType = screen == DS_SCREEN_MAIN ? NNS_G2D_VRAM_TYPE_2DMAIN : NNS_G2D_VRAM_TYPE_2DSUB;
-        #else
-        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
-        #endif
-        template.heapID = utilMan->heapID;
+        spriteTemplate.list = utilMan->spriteManager.spriteList;
+        spriteTemplate.resourceData = &utilMan->spriteManager.resourceHeaders[screen];
+        spriteTemplate.position.z = 0;
+        spriteTemplate.affineScale.x = FX32_ONE;
+        spriteTemplate.affineScale.y = FX32_ONE;
+        spriteTemplate.affineScale.z = FX32_ONE;
+        spriteTemplate.affineZRotation = 0;
+        spriteTemplate.position.x = FX32_ONE * x;
+        spriteTemplate.position.y = FX32_ONE * y;
+        spriteTemplate.priority = 10;
+        
+        spriteTemplate.vramType = screen == DS_SCREEN_MAIN ? NNS_G2D_VRAM_TYPE_2DMAIN : NNS_G2D_VRAM_TYPE_2DSUB;
+        spriteTemplate.heapID = utilMan->heapID;
 
-        #ifdef PLATFORM_DS
-        if (template.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
-        #else
-        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
-        #endif
-            template.position.y += utilMan->bottomScreenTopY;
+        if (spriteTemplate.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+            spriteTemplate.position.y += utilMan->bottomScreenTopY;
         }
 
-        sprite = SpriteList_AddAffine(&template);
+        sprite = SpriteList_AddAffine(&spriteTemplate);
     }
 
     Sprite_SetAnimateFlag(sprite, TRUE);

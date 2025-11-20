@@ -319,15 +319,18 @@ static void HandleFieldInput(FieldSystem *fieldSystem)
                 ov5_021E0EEC(fieldSystem->playerAvatar);
                 FieldSystem_SendPoketchEvent(fieldSystem, POKETCH_EVENT_SLEEP, 1);
             } else {
+                u32 pressedKeys;
                 #ifdef PLATFORM_DS
-                if (gSystem.pressedKeys & PAD_BUTTON_A) {
+                pressedKeys = gSystem.pressedKeys;
                 #else
-                // TODO: Port PAD_BUTTON_A to PAL
+                pressedKeys = 0; // TODO: PAL_Input_GetPressed();
                 #endif
+
+                if (pressedKeys & PAD_BUTTON_A) {
                     MapNamePopUp_Hide(fieldSystem->unk_04->unk_08);
                 }
 
-                BOOL tappedPoketch = FALSE;
+                BOOL tappedPoketch = 0;
                 PoketchSystem *poketchSys = FieldSystem_GetPoketchSystem();
                 if (poketchSys != NULL) {
                     tappedPoketch = PoketchSystem_IsTapped(poketchSys);
@@ -347,11 +350,7 @@ static void HandleFieldInput(FieldSystem *fieldSystem)
                 ov5_021E0EEC(fieldSystem->playerAvatar);
                 FieldSystem_SendPoketchEvent(fieldSystem, POKETCH_EVENT_SLEEP, 1);
             } else {
-                #ifdef PLATFORM_DS
                 if (gSystem.pressedKeys & PAD_BUTTON_A) {
-                #else
-                // TODO: Port PAD_BUTTON_A to PAL
-                #endif
                     MapNamePopUp_Hide(fieldSystem->unk_04->unk_08);
                 }
 

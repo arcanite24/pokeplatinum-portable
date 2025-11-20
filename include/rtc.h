@@ -47,4 +47,8 @@ enum TimeOfDay GetTimeOfDay(void);
 enum TimeOfDay TimeOfDayForHour(int hour);
 s64 TimeElapsed(s64 since, s64 until);
 
+#ifndef PLATFORM_DS
+static inline u32 RTC_ConvertDateToDay(const RTCDate *date) { (void)date; return 0; }
+#endif
+
 #endif // POKEPLATINUM_RTC_H

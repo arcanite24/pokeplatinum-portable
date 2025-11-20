@@ -33,6 +33,12 @@ typedef enum {
     NNS_G2D_VRAM_TYPE_MAX = 2
 } NNS_G2D_VRAM_TYPE;
 
+typedef struct GXOamAttr {
+    u16 attr0;
+    u16 attr1;
+    u16 attr2;
+} GXOamAttr;
+
 #endif
 
 /* NNSG2d Vector Types */
@@ -45,9 +51,9 @@ typedef struct { fx32 x, y; } NNSG2dFVec2;
 // Use original DS types
 #else
 // PAL stub types for graphics data
-typedef struct { void* data; u32 size; } NNSG2dCharacterData;
+typedef struct { void* pRawData; u32 szByte; } NNSG2dCharacterData;
 typedef struct { void* data; u32 size; } NNSG2dScreenData;
-typedef struct { void* data; u32 size; } NNSG2dPaletteData;
+typedef struct { void* pRawData; u32 size; } NNSG2dPaletteData;
 typedef struct { void* data; u32 size; } NNSG2dCellDataBank;
 typedef struct { void* data; u32 size; } NNSG2dAnimBankData;
 typedef struct { void* data; u32 size; } NNSG2dCellAnimBankData;
@@ -91,8 +97,12 @@ typedef struct { void* data; } NNSG3dResMdl;
 typedef struct { void* data; } NNSG3dResNode;
 typedef struct { void* data; } NNSG3dResMat;
 typedef struct { void* data; } NNSG3dResShp;
-typedef struct { void* data; } NNSG3dResTex;
-typedef struct { void* data; } NNSG3dResMdlSet;
+
+typedef struct { u32 ofsTex; } NNSG3dResTexInfo;
+typedef struct { NNSG3dResTexInfo texInfo; } NNSG3dResTex;
+
+typedef struct { u16 numEntry; } NNSG3dResDict;
+typedef struct { NNSG3dResDict dict; } NNSG3dResMdlSet;
 #endif
 
 /* ========================================================================
@@ -278,42 +288,7 @@ typedef struct { u8 r, g, b, a; } GXRgba;
 #define GX_WND_PLANEMASK_BGALL (GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3)
 #define GX_WND_PLANEMASK_ALL (GX_WND_PLANEMASK_BGALL | GX_WND_PLANEMASK_OBJ)
 
-#define GX_BG_COLORMODE_16 0
-#define GX_BG_COLORMODE_256 1
-
-typedef struct {
-    u16 priority : 2;
-    u16 charBase : 4;
-    u16 mosaic : 1;
-    u16 colorMode : 1;
-    u16 screenBase : 5;
-    u16 extPltt : 1;
-    u16 screenSize : 2;
-} GXBg01Control;
-
-typedef GXBg01Control GXBg23Control;
-
-typedef struct {
-    u16 priority : 2;
-    u16 charBase : 4;
-    u16 mosaic : 1;
-    u16 colorMode : 1;
-    u16 screenBase : 5;
-    u16 overflow : 1;
-    u16 screenSize : 2;
-} GXBg23ControlText;
-
-typedef struct {
-    u16 priority : 2;
-    u16 charBase : 4;
-    u16 mosaic : 1;
-    u16 overflow : 1;
-    u16 screenBase : 5;
-    u16 areaOver : 1;
-    u16 screenSize : 2;
-} GXBg23ControlAffine;
-
-typedef GXBg23ControlAffine GXBg23Control256x16Pltt;
+// GXBg* types moved to platform_types.h
 #endif
 
 #endif // NNS_TYPES_H

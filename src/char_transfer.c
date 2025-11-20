@@ -1448,7 +1448,7 @@ void CharTransfer_DeleteTask(const NNSG2dImageProxy *imageProxy) {
 #ifdef PLATFORM_DS
 BOOL CharTransfer_AllocRange(int size, BOOL atEnd, NNS_G2D_VRAM_TYPE vramType, CharTransferAllocation *allocation) {
 #else
-// TODO: Port NNS_G2D_VRAM_TYPE to PAL
+BOOL CharTransfer_AllocRange(int size, BOOL atEnd, int vramType, CharTransferAllocation *allocation) {
 #endif
     (void)size; (void)atEnd; (void)vramType; (void)allocation;
     return FALSE;

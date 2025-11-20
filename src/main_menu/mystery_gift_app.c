@@ -1247,20 +1247,12 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     int cellsID = 38;
     int animationID = 37;
     int compressed = TRUE;
-    #ifdef PLATFORM_DS
     int vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
-    #endif
     int resourceID = 20000 + vramType;
     int heapID = HEAP_ID_MYSTERY_GIFT_APP;
     int baseIndex = 0;
 
-    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
-    #endif
     resourceID = 20000 + vramType;
 
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], narcID, tilesID, compressed, resourceID, vramType, heapID);
@@ -1268,11 +1260,7 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_CELL] = SpriteResourceCollection_Add(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CELL], narcID, cellsID, compressed, resourceID, SPRITE_RESOURCE_CELL, heapID);
     animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_ANIM] = SpriteResourceCollection_Add(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_ANIM], narcID, animationID, compressed, resourceID, SPRITE_RESOURCE_ANIM, heapID);
 
-    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DSUB;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
-    #endif
     resourceID = 20000 + vramType;
 
     animMan->spriteResources[DS_SCREEN_SUB][SPRITE_RESOURCE_CHAR] = SpriteResourceCollection_AddTiles(animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], narcID, tilesID, compressed, resourceID, vramType, heapID);
@@ -1286,20 +1274,12 @@ static void LoadParticleSpriteResources(MysteryGiftAnimationManager *animMan)
     SpriteTransfer_RequestPlttFreeSpace(animMan->spriteResources[DS_SCREEN_MAIN][SPRITE_RESOURCE_PLTT]);
     SpriteTransfer_RequestPlttFreeSpace(animMan->spriteResources[DS_SCREEN_SUB][SPRITE_RESOURCE_PLTT]);
 
-    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DMAIN;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
-    #endif
     resourceID = 20000 + vramType;
 
     SpriteResourcesHeader_Init(&animMan->spriteResourcesHeaders[DS_SCREEN_MAIN], resourceID, resourceID, resourceID, resourceID, -1, -1, FALSE, 0, animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CHAR], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_PLTT], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_CELL], animMan->spriteMan->resourceCollections[SPRITE_RESOURCE_ANIM], NULL, NULL);
 
-    #ifdef PLATFORM_DS
     vramType = NNS_G2D_VRAM_TYPE_2DSUB;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
-    #endif
     resourceID = 20000 + vramType;
 
     // Despite baseIndex always being 0, replacing `baseIndex + DS_SCREEN_SUB` with `DS_SCREEN_SUB` doesn't match here.
@@ -1311,37 +1291,29 @@ static Sprite *InitParticleSprite(MysteryGiftAnimationManager *animMan, int vram
     Sprite *sprite;
 
     {
-        AffineSpriteListTemplate template;
+        AffineSpriteListTemplate spriteTemplate;
 
         // 0 is the top screen, 1 is the bottom screen. Using enum variants doesn't match.
-        #ifdef PLATFORM_DS
         enum DSScreen screen = (vramType == NNS_G2D_VRAM_TYPE_2DMAIN) ? 0 : 1;
-        #else
-        // TODO: Port NNS_G2D_VRAM_TYPE_2DMAIN to PAL
-        #endif
 
-        template.list = animMan->spriteMan->spriteList;
-        template.resourceData = &animMan->spriteResourcesHeaders[screen];
-        template.position.z = 0;
-        template.affineScale.x = FX32_ONE;
-        template.affineScale.y = FX32_ONE;
-        template.affineScale.z = FX32_ONE;
-        template.affineZRotation = 0;
-        template.position.x = FX32_CONST(HW_LCD_WIDTH / 2);
-        template.position.y = FX32_CONST(32);
-        template.priority = 10;
-        template.vramType = vramType;
-        template.heapID = HEAP_ID_MYSTERY_GIFT_APP;
+        spriteTemplate.list = animMan->spriteMan->spriteList;
+        spriteTemplate.resourceData = &animMan->spriteResourcesHeaders[screen];
+        spriteTemplate.position.z = 0;
+        spriteTemplate.affineScale.x = FX32_ONE;
+        spriteTemplate.affineScale.y = FX32_ONE;
+        spriteTemplate.affineScale.z = FX32_ONE;
+        spriteTemplate.affineZRotation = 0;
+        spriteTemplate.position.x = FX32_CONST(HW_LCD_WIDTH / 2);
+        spriteTemplate.position.y = FX32_CONST(32);
+        spriteTemplate.priority = 10;
+        spriteTemplate.vramType = vramType;
+        spriteTemplate.heapID = HEAP_ID_MYSTERY_GIFT_APP;
 
-        #ifdef PLATFORM_DS
-        if (template.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
-        #else
-        // TODO: Port NNS_G2D_VRAM_TYPE_2DSUB to PAL
-        #endif
-            template.position.y += FX32_CONST(256);
+        if (spriteTemplate.vramType == NNS_G2D_VRAM_TYPE_2DSUB) {
+            spriteTemplate.position.y += FX32_CONST(256);
         }
 
-        sprite = SpriteList_AddAffine(&template);
+        sprite = SpriteList_AddAffine(&spriteTemplate);
     }
 
     if (sprite) {
@@ -2340,12 +2312,14 @@ static BOOL MysteryGiftApp_Main(ApplicationManager *appMan, enum MysteryGiftAppS
         }
 
         int netID = CommSys_CurNetId();
-
+        BOOL cancel = FALSE;
         #ifdef PLATFORM_DS
-        if (JOY_NEW(PAD_BUTTON_B)
+        if (JOY_NEW(PAD_BUTTON_B)) cancel = TRUE;
         #else
-        // TODO: Port PAD_BUTTON_B to PAL
+        if (PAL_Input_GetPressed() & PAL_BUTTON_B) cancel = TRUE;
         #endif
+
+        if (cancel
             || --appData->wirelessCommsTimeout == 0
             || (netID != 0 && CommSys_IsPlayerConnected(netID) == FALSE)) {
             ToggleWaitDial(appData, FALSE);

@@ -1504,11 +1504,7 @@ static int ov77_021D2D94(ApplicationManager *appMan, int *param1)
 {
     UnkStruct_ov77_021D2E9C *v0 = ApplicationManager_Data(appMan);
 
-    #ifdef PLATFORM_DS
     if ((v0->unk_2A8) && ((gSystem.pressedKeys & PAD_BUTTON_A) || (gSystem.pressedKeys & PAD_BUTTON_START))) {
-    #else
-    // TODO: Port PAD_BUTTON_START to PAL
-    #endif
         v0->unk_08 = 1;
         gSystem.showTitleScreenIntro = FALSE;
         SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_BLACK);

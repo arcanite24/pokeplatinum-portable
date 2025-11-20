@@ -155,12 +155,8 @@ typedef struct AffineSpriteListTemplate {
     VecFx32 affineScale;
     u16 affineZRotation;
     u32 priority;
-    #ifdef PLATFORM_DS
-    enum NNS_G2D_VRAM_TYPE vramType;
-    #else
-    // TODO: Port NNS_G2D_VRAM_TYPE to PAL
-    #endif
-    enum HeapID heapID;
+    NNS_G2D_VRAM_TYPE vramType;
+    u32 heapID;
 } AffineSpriteListTemplate;
 
 SpriteList *SpriteList_New(const SpriteListParams *params);
